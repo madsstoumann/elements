@@ -11,7 +11,7 @@
 	More on emmett: https://docs.emmet.io/cheat-sheet/
 */
 
-@import '_config.css';
+@import 'config.css';
 
 .c-lbl {
 	--lbl-d: flex;
