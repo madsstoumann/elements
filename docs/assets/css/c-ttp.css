@@ -1,0 +1,109 @@
+/**
+ * c-ttp.css
+ * @version 1.0.10
+ * @summary 27-12-2019
+ * @author Mads Stoumann
+ * @description Stylesheet for ToolTips.
+	Variables are concatinated from: 
+	- element-prefix + 
+	- emmet-css-abbreviation + 
+	- modifier (:active, :disabled, :focus, :hover)
+	More on emmett: https://docs.emmet.io/cheat-sheet/
+*/
+
+@import '_config.css';
+
+.c-ttp {
+	--tt-bdc: transparent;
+	--tt-bdrs: var(--u-150);
+	--tt-bdw: var(--u-125);
+	--tt-bgc: var(--c-grey-700);
+	--tt-c: var(--c-grey-100);
+	--tt-fz: var(--u-225);
+	--tt-mw: var(--u-500);
+	--tt-off: var(--u-200);
+	--tt-op: 0;
+	--tt-op--hov: 1;
+	--tt-p: var(--u-175) var(--u-200);
+	--tt-trsde: var(--a-tm-100);
+	--tt-trsdu: var(--a-tm-200);
+	--tt-trstf: ease-in-out; 
+	--tt-tri-sz: var(--u-200); /* Triangle Size */
+	--tt-v: hidden;
+	--tt-v--hov: visible;
+	--tt-z: var(--z-c-ttp);
+
+	background-color: var(--tt-bgc);
+	border: var(--tt-bdw) solid var(--tt-bdc);
+	border-radius: var(--tt-bdrs);
+	box-sizing: border-box;
+	color: var(--tt-c);
+	font-family: inherit;
+	font-size: var(--tt-fz);
+	min-width: var(--tt-mw);
+	opacity: var(--tt-op);
+	padding: var(--tt-p);
+	position: absolute;
+	top: calc(100% + var(--tt-off) + var(--tt-tri-sz));
+	transition: opacity var(--tt-trsdu) var(--tt-trstf);
+	visibility: var(--tt-v);
+	white-space: nowrap;
+	z-index: var(--tt-z);
+}
+.c-ttp::after,
+.c-ttp::before {
+	background-color: inherit;
+	border: inherit;
+	border-radius: 0 0 0 var(--tt-bdrs);
+	clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
+	content: "";
+	height: calc(var(--tt-tri-sz) * 2);
+	left: calc(50% - var(--tt-tri-sz));
+	position: absolute;
+	width: calc(var(--tt-tri-sz) * 2);
+ }
+ .c-ttp::after {
+	bottom: calc(0px - (var(--tt-tri-sz) + var(--tt-bdw)));
+	display: none;
+	transform: rotate(-45deg);
+ }
+ .c-ttp::before {
+	display: block;
+	left: calc(50% - var(--tt-tri-sz));
+	top: calc(0px - (var(--tt-tri-sz) + var(--tt-bdw)));
+	transform: rotate(135deg);
+ }
+
+.c-ttp__wrapper:focus .c-ttp {
+	opacity: var(--tt-op--hov);
+	transition-delay: var(--tt-trsde);
+	visibility: var(--tt-v--hov);
+}
+
+ @media (hover: hover) {
+	.c-ttp__wrapper:hover .c-ttp {
+		opacity: var(--tt-op--hov);
+		transition-delay: var(--tt-trsde);
+		visibility: var(--tt-v--hov);
+	}
+}
+
+/* Modifiers */
+.c-ttp--top {
+	bottom: calc(100% + var(--tt-off) + var(--tt-tri-sz));
+	top: auto;
+}
+.c-ttp--top::after {
+	display: block;
+}
+.c-ttp--top::before {
+	display: none;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+	.c-ttp {
+		--tt-bgc: var(--c-grey-200);
+		--tt-c: var(--c-txt);
+	}
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Elements: Button</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/_demo.css" rel="stylesheet">
+	<link href="../assets/css/c-btn.css" rel="stylesheet">
+	<link href="../assets/css/c-ico.css" rel="stylesheet">
+	<link href="../assets/css/c-ttp.css" rel="stylesheet">
+	<style>
+		/* Styles for demo only */
+		button { margin: .25rem; }
+		fieldset { border: 0; margin-bottom: 1rem; }
+		legend { font-family: sans-serif; font-weight: 500; }
+	</style>
+</head>
+<body>
+	<fieldset>
+		<legend>Default</legend>
+		<button type="button" class="c-btn">Default</button>
+		<button type="button" class="c-btn c-btn--active">Active</button>
+		<button type="button" class="c-btn" disabled>Disabled</button>
+		<button type="button" class="c-btn c-btn--focus">Focus</button>
+		<button type="button" class="c-btn c-btn--hover">Hover</button>
+	</fieldset>
+
+	<fieldset>
+		<legend>Modifier: Green</legend>
+		<button type="button" class="c-btn c-btn--green">Default</button>
+		<button type="button" class="c-btn c-btn--green c-btn--active">Active</button>
+		<button type="button" class="c-btn c-btn--green" disabled>Disabled</button>
+		<button type="button" class="c-btn c-btn--green c-btn--focus">Focus</button>
+		<button type="button" class="c-btn c-btn--green c-btn--hover">Hover</button>
+	</fieldset>
+
+	<fieldset>
+		<legend>Modifier: Red</legend>
+		<button type="button" class="c-btn c-btn--red">Default</button>
+		<button type="button" class="c-btn c-btn--red c-btn--active">Active</button>
+		<button type="button" class="c-btn c-btn--red" disabled>Disabled</button>
+		<button type="button" class="c-btn c-btn--red c-btn--focus">Focus</button>
+		<button type="button" class="c-btn c-btn--red c-btn--hover">Hover</button>
+	</fieldset>
+
+	<fieldset>
+		<legend>Modifier: Grey</legend>
+		<button type="button" class="c-btn c-btn--grey">Default</button>
+		<button type="button" class="c-btn c-btn--grey c-btn--active">Active</button>
+		<button type="button" class="c-btn c-btn--grey" disabled>Disabled</button>
+		<button type="button" class="c-btn c-btn--grey c-btn--focus">Focus</button>
+		<button type="button" class="c-btn c-btn--grey c-btn--hover">Hover</button>
+	</fieldset>
+
+	<fieldset>
+		<legend>Modifier: Outline</legend>
+		<button type="button" class="c-btn c-btn--outline">Default</button>
+		<button type="button" class="c-btn c-btn--outline c-btn--active">Active</button>
+		<button type="button" class="c-btn c-btn--outline" disabled>Disabled</button>
+		<button type="button" class="c-btn c-btn--outline c-btn--focus">Focus</button>
+		<button type="button" class="c-btn c-btn--outline c-btn--hover">Hover</button>
+	</fieldset>
+
+	<fieldset>
+		<legend>Modifier: Outline + Green</legend>
+		<button type="button" class="c-btn c-btn--outline c-btn--green">Default</button>
+		<button type="button" class="c-btn c-btn--outline c-btn--green c-btn--active">Active</button>
+		<button type="button" class="c-btn c-btn--outline c-btn--green" disabled>Disabled</button>
+		<button type="button" class="c-btn c-btn--outline c-btn--green c-btn--focus">Focus</button>
+		<button type="button" class="c-btn c-btn--outline c-btn--green c-btn--hover">Hover</button>
+	</fieldset>
+
+	<fieldset>
+		<legend>Modifier: Outline + Red</legend>
+		<button type="button" class="c-btn c-btn--outline c-btn--red">Default</button>
+		<button type="button" class="c-btn c-btn--outline c-btn--red c-btn--active">Active</button>
+		<button type="button" class="c-btn c-btn--outline c-btn--red" disabled>Disabled</button>
+		<button type="button" class="c-btn c-btn--outline c-btn--red c-btn--focus">Focus</button>
+		<button type="button" class="c-btn c-btn--outline c-btn--red c-btn--hover">Hover</button>
+	</fieldset>
+
+	<fieldset>
+		<legend>Modifier: Outline + Grey</legend>
+		<button type="button" class="c-btn c-btn--outline c-btn--grey">Default</button>
+		<button type="button" class="c-btn c-btn--outline c-btn--grey c-btn--active">Active</button>
+		<button type="button" class="c-btn c-btn--outline c-btn--grey" disabled>Disabled</button>
+		<button type="button" class="c-btn c-btn--outline c-btn--grey c-btn--focus">Focus</button>
+		<button type="button" class="c-btn c-btn--outline c-btn--grey c-btn--hover">Hover</button>
+	</fieldset>
+
+	<fieldset>
+			<legend>Modifier: Link</legend>
+			<button type="button" class="c-btn c-btn--link">Default</button>
+			<button type="button" class="c-btn c-btn--link c-btn--active">Active</button>
+			<button type="button" class="c-btn c-btn--link" disabled>Disabled</button>
+			<button type="button" class="c-btn c-btn--link c-btn--focus">Focus</button>
+			<button type="button" class="c-btn c-btn--link c-btn--hover">Hover</button>
+		</fieldset>
+
+	<fieldset>
+		<legend>Pattern: Button With Icon</legend>
+		<button type="button" class="c-btn">
+			<svg class="c-ico"><use xlink:href="../assets/svg/icons.svg#icon-comment"></use></svg>
+			<span class="c-btn__text">Default</span>
+		</button>
+		<button type="button" class="c-btn c-btn--active">
+			<svg class="c-ico"><use xlink:href="../assets/svg/icons.svg#icon-comment"></use></svg>
+			<span class="c-btn__text">Active</span>
+		</button>
+		<button type="button" class="c-btn" disabled>
+			<svg class="c-ico"><use xlink:href="../assets/svg/icons.svg#icon-comment"></use></svg>
+			<span class="c-btn__text">Disabled</span>
+		</button>
+		<button type="button" class="c-btn c-btn--focus">
+			<svg class="c-ico"><use xlink:href="../assets/svg/icons.svg#icon-comment"></use></svg>
+			<span class="c-btn__text">Focus</span>
+		</button>
+		<button type="button" class="c-btn c-btn--hover">
+			<svg class="c-ico"><use xlink:href="../assets/svg/icons.svg#icon-comment"></use></svg>
+			<span class="c-btn__text">Hover</span>
+		</button>
+	</fieldset>
+
+	<fieldset>
+		<legend>Pattern: Button With Icon Only</legend>
+		<button type="button" class="c-btn c-btn--square" aria-label="Comment">
+			<svg class="c-ico"><use xlink:href="../assets/svg/icons.svg#icon-arrow-right"></use></svg>
+		</button>
+		<button type="button" class="c-btn c-btn--circle" aria-label="Comment">
+			<svg class="c-ico"><use xlink:href="../assets/svg/icons.svg#icon-comment"></use></svg>
+		</button>
+	</fieldset>
+
+	<fieldset>
+		<legend>Pattern: Button With ToolTip</legend>
+		<button type="button" class="c-btn c-btn--red c-ttp__wrapper">
+			Delete item?
+			<span class="c-ttp">Be careful here</span>
+		</button>
+		<button type="button" class="c-btn c-btn--circle c-ttp__wrapper" aria-label="Comment">
+			<svg class="c-ico"><use xlink:href="../assets/svg/icons.svg#icon-comment"></use></svg>
+			<span class="c-ttp c-ttp--top">Comment on this</span>
+		</button>
+	</fieldset>
+
+	<!-- <div style="display:flex;">
+		<button type="button" class="c-btn c-btn--red">Fix me now!</button>
+		<button type="button" class="c-btn">
+			<svg class="c-ico"><use xlink:href="../assets/svg/icons.svg#icon-facebook"></use></svg>
+			<span class="c-btn__text">Fix height inline-flex</span>
+		</button>
+	</div> -->
+</body>
+</html>

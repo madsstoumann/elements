@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Input</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/c-frm.css" rel="stylesheet">
+	<link href="../assets/css/c-inp.css" rel="stylesheet">
+	<link href="../assets/css/c-lbl.css" rel="stylesheet">
+	
+	<style>
+		/* Styles for demo only */
+		body {
+				background-color: var(--c-bg);
+				color: var(--c-txt);
+				margin: 3rem;
+			}
+		@media (prefers-color-scheme: dark) {
+			body {
+				background-color: var(--c-bg--dark);
+				color: var(--c-txt--dark);
+			}
+		}
+	</style>
+</head>
+<body>
+	<!-- <div class="c-frm__element">
+		<label class="c-lbl" for="firstName">
+			<strong class="c-lbl__text">Firstname</strong>
+			<abbr class="c-lbl__required" title="Field is required">*</abbr>
+			<em class="c-lbl__hint">Enter your firstname</em>
+		</label>
+		<div class="p-inp">
+			<input
+				class="c-inp"
+				id="firstName"
+				maxlength="30"
+				minlength="5"
+				name="firstName"
+				pattern="\S+.*"
+				placeholder="Leonardo"
+				required
+				type="text"
+			/>
+		</div>
+		<span class="c-inp__info">
+			<label for="firstName"
+				aria-live="polite"
+				class="c-lbl c-lbl--error"
+				>Field is required
+			</label>
+			<span class="c-cnt">0/30</span>
+		</span>
+	</div>
+
+	<br /> -->
+	<div class="c-frm__element">
+		<label class="c-lbl" for="country2">
+			<strong class="c-lbl__text">Country</strong>
+			<abbr class="c-lbl__required" title="Field is required">*</abbr>
+			<em class="c-lbl__hint">Select your country</em>
+		</label>
+
+		<select
+			class="c-inp"
+			id="country2"
+			name="country2"
+			
+		>
+			<option value="" selected disabled>Choose one</option>
+			<option value="DK">Denmark</option>
+			<option value="SE">Sweden</option>
+		</select>
+
+		<span class="c-inp__info">
+			<label for="comutry2"
+				aria-live="polite"
+				class="c-lbl c-lbl--error"
+				>Field is required
+			</label>
+
+		</span>
+	</div>
+
+	<br />
+	<div class="c-frm__element">
+		<label class="c-lbl" for="country">
+			<strong class="c-lbl__text">Country</strong>
+			<abbr class="c-lbl__required" title="Field is required">*</abbr>
+			<em class="c-lbl__hint">Select your country</em>
+		</label>
+
+		<select
+			class="c-inp"
+			data-js="select"
+			id="country"
+			name="country"
+			
+		>
+			<option value="" selected disabled>Choose one</option>
+			<option value="DK">Denmark</option>
+			<option value="SE">Sweden</option>
+		</select>
+
+		<span class="c-inp__info">
+			<label for="firstName"
+				aria-live="polite"
+				class="c-lbl c-lbl--error"
+				>Field is required
+			</label>
+
+		</span>
+	</div>
+
+	<script type="module">
+		const elements = document.querySelectorAll('[data-js*="select"]');
+		if (elements.length) {
+			import('../assets/js/select.mjs')
+			.then(module => {
+				const jsClass = module.default;
+				elements.forEach(element => {
+					new jsClass(element, element.dataset);
+				});
+			})
+		}
+	</script>
+
+
+</body>
+</html>

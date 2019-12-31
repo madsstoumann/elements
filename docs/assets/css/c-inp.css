@@ -1,0 +1,85 @@
+/**
+ * c-inp.css
+ * @version 1.0.00
+ * @summary 14-12-2019
+ * @author Mads Stoumann
+ * @description Stylesheet for Inputs.
+	Variables are concatinated from: 
+	- element-prefix + 
+	- emmet-css-abbreviation + 
+	- modifier (:active, :disabled, :focus, :hover)
+	More on emmett: https://docs.emmet.io/cheat-sheet/
+*/
+
+@import '_config.css';
+
+.c-inp {
+	--inp-bdc: var(--c-grey-200);
+	--inp-bdrs: var(--u-150);
+	--inp-bds: solid;
+	--inp-bdw: var(--u-125);
+	--inp-bgc: #FFF;
+	--inp-bgc--dark: #202123;
+	--inp-bxsh: var(--c-grey-100);
+	--inp-bxsh--sz: 0 0 0 0.2rem;
+	--inp-c: var(--c-txt);
+	--inp-c--dark: #9aa0a6;
+	--inp-ff: inherit;
+	--inp-fz: var(--u-300);
+	--inp-inv-c: var(--c-red-700);
+	--inp-ol: 0;
+	--inp-p: var(--u-225);
+	--inp-pos: relative;
+	--inp-val-c: var(--c-green-600);
+	--inp-w: auto;
+
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	background-color: var(--inp-bgc);
+	border-color: var(--inp-bdc);
+	border-radius: var(--inp-bdrs);
+	border-style: var(--inp-bds);
+	border-width: var(--inp-bdw);
+	color: var(--inp-c);
+	flex: 1;
+	font-family: var(--inp-ff);
+	font-size: var(--inp-fz);
+	padding: var(--inp-p);
+	position: var(--inp-pos);
+	width: var(--inp-w);
+}
+.c-inp:focus {
+	box-shadow: var(--inp-bxsh--sz) var(--inp-bxsh);
+	outline: var(--inp-ol);
+}
+/* .c-inp:not(:placeholder-shown),
+.c-inp--error {
+	border-color: var(--inp-inv-c);
+}
+.c-inp:valid {
+	border-color: var(--inp-bdc);
+} */
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+	.c-inp {
+		--inp-bgc: var(--inp-bgc--dark);
+		--inp-c: var(--inp-c--dark);
+	}
+}
+
+/* TODO : MOVE !*/
+.p-sel { position: relative; }
+.c-lst {
+	background: white;
+	box-shadow: 0 0 0 2px rgba(0,0,0,.6);
+	min-height: 20rem;
+	position: absolute;
+	top: 100%;
+	width: 100%;
+}
+.c-lst__item {
+	display: block;
+	padding: .5em;
+}
+.c-lst__item:focus-within { background-color: yellow; }

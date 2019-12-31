@@ -1,0 +1,14 @@
+@import '_config.css';
+
+/* Styles for demo only */
+body {
+	background-color: var(--c-bg);
+	color: var(--c-txt);
+	font-family: var(--f-body);
+}
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: var(--c-bg--dark);
+		color: var(--c-txt--dark);
+	}
+}

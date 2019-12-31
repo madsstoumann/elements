@@ -1,0 +1,24 @@
+/**
+ * c-frm.css
+ * @version 1.0.00
+ * @summary 14-12-2019
+ * @author Mads Stoumann
+ * @description Stylesheet for Forms.
+	Variables are concatinated from: 
+	- element-prefix + 
+	- emmet-css-abbreviation + 
+	- modifier (:active, :disabled, :focus, :hover)
+	More on emmett: https://docs.emmet.io/cheat-sheet/
+*/
+
+@import '_config.css';
+
+.c-frm {
+	--frm-ff: var(--f-ff, sans-serif);
+}
+
+.c-frm__element {
+	display: flex;
+	flex-direction: column;
+	font-family: var(--f-ff, sans-serif);
+}

@@ -1,0 +1,68 @@
+/**
+ * c-lbl.css
+ * @version 1.0.00
+ * @summary 14-12-2019
+ * @author Mads Stoumann
+ * @description Stylesheet for Labels: Text, Hint, Required, Errors etc..
+	Variables are concatinated from: 
+	- element-prefix + 
+	- emmet-css-abbreviation + 
+	- modifier (:active, :disabled, :focus, :hover)
+	More on emmett: https://docs.emmet.io/cheat-sheet/
+*/
+
+@import '_config.css';
+
+.c-lbl {
+	--lbl-d: flex;
+	--lbl-ff: inherit;
+	--lbl-fz: var(--u-325);
+	--lbl-lh: 1.8;
+	--lbl-err-c: var(--c-red-700);
+	--lbl-err-fz: var(--u-250);
+	--lbl-req-c: var(--c-red-700);
+
+	align-items: center;
+	box-sizing: border-box;
+	display: var(--lbl-d);
+	font-family: var(--lbl-ff);
+	font-size: var(--lbl-fz);
+	line-height: var(--lbl-lh);
+}
+
+.c-lbl--error {
+	color: var(--lbl-err-c);
+	font-size: var(--lbl-err-fz);
+	user-select: none;
+}
+
+.c-lbl__hint {
+	color: var(--c-grey-600);
+	font-size: var(--u-250);
+	font-style: normal;
+	margin-inline-start: .25rem;
+
+	min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c-lbl__required {
+	color: var(--lbl-req-c);
+	cursor: help;
+	text-decoration: none;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+	.c-lbl--error {
+		color: var(--c-red-50);
+	}
+	.c-lbl__hint {
+		color: var(--c-grey-300);
+	}
+	.c-lbl__required {
+		color: var(--c-red-300);
+	}
+}

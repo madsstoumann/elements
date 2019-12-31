@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Elements: Dialog</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/_demo.css" rel="stylesheet">
+	<link href="../assets/css/c-btn.css" rel="stylesheet">
+	<link href="../assets/css/c-dlg.css" rel="stylesheet">
+	<link href="../assets/css/c-inp.css" rel="stylesheet">
+	<link href="../assets/css/c-lbl.css" rel="stylesheet">
+	<link href="../assets/css/c-ttp.css" rel="stylesheet">
+</head>
+<body>
+
+	<button type="button" id="btnAlert" class="c-btn">Alert</button>
+	<button type="button" id="btnConfirm" class="c-btn c-btn--green">Confirm</button>
+	<button type="button" id="btnPrompt" class="c-btn">Prompt</button>
+	<button type="button" id="btnMultiple" class="c-btn c-btn--red">Multiple</button>
+
+	<script type="module">
+		import Dialog from '../assets/js/dialog.mjs';
+		const dialog = new Dialog({
+			accept: 'OK',
+			cancel: 'Cancel',
+			soundPopup: 'assets/sounds/confirm.mp3',
+			useSounds: true
+		});
+
+		/* alert */
+		document.getElementById('btnAlert').addEventListener('click', () => {
+			dialog.show({
+				headline: 'Alert Example',
+				message: 'Please refresh your browser',
+				hideCancel: true
+			});
+		});
+
+		/* confirm */
+		document.getElementById('btnConfirm').addEventListener('click', () => {
+			dialog.show({
+				clsAccept: 'c-btn c-btn--green',
+				headline: 'Confirm Example',
+				message:'Do you want to continue?'
+			});
+		});
+
+		/* prompt */
+		document.getElementById('btnPrompt').addEventListener('click', () => {
+			dialog.show({
+					headline:'Prompt Example',
+					message: 'Enter your age',
+					value: 45
+				}).then(age => {
+					if (age) {
+						dialog.show({
+							hideCancel: true,
+							headline:`Your age is ${age}`,
+							message:`You don't look a day over ${age - 5}!`
+						});
+					};
+				})
+		});
+
+		/* multiple triggers */
+		document.getElementById('btnMultiple').addEventListener('click', () => {
+			dialog.show({
+				accept: 'Delete',
+				clsAccept: 'c-btn c-btn--red',
+				headline: 'Confirm delete',
+				message:'Really delete this row?'
+			}).then(result => {
+				if (result) {
+					dialog.show({
+						accept: 'Confirm',
+						clsAccept: 'c-btn c-btn--green',
+						headline:'Verify delete',
+						message: 'Enter Row ID',
+						value: 10
+					}).then(id => {
+						if (id) {
+							dialog.show({
+								accept: 'OK',
+								clsAccept: 'c-btn',
+								hideCancel: true,
+								headline:`Row deleted`,
+								message:`Row with id <strong>${id}</strong>, was succesfully deleted.`
+							});
+						};
+					})
+				};
+			});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+/**
+ * c-ico.css
+ * @version 1.0.00
+ * @summary 10-12-2019
+ * @author Mads Stoumann
+ * @description Stylesheet for icons
+	Variables are concatinated from: 
+	- element-prefix + 
+	- emmet-css-abbreviation + 
+	- modifier (:active, :disabled, :focus, :hover)
+	More on emmett: https://docs.emmet.io/cheat-sheet/
+*/
+
+/* @import '_config.css'; */
+
+.c-ico {
+	/* Custom Properties */
+	--ico-fill: currentColor;
+	--ico-h: 1em;
+	--ico-w: 1em;
+
+	fill: var(--ico-fill);
+	height: var(--ico-w);
+	pointer-events: none;
+	width: var(--ico-w);
+}

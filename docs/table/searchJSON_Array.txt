@@ -1,0 +1,77 @@
+https://json-schema.org/
+https://apisyouwonthate.com/blog/the-many-amazing-uses-of-json-schema-client-side-validation
+
+Boolean
+true / false
+
+Number
+======
+=== >= <= < >
+
+String
+======
+endsWith
+includes
+startsWith
+
+> new Date(String)
+
+Other data-types: null/empty, object, array: IGNORE
+
+String formats:
+
+date: full-date according to RFC3339.
+time: time with optional time-zone.
+date-time: date-time from the same source (time-zone is mandatory). date, time and date-time validate ranges in full mode and only regexp in fast mode (see options).
+uri: full URI.
+uri-reference: URI reference, including full and relative URIs.
+uri-template: URI template according to RFC6570
+url (deprecated): URL record.
+email: email address.
+hostname: host name according to RFC1034.
+ipv4: IP address v4.
+ipv6: IP address v6.
+regex: tests whether a string is a valid regular expression by passing it to RegExp constructor.
+uuid: Universally Unique IDentifier according to RFC4122.
+json-pointer: JSON-pointer according to RFC6901.
+relative-json-pointer: relative JSON-pointer according to this draft.
+
+
+Array of data
+  "type": "array",
+  "items": [
+    {
+      "type": "number"
+    },
+    {
+      "type": "string"
+    },
+    {
+      "type": "string",
+      "enum": ["Street", "Avenue", "Boulevard"]
+    },
+    {
+      "type": "string",
+      "enum": ["NW", "NE", "SW", "SE"]
+    }
+  ]
+}
+
+[1600, "Pennsylvania", "Avenue", "NW"]
+
+jsonQuery:
+{
+	"field": "age",
+	"operator": "greaterThan",
+	"value": 10
+},
+{
+	"field": "firstname",
+	"operator": "startsWith",
+	"value": "Ma"
+},
+{
+	"field": "activeUser",
+	"operator": "isNot",
+	"value": true
+}

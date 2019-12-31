@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Elements: Link</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/_demo.css" rel="stylesheet">
+	<link href="../assets/css/c-ico.css" rel="stylesheet">
+	<link href="../assets/css/c-lnk.css" rel="stylesheet">
+	<link href="../assets/css/c-tgt.css" rel="stylesheet">
+	<link href="../assets/css/c-ttp.css" rel="stylesheet">
+</head>
+<body>
+
+	<!-- DO NOT TRACK does not prevent PING: 
+		https://lapcatsoftware.com/articles/Safari-link-tracking.html 
+		https://mathiasbynens.github.io/rel-noopener/
+		https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types
+		https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
+	-->
+	<p><a href="#" class="c-lnk" ping="https://blocks3.stoumann.dk http://www.google.com">Default</a></p>
+	<p><a href="https://www.google.com" class="c-lnk c-lnk--ica" rel="noopener noreferrer">External link</a></p>
+	<p><a href="mailto:stoumann@gmail.com" class="c-lnk c-lnk--icb" rel="noopener noreferrer">Send email to me</a></p>
+	<p>You can always <a href="tel:+4520701433" class="c-lnk c-lnk--ica">Call me</a> on my mobile phone</p>
+	<p>Or you can <a href="sms:+4520701433" class="c-lnk c-lnk--ica">Send me an SMS</a></p>
+	<p>At the office, you can reach me on <a href="skype:echo123?call" class="c-lnk c-lnk--ica">Skype</a></p>
+
+	<p>
+		<a href="389247823879472398.txt" class="c-lnk c-lnk--ica" itemscope="" itemtype="http://schema.org/DataDownload" download="file.txt">
+			<meta itemprop="description" content="Text-file with important information about the file!">
+			<meta itemprop="contentSize" content="2KB">
+			<meta itemprop="inLanguage" content="English">
+			<meta itemprop="uploadDate" content="2020-01-01">
+			Download file
+		</a>
+	</p>
+
+	
+	<p><a href="#" class="c-lnk c-lnk--err">Error Link</a></p>
+	
+	<p>
+		<strong>Tool Tip</strong><br />
+		I'm a section which <a tabindex="0" class="c-lnk c-ttp__wrapper" aria-describedby="tt1">
+			have a tooltip
+			<span class="c-ttp" id="tt1" role="tooltip">Comment on this</span>
+		</a>, but do not link anywhere
+	</p>
+
+	<div>
+		<strong>Toggle Tips</strong><br />
+		Lorem ipsum
+		<details class="c-tgt">
+			<summary class="c-lnk c-tgt__summary"><span class="c-tgt__summary-header">dolor canum</span></summary>
+			<div class="c-tgt__dialog" role="status">Hello world  Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, hic?</div>
+		</details>
+	 	bully prolom Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio beatae, illum fugiat quasi corrupti autem illo, eum, sit quos vel consectetur officiis est deleniti fugit architecto voluptas facere expedita quas ut exercitationem eos ducimus. Facere quam quibusdam laudantium nisi, veniam cupiditate. Enim, tempore 
+	 	<details class="c-tgt">
+			<summary class="c-lnk c-tgt__summary"><span class="c-tgt__summary-header">dolor canum</span></summary>
+			<div class="c-tgt__dialog" role="status">Hello world  Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, hic?</div>
+		</details>. Voluptas consectetur odio eum pariatur rerum!
+	</div>
+
+	<!-- <fieldset>
+			<legend>Modifier: Link</legend>
+			<button type="button" class="c-btn c-btn--link">Default</button>
+			<button type="button" class="c-btn c-btn--link c-btn--active">Active</button>
+			<button type="button" class="c-btn c-btn--link" disabled>Disabled</button>
+			<button type="button" class="c-btn c-btn--link c-btn--focus">Focus</button>
+			<button type="button" class="c-btn c-btn--link c-btn--hover">Hover</button>
+		</fieldset> -->
+<!-- <br />&nbsp;<br />
+		<p style="margin: 0;font-size:var(--s-5)">Hello World</p>
+		<p style="margin: 0;font-size:var(--s-4)">Hello World</p>
+		<p style="margin: 0;font-size:var(--s-3)">Hello World</p>
+		<p style="margin: 0;font-size:var(--s-2)">Hello World</p>
+		<p style="margin: 0;font-size:var(--s-1)">Hello World</p>
+		<p style="margin: 0;font-size:var(--s0)">Hello World</p>
+		<p style="margin: 0;font-size:var(--s1)">Hello World</p>
+		<p style="margin: 0;font-size:var(--s2)">Hello World</p>
+		<p style="margin: 0;font-size:var(--s3)">Hello World</p>
+		<p style="margin: 0;font-size:var(--s4)">Hello World</p>
+		<p style="margin: 0;font-size:var(--s5)">Hello World</p>
+		<p style="margin: 0;font-size:var(--s6)">Hello World</p>
+		<p style="margin: 0;font-size:var(--s7)">Hello World</p> -->
+</body>
+</html>
