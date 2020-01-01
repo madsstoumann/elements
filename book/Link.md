@@ -204,6 +204,44 @@ If you care about SEO, add some more information about the asset, using the [Dat
 </a>
 ```
 ---
+## JavaScript: `HTMLAnchorElement`
+The DOM-interface for the `<a>`-element is `HTMLAnchorElement`.  
+It contains — in addition to the properties already mentioned and the regular `HTMLElement` properties — the properties from the `HTMLHyperlinkElementUtils`.
+
+These are identical to those of `window.location`:
+
+- hash
+- host
+- hostname
+- origin
+- password
+- pathname
+- port
+- protocol
+- search
+- username
+
+I mentioned earlier, that you should never use `event.preventDefault()` — but there are a few exceptions.  
+Let's say you have a single-page app with an array called `products`. The link for navigating to the next page is:
+
+```html
+<a href="/products?superhero=superman&realname=clark%20kent&page=2">Page 2</a>
+```
+
+If you want to prevent a page reload and filter the existing `products`-array, use `preventDefault()` and use the `URLSearchParams` API to extract search parameters:
+
+```js
+/* `event` parsed from handler */
+event.preventDefault();
+const element = event.target;
+/* `element.pathname` could also be useful here */
+const params = new URLSearchParams(element.search);
+for (const [key, value] of params.entries()) { ... }
+```
+
+If JavaScript is disabled or fails, the fallback is a regular link.
+
+---
 
 ## Styling links
 
@@ -235,16 +273,7 @@ To cater for most of the various possibilities there is to style a link, I've cr
   box-shadow: var(--lnk-bxsh--sz) var(--lnk-bxsh);
   color: var(--lnk-c);
   cursor: var(--lnk-cur);
-  display: inline-flex;
-  font-family: var(--lnk-ff);
-  font-size: var(--lnk-fz);
-  font-weight: var(--lnk-fw);
-  outline: var(--lnk-ol);
-  position: var(--lnk-pos);
-  text-decoration-color: var(--lnk-tdc);
-  text-decoration-line: var(--lnk-tdl);
-  text-decoration-style: var(--lnk-tds);
-  text-transform: var(--lnk-tt);
+  /* ... etc. */
 }
 ```
 

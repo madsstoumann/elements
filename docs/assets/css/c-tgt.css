@@ -34,9 +34,6 @@
   display: inline-block;
 	position: relative;
 }
-.c-tgt[open] {
-  /* background-color: yellowgreen; */
-}
 .c-tgt__dialog {
   background-color: var(--tgt-bgc);
 	border: var(--tgt-bdw) solid var(--tgt-bdc);
@@ -77,14 +74,6 @@
 .c-tgt__summary { list-style: none; }
 .c-tgt__summary::-webkit-details-marker {
 	display: none;
-}
-/* Browser bug: Cannot style `c-tgt__summary` text-decoration directly, need child-element `c-tgt__summary-header` */
-.c-tgt__summary-header {
-  /* color: var(--c-link); */
-  /* cursor: var(--tgt-cur);
-  text-decoration-color: var(--tgt-tdc);
-	text-decoration-line: var(--tgt-tdl);
-	text-decoration-style: var(--tgt-tds); */
 }
 
 /* Dark Mode */

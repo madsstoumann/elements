@@ -1,4 +1,7 @@
 /*
+
+THIS FILE IS VERY MUCH WORK-IN-PROGRESS !!!
+
 Guide:
 Each variable has a type, a name (if possible, using Emmet convention) and a "weight", 
 ranging from 900 (heavy/dark) to 100 (thin/light)
@@ -229,17 +232,21 @@ Types:
 	--g-md: 1rem;
 
 	/* Icons */
-	--i-arrow-down: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M20 40 L50 70 L80 40' stroke='%23222' stroke-width='3px' fill='transparent'%3E%3C/path%3E%3C/svg%3E");
+	/* --i-arrow-down: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M20 40 L50 70 L80 40' stroke='%23222' stroke-width='3px' fill='transparent'%3E%3C/path%3E%3C/svg%3E"); */
 	--i-calendar: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='hsl(214,15%,91%)' viewBox='0 0 16 16'%3E%3Cpath d='M5 6h2v2h-2zM8 6h2v2h-2zM11 6h2v2h-2zM2 12h2v2h-2zM5 12h2v2h-2zM8 12h2v2h-2zM5 9h2v2h-2zM8 9h2v2h-2zM11 9h2v2h-2zM2 9h2v2h-2zM13 0v1h-2v-1h-7v1h-2v-1h-2v16h15v-16h-2zM14 15h-13v-11h13v11z'%3E%3C/path%3E%3C/svg%3E");
 	--i-check: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M14 2.5l-8.5 8.5-3.5-3.5-1.5 1.5 5 5 10-10z' fill='hsl(210,16%,82%)'%3E%3C/path%3E%3C/svg%3E");
+	
 	--i-check-valid: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M14 2.5l-8.5 8.5-3.5-3.5-1.5 1.5 5 5 10-10z' fill='hsl(160,51%,49%)'%3E%3C/path%3E%3C/svg%3E");
 	--i-check-selected: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M14 2.5l-8.5 8.5-3.5-3.5-1.5 1.5 5 5 10-10z' fill='%23FFF'%3E%3C/path%3E%3C/svg%3E");
+	
 	--i-password: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='hsl(214,15%,91%)' viewBox='0 0 16 16'%3E%3Cpath d='M8 3c-3.489 0-6.514 2.032-8 5 1.486 2.968 4.511 5 8 5s6.514-2.032 8-5c-1.486-2.968-4.511-5-8-5zM11.945 5.652c0.94 0.6 1.737 1.403 2.335 2.348-0.598 0.946-1.395 1.749-2.335 2.348-1.181 0.753-2.545 1.152-3.944 1.152s-2.763-0.398-3.945-1.152c-0.94-0.6-1.737-1.403-2.335-2.348 0.598-0.946 1.395-1.749 2.335-2.348 0.061-0.039 0.123-0.077 0.185-0.114-0.156 0.427-0.241 0.888-0.241 1.369 0 2.209 1.791 4 4 4s4-1.791 4-4c0-0.481-0.085-0.942-0.241-1.369 0.062 0.037 0.124 0.075 0.185 0.114v0zM8 6.5c0 0.828-0.672 1.5-1.5 1.5s-1.5-0.672-1.5-1.5 0.672-1.5 1.5-1.5 1.5 0.672 1.5 1.5z'%3E%3C/path%3E%3C/svg%3E");
 	--i-plus: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M15 7h-6v-6h-2v6h-6v2h6v6h2v-6h6z' fill='white'%3E%3C/path%3E%3C/svg%3E");
 	--i-minus: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M1 7h14v2h-14v-2z' fill='white'%3E%3C/path%3E%3C/svg%3E");
 	--i-star: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M16 6.204l-5.528-0.803-2.472-5.009-2.472 5.009-5.528 0.803 4 3.899-0.944 5.505 4.944-2.599 4.944 2.599-0.944-5.505 4-3.899z' fill='hsl(210,16%,82%)'%3E%3C/path%3E%3C/svg%3E");
 
 
+	/* OK */
+	--i-arrow-down: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M32 11l-2-2-14 14-14-14-2 2 16 16 16-16z"></path></svg>');
 	--i-download:  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 14l11 11 11-11h-7v-12h-8v12z"></path><path d="M28 16v12h-24v-12h-4v13c0 1.65 1.35 3 3 3h26c1.65 0 3-1.35 3-3v-13h-4z"></path></svg>');
 	--i-external: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M22 26h-16v-16h9l4-4h-17v24h24v-17l-4 4v9z"></path><path d="M32 0h-13l5 5-15 15 3 3 15-15 5 5v-13z"></path></svg>');
 	--i-mail: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30 4h-28c-1.1 0-2 0.9-2 2v20c0 1.1 0.9 2 2 2h28c1.1 0 2-0.9 2-2v-20c0-1.1-0.9-2-2-2zM11.662 19.546l-6 4.364c-0.2 0.145-0.431 0.215-0.661 0.215-0.348 0-0.691-0.161-0.911-0.463-0.365-0.502-0.254-1.206 0.248-1.572l6-4.364c0.502-0.365 1.206-0.254 1.572 0.248s0.254 1.206-0.248 1.572zM27.91 23.662c-0.22 0.303-0.563 0.463-0.911 0.463-0.23 0-0.461-0.070-0.661-0.215l-6-4.364c-0.503-0.366-0.614-1.069-0.248-1.572s1.069-0.613 1.572-0.248l6 4.364c0.502 0.366 0.613 1.069 0.248 1.572zM27.662 9.91l-11 8c-0.197 0.143-0.429 0.215-0.662 0.215s-0.464-0.072-0.662-0.215l-11-8c-0.502-0.365-0.614-1.069-0.248-1.572s1.069-0.614 1.572-0.248l10.338 7.519 10.338-7.519c0.502-0.365 1.206-0.254 1.572 0.248s0.254 1.206-0.248 1.572z"></path></svg>');

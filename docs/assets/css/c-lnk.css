@@ -1,7 +1,7 @@
 /**
  * c-lnk.css
- * @version 1.0.10
- * @summary 30-12-2019
+ * @version 1.0.20
+ * @summary 01-01-2020
  * @author Mads Stoumann
  * @description Stylesheet for links.
 	Variables are concatinated from: 
@@ -28,7 +28,10 @@
 	--lnk-fz: inherit;
 	--lnk-fw: inherit;
 	--lnk-ico: var(--i-external);
+	--lnk-ico-c: currentColor;
 	--lnk-ico-m: 4pt;
+	--lnk-ico-sz: 1em;
+	--lnk-ico-trf: none;
 	--lnk-ol: none;
 	--lnk-pos: relative;
 	--lnk-tdc: inherit;
@@ -143,13 +146,14 @@
 .c-lnk--ica::after,
 .c-lnk--icb::before {
 	align-self: center;
-	background-color: currentColor;
+	background-color: var(--lnk-ico-c);
 	content: "";
 	display: inline-block;
-	height: 1em;
-	mask: no-repeat center/1em var(--lnk-ico);
-	-webkit-mask: no-repeat center/1em var(--lnk-ico);
-	width: 1em;
+	height: var(--lnk-ico-sz);
+	mask: no-repeat center/var(--lnk-ico-sz) var(--lnk-ico);
+	-webkit-mask: no-repeat center/var(--lnk-ico-sz) var(--lnk-ico);
+	transform: var(--lnk-ico-trf);
+	width: var(--lnk-ico-sz);
 }
 .c-lnk--ica::after { margin-inline-start: var(--lnk-ico-m); }
 .c-lnk--icb::before { margin-inline-end: var(--lnk-ico-m); }
@@ -169,9 +173,13 @@
 	left: 0;
 }
 
-/* Pattern: Link with ToggleTip */
+/* Pattern: Link with ToggleTip, arrow-down after summary */
 .c-lnk.c-tgt__summary {
 	--lnk-cur: help;
+	--lnk-ico: var(--i-arrow-down);
+	--lnk-ico-m: 2pt;
+	--lnk-ico-sz: 0.6em;
+	--lnk-ico-trf: translateY(2px);
 	--lnk-tds: dotted;
 }
 .c-lnk .c-tgt__summary-header {
@@ -179,6 +187,9 @@
 	text-decoration-color: var(--lnk-tdc);
 	text-decoration-line: var(--lnk-tdl);
 	text-decoration-style: var(--lnk-tds);
+}
+.c-tgt[open] .c-lnk--ica::after {
+	--lnk-ico-trf: scaleY(-1) translateY(-2px);
 }
 
 /* Dark Mode */
