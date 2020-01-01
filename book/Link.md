@@ -228,7 +228,7 @@ Let's say you have a single-page app with an array called `products`. The link f
 <a href="/products?superhero=superman&realname=clark%20kent&page=2">Page 2</a>
 ```
 
-If you want to prevent a page reload and filter the existing `products`-array, use `preventDefault()` and use the `URLSearchParams` API to extract search parameters:
+If you want to prevent a page reload and filter the existing `products`-array, use `preventDefault()` and then the `URLSearchParams` API to extract search parameters:
 
 ```js
 /* `event` parsed from handler */
