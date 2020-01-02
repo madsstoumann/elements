@@ -59,6 +59,7 @@
 	left: calc(50% - var(--tgt-tri-sz));
 	position: absolute;
 	width: calc(var(--tgt-tri-sz) * 2);
+	z-index: -1;
  }
  .c-tgt__dialog::after {
 	bottom: calc(0px - (var(--tgt-tri-sz) + var(--tgt-bdw)));
@@ -71,9 +72,21 @@
 	top: calc(0px - (var(--tgt-tri-sz) + var(--tgt-bdw)));
 	transform: rotate(135deg);
  }
-.c-tgt__summary { list-style: none; }
+.c-tgt__summary {
+	display: inline-block; /* Safari Fix, pseudo-element break to new line */
+	list-style: none;
+}
 .c-tgt__summary::-webkit-details-marker {
 	display: none;
+}
+
+/* Fix: Safari, border on clip-path, stacking order */
+@media not all and (min-resolution:.001dpcm) { 
+	@media {
+			.c-tgt { 
+				--tgt-bdc: transparent;
+			}
+	}
 }
 
 /* Dark Mode */

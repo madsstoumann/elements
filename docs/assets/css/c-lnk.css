@@ -173,13 +173,12 @@
 	left: 0;
 }
 
-/* Pattern: Link with ToggleTip, arrow-down after summary */
+/* Design Pattern: Link with ToggleTip, Arrow-Down after Summary */
 .c-lnk.c-tgt__summary {
 	--lnk-cur: help;
 	--lnk-ico: var(--i-arrow-down);
 	--lnk-ico-m: 2pt;
 	--lnk-ico-sz: 0.6em;
-	--lnk-ico-trf: translateY(2px);
 	--lnk-tds: dotted;
 }
 .c-lnk .c-tgt__summary-header {
@@ -189,7 +188,7 @@
 	text-decoration-style: var(--lnk-tds);
 }
 .c-tgt[open] .c-lnk--ica::after {
-	--lnk-ico-trf: scaleY(-1) translateY(-2px);
+	--lnk-ico-trf: scaleY(-1);
 }
 
 /* Dark Mode */

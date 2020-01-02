@@ -206,9 +206,9 @@ If you care about SEO, add some more information about the asset, using the [Dat
 ---
 ## JavaScript: `HTMLAnchorElement`
 The DOM-interface for the `<a>`-element is `HTMLAnchorElement`.  
-It contains — in addition to the properties already mentioned and the regular `HTMLElement` properties — the properties from the `HTMLHyperlinkElementUtils`.
+It inherits the properties from `HTMLElement` and `HTMLHyperlinkElementUtils`.
 
-These are identical to those of `window.location`:
+The latter are identical to those of `window.location`, establishing the connection between `<a>` and URI:
 
 - hash
 - host
@@ -221,22 +221,25 @@ These are identical to those of `window.location`:
 - search
 - username
 
-I mentioned earlier, that you should never use `event.preventDefault()` — but there are a few exceptions.  
+As I mentioned earlier, you should never use `event.preventDefault()` — but there are a few exceptions.
+
 Let's say you have a single-page app with an array called `products`. The link for navigating to the next page is:
 
 ```html
 <a href="/products?superhero=superman&realname=clark%20kent&page=2">Page 2</a>
 ```
 
-If you want to prevent a page reload and filter the existing `products`-array, use `preventDefault()` and then the `URLSearchParams` API to extract search parameters:
+If you want to prevent a page reload and filter the existing `products`-array, use `preventDefault()` and then e.g. the `URLSearchParams` API to extract search parameters:
 
 ```js
-/* `event` parsed from handler */
+/* `event` inherited from handler */
 event.preventDefault();
 const element = event.target;
 /* `element.pathname` could also be useful here */
 const params = new URLSearchParams(element.search);
-for (const [key, value] of params.entries()) { ... }
+for (const [key, value] of params.entries()) {
+  /* Iterate params, filter `products` */
+}
 ```
 
 If JavaScript is disabled or fails, the fallback is a regular link.
@@ -253,7 +256,7 @@ In addition to it's default style/state, a link has three pseudo-selectors/state
 
 It's valid to use the `disabled`-attribute, but styling it with `:disabled` has no effect (maybe becuase a disabled link is not ... a link?).
 
-To cater for most of the various possibilities there is to style a link, I've created a `class`, where all the values of the properties are variables (aka CSS Custom Properties). This way, it's very easy to create alternate versions by just updating a group of variables:
+To cater for most of the various possibilities there is to style a link, create a `.class`, where all the values of the properties are variables (aka CSS Custom Properties). This way, it's very easy to create alternate versions by just updating a group of variables:
 
 ```css
 .c-lnk {
@@ -277,7 +280,7 @@ To cater for most of the various possibilities there is to style a link, I've cr
 }
 ```
 
-A lot of the variables defaults to `inherit` or `transparent`, but it gives me the option to change it along the way, as well as an easy way to create other versions, by simply changing variables.
+A lot of the variables defaults to `inherit` or `transparent`, but it gives you the option to change it along the way, as well as an easy way to create other versions, by simply changing variables.
 
 Here's an "error link" with red text and a wavy red underline:
 

@@ -61,6 +61,7 @@
 	left: calc(50% - var(--tt-tri-sz));
 	position: absolute;
 	width: calc(var(--tt-tri-sz) * 2);
+	z-index: -1;
  }
  .c-ttp::after {
 	bottom: calc(0px - (var(--tt-tri-sz) + var(--tt-bdw)));
