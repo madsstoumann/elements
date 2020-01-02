@@ -1,6 +1,6 @@
 # Sharp as a `<button>`
 
-The `<button>`-element is one of the most used — and misused - of all the HTML5-elements.
+The `<button>`-element is one of the most used — and misused — of all the HTML5-elements.
 
 ---
 
@@ -8,7 +8,7 @@ The `<button>`-element is one of the most used — and misused - of all the HTML
 It should be used for **important actions**, such as *Buy item*, *Sign up*, *Log in* etc., **not** for linking between a site's pages. For that, we have the `<a>`-element.
 
 Heydon Pickering immortalised [this StackOverflow-post](https://stackoverflow.com/questions/710089/how-do-i-make-an-html-link-look-like-a-button/5118149) at Fronteers in 2016.  
-Entitled _"How do I make an html link look like a button?"_, the suggested answers are full of examples on what **not** to do — like this:
+Entitled _"How do I make an html link look like a button?"_, the suggested answers are full of examples on what **not to do** — like this:
 
 ```html
 <a href="somepage.html"><button type="button">Text of Some Page</button></a>
@@ -21,7 +21,8 @@ And sometimes, you'll see the opposite: an `<a>`-element, that _should have been
  ```
 
 ### Rule-of-thumb: Link or Button?
-If your control is using JavaScript to do something after a user-interaction, you probably need to use `<button>`.  
+If your control is using JavaScript to do something after a user-interaction, you probably need to use `<button>`.
+
 If your control is changing the URL of the page (or part of the URL, like the fragment), you need to use `<a>`. 
 
 Another reason to use proper semantics, taken from the [US Web Design Standards](https://designsystem.digital.gov/components/button):

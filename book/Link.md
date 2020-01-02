@@ -83,7 +83,7 @@ _Other examples;_
 
 ## The `ping` attribute
 Websites can use the `ping`-attribute to track clicks on hyperlinks.
-You provide a comma-separated list of URI's:
+You provide a space-separated list of URI's:
 
 ```html
 <a ping="/relativeuri https://not-so-relative-uri.com">
@@ -98,7 +98,7 @@ Here's an example if you search for "ping attribute":
 <a href="https://www.w3schools.com/tags/att_a_ping.asp" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;url=https://www.w3schools.com/tags/att_a_ping.asp&amp;ved=2ahUKEwixrcD5g93mAhUqy8QBHRrVAN0QFjACegQIBBAB">...</a>
 ```
 
-As a user, you will only see the content of the `href`-attribute when you hover the link. You will _not see_ the list URI's in the `ping`-attribute, that will be POST'ed if you follow the link.
+As a user, you will only see the content of the `href`-attribute when you hover the link. You will _not see_ the list of URI's in the `ping`-attribute, that will be POST'ed if you follow the link.
 
 This is against the official recommendation:
 
