@@ -22,7 +22,9 @@
   --tgt-cur: help;
   --tgt-bgc: var(--c-grey-700);
 	--tgt-fz: var(--u-275);
-	--tgt-mw: 10rem;
+	--tgt-head-fw: 700;
+	--tgt-m: 0;
+	--tgt-mw: 15rem;
 	--tgt-off: var(--u-200);
   --tgt-p: var(--u-300);
   --tgt-tdc: inherit;
@@ -42,6 +44,7 @@
 	color: var(--tgt-c);
 	font-family: inherit;
 	font-size: var(--tgt-fz);
+	margin: var(--tgt-m);
 	min-width: var(--tgt-mw);
 	padding: var(--tgt-p);
 	position: absolute;
@@ -61,17 +64,23 @@
 	width: calc(var(--tgt-tri-sz) * 2);
 	z-index: -1;
  }
- .c-tgt__dialog::after {
+.c-tgt__dialog::after {
 	bottom: calc(0px - (var(--tgt-tri-sz) + var(--tgt-bdw)));
 	display: none;
 	transform: rotate(-45deg);
- }
- .c-tgt__dialog::before {
+}
+.c-tgt__dialog::before {
 	display: block;
 	left: calc(50% - var(--tgt-tri-sz));
 	top: calc(0px - (var(--tgt-tri-sz) + var(--tgt-bdw)));
 	transform: rotate(135deg);
- }
+}
+.c-tgt__dialog-headline {
+	font-weight: var(--tgt-head-fw);
+}
+ .c-tgt__dialog-text {
+	 margin: inherit;
+}
 .c-tgt__summary {
 	display: inline-block; /* Safari Fix, pseudo-element break to new line */
 	list-style: none;

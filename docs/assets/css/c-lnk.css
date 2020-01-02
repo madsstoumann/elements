@@ -1,7 +1,7 @@
 /**
  * c-lnk.css
- * @version 1.0.20
- * @summary 01-01-2020
+ * @version 1.0.30
+ * @summary 02-01-2020
  * @author Mads Stoumann
  * @description Stylesheet for links.
 	Variables are concatinated from: 
@@ -164,7 +164,7 @@
 .c-lnk[href^="sms"] { --lnk-ico: var(--i-sms); }
 .c-lnk[href^="tel"] { --lnk-ico: var(--i-phone); }
 
-/* Pattern: Link with ToolTip */
+/* Design Pattern: Link with ToolTip */
 .c-lnk.c-ttp__wrapper {
 	--lnk-cur: help;
 	--lnk-tds: dotted;
@@ -175,11 +175,20 @@
 
 /* Design Pattern: Link with ToggleTip, Arrow-Down after Summary */
 .c-lnk.c-tgt__summary {
+	--lnk-bgc--act: var(--c-pink-500);
+	--lnk-bgc--foc: var(--c-pink-500);
+	--lnk-bgc--hov: var(--c-pink-500);
+	--lnk-bxsh--foc: none;
+	--lnk-bxsh--hov: none;
+	--lnk-c--act: var(--c-pink-50);
+	--lnk-c--foc: var(--c-pink-50);
+	--lnk-c--hov: var(--c-pink-50);
+	--lnk-c: var(--c-pink-500);
 	--lnk-cur: help;
-	--lnk-ico: var(--i-arrow-down);
 	--lnk-ico-m: 2pt;
 	--lnk-ico-sz: 0.6em;
-	--lnk-tds: dotted;
+	--lnk-ico: var(--i-arrow-down);
+	--lnk-tds: dotted	;
 }
 .c-lnk .c-tgt__summary-header {
 	/* These cannot be inherited due to a browser bug, need child-element `c-tgt__summary-header` */
@@ -199,12 +208,13 @@
 		--lnk-bgc--hov: var(--c-link--dark);
 		--lnk-bxsh--foc: var(--c-link--dark);
 		--lnk-bxsh--hov: var(--c-link--dark);
-		--lnk-c: var(--c-link--dark);
 		--lnk-c--act: var(--c-txt);
 		--lnk-c--foc: var(--c-txt);
 		--lnk-c--hov: var(--c-txt);
 		--lnk-c--vis: var(--c-link-vis--dark);
+		--lnk-c: var(--c-link--dark);
 	}
+	/* Modiffiers */
 	.c-lnk--err {
 		--lnk-bgc--act: var(--c-red-300);
 		--lnk-bgc--foc: var(--c-red-300);
@@ -213,5 +223,8 @@
 		--lnk-bxsh--hov: none;
 		--lnk-c: var(--c-red-300);
 		--lnk-tdc: var(--c-red-300);
+	}
+	.c-lnk.c-tgt__summary {
+		--lnk-c: var(--c-pink-200);
 	}
 }
