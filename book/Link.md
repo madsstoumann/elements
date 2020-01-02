@@ -73,7 +73,6 @@ _Other examples;_
 <a href="sms:?&body=/* message body here */"> 
  ```
 
-
 - Skype link
 ```html
 <a href="skype:USERNAME?call"> 
@@ -349,3 +348,5 @@ Currently, there's no way to style the highlighted text in CSS (Chrome uses the 
 > In some hypertext, hyperlinks can be bidirectional: they can be followed in two directions, so both ends act as anchors and as targets. 
 
 You had to double-click on links, because single-clicks were for editing pages (yes, pages could be edited by anyone).
+
+A replica (built in React) of the original browser can be [found here](https://worldwideweb.cern.ch/browser/).

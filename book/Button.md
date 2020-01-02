@@ -29,7 +29,7 @@ Another reason to use proper semantics, taken from the [US Web Design Standards]
 
 > **Screen readers handle buttons and links differently**. When styling links to look like buttons, remember that screen readers handle links slightly differently than they do buttons. Pressing the Space key triggers a button, but pressing the Enter key triggers a link.
 
- Semantically, the `<button>`-element should also be used for navigation-controls in carousels and tabs, and for smaller UI-elements (often only with an icon and `aria-label` and maybe `aria-pressed`) such as _"Add to wishlist"_. 
+ Semantically, the `<button>`-element should also be used for navigation-controls in carousels and tabs, and for smaller UI-elements that are not links (e.g. an icon with a user-interaction), such as _"Add to wishlist"_. 
  
  A `<button>` is often also seen as the _toggler_ of custom list-controls, but here I'd suggest using the `<details>`-element instead, which is HTML5's built-in *disclosure*-element.
 
@@ -41,17 +41,17 @@ And ... to quote the _US Web Design Standards_ yet again:
  
  [Steve Schoger](https://twitter.com/steveschoger), the excellent designer behind _Refactoring UI_, recently asked on Twitter:
 
- > Has anyone seen a good pattern for suuporting both "save and stay" and "save and done" when editing a multipgae form?
+ > Has anyone seen a good pattern for supporting both "Save and Stay" and "Save and Done" when editing a multipage form?
 
  In the image he attached, were three buttons: "Discard changes", "Save changes" and "Done editing".
 
 If it were up to me, I'd do the saving automatically, without disturbing the user.  
-I'd have two buttons. 
+I'd then have two buttons. 
 A primary button: _"Done editing"_ —  and a secondary button _"Discard changes"_ (and in smaller type: _Since last save_).
  
  I once had to make a product-card with a built-in _Image Gallery_-component. The UX'er wanted the whole card to be clickable **and** navigation-buttons for previous- and next image within. Obviously, this is doable, but a bad design-pattern.
 
- If you need a lot of JavaScript to change the default behaviour of your elements, it typically is a bad design-pattern, and you should challenge the designer / UX'er.
+ If you need a lot of JavaScript to change the default behaviour of your elements, it's often a bad design-pattern, and you should challenge the designer / UX'er.
 
 ---
 
@@ -62,9 +62,13 @@ A `<button>` can have one of these "behavioural" types:
 - reset
 - button
 
-The first two are identical to `<input type="submit">` and `<input type="reset">`, which you shouldn't use anymore. Why? Because `<input>`-elements are self-closing and cannot have pseudo-elements `::after` and `::before`. A `<button>` on the other hand, can have inner HTML-content and thus also pseudo-content.
+These are identical to `<input type="submit">`, `<input type="reset">` and `<input type="button">`, which you shouldn't use anymore. 
 
-Like other form-elements, a `<button>` can also have a `name` and a `value`, that will be submitted as a pair.  
+Why? Because it's semantically better, and because `<input>`-elements are self-closing, they cannot have pseudo-elements `::after` and `::before`. 
+
+A `<button>` on the other hand, can have inner HTML-content and thus also pseudo-content.
+
+Like other form-elements, a `<button>` has a `name`- and a `value`-attribute, that will be submitted as a pair.  
 To be honest, I haven't had a usecase for this (yet!).
 
 The _states_ of a button is similar to any form-element:
