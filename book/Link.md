@@ -37,7 +37,7 @@ If you have an `<a>`-element similar to this:
 ```html
 <a href="javascript:void(0)">Sign in</a>
 ```
-\- or using `event.preventDefault()` to prevent the default behaviour of `<a>`, then **you're using the wrong element!** Maybe you're looking for the `<button>`-element?
+— or using `event.preventDefault()` to prevent the default behaviour of `<a>`, then **you're using the wrong element!** Maybe you're looking for the `<button>`-element?
 
 The `href`-attribute is a string with a valid URL scheme, typically:
 
@@ -113,12 +113,12 @@ And in Chrome, the setting:
 chrome://flags#disable-hyperlink-auditing
 ```
 
-\- has been removed, and even if you enable "Do Not Track*)", the `ping` URI's are still POST'ed.
+— has been removed. Even if you enable "Do Not Track*)", the `ping` URI's are still POST'ed.
 
 In these days of GDPR, it's surprising to see a tracking-mechanism that cannot be disabled or bypassed by the user. In Firefox, Google Search falls back to a JavaScript event handler, so you still need to know how to turn off JavaScript, in order not to be tracked!
 
 ### *) Do Not Track
-"Do Not Track" was a proposed HTTP header field, designed to allow internet users to opt-out of tracking by a website. It's still a setting (typically hidden away under "Advanced") in most browsers, but — alas — it doesn't have any effect, which is a pity. 
+"Do Not Track" (DNT) was a proposed HTTP header field, designed to allow internet users to opt-out of tracking by a website. It's still a setting (typically hidden away under "Advanced") in most browsers, but — alas — it doesn't have any effect, and DNT has been cancelled, which is a pity. 
 
 ---
 
@@ -131,7 +131,7 @@ There are [a lot of](https://developer.mozilla.org/en-US/docs/Web/HTML/Link_type
 - `alternate`. The link points to an alternate version of the same page. Maybe in a different language, which can then be specified using the `hreflang`-attribute.
 - `next` and `prev`. The link points to either the `next` or the `previous` page in a series (could be a search-result spanning multiple pages, or a series of articles).
 - `nofollow`. The link is not approved or endorsed by the author / owner of the current page.  
-This is typically used for paid/sponsored links and for user-generated content — but Google wants to split it up into three `rel`-types:
+This has, historically, been used for paid/sponsored links and for user-generated content — but Google wants to split it up into three `rel`-types:
 
 > The `rel="nofollow"` is for cases where you want to link to a page but don’t want to imply any type of endorsement, including passing along ranking credit to another page.
 
@@ -153,8 +153,10 @@ If you've used the `target`-attribute before, it has — with 99% probability �
  ```
 This will open the link in a new tab or browser window.  
 But! Using the `target`-attribute is a _change in the default behaviour_, as explained [in this article](https://css-tricks.com/use-target_blank/) by Chris Coyier.  
-Furthermore, there are [phishing security issues](https://www.jitbit.com/alexblog/256-targetblank---the-most-underestimated-vulnerability-ever/) you need to be aware of.  
-Basically, the site/page you're linking to will have access to the page it was linked from using `window.opener`.  
+Furthermore, there are [phishing security issues](https://www.jitbit.com/alexblog/256-targetblank---the-most-underestimated-vulnerability-ever/) you need to be aware of.
+
+Basically, the site/page you're linking **to** will have full `script`-access to the page it was linked **from** using `window.opener`.
+
 To avoid this, you need to add:
 
 ```html
