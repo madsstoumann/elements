@@ -14,7 +14,7 @@ The default browser behaviour for the `<a>`-element is identical to the accessib
 - Users should be able to identify links without relying on color alone.
 - Users should be able to activate hover and focus states with both a mouse and a keyboard.
 
-If the links on a website _do not_ behave like this, it's because someone decided to change the default behaviour. That's normally a good idea (otherwise, the Web would be full of pages set in _Times New Roman_) — but if _you do_ change the defaults, make sure everything is still accessible.
+If the links on a website _do not_ behave like this, it's because someone decided to change the default behaviour. That's normally a good idea (otherwise, the Web would be full of pages set in _Times New Roman_) — but if you _do_ change the defaults, make sure everything is still accessible.
 
 ---
 ## The `href` attribute
