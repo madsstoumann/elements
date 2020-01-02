@@ -310,7 +310,7 @@ Or "Dark Mode":
 Full example can be found at [elements.stoumann.dk/link](https://elements.stoumann.dk/link).  
 Try out `:hover`, keyboard-navigation for `:focus`, `:active` and `:visited`.
 
-To preview "Dark Mode" without actually having "Dark Mode" on your device, go to the "Rendering"-drawer (in Chrome) and select `prefers-color-scheme: dark` under "Emulate CSS media feature".
+> To preview "Dark Mode" without actually having "Dark Mode" on your device, go to the "Rendering"-drawer (in Chrome) and select `prefers-color-scheme: dark` under "Emulate CSS media feature".
 
 ---
 
