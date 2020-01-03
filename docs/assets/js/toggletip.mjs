@@ -17,7 +17,6 @@ export default class ToggleTip {
 		this.settings = Object.assign({
 			addClose: true,
 			clsClose : 'c-tgt__dialog-close c-btn c-btn--circle c-btn--ui',
-			dlgWidth: 240,
 			lblClose: '✕'
 		}, stringToType(settings));
 
@@ -25,6 +24,7 @@ export default class ToggleTip {
 		this.element = element;
 		this.summary = this.element.firstElementChild;
 		this.dialog = this.summary.nextElementSibling;
+		this.dialogWidth = parseInt(window.getComputedStyle(this.dialog).width.replace('px',''), 10);
 		this.element.addEventListener('keydown', (event) => { if (event.key === 'Escape') { this.closeTip(); } });
 		this.element.addEventListener('toggle', () => { this.handleToggle(); });
 		this.summary.addEventListener('blur', () => { this.closeTip(); });
@@ -46,8 +46,8 @@ export default class ToggleTip {
 		this.dialog.removeAttribute('style');
 		const rect = this.summary.getBoundingClientRect();
 		this.viewportWidth = (window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName("body")[0].clientWidth || 0);
-		if ((rect.x + this.settings.dlgWidth) > this.viewportWidth) {
-			this.dialog.style.left = `${(this.viewportWidth - this.settings.dlgWidth) - rect.x}px`;
+		if ((rect.x + this.dialogWidth) > this.viewportWidth) {
+			this.dialog.style.left = `${(this.viewportWidth - this.dialogWidth) - rect.x}px`;
 		}
 	}
 
