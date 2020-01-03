@@ -1,7 +1,7 @@
 /**
  * c-btn.css
- * @version 1.0.10
- * @summary 28-12-2019
+ * @version 1.0.20
+ * @summary 03-01-2020
  * @author Mads Stoumann
  * @description Stylesheet for buttons.
 	Variables are concatinated from: 
@@ -23,7 +23,9 @@
 	--btn-bxsh: transparent;
 	--btn-bxsh--sz: 0 0 0 0.2rem;
 	--btn-c: var(--c-blue-50);
+	--btn-cur: pointer;
 	--btn-ff: var(--f-body, sans-serif);
+	--btn-fl: none;
 	--btn-fz: var(--u-300, 1.25rem);
 	--btn-fw: 400;
 	--btn-ico-mis: var(--u-175);
@@ -68,7 +70,9 @@
 	box-shadow: var(--btn-bxsh--sz) var(--btn-bxsh);
 	box-sizing: border-box;
 	color: var(--btn-c);
+	cursor: var(--btn-cur);
 	display: inline-flex;
+	float: var(--btn-fl);
 	font-family: var(--btn-ff);
 	font-size: var(--btn-fz);
 	font-weight: var(--btn-fw);
@@ -94,11 +98,12 @@
 }
 .c-btn:disabled,
 .c-btn--disabled {
+	--btn-cur: not-allowed;
 	background-color: var(--btn-bgc--dis);
 	border-color: var(--btn-bdc--dis);
 	box-shadow: var(--btn-bxsh--dis);
 	color: var(--btn-c--dis);
-	cursor: not-allowed;
+	
 }
 .c-btn:focus,
 .c-btn--focus {

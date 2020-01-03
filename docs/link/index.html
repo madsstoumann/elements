@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<link href="../assets/css/demo.css" rel="stylesheet">
+	<link href="../assets/css/c-btn.css" rel="stylesheet">
 	<link href="../assets/css/c-ico.css" rel="stylesheet">
 	<link href="../assets/css/c-lnk.css" rel="stylesheet">
 	<link href="../assets/css/c-tgt.css" rel="stylesheet">
@@ -35,23 +36,25 @@
 			<strong>Tool Tip</strong><br />
 			I'm a section which <a tabindex="0" class="c-lnk c-ttp__wrapper" aria-describedby="tt1">
 				have a tooltip
-				<span class="c-ttp" id="tt1" role="tooltip">Comment on this</span>
+				<em class="c-ttp" id="tt1" role="tooltip">Comment on this</em>
 			</a>, but do not link anywhere
 		</p>
 
 		<div>
 			<strong>Toggle Tips</strong> (without JS, will be updated later to handle outside-clicks/close button, arrow-position etc.)<br />
 				<em>The internet</em> or <em>Internet</em> is the global system of interconnected computer networks that use the 
-				<!-- Use `role="status"` on `c-tgt__dialog` if not <dl> etc. -->
-				<details class="c-tgt">
+				<!-- Use `role="status"` on `c-tgt__dialog` if not <dl> -->
+				<details class="c-tgt" data-js="toggletip">
 					<summary class="c-lnk c-lnk--ica c-tgt__summary"><span class="c-tgt__summary-header">Internet protocol suite</span></summary>
-					<dl class="c-tgt__dialog">
-						<dt class="c-tgt__dialog-headline">Internet protocol suite</dt>
-						<dd class="c-tgt__dialog-text">The Internet protocol suite is the conceptual model and set of communications protocols used on the Internet and similar computer networks. It is commonly known as TCP/IP because the original protocols in the suite are the Transmission Control Protocol (TCP) and the Internet Protocol (IP).</dd>
-					</dl>
+					<div class="c-tgt__dialog" role="status">
+						<dl class="c-tgt__def">
+							<dt class="c-tgt__dialog-headline">Internet protocol suite</dt>
+							<dd class="c-tgt__dialog-text">The Internet protocol suite is the conceptual model and set of communications protocols used on the Internet and similar computer networks. It is commonly known as TCP/IP because the original protocols in the suite are the Transmission Control Protocol (TCP) and the Internet Protocol (IP).</dd>
+						</dl>
+					</div>
 				</details>
 				 to link devices worldwide. It is a <em>network of networks</em> that consists of private, public, academic, business, and government networks of local to global scope, linked by a broad array of electronic, 
-				 <details class="c-tgt">
+				 <details class="c-tgt" data-js="toggletip">
 					<summary class="c-lnk c-lnk--ica c-tgt__summary"><span class="c-tgt__summary-header">wireless</span></summary>
 					<dl class="c-tgt__dialog">
 						<dt class="c-tgt__dialog-headline">Wireless</dt>
@@ -59,7 +62,7 @@
 				</dl>
 				</details>, 
 				 and optical networking technologies. The Internet carries an extensive range of information resources and services, such as the inter-linked 
-				 <details class="c-tgt">
+				 <details class="c-tgt" data-js="toggletip">
 					<summary class="c-lnk c-lnk--ica c-tgt__summary"><span class="c-tgt__summary-header">hypertext</span></summary>
 					<dl class="c-tgt__dialog">
 						<dt class="c-tgt__dialog-headline">Hypertext</dt>
@@ -67,21 +70,21 @@
 					</dl>
 				</details> 
 				 documents and applications of the 
-				 <details class="c-tgt">
+				 <details class="c-tgt" data-js="toggletip">
 					<summary class="c-lnk c-lnk--ica c-tgt__summary"><span class="c-tgt__summary-header">World Wide Web (WWW)</span></summary>
 					<dl class="c-tgt__dialog">
 						<dt class="c-tgt__dialog-headline">World Wide Web</dt>
 						<dd class="c-tgt__dialog-text">The World Wide Web (abbreviated WWW or the Web) is an information space where documents and other web resources are identified by Uniform Resource Locators (URLs), interlinked by hypertext links, and can be accessed via the Internet. English scientist Tim Berners-Lee invented the World Wide Web in 1989.</dd>
 					</dl>
 				</details>, 
-				<details class="c-tgt">
+				<details class="c-tgt" data-js="toggletip">
 					<summary class="c-lnk c-lnk--ica c-tgt__summary"><span class="c-tgt__summary-header">electronic mail</span></summary>
 					<dl class="c-tgt__dialog">
 						<dt class="c-tgt__dialog-headline">Electronic Mail</dt>
 						<dd class="c-tgt__dialog-text">Electronic mail (email) is a method of exchanging messages between people using electronics. Email first entered substantial use in the 1960s and by the mid-1970s had taken the form now recognized as email. Email operates across computer networks, which today is primarily the Internet.</dd>
 					</dl>
 				</details>, telephony, and 
-				<details class="c-tgt">
+				<details class="c-tgt" data-js="toggletip">
 					<summary class="c-lnk c-lnk--ica c-tgt__summary"><span class="c-tgt__summary-header">file sharing</span></summary>
 					<dl class="c-tgt__dialog">
 						<dt class="c-tgt__dialog-headline">File Sharing</dt>
@@ -90,5 +93,18 @@
 				</details>.
 		</div>
 	</main>
+
+	<script type="module">
+	const elements = document.querySelectorAll('[data-js*="toggletip"]');
+		if (elements.length) {
+			import('../assets/js/toggletip.mjs')
+			.then(module => {
+				const jsClass = module.default;
+				elements.forEach(element => {
+					new jsClass(element, element.dataset);
+				});
+			})
+		}
+	</script>
 </body>
 </html>

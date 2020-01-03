@@ -1,7 +1,7 @@
 /**
  * c-tgt.css
- * @version 1.0.10
- * @summary 29-12-2019
+ * @version 1.0.30
+ * @summary 03-01-2020
  * @author Mads Stoumann
  * @description Stylesheet for ToggleTips. Similar to ToolTips, but activated by toggle: Click/Enter or Space.
 	Variables are concatinated from:
@@ -24,13 +24,13 @@
 	--tgt-fz: var(--u-275);
 	--tgt-head-fw: 700;
 	--tgt-m: 0;
-	--tgt-mw: 15rem;
 	--tgt-off: var(--u-200);
   --tgt-p: var(--u-300);
   --tgt-tdc: inherit;
 	--tgt-tdl: underline;
 	--tgt-tds: dotted;
 	--tgt-tri-sz: var(--u-200); /* Triangle Size */
+	--tgt-w: 15rem;
 	--tgt-z: var(--z-c-ttp); /* Use same stacking as ToolTip */
 
   display: inline-block;
@@ -45,10 +45,10 @@
 	font-family: inherit;
 	font-size: var(--tgt-fz);
 	margin: var(--tgt-m);
-	min-width: var(--tgt-mw);
 	padding: var(--tgt-p);
 	position: absolute;
 	top: calc(100% + var(--tgt-off) + var(--tgt-tri-sz));
+	width: var(--tgt-w);
 	z-index: var(--tgt-z);
 }
 .c-tgt__dialog::after,
@@ -75,10 +75,15 @@
 	top: calc(0px - (var(--tgt-tri-sz) + var(--tgt-bdw)));
 	transform: rotate(135deg);
 }
+.c-tgt__dialog-close {
+	--btn-c: var(--tgt-c);
+	--btn-fl: right;
+	--btn-p-tb: 2px;
+}
 .c-tgt__dialog-headline {
 	font-weight: var(--tgt-head-fw);
 }
- .c-tgt__dialog-text {
+ .c-tgt__dialog * {
 	 margin: inherit;
 }
 .c-tgt__summary {

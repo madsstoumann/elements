@@ -5,7 +5,8 @@ The `<button>`-element is one of the most used — and misused — of all the HT
 ---
 
 ## User experience
-It should be used for **important actions**, such as *Buy item*, *Sign up*, *Log in* etc., **not** for linking between a site's pages. For that, we have the `<a>`-element.
+It should be used for **important actions**, such as *Buy item*, *Sign up*, *Log in* etc., **not** for linking between a site's pages.  
+For that, we have the `<a>`-element.
 
 Heydon Pickering immortalised [this StackOverflow-post](https://stackoverflow.com/questions/710089/how-do-i-make-an-html-link-look-like-a-button/5118149) at Fronteers in 2016.  
 Entitled _"How do I make an html link look like a button?"_, the suggested answers are full of examples on what **not to do** — like this:
@@ -55,20 +56,23 @@ A primary button: _"Done editing"_ —  and a secondary button _"Discard changes
 
 ---
 
-## Types and states
-A `<button>` can have one of these "behavioural" types:
+## The `type`-attribute
+A `<button>` can have one of these types:
 
 - submit (default)
 - reset
 - button
 
-These are identical to `<input type="submit">`, `<input type="reset">` and `<input type="button">`, which you shouldn't use anymore. 
+These are identical to `<input type="submit" />`, `<input type="reset" />` and `<input type="button" />`, which you shouldn't use anymore. 
 
-Why? Because it's semantically better, and because `<input>`-elements are self-closing, they cannot have pseudo-elements `::after` and `::before`. 
+Why? Because `<button>` is semantically better — and because `<input>`-elements are self-closing, they cannot have pseudo-elements `::after` and `::before`. 
 
 A `<button>` on the other hand, can have inner HTML-content and thus also pseudo-content.
 
-Like other form-elements, a `<button>` has a `name`- and a `value`-attribute, that will be submitted as a pair.  
+---
+
+## Other attributes and state
+Like all form-elements, a `<button>` has a `name`- and a `value`-attribute, that will be submitted as a pair.  
 To be honest, I haven't had a usecase for this (yet!).
 
 The _states_ of a button is similar to any form-element:

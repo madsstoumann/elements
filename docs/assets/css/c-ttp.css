@@ -1,7 +1,7 @@
 /**
  * c-ttp.css
  * @version 1.0.10
- * @summary 27-12-2019
+ * @summary 02-01-2020
  * @author Mads Stoumann
  * @description Stylesheet for ToolTips.
 	Variables are concatinated from: 
@@ -14,84 +14,86 @@
 @import 'config.css';
 
 .c-ttp {
-	--tt-bdc: transparent;
-	--tt-bdrs: var(--u-150);
-	--tt-bdw: var(--u-125);
-	--tt-bgc: var(--c-grey-700);
-	--tt-c: var(--c-grey-100);
-	--tt-fz: var(--u-225);
-	--tt-mw: var(--u-500);
-	--tt-off: var(--u-200);
-	--tt-op: 0;
-	--tt-op--hov: 1;
-	--tt-p: var(--u-175) var(--u-200);
-	--tt-trsde: var(--a-tm-100);
-	--tt-trsdu: var(--a-tm-200);
-	--tt-trstf: ease-in-out; 
-	--tt-tri-sz: var(--u-200); /* Triangle Size */
-	--tt-v: hidden;
-	--tt-v--hov: visible;
-	--tt-z: var(--z-c-ttp);
+	--ttp-bdc: transparent;
+	--ttp-bdrs: var(--u-150);
+	--ttp-bdw: var(--u-125);
+	--ttp-bgc: var(--c-grey-700);
+	--ttp-c: var(--c-grey-100);
+	--ttp-fs: normal;
+	--ttp-fz: var(--u-225);
+	--ttp-mw: var(--u-500);
+	--ttp-off: var(--u-200);
+	--ttp-op: 0;
+	--ttp-op--hov: 1;
+	--ttp-p: var(--u-175) var(--u-200);
+	--ttp-trsde: var(--a-tm-100);
+	--ttp-trsdu: var(--a-tm-200);
+	--ttp-trstf: ease-in-out; 
+	--ttp-tri-sz: var(--u-200); /* Triangle Size */
+	--ttp-v: hidden;
+	--ttp-v--hov: visible;
+	--ttp-z: var(--z-c-ttp);
 
-	background-color: var(--tt-bgc);
-	border: var(--tt-bdw) solid var(--tt-bdc);
-	border-radius: var(--tt-bdrs);
+	background-color: var(--ttp-bgc);
+	border: var(--ttp-bdw) solid var(--ttp-bdc);
+	border-radius: var(--ttp-bdrs);
 	box-sizing: border-box;
-	color: var(--tt-c);
+	color: var(--ttp-c);
 	font-family: inherit;
-	font-size: var(--tt-fz);
-	min-width: var(--tt-mw);
-	opacity: var(--tt-op);
-	padding: var(--tt-p);
+	font-size: var(--ttp-fz);
+	font-style: var(--ttp-fs);
+	min-width: var(--ttp-mw);
+	opacity: var(--ttp-op);
+	padding: var(--ttp-p);
 	position: absolute;
-	top: calc(100% + var(--tt-off) + var(--tt-tri-sz));
-	transition: opacity var(--tt-trsdu) var(--tt-trstf);
-	visibility: var(--tt-v);
+	top: calc(100% + var(--ttp-off) + var(--ttp-tri-sz));
+	transition: opacity var(--ttp-trsdu) var(--ttp-trstf);
+	visibility: var(--ttp-v);
 	white-space: nowrap;
-	z-index: var(--tt-z);
+	z-index: var(--ttp-z);
 }
 .c-ttp::after,
 .c-ttp::before {
 	background-color: inherit;
 	border: inherit;
-	border-radius: 0 0 0 var(--tt-bdrs);
+	border-radius: 0 0 0 var(--ttp-bdrs);
 	clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
 	content: "";
-	height: calc(var(--tt-tri-sz) * 2);
-	left: calc(50% - var(--tt-tri-sz));
+	height: calc(var(--ttp-tri-sz) * 2);
+	left: calc(50% - var(--ttp-tri-sz));
 	position: absolute;
-	width: calc(var(--tt-tri-sz) * 2);
+	width: calc(var(--ttp-tri-sz) * 2);
 	z-index: -1;
  }
  .c-ttp::after {
-	bottom: calc(0px - (var(--tt-tri-sz) + var(--tt-bdw)));
+	bottom: calc(0px - (var(--ttp-tri-sz) + var(--ttp-bdw)));
 	display: none;
 	transform: rotate(-45deg);
  }
  .c-ttp::before {
 	display: block;
-	left: calc(50% - var(--tt-tri-sz));
-	top: calc(0px - (var(--tt-tri-sz) + var(--tt-bdw)));
+	left: calc(50% - var(--ttp-tri-sz));
+	top: calc(0px - (var(--ttp-tri-sz) + var(--ttp-bdw)));
 	transform: rotate(135deg);
  }
 
-.c-ttp__wrapper:focus .c-ttp {
-	opacity: var(--tt-op--hov);
-	transition-delay: var(--tt-trsde);
-	visibility: var(--tt-v--hov);
-}
-
  @media (hover: hover) {
+	 /* Focus only run if device supports :hover, so it doesn't show up on touch-devices */
+	.c-ttp__wrapper:focus .c-ttp {
+		opacity: var(--ttp-op--hov);
+		transition-delay: var(--ttp-trsde);
+		visibility: var(--ttp-v--hov);
+	}
 	.c-ttp__wrapper:hover .c-ttp {
-		opacity: var(--tt-op--hov);
-		transition-delay: var(--tt-trsde);
-		visibility: var(--tt-v--hov);
+		opacity: var(--ttp-op--hov);
+		transition-delay: var(--ttp-trsde);
+		visibility: var(--ttp-v--hov);
 	}
 }
 
 /* Modifiers */
 .c-ttp--top {
-	bottom: calc(100% + var(--tt-off) + var(--tt-tri-sz));
+	bottom: calc(100% + var(--ttp-off) + var(--ttp-tri-sz));
 	top: auto;
 }
 .c-ttp--top::after {
@@ -104,7 +106,7 @@
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
 	.c-ttp {
-		--tt-bgc: var(--c-grey-200);
-		--tt-c: var(--c-txt);
+		--ttp-bgc: var(--c-grey-200);
+		--ttp-c: var(--c-txt);
 	}
 }
