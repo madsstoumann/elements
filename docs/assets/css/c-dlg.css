@@ -34,6 +34,7 @@
 	border-style: var(--dlg-bds);
 	border-width: var(--dlg-bdw);
 	box-shadow: var(--dlg-bxsh--sz) var(--dlg-bxsh);
+	box-sizing: border-box;
 	color: var(--dlg-c);
 	font-family: var(--dlg-ff);
 	font-size: var(--dlg-fz);

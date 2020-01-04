@@ -22,7 +22,7 @@ It's valid to have an `<a>`-element _without_ the `href`-attribute ("hypertext r
 
 > If the `a` element has no `href` attribute, then the element represents a placeholder for where a link might otherwise have been placed, if it had been relevant.
 
-That could work for design patterns such as _Toggle Tips_ (and in some cases _Tool Tips_), which are often _styled_ like links, but do not actually link anywhere. Without the `href`-attribute, keyboard-tab-focus is lost, and need to be re-applied with `tabindex`:
+That could work for design patterns such as _Tool Tips_, which are often _styled_ like links, but do not actually link anywhere (mostly). Without the `href`-attribute, keyboard-tab-focus is lost, and need to be re-applied with `tabindex`:
 
 ```html
 <a aria-describedby="tt1" tabindex="0">

@@ -30,11 +30,13 @@
 	--tgt-tdl: underline;
 	--tgt-tds: dotted;
 	--tgt-tri-sz: var(--u-200); /* Triangle Size */
+	--tgt-us: none;
 	--tgt-w: 15rem;
 	--tgt-z: var(--z-c-ttp); /* Use same stacking as ToolTip */
 
   display: inline-block;
 	position: relative;
+	user-select: var(--tgt-us);
 }
 .c-tgt__dialog {
   background-color: var(--tgt-bgc);
