@@ -32,7 +32,8 @@ An `<svg>` can either be:
     - `content` in a pseudo-element
     - `mask-image`
 
-> **Note:** Your `<svg>`-files should be as _neutral_ as possible, so they can be used in multiple scenarios. Remove attributes such as `stroke` and `fill` — these will be applied through CSS.
+> **Note:** Your `<svg>`-files should be as _neutral_ as possible, so they can be used in multiple scenarios.  
+Remove attributes such as `stroke` and `fill` — these will be applied through CSS.
 
 Let's look at the various options:
 
@@ -51,7 +52,7 @@ This works fine — you can control the size from CSS, but that's about it.
 ---
 
 ### The most flexible: inline markup
-If you want _full control_, the best way to add an SVG-icon, is to inline it in your HTML-markup, like this:
+If you want _full control_, the best way to add an `<svg>`-icon, is to inline it in your HTML-markup, like this:
 
 ```xml
 <svg viewBox="0 0 16 16" class="c-ico">
@@ -92,9 +93,9 @@ If you're going to use the icon many places though, a more practical solution is
 
 You don't have full control, as when using _inline_, but it's good enough for most icon-use-cases.
 
-You basically move all your SVG-icons to one central _spritemap.svg_-file, and link to them, using `<use>`.
+You basically move all your `<svg>`-icons to one central _spritemap.svg_-file, and link to them, using `<use>`.
 
-Change the `<svg>`-tag to `<symbol>`, add an `id`-attribute with a unique description, and place it in the `<defs>`-section as in the example below:
+Change the `<svg>`-tag to `<symbol>`, add an `id`-attribute with a unique value, and place it in the `<defs>`-section as in the example below:
 
 ```xml
 <svg aria-hidden="true"
@@ -115,12 +116,10 @@ Change the `<svg>`-tag to `<symbol>`, add an `id`-attribute with a unique descri
 </svg>
 ```
 
-Add all your SVG-icons to the `<defs>`-section, making sure all `id`-attributes are unique.
-
 Then, to use it:
 
 ```xml
-<svg viewBox="0 0 16 16" class="c-ico">
+<svg class="c-ico">
   <use xlink:href="../assets/svg/spritemap.svg#icon-check" />
 </svg>
 ```
@@ -178,14 +177,14 @@ Consider this example:
 ```css
 .c-ico__bgi {
   /* excerpt */
-	--ico-bgi: var(--i-empty);
-	background-image: var(--ico-bgi);
+  --ico-bgi: var(--i-empty);
+  background-image: var(--ico-bgi);
 }
 ```
 
 It creates a `background-image`, which by default is set to an empty `<svg>`. 
 
-A simple way to change the icon with a modifier-class:
+Change the icon with a modifier-class:
 
 ```css
 .c-ico--check {
@@ -216,7 +215,7 @@ In CSS, use a unit, like `px` or `em` etc.
 ---
 
 ### Duo-tone
-So, you can style attributes like `stroke` and `fill` from CSS, but if you're using a _spritemap_, all the SVG icons (or: the elements within them, like `path` or `line`) will have the same styling.  
+You can style attributes like `stroke` and `fill` from CSS, but if you're using a _spritemap_, all the `<svg>`-icons (or: the elements within them, like `path` or `line`) will have the same styling.  
 
 Maybe that's what you want, but there's one extra option:
 
@@ -248,7 +247,7 @@ You need to set an initial `fill`-value in either the physical `<svg>`-file or i
 
 In `hsl`, the value for 'white' is: `hsl(0, 0%, 100%)`, so that's the _starting point_.
 
-Now, you can use a CSS filter to _change_ the `hue`, `saturation` or `lightness` from the _initial position_ of  `hsl(0, 0%, 100%)`, for example:
+Now, you can use a CSS filter to _change_ the `hue`, `saturation` or `lightness` from the _initial values_ of  `hsl(0, 0%, 100%)`, for example:
 
 ```css
 .c-ico--pink {
@@ -273,7 +272,7 @@ If you place an `<svg>` as a `mask-image` on an element with a `background-color
 ```css
 .c-ico__mai {
   /* excerpt */
-	--ico-bgc: currentColor;
+  --ico-bgc: currentColor;
   --ico-h: 1em;
   --ico-mai: var(--i-empty);
   --ico-w: 1em;
@@ -300,7 +299,7 @@ As the icon here has it's own element (`<i>`), all the usual CSS-tricks can be a
 
 ## Optimising `<svg>`: An example
 
-When you receive an SVG from a designer, it usually contains _way too much_ unnecesssary clutter.  
+When you receive an `<svg>` from a designer, it usually contains _way too much_ unnecesssary clutter.  
 Here's a real-life example of a simple "close icon", I received from a designer:
 
 ![SVG Close Icon](assets/icon_close.png)
@@ -350,7 +349,7 @@ Or, using `path`:
 
 Notice, that I changed `width` and `height` to `viewBox`, which creates a "real coordinate system" and will allow us to easier control responsiveness (more on that later). Instead of `fill`, I used `stroke`.
 
-If the SVG is going to be used *inline* or in an *spritemap* using `symbol` , we can also remove the `xmlns`-attribute and style-declarations (`stroke`, `fill` etc.):
+If the `<svg>` is going to be used *inline* or in an *spritemap* using `symbol` , we can also remove the `xmlns`-attribute and style-declarations (`stroke`, `fill` etc.):
 
 ```xml
 <svg viewBox="0 0 100 100">
@@ -362,7 +361,7 @@ That's **77 bytes**, approx. **5%** of the original file-size.
 
 ---
 
-## `<svg>` and Security
+## Security and `<svg>`
 
 > [...] Because of this ability to contain JavaScript, they are a perfect attack vector for Cross-Site Scripting on sites which allow either arbitrary file uploads or limit the file types to images and accept SVGs
 
@@ -513,4 +512,4 @@ export function svgUse(scope = document) {
 ---
 **TODO**
 - Recode polyfill to ES5, so it can be used directly in IE?
-- Mention Icon Fonts, Material Designs' use of Icon Font
+- Mention Icon Fonts, Material Designs' use of Icon Font: https://google.github.io/material-design-icons/
