@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Icon</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/demo.css" rel="stylesheet">
+	<link href="../assets/css/c-ico.css" rel="stylesheet">
+</head>
+<body>
+
+	<p>
+		<strong>Using `img`-tag:</strong><br />
+		<img src="../assets/svg/check.svg" alt="Check" class="c-ico" />
+		Some text &hellip;
+	</p>
+
+	<p>
+		<strong>Using inline markup:</strong><br />
+		<svg viewBox="0 0 16 16" class="c-ico">
+			<path d="M14 2.5l-8.5 8.5-3.5-3.5-1.5 1.5 5 5 10-10z"></path>
+		</svg>
+		Some text &hellip;
+	</p>
+
+	<p>
+		<strong>Using `use`-tag:</strong><br />
+		<svg viewBox="0 0 16 16" class="c-ico">
+			<use xlink:href="../assets/svg/icons.svg#icon-check" />
+		</svg>
+		Some text &hellip;
+	</p>
+
+	<p>
+		<strong>Using `background-mask`:</strong><br />
+		<i class="c-ico c-ico__mai c-ico--check"></i>
+		Some text &hellip;
+	</p>
+
+	<p>
+		<strong>Using `background-image`:</strong><br />
+		<i class="c-ico c-ico__bgi c-ico--check"></i>
+		Some text &hellip;
+	</p>
+</body>
+</html>

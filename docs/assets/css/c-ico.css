@@ -1,18 +1,19 @@
 /**
  * c-ico.css
- * @version 1.0.00
- * @summary 10-12-2019
+ * @version 1.0.20
+ * @summary 08-01-2020
  * @author Mads Stoumann
  * @description Stylesheet for icons
 	Variables are concatinated from: 
 	- element-prefix + 
+	- optional sub-element +
 	- emmet-css-abbreviation + 
 	- modifier (:active, :disabled, :focus, :hover)
 	More on emmett: https://docs.emmet.io/cheat-sheet/
 */
 
+/* Icon as `svg inline` or `<use>`) */
 .c-ico {
-	/* Custom Properties */
 	--ico-fill: currentColor;
 	--ico-h: 1em;
 	--ico-w: 1em;
@@ -21,4 +22,87 @@
 	height: var(--ico-w);
 	pointer-events: none;
 	width: var(--ico-w);
+}
+
+/* Icon as `background-image` */
+.c-ico__bgi {
+	--ico-bgc: currentColor;
+	--ico-h: 1em;
+	--ico-l: initial;
+	--ico-m: 0;
+	--ico-bgi: var(--i-empty);
+	--ico-p: initial;
+	--ico-r: initial;
+	--ico-w: 1em;
+
+	display: inline-block;
+	height: var(--ico-h);
+	margin: var(--ico-m);
+	background-image: var(--ico-bgi);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size:  var(--ico-w) var(--ico-h); 
+	position: var(--ico-p);
+	left: var(--ico-l);
+	pointer-events: none;
+	right: var(--ico-r);
+	width: var(--ico-w);
+}
+
+/* Icon as multiple `background-image` for `<input>`: left and right icons */
+.c-ico__mbg {
+	--ico-bg-gutter: .4rem;
+	--ico-bg-left: none;
+	--ico-bg-right: none;
+	--ico-bg-sz: 1.5em;
+	background-image: var(--ico-bg-left), var(--ico-bg-right);
+	background-position: var(--ico-bg-gutter) center, right var(--ico-bg-gutter) center;
+	background-repeat: no-repeat;
+	background-size: var(--ico-bg-sz);
+}
+
+/* Icon as `mask-image` */
+.c-ico__mai {
+	--ico-bgc: currentColor; /* transparent */
+	--ico-h: 1em;
+	--ico-l: initial;
+	--ico-m: 0;
+	--ico-mai: var(--i-empty);
+	--ico-p: initial;
+	--ico-r: initial;
+	--ico-w: 1em;
+
+	background-color: var(--ico-bgc);
+	display: inline-block;
+	height: var(--ico-h);
+	margin: var(--ico-m);
+	mask: no-repeat center/var(--ico-w) var(--ico-mai);
+	-webkit-mask: no-repeat center/var(--ico-w) var(--ico-mai);
+	position: var(--ico-p);
+	left: var(--ico-l);
+	pointer-events: none;
+	right: var(--ico-r);
+	width: var(--ico-w);
+}
+
+/* Icon Variables */
+.c-ico--arrowdown {
+	--ico-bgi: var(--i-arrow-down);
+	--ico-mai: var(--i-arrow-down);
+}
+.c-ico--check {
+	--ico-bgi: var(--i-check);
+	--ico-mai: var(--i-check);
+}
+.c-ico--error {
+	--ico-bgi: var(--i-error);
+	--ico-mai: var(--i-error);
+}
+.c-ico--phone {
+	--ico-bgi: var(--i-phone);
+	--ico-mai: var(--i-phone);
+}
+.c-ico--star {
+	--ico-bgi: var(--i-star);
+	--ico-mai: var(--i-star);
 }

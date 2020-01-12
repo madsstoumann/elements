@@ -1,6 +1,11 @@
 <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 	<defs>
 
+		<symbol id="icon-check" viewBox="0 0 16 16">
+			<title>Check</title>
+			<path d="M14 2.5l-8.5 8.5-3.5-3.5-1.5 1.5 5 5 10-10z"></path>
+		</symbol>
+
 		<symbol id="icon-arrow-right" viewBox="0 0 32 32">
 			<title>arrow-right4</title>
 			<path d="M11 0l-2 2 14 14-14 14 2 2 16-16-16-16z"></path>

@@ -1,7 +1,7 @@
 /**
  * c-lbl.css
- * @version 1.0.00
- * @summary 14-12-2019
+ * @version 1.0.20
+ * @summary 09-01-2020
  * @author Mads Stoumann
  * @description Stylesheet for Labels: Text, Hint, Required, Errors etc..
 	Variables are concatinated from: 
@@ -14,38 +14,33 @@
 @import 'config.css';
 
 .c-lbl {
-	--lbl-d: flex;
+	--lbl-ai: center;
+	--lbl-d: block;
 	--lbl-ff: inherit;
 	--lbl-fz: var(--u-325);
-	--lbl-lh: 1.8;
-	--lbl-err-c: var(--c-red-700);
-	--lbl-err-fz: var(--u-250);
+
+	/* Hint */
+	--lbl-hnt-d: block;
+	--lbl-htn-fs: normal;
+	--lbl-hnt-fz: var(--u-250);
+	--lbl-hnt-m: 0 0 var(--u-200) 0;
+
+	/* Required */
 	--lbl-req-c: var(--c-red-700);
 
-	align-items: center;
+	align-items: var(--lbl-ai);
 	box-sizing: border-box;
 	display: var(--lbl-d);
 	font-family: var(--lbl-ff);
 	font-size: var(--lbl-fz);
-	line-height: var(--lbl-lh);
-}
-
-.c-lbl--error {
-	color: var(--lbl-err-c);
-	font-size: var(--lbl-err-fz);
-	user-select: none;
 }
 
 .c-lbl__hint {
 	color: var(--c-grey-600);
-	font-size: var(--u-250);
-	font-style: normal;
-	margin-inline-start: .25rem;
-
-	min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+	display: var(--lbl-hnt-d);
+	font-size: var(--lbl-hnt-fz);
+	font-style: var(--lbl-htn-fs);
+	margin: var(--lbl-hnt-m);
 }
 
 .c-lbl__required {

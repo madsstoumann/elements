@@ -1,5 +1,5 @@
-# `<toggle>` the tootlips!
-_Tooltips_ and _Toggletips_ are popular interface patterns, displaying small snippets of extra information on either `mouseover` (keyboard: `:focus` and `:hover`) for _Tooltips_ — and `click` (keyboard: `enter` and `space`) for _Toggletips_. 
+# A helpful tip
+_Tooltips_ and _Toggletips_ are popular interface patterns, displaying small snippets of extra information on either `mouseover` (keyboard: `:focus` or `:hover`) for _Tooltips_ — and `click` (keyboard: `enter` or `space`) for _Toggletips_. 
 
 ---
 ## User Experience

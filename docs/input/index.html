@@ -1,61 +1,183 @@
-
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 <head>
 	<title>Input</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/demo.css" rel="stylesheet">
 	<link href="../assets/css/c-frm.css" rel="stylesheet">
+	<link href="../assets/css/c-ico.css" rel="stylesheet">
 	<link href="../assets/css/c-inp.css" rel="stylesheet">
 	<link href="../assets/css/c-lbl.css" rel="stylesheet">
-	
-	<style>
-		/* Styles for demo only */
-		body {
-				background-color: var(--c-bg);
-				color: var(--c-txt);
-				margin: 3rem;
-			}
-		@media (prefers-color-scheme: dark) {
-			body {
-				background-color: var(--c-bg--dark);
-				color: var(--c-txt--dark);
-			}
-		}
-	</style>
 </head>
 <body>
-	<!-- <div class="c-frm__element">
-		<label class="c-lbl" for="firstName">
-			<strong class="c-lbl__text">Firstname</strong>
-			<abbr class="c-lbl__required" title="Field is required">*</abbr>
-			<em class="c-lbl__hint">Enter your firstname</em>
-		</label>
-		<div class="p-inp">
-			<input
-				class="c-inp"
-				id="firstName"
-				maxlength="30"
-				minlength="5"
-				name="firstName"
-				pattern="\S+.*"
-				placeholder="Leonardo"
-				required
-				type="text"
-			/>
-		</div>
-		<span class="c-inp__info">
-			<label for="firstName"
-				aria-live="polite"
-				class="c-lbl c-lbl--error"
-				>Field is required
-			</label>
-			<span class="c-cnt">0/30</span>
-		</span>
-	</div>
 
-	<br /> -->
-	<div class="c-frm__element">
+	<fieldset class="c-frm__fld">
+		<legend class="c-frm__fld-header">
+			<label class="c-lbl" for="phone0">
+				<strong class="c-lbl__text">Not required, No hint, No icons</strong>
+			</label>
+		</legend>
+		<div class="c-inp">
+			<input class="c-inp__inner" type="text" id="phone0" placeholder="10203040">
+		</div>
+	</fieldset>
+
+	<fieldset class="c-frm__fld">
+		<legend class="c-frm__fld-header">
+			<label class="c-lbl" for="phone1">
+				<strong class="c-lbl__text">Required, Hint, No icons</strong>
+				<abbr class="c-lbl__required" title="Field is required">*</abbr>
+				<em class="c-lbl__hint">Type min. 6 digits</em>
+			</label>
+		</legend>
+		<div class="c-inp">
+			<input class="c-inp__inner" type="text" id="phone1" minlength="6" maxlength="10" placeholder="10203040" pattern="\S+.*" required>
+			<label for="phone1" class="c-inp__error" hidden>Must be at least 6 digits</label>
+		</div>
+	</fieldset>
+
+	<fieldset class="c-frm__fld">
+		<legend class="c-frm__fld-header">
+			<label class="c-lbl" for="phone2">
+				<strong class="c-lbl__text">Required, Hint, Right icon only on :valid :invalid</strong>
+				<abbr class="c-lbl__required" title="Field is required">*</abbr>
+				<em class="c-lbl__hint">Type min. 6 digits</em>
+			</label>
+		</legend>
+		<div class="c-inp">
+			<input
+				class="c-inp__inner"
+				id="phone2"
+				inputmode="numeric"
+				maxlength="10"
+				minlength="6"
+				name="phone2"
+				pattern="\d+"
+				placeholder="10203040" 
+				type="text"
+			required>
+			<i class="c-ico__mai c-inp__ico--right" aria-hidden="true"></i>
+			<label for="phone2" class="c-inp__error" hidden>Must be at least 6 digits</label>
+		</div>
+	</fieldset>
+
+	<fieldset class="c-frm__fld c-frm__fld--test">
+		<legend class="c-frm__fld-header">
+			<label class="c-lbl" for="phone3">
+				<strong class="c-lbl__text">Required, Hint, Left icon, Right icon only on :valid :invalid</strong>
+				<abbr class="c-lbl__required" title="Field is required">*</abbr>
+				<em class="c-lbl__hint">Type min. 6 digits</em>
+			</label>
+		</legend>
+		<div class="c-inp">
+			<i class="c-ico__mai c-ico--phone c-inp__ico--left" aria-hidden="true"></i>
+			<input class="c-inp__inner" type="text" id="phone3" minlength="6" maxlength="10" placeholder="10203040" pattern="\S+.*" required>
+			<i class="c-ico__mai c-inp__ico--right" aria-hidden="true"></i>
+			<label for="phone3" class="c-inp__error" hidden>Must be at least 6 digits</label>
+		</div>
+	</fieldset>
+
+	<fieldset class="c-frm__fld">
+		<legend class="c-frm__fld-header">
+			<label class="c-lbl" for="phone4">
+				<strong class="c-lbl__text">Not Required, Hint, Left & Right icons</strong>
+				<em class="c-lbl__hint">Type min. 6 digits</em>
+			</label>
+		</legend>
+		<div class="c-inp">
+			<i class="c-ico__mai c-ico--phone c-inp__ico--left" aria-hidden="true"></i>
+			<input class="c-inp__inner" type="text" id="phone4" placeholder="10203040">
+			<i class="c-ico__mai c-ico--star c-inp__ico--right" aria-hidden="true"></i>
+		</div>
+	</fieldset>
+
+	<fieldset class="c-frm__fld">
+		<legend class="c-frm__fld-header">
+			<label class="c-lbl" for="phone5">
+				<strong class="c-lbl__text">Required, Hint, Icons, Right icon change on :valid :invalid</strong>
+				<abbr class="c-lbl__required" title="Field is required">*</abbr>
+				<em class="c-lbl__hint">Type min. 6 digits</em>
+			</label>
+		</legend>
+		<div class="c-inp">
+			<i class="c-ico__mai c-ico--phone c-inp__ico--left" aria-hidden="true"></i>
+			<input class="c-inp__inner" type="text" id="phone5" minlength="6" maxlength="10" placeholder="10203040" pattern="\S+.*" required>
+			<i class="c-ico__mai c-ico--star c-inp__ico--right" aria-hidden="true"></i>
+			<label for="phone5" class="c-inp__error" hidden>Must be at least 6 digits</label>
+		</div>
+	</fieldset>
+
+
+	<fieldset class="c-frm__fld">
+		<legend class="c-frm__fld-header">
+
+			<label class="c-lbl" for="phone6">
+				<strong class="c-lbl__text">Phone</strong>
+				<abbr class="c-lbl__required" title="Field is required">*</abbr>
+				<em class="c-lbl__hint">Hint text description</em>
+			</label>
+
+		</legend>
+		<div class="c-frm__fld-input">
+			<button class="c-frm__fld-prefix" type="button">Prefix</button>
+
+			<div class="c-inp">
+				<i class="c-ico__mai c-ico--phone c-inp__ico--left" aria-hidden="true"></i>
+				<input class="c-inp__inner" type="text" id="phone6" minlength="6" maxlength="10" placeholder="10203040" pattern="\S+.*" required>
+				<i class="c-ico__mai c-ico--star c-inp__ico--right" aria-hidden="true"></i>
+				<label for="phone6" class="c-inp__error" hidden>Error description here</label>
+			</div>
+
+			<button class="c-frm__fld-suffix" type="button">Suffix</button>
+		</div>
+		<!-- <footer class="c-frm__fld-footer">
+			<strong>0/30</strong>
+		</footer> -->
+	</fieldset>
+
+	<fieldset class="c-frm__fld">
+		<legend class="c-frm__fld-header">
+			<label class="c-lbl" for="phone10">
+				<strong class="c-lbl__text">Disabled</strong>
+			</label>
+		</legend>
+		<div class="c-inp c-inp--disabled">
+			<i class="c-ico__mai c-ico--phone c-inp__ico--left" aria-hidden="true"></i>
+			<input class="c-inp__inner" type="text" id="phone10" placeholder="10203040" disabled>
+			<i class="c-ico__mai c-ico--star c-inp__ico--right" aria-hidden="true"></i>
+		</div>
+	</fieldset>
+
+	<label class="c-lbl" for="phone20">
+		<strong class="c-lbl__text">Raw elements, no wrappers</strong>
+		<abbr class="c-lbl__required" title="Field is required">*</abbr>
+	</label>
+	<input class="c-inp" type="text" id="phone20" minlength="6" maxlength="10" placeholder="10203040" pattern="\d+" required>
+	<label for="phone20" class="c-inp__error" hidden>Must be at least 6 digits</label>
+
+	<fieldset class="c-frm__fld" dir="rtl">
+		<legend class="c-frm__fld-header">
+			<label class="c-lbl" for="phone11">
+				<strong class="c-lbl__text">Right-to-left</strong>
+				<abbr class="c-lbl__required" title="Field is required">*</abbr>
+				<em class="c-lbl__hint">Hint text description</em>
+			</label>
+		</legend>
+		<div class="c-frm__fld-input">
+			<button class="c-frm__fld-prefix" type="button">Prefix</button>
+			<div class="c-inp">
+				<i class="c-ico__mai c-ico--phone c-inp__ico--left" aria-hidden="true"></i>
+				<input class="c-inp__inner" type="text" id="phone11" minlength="6" maxlength="10" placeholder="10203040" pattern="\S+.*" required>
+				<i class="c-ico__mai c-ico--star c-inp__ico--right" aria-hidden="true"></i>
+				<label for="phone11" class="c-inp__error" hidden>Error description here</label>
+			</div>
+
+			<button class="c-frm__fld-suffix" type="button">Suffix</button>
+		</div>
+	</fieldset>
+	
+	<!-- <div class="c-frm__element">
 		<label class="c-lbl" for="country2">
 			<strong class="c-lbl__text">Country</strong>
 			<abbr class="c-lbl__required" title="Field is required">*</abbr>
@@ -124,8 +246,39 @@
 				});
 			})
 		}
-	</script>
+	</script> -->
+	<!-- <div class="c-frm__element">
+		<label class="c-lbl" for="firstName">
+			<strong class="c-lbl__text">Firstname</strong>
+			<abbr class="c-lbl__required" title="Field is required">*</abbr>
+			<em class="c-lbl__hint">Enter your firstname</em>
+		</label>
+		<div class="p-inp">
+			<input
+				class="c-inp"
+				id="firstName"
+				maxlength="30"
+				minlength="5"
+				name="firstName"
+				pattern="\S+.*"
+				placeholder="Leonardo"
+				required
+				type="text"
+			/>
+		</div>
+		<span class="c-inp__info">
+			<label for="firstName"
+				aria-live="polite"
+				class="c-lbl c-lbl--error"
+				>Field is required
+			</label>
+			<span class="c-cnt">0/30</span>
+		</span>
+	</div>
 
+	<br /> -->
+	<!-- https://css-tricks.com/form-validation-part-1-constraint-validation-html/
+	https://zellwk.com/blog/check-empty-input-css/ -->
 
 </body>
 </html>
