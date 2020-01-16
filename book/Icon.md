@@ -30,9 +30,9 @@ An `<svg>` can either be:
 - Inline markup, that you can use:
   - Directly in HTML
   - As an encoded string in CSS, which can then be used as:
-    - `background-image`
+    - `background-image`, also in `::after` and `::before`
     - `content` in a pseudo-element
-    - `mask-image`
+    - `mask-image`, also in `::after` and `::before`
 
 > **Note:** Your `<svg>`-files should be as _neutral_ as possible, so they can be used in multiple scenarios.  
 Remove attributes such as `stroke` and `fill` — these will be applied through CSS.

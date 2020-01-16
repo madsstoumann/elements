@@ -16,8 +16,8 @@ Types:
 --z: Z-indices
 */
 
-@import 'config/_colors.css';
-@import 'config/_icons.css';
+@import 'config/colors.css';
+@import 'config/icons.css';
 
 :root {
 	/* Units */
