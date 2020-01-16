@@ -6,9 +6,15 @@ body {
 	color: var(--c-txt);
 	font-family: var(--f-body);
 }
+code {
+	background-color: var(--c-grey-100);
+}
 @media (prefers-color-scheme: dark) {
 	body {
 		background-color: var(--c-bg--dark);
 		color: var(--c-txt--dark);
+	}
+	code {
+		color: var(--c-grey-900);
 	}
 }

@@ -10,37 +10,114 @@
 <body>
 
 	<p>
-		<strong>Using `img`-tag:</strong><br />
-		<img src="../assets/svg/check.svg" alt="Check" class="c-ico" />
-		Some text &hellip;
+		<strong>Using <code>&lt;img&gt;</code>-tag:</strong><br />
+		<img src="../assets/svg/check.svg" alt="Check" class="c-ico" />Some text &hellip;
 	</p>
 
 	<p>
 		<strong>Using inline markup:</strong><br />
 		<svg viewBox="0 0 16 16" class="c-ico">
 			<path d="M14 2.5l-8.5 8.5-3.5-3.5-1.5 1.5 5 5 10-10z"></path>
-		</svg>
-		Some text &hellip;
+		</svg>Some text &hellip;
 	</p>
 
 	<p>
-		<strong>Using `use`-tag:</strong><br />
+		<strong>Using <code>&lt;use&gt;</code>-tag:</strong><br />
 		<svg class="c-ico">
 			<use xlink:href="../assets/svg/icons.svg#icon-check" />
-		</svg>
-		Some text &hellip;
+		</svg>Some text &hellip;
 	</p>
 
 	<p>
-		<strong>Using `background-mask`:</strong><br />
-		<i class="c-ico c-ico__mai c-ico--check"></i>
-		Some text &hellip;
+		<strong>Using <code>mask-image</code>:</strong><br />
+		<i class="c-ico-mai c-ico--check"></i>Some text &hellip;
 	</p>
 
 	<p>
-		<strong>Using `background-image`:</strong><br />
-		<i class="c-ico c-ico__bgi c-ico--check"></i>
+		<strong>Using <code>mask-image</code> with icon after:</strong><br />
 		Some text &hellip;
+		<i class="c-ico-mai c-ico--arr_rgt u-rtl--flip"></i>
+	</p>
+
+	<p>
+		<strong>Using <code>::after/mask-image</code></strong><br />
+		<span class="c-ico-maa c-ico--check">Some text &hellip;</span>
+	</p>
+
+	<p>
+		<strong>Using <code>::before/mask-image</code></strong><br />
+		<span class="c-ico-mab c-ico--check">Some text &hellip;</span>
+	</p>
+
+	<p>
+		<strong>Using <code>background-image</code>:</strong><br />
+		<i class="c-ico-bgi c-ico--check"></i>Some text &hellip;
+	</p>
+
+	<p>
+		<strong>Using <code>::before/background-image</code>:</strong><br />
+		<span class="c-ico-bgb c-ico--check">Some text &hellip;</span>
+	</p>
+
+	<p>
+		<strong>Using <code>::after/background-image</code>:</strong><br />
+		<span class="c-ico-bga c-ico--check">Some text &hellip;</span>
+	</p>
+
+	<p>
+		<strong>Using multiple <code>background-image</code>:</strong><br />
+		<span class="c-ico-bgm c-ico--phone c-ico--check-rgt">Some text &hellip;</span>
+	</p>
+
+	<hr />
+
+	<p dir="rtl">
+		<strong>Right-to-left: Using <code>&lt;img&gt;</code>-tag:</strong><br />
+		<img src="../assets/svg/check.svg" alt="Check" class="c-ico" />Some text &hellip;
+	</p>
+
+	<p dir="rtl">
+		<strong>Right-to-left: Using inline markup:</strong><br />
+		<svg viewBox="0 0 16 16" class="c-ico">
+			<path d="M14 2.5l-8.5 8.5-3.5-3.5-1.5 1.5 5 5 10-10z"></path>
+		</svg>Some text &hellip;
+	</p>
+
+	<p dir="rtl">
+		<strong>Right-to-left: Using <code>&lt;use&gt;</code>-tag:</strong><br />
+		<svg class="c-ico">
+			<use xlink:href="../assets/svg/icons.svg#icon-check" />
+		</svg>Some text &hellip;
+	</p>
+
+	<p dir="rtl">
+		<strong>Right-to-left: Using <code>mask-image</code>:</strong><br />
+		<i class="c-ico-mai c-ico--check"></i>Some text &hellip;
+	</p>
+
+	<p dir="rtl">
+		<strong>Right-to-left: Using <code>mask-image</code> with <code>.c-ico--rtl</code>:</strong><br />
+		Some text &hellip;<i class="c-ico-mai c-ico--arr_rgt c-ico--rtl"></i>
+	</p>
+
+	<p dir="rtl">
+		<strong>Right-to-left: Using <code>background-image</code>:</strong><br />
+		<i class="c-ico-bgi c-ico--check"></i>Some text &hellip;
+	</p>
+
+	<p dir="rtl">
+		<strong>Right-to-left: Using <code>::before</code>:</strong><br />
+		<span class="c-ico-bgb c-ico--check">Some text &hellip;</span>
+	</p>
+
+	<p dir="rtl">
+		<strong>Right-to-left: Using <code>::after</code>:</strong><br />
+		<span class="c-ico-bga c-ico--check">Some text &hellip;</span>
+	</p>
+
+	<p dir="rtl">
+		<strong>Right-to-left: Using multiple <code>background-image</code>:</strong><br />
+		<span class="c-ico-bgm c-ico--phone c-ico--check-rgt">Some text &hellip;</span>
 	</p>
 </body>
 </html>

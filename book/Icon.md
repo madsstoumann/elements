@@ -1,5 +1,7 @@
 # Iconic icons
 
+I don't think I was WIMPy as a kid, but I use WIMP (Window Icon Menu Pointing-device) everyday — and icons are a _huge_ part of that.
+
 ## User experience
 The [Nielsen Norman Group](https://www.nngroup.com/articles/icon-usability/) summarises the use of icons like this:
 
@@ -242,10 +244,10 @@ That's one extra color in your icon!
 
 ### Coloring a `background-image`. 
 
-It _is_ [possible to color](https://css-tricks.com/solved-with-css-colorizing-svg-backgrounds/) an `<svg>` as a `background-image` — but it ain't pretty!  
+It is [possible to color](https://css-tricks.com/solved-with-css-colorizing-svg-backgrounds/) an `<svg>` as a `background-image` — but it ain't pretty!  
 You need to set an initial `fill`-value in either the physical `<svg>`-file or in the CSS Custom property — and you need to set it to one of the allowed values for: **white** (`#FFF`, `white` etc).  
 
-In `hsl`, the value for 'white' is: `hsl(0, 0%, 100%)`, so that's the _starting point_.
+In `hsl`, the value for 'white' is: `hsl(0, 0%, 100%)`, so that's the _starting point_. You could also use 'black' as your starting point, but for these examples it's 'white'.
 
 Now, you can use a CSS filter to _change_ the `hue`, `saturation` or `lightness` from the _initial values_ of  `hsl(0, 0%, 100%)`, for example:
 
@@ -294,6 +296,16 @@ It's super-easy to change the icon _and_ it's color with a modifier-class:
 ```
 
 As the icon here has it's own element (`<i>`), all the usual CSS-tricks can be applied as well: `transform`, for example.
+
+---
+
+## Usage Examples
+
+In the examples below, I've visualized why `inline svg`, `<use>` or `mask-image` are the preferred methods when implementing `<svg>`-icons (the 'checkmark' in the examples).
+
+prefers-color-scheme: light         |  prefers-color-scheme: dark
+:--------------------------         |:---------------------------
+![](assets/icon_implementation.png) | ![](assets/icon_implementation-dark.png)
 
 ---
 

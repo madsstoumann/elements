@@ -11,6 +11,7 @@
 	- modifier (:active, :disabled, :focus, :hover)
 	More on emmett: https://docs.emmet.io/cheat-sheet/
 */
+@import 'config.css';
 
 :root {
 	--inp-ai: center;
@@ -156,12 +157,12 @@
 /* If input is required and placeholder is NOT shown, it has a value. If that value is INVALID, change icon */
 .c-inp__inner:required:not(:placeholder-shown):invalid + .c-inp__ico--right {
 	--ico-bgc: var(--inp-inv-c);
-	--ico-mai: var(--i-error);
+	--ico-bgi: var(--i-error);
 }
 /* If input is required and placeholder is NOT shown, it has a value. If that value is VALID, change icon */
 .c-inp__inner:required:not(:placeholder-shown):valid + .c-inp__ico--right {
 	--ico-bgc: var(--inp-val-c);
-	--ico-mai: var(--i-check);
+	--ico-bgi: var(--i-check);
 }
 /* If input is required and placeholder is NOT shown, it has a value. If that value is INVALID, show error-text */
 .c-inp:required:not(:placeholder-shown):invalid ~ .c-inp__error,

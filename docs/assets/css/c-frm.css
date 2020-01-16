@@ -9,11 +9,9 @@
 	- emmet-css-abbreviation + 
 	- modifier (:active, :disabled, :focus, :hover)
 	More on emmett: https://docs.emmet.io/cheat-sheet/
-	===================
-	REQUIRES: c-inp.css. 
-	The styles for `c-frm__fld-input` is defined there.
-	===================
 */
+@import 'config.css';
+@import 'c-inp.css';
 
 .c-frm {
 	--frm-ff: var(--f-ff, sans-serif);
@@ -63,27 +61,4 @@
 .c-frm__fld-suffix:focus {
 	background-color: var(--fld-pfx-bgc--foc);
 	color: var(--fld-pfx-c--foc);
-}
-
-/* TODO: Modifiers */
-.c-frm__fld--test {
-	border: 1px solid var(--inp-bdc);
-	margin: var(--inp-m);
-}
-.c-frm__fld--test:focus-within {
-	box-shadow: 0 2px 0 0 var(--inp-val-c);
-}
-.c-frm__fld--test .c-inp:focus-within {
-	background-color: transparent;
-}
-.c-frm__fld--test .c-frm__fld-header {
-	margin-left: .5rem;
-	padding: 0 .25rem;
-}
-.c-frm__fld--test .c-lbl {
-	font-size: small;
-}
-.c-frm__fld--test .c-inp {
-	--inp-bdc: transparent;
-	margin: 0;
 }

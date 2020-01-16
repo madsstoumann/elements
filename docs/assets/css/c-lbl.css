@@ -10,7 +10,6 @@
 	- modifier (:active, :disabled, :focus, :hover)
 	More on emmett: https://docs.emmet.io/cheat-sheet/
 */
-
 @import 'config.css';
 
 .c-lbl {

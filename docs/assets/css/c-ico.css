@@ -1,7 +1,7 @@
 /**
  * c-ico.css
- * @version 1.0.20
- * @summary 08-01-2020
+ * @version 1.0.40
+ * @summary 14-01-2020
  * @author Mads Stoumann
  * @description Stylesheet for icons
 	Variables are concatinated from: 
@@ -11,98 +11,140 @@
 	- modifier (:active, :disabled, :focus, :hover)
 	More on emmett: https://docs.emmet.io/cheat-sheet/
 */
+@import 'config.css';
 
-/* Icon as `svg inline` or `<use>`) */
-.c-ico {
+/* Common Icon-styles */
+.c-ico,
+.c-ico-bga::after,
+.c-ico-bgb::before,
+.c-ico-bgi,
+.c-ico-bgm,
+.c-ico-mai,
+.c-ico-maa::after,
+.c-ico-mab::before
+ {
+	--ico-as: center;
+	--ico-d: inline-block;
 	--ico-fill: currentColor;
 	--ico-h: 1em;
+	--ico-l: initial;
+	--ico-lh: inherit;
+	--ico-m: 0;
+	--ico-pie: 0px;
+	--ico-pis: 0px;
+	--ico-pos: initial;
+	--ico-r: initial;
+	--ico-trf: none;
 	--ico-w: 1em;
 
-	fill: var(--ico-fill);
+	align-self: var(--ico-as);
+	display: var(--ico-d);
 	height: var(--ico-w);
+	left: var(--ico-l);
+	line-height: var(--ico-lh);
+	margin: var(--ico-m);
+	padding-inline-start: var(--ico-pis);
+	padding-inline-end: var(--ico-pie);
 	pointer-events: none;
+	position: var(--ico-pos);
+	right: var(--ico-r);
+	transform: var(--ico-trf);
 	width: var(--ico-w);
+}
+
+/* Icon as inline markup or `<use>`*/
+.c-ico {
+	fill: var(--ico-fill);
 }
 
 /* Icon as `background-image` */
-.c-ico__bgi {
-	--ico-bgc: currentColor;
-	--ico-h: 1em;
-	--ico-l: initial;
-	--ico-m: 0;
-	--ico-bgi: var(--i-empty);
-	--ico-p: initial;
-	--ico-r: initial;
-	--ico-w: 1em;
-
-	display: inline-block;
-	height: var(--ico-h);
-	margin: var(--ico-m);
-	background-image: var(--ico-bgi);
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size:  var(--ico-w) var(--ico-h); 
-	position: var(--ico-p);
-	left: var(--ico-l);
-	pointer-events: none;
-	right: var(--ico-r);
-	width: var(--ico-w);
+.c-ico-bgi { /* Center within container */
+	background: no-repeat center/	var(--ico-w) var(--ico-h) var(--ico-bgi);
+}
+.c-ico-bga::after { /* Right align */
+	background: no-repeat right center/	var(--ico-w) var(--ico-h) var(--ico-bgi);
+}
+.c-ico-bgb::before { /* Left align */
+	background: no-repeat left center/	var(--ico-w) var(--ico-h) var(--ico-bgi);
+}
+/* Icon as pseudo-element ::after or ::before */
+.c-ico-bga::after,
+.c-ico-bgb::before {
+	content: "";
 }
 
-/* Icon as multiple `background-image` for `<input>`: left and right icons */
-.c-ico__mbg {
-	--ico-bg-gutter: .4rem;
-	--ico-bg-left: none;
-	--ico-bg-right: none;
-	--ico-bg-sz: 1.5em;
-	background-image: var(--ico-bg-left), var(--ico-bg-right);
-	background-position: var(--ico-bg-gutter) center, right var(--ico-bg-gutter) center;
+/* Icon as multiple `background-image` for `<self-closing />`-tags: left and right icons */
+.c-ico-bgm {
+	--ico-lh: 1;
+	--ico-bgr: var(--i-empty);
+	background-image: var(--ico-bgi), var(--ico-bgr);
+	background-position: var(--ico-pis) center, right var(--ico-pis) center;
 	background-repeat: no-repeat;
-	background-size: var(--ico-bg-sz);
+	background-size: var(--ico-w) var(--ico-h);
+	padding-inline-start: calc(var(--ico-w) + (var(--ico-pie) + var(--ico-pis)));
+	padding-inline-end: calc(var(--ico-w) + (var(--ico-pie) + var(--ico-pis)));
+	width: auto;
+}
+/* Switch left and right `background-image` when `right-to-left` */
+[dir="rtl"] .c-ico__bgm {
+	background-image: var(--ico-bgr), var(--ico-bgi);
 }
 
 /* Icon as `mask-image` */
-.c-ico__mai {
-	--ico-bgc: currentColor; /* transparent */
-	--ico-h: 1em;
-	--ico-l: initial;
-	--ico-m: 0;
-	--ico-mai: var(--i-empty);
-	--ico-p: initial;
-	--ico-r: initial;
-	--ico-w: 1em;
-
+.c-ico-mai { /* Center within container */
+	mask: no-repeat center/var(--ico-w) var(--ico-bgi);
+	-webkit-mask: no-repeat center/var(--ico-w) var(--ico-bgi);
+}
+/* Icon as `mask-image` ::after */
+.c-ico-maa::after { /* Right-align within container */
+	mask: no-repeat right center/var(--ico-w) var(--ico-bgi);
+	-webkit-mask: no-repeat right center/var(--ico-w) var(--ico-bgi);
+}
+/* Icon as `mask-image` ::before */
+.c-ico-mab::before { /* Left-align within container */
+	mask: no-repeat left center/var(--ico-w) var(--ico-bgi);
+	-webkit-mask: no-repeat left center/var(--ico-w) var(--ico-bgi);
+}
+.c-ico-mai,
+.c-ico-maa::after,
+.c-ico-mab::before {
+	--ico-bgc: currentColor;
 	background-color: var(--ico-bgc);
-	display: inline-block;
-	height: var(--ico-h);
-	margin: var(--ico-m);
-	mask: no-repeat center/var(--ico-w) var(--ico-mai);
-	-webkit-mask: no-repeat center/var(--ico-w) var(--ico-mai);
-	position: var(--ico-p);
-	left: var(--ico-l);
-	pointer-events: none;
-	right: var(--ico-r);
-	width: var(--ico-w);
+}
+.c-ico-maa::after,
+.c-ico-mab::before {
+	content: "";
 }
 
-/* Icon Variables */
-.c-ico--arrowdown {
-	--ico-bgi: var(--i-arrow-down);
-	--ico-mai: var(--i-arrow-down);
+/* Modifiers */
+.c-ico--hor-flip {
+	--ico-trf: scaleY(-1);
 }
-.c-ico--check {
-	--ico-bgi: var(--i-check);
-	--ico-mai: var(--i-check);
+.c-ico--ver-flip,
+[dir="rtl"] .c-ico--rtl {
+	--ico-trf: scaleX(-1);
 }
-.c-ico--error {
-	--ico-bgi: var(--i-error);
-	--ico-mai: var(--i-error);
-}
-.c-ico--phone {
-	--ico-bgi: var(--i-phone);
-	--ico-mai: var(--i-phone);
-}
-.c-ico--star {
-	--ico-bgi: var(--i-star);
-	--ico-mai: var(--i-star);
-}
+
+/* Modifiers: Icon Variables */
+.c-ico--arr_dwn { --ico-bgi: var(--i-arr_dwn); }
+.c-ico--arr_dwn-bgr { --ico-bgr: var(--i-arr_dwn); }
+
+.c-ico--arr_rgt { --ico-bgi: var(--i-arr_rgt); }
+.c-ico--arr_rgt-bgr { --ico-bgr: var(--i-arr_rgt); }
+
+.c-ico--check { --ico-bgi: var(--i-check); }
+.c-ico--check-rgt { --ico-bgr: var(--i-check); }
+
+.c-ico--download { --ico-bgi: var(--i-download); }
+.c-ico--download-rgt { --ico-bgr: var(--i-download); }
+
+.c-ico--empty { --ico-bgi: var(--i-empty); }
+
+.c-ico--error { --ico-bgi: var(--i-error); }
+.c-ico--error-rgt { --ico-bgr: var(--i-error); }
+
+.c-ico--phone { --ico-bgi: var(--i-phone); }
+.c-ico--phone-rgt { --ico-bgr: var(--i-phone); }
+
+.c-ico--star { --ico-bgi: var(--i-star); }
+.c-ico--star-rgt { --ico-bgr: var(--i-star); }

@@ -1,7 +1,7 @@
 /**
  * c-lnk.css
- * @version 1.0.30
- * @summary 02-01-2020
+ * @version 1.0.40
+ * @summary 14-01-2020
  * @author Mads Stoumann
  * @description Stylesheet for links.
 	Variables are concatinated from: 
@@ -10,7 +10,6 @@
 	- modifier (:active, :disabled, :focus, :hover)
 	More on emmett: https://docs.emmet.io/cheat-sheet/
 */
-
 @import 'config.css';
 
 .c-lnk {
@@ -24,14 +23,10 @@
 	--lnk-bxsh--sz: 0 0 0 0.2rem;
 	--lnk-c: var(--c-link);
 	--lnk-cur: pointer;
+	--lnk-d: inline-flex;
 	--lnk-ff: var(--f-body, inherit);
 	--lnk-fz: inherit;
 	--lnk-fw: inherit;
-	--lnk-ico: var(--i-external);
-	--lnk-ico-c: currentColor;
-	--lnk-ico-m: 4pt;
-	--lnk-ico-sz: 1em;
-	--lnk-ico-trf: none;
 	--lnk-ol: none;
 	--lnk-pos: relative;
 	--lnk-tdc: inherit;
@@ -71,7 +66,7 @@
 	box-shadow: var(--lnk-bxsh--sz) var(--lnk-bxsh);
 	color: var(--lnk-c);
 	cursor: var(--lnk-cur);
-	display: inline-flex;
+	display: var(--lnk-d);
 	font-family: var(--lnk-ff);
 	font-size: var(--lnk-fz);
 	font-weight: var(--lnk-fw);
@@ -128,6 +123,7 @@
 }
 
 /* Modifiers */
+/* Invalid: red, wavy line below */
 .c-lnk--err {
 	--lnk-bgc--act: var(--c-red-700);
 	--lnk-bgc--foc: var(--c-red-700);
@@ -142,27 +138,21 @@
 	--lnk-tds: wavy;
 }
 
-/* Icon After / Before */
-.c-lnk--ica::after,
-.c-lnk--icb::before {
-	align-self: center;
-	background-color: var(--lnk-ico-c);
-	content: "";
-	display: inline-block;
-	height: var(--lnk-ico-sz);
-	mask: no-repeat center/var(--lnk-ico-sz) var(--lnk-ico);
-	-webkit-mask: no-repeat center/var(--lnk-ico-sz) var(--lnk-ico);
-	transform: var(--lnk-ico-trf);
-	width: var(--lnk-ico-sz);
+/* Automatic icons based on `href`, requires `.c-ico-maa`, `.c-ico-mab`, `.c-ico-bga` or `.c-ico-bgb` */
+.c-lnk[href*="//"] { --ico-bgi: var(--i-external); }
+.c-lnk[download] { --ico-bgi: var(--i-download); }
+.c-lnk[href^="mailto"] { --ico-bgi: var(--i-mail); }
+.c-lnk[href^="skype"] { --ico-bgi: var(--i-skype); }
+.c-lnk[href^="sms"] { --ico-bgi: var(--i-sms); }
+.c-lnk[href^="tel"] { --ico-bgi: var(--i-phone); }
+
+/* Design Pattern: Link with icon ::after or ::before */
+.c-lnk[class*="c-ico-"]::after {
+	--ico-pis: .25rem;
 }
-.c-lnk--ica::after { margin-inline-start: var(--lnk-ico-m); }
-.c-lnk--icb::before { margin-inline-end: var(--lnk-ico-m); }
-.c-lnk[href*="//"] { --lnk-ico: var(--i-external); }
-.c-lnk[download] { --lnk-ico: var(--i-download); }
-.c-lnk[href^="mailto"] { --lnk-ico: var(--i-mail); }
-.c-lnk[href^="skype"] { --lnk-ico: var(--i-skype); }
-.c-lnk[href^="sms"] { --lnk-ico: var(--i-sms); }
-.c-lnk[href^="tel"] { --lnk-ico: var(--i-phone); }
+.c-lnk[class*="c-ico-"]::before {
+	--ico-pie: .25rem;
+}
 
 /* Design Pattern: Link with ToolTip */
 .c-lnk.c-ttp__wrapper {
@@ -173,7 +163,7 @@
 	left: 0;
 }
 
-/* Design Pattern: Link with ToggleTip, Arrow-Down after Summary */
+/* Design Pattern: Link with ToggleTip, Arrow after `<summary>` */
 .c-lnk.c-tgt__summary {
 	--lnk-bgc--act: var(--c-pink-500);
 	--lnk-bgc--foc: var(--c-pink-500);
@@ -185,10 +175,7 @@
 	--lnk-c--hov: var(--c-pink-50);
 	--lnk-c: var(--c-pink-500);
 	--lnk-cur: help;
-	--lnk-ico-m: 2pt;
-	--lnk-ico-sz: 0.6em;
-	--lnk-ico: var(--i-arrow-down);
-	--lnk-tds: dotted	;
+	--lnk-tds: dotted;
 }
 .c-lnk .c-tgt__summary-header {
 	/* These cannot be inherited due to a browser bug, need child-element `c-tgt__summary-header` */
@@ -196,8 +183,13 @@
 	text-decoration-line: var(--lnk-tdl);
 	text-decoration-style: var(--lnk-tds);
 }
-.c-tgt[open] .c-lnk--ica::after {
-	--lnk-ico-trf: scaleY(-1);
+.c-tgt .c-ico-maa::after { /* Arrow after `<summary>`, requires `.c-ico-maa` */
+	--ico-bgi: var(--i-arr_dwn);
+	--ico-h: 0.75em;
+	--ico-w: 0.75em;
+}
+.c-tgt[open] .c-ico-maa::after { /* Flip arrow, when [open] */
+	--ico-trf: scaleY(-1);
 }
 
 /* Dark Mode */

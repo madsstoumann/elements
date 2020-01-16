@@ -1,10 +1,18 @@
 /**
- * c-dialog.css
- * @version 1.2.0
- * @summary 27-12-2019
+ * c-dlg.css
+ * @version 1.0.50
+ * @summary 14-01-2020
  * @author Mads Stoumann
- * @description Stylesheet for Dialog.mjs
+ * @description Stylesheet for Dialogs
+	Variables are concatinated from: 
+	- element-prefix + 
+	- optional sub-element +
+	- emmet-css-abbreviation + 
+	- modifier (:active, :disabled, :focus, :hover)
+	More on emmett: https://docs.emmet.io/cheat-sheet/
 */
+@import 'config.css';
+
 .c-dialog {
 	--dlg-backdrop: rgba(0, 0, 0, 0.5);
 	--dlg-bdc: transparent;

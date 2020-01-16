@@ -10,7 +10,6 @@
 	- modifier (:active, :disabled, :focus, :hover)
 	More on emmett: https://docs.emmet.io/cheat-sheet/
 */
-
 @import 'config.css';
 
 .c-tgt {
@@ -89,7 +88,7 @@
 	 margin: inherit;
 }
 .c-tgt__summary {
-	display: inline-block; /* Safari Fix, pseudo-element break to new line */
+	display: inline-flex;
 	list-style: none;
 }
 .c-tgt__summary::-webkit-details-marker {
@@ -101,6 +100,11 @@
 	@media {
 		.c-tgt { 
 			--tgt-bdc: transparent;
+		}
+		/* Safari Fix, pseudo-element break to new line */
+		/* TODO */
+		.c-tgt__summary {
+			display: inline-block;
 		}
 	}
 }
