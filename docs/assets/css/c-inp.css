@@ -83,6 +83,9 @@
 	position: var(--inp-pos);
 	width: var(--inp-w);
 }
+.c-inp[hidden] {
+	display: none;
+}
 .c-inp::placeholder,
 .c-inp__inner::placeholder {
 	color: var(--inp-plh-c);

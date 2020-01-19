@@ -1,9 +1,13 @@
 # Iconic icons
 
-I don't think I was WIMPy as a kid, but I use WIMP (Window Icon Menu Pointing-device) everyday — and icons are a _huge_ part of that.
+I don't think I was WIMPy as a kid, but I use WIMP (Window Icon Menu Pointing-device) everyday — and icons are a **huge** part of any _graphical user interface_.
+
+Icons can either be _informative_ — like icons next to form fields, providing additional visual clues — or _actionable_, like the infamous “hamburger”-icon, triggering a mobile navigation.
+
+---
 
 ## User experience
-The [Nielsen Norman Group](https://www.nngroup.com/articles/icon-usability/) summarises the use of icons like this:
+The Nielsen Norman Group[^1] summarises the use of icons like this:
 
 > A user’s understanding of an icon is based on previous experience. Due to the absence of a standard usage for most icons, text labels are necessary to communicate the meaning and reduce ambiguity.
 
@@ -30,9 +34,9 @@ An `<svg>` can either be:
 - Inline markup, that you can use:
   - Directly in HTML
   - As an encoded string in CSS, which can then be used as:
-    - `background-image`, also in `::after` and `::before`
+    - `background-image`
     - `content` in a pseudo-element
-    - `mask-image`, also in `::after` and `::before`
+    - `mask-image`
 
 > **Note:** Your `<svg>`-files should be as _neutral_ as possible, so they can be used in multiple scenarios.  
 Remove attributes such as `stroke` and `fill` — these will be applied through CSS.
@@ -91,7 +95,7 @@ You can style it in CSS, like in this example:
 
 ### Still flexible: Spritemap using `<use>` and `<symbol>`
 
-If you're going to use the icon many places though, a more practical solution is a _spritemap_, using `<use>` and `<symbol>`.
+If you're going to use the icon in many places though, a more practical solution is a _spritemap_, using `<use>` and `<symbol>`.
 
 You don't have full control, as when using _inline_, but it's good enough for most icon-use-cases.
 
@@ -138,11 +142,11 @@ You might have seen examples of an `<svg>`, encoded with `base64`:
 background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZG ...
 ```
 
-It [comes at a price](https://stackoverflow.com/questions/201479/what-is-base-64-encoding-used-for), though:
+It comes at a price[^2], though:
 
 > It takes 4 characters per 3 bytes of data, plus potentially a bit of padding at the end.
 
-A better and more readable way, is to `utf-8`-encode it, allowing you to basically 'dump' a regular `<svg>` with line-breaks and spaces removed.  
+A better and more readable way, is to `utf-8`-encode it, allowing you to basically “dump” a regular `<svg>` with line-breaks and spaces removed.  
 
 Since `utf-8` is the default encoding, it's not even nessecary to specify it:
 
@@ -150,9 +154,9 @@ Since `utf-8` is the default encoding, it's not even nessecary to specify it:
 background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 2.5l-8.5 8.5-3.5-3.5-1.5 1.5 5 5 10-10z"></path></svg>');
 ```
 
-If you want it more readable, escape each line with a backslash `\`
+If you want it more readable, escape each line with a backslash: `\`
 
-The disadvantage of storing the encoded `<svg>` directly as a `background-image`, `mask-image` or `content`-property is duplication. You need to 'dump' the `<svg>` for each use. A much smarter way is to store all your most used icons as _CSS Custom Properties:_
+The disadvantage of storing the encoded `<svg>` directly as a `background-image`, `mask-image` or `content`-property is duplication. You need to “dump” the `<svg>` for each use. A much smarter way is to store all your most used icons as _CSS Custom Properties:_
 
 ```css
 --i-check: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 2.5l-8.5 8.5-3.5-3.5-1.5 1.5 5 5 10-10z"></path></svg>');
@@ -194,13 +198,14 @@ Change the icon with a modifier-class:
 }
 ```
 
-No new CSS required, just an update of a variable.
+No new CSS required — just an update of a variable.
 
 ---
 
 ## Coloring an `<svg>`-icon
 
-All of the `<svg>` [presentation attributes](https://css-tricks.com/svg-properties-and-css/) can be used as CSS properties, so if you're inlining your `<svg>`, you have all presentation options either as `attributes` in the markup, or as `properties` in CSS. Just remember that `background-color` is called `fill` in `<svg>`!
+All of the `<svg>` presentation attributes[^3] can be used as CSS properties, so if you're inlining your `<svg>`, you have all presentation options either as `attributes` in the markup, or as `properties` in CSS.  
+Just remember, that `background-color` is called `fill` in `<svg>`!
 
 ```css
 .custom-svg {
@@ -212,7 +217,6 @@ All of the `<svg>` [presentation attributes](https://css-tricks.com/svg-properti
 
 > **Note:** In `<svg>`, the value of the `stroke-width`-attribute is _relative_ to the `viewBox`.  
 In CSS, use a unit, like `px` or `em` etc.
-
 
 ---
 
@@ -244,12 +248,12 @@ That's one extra color in your icon!
 
 ### Coloring a `background-image`. 
 
-It is [possible to color](https://css-tricks.com/solved-with-css-colorizing-svg-backgrounds/) an `<svg>` as a `background-image` — but it ain't pretty!  
+It is also possible to color[^4] an `<svg>` as a `background-image` — but it ain't pretty!  
 You need to set an initial `fill`-value in either the physical `<svg>`-file or in the CSS Custom property — and you need to set it to one of the allowed values for: **white** (`#FFF`, `white` etc).  
 
-In `hsl`, the value for 'white' is: `hsl(0, 0%, 100%)`, so that's the _starting point_. You could also use 'black' as your starting point, but for these examples it's 'white'.
+In `hsl`, the value for “white” is: `hsl(0, 0%, 100%)`, so that's the _starting point_. You could also use 'black' as your starting point, but for these examples it's “white”.
 
-Now, you can use a CSS filter to _change_ the `hue`, `saturation` or `lightness` from the _initial values_ of  `hsl(0, 0%, 100%)`, for example:
+Now, you can use a CSS filter to _change_ the `hue`, `saturation` or `lightness` from the _starting point_ of  `hsl(0, 0%, 100%)`, for example:
 
 ```css
 .c-ico--pink {
@@ -265,7 +269,11 @@ Now, you can use a CSS filter to _change_ the `hue`, `saturation` or `lightness`
 
 ### Coloring a `mask-image`
 
-If you place an `<svg>` as a `mask-image` on an element with a `background-color`, the `<svg>` will be 'masked' with that color: 
+It's much easier to color a `mask-image` — and if you store your icons as _CSS Custom Properties_ as mentioned above, you have a very flexible combination.
+
+Place an `<svg>` as the `url()` of a `mask-image`-property on an element that also has  a `background-color`.  
+
+The `<svg>` will be “masked” with that color: 
 
 ```html
 <i class="c-ico__mai c-ico--check" aria-hidden="true"></i>
@@ -301,11 +309,20 @@ As the icon here has it's own element (`<i>`), all the usual CSS-tricks can be a
 
 ## Usage Examples
 
-In the examples below, I've visualized why `inline svg`, `<use>` or `mask-image` are the preferred methods when implementing `<svg>`-icons (the 'checkmark' in the examples).
+In the examples below, I've visualized why `inline svg`, `<use>` or `mask-image` are my preferred methods when implementing `<svg>`-icons (the “checkmark” in the examples).
+
+If you change the text-color, as in the “dark mode” -example, the `<svg>`'s used as `<img>` or `background-image` will not change color.
 
 prefers-color-scheme: light         |  prefers-color-scheme: dark
 :--------------------------         |:---------------------------
 ![](assets/icon_implementation.png) | ![](assets/icon_implementation-dark.png)
+
+
+See this example at [elements.stoumann.dk/icon](https://elements.stoumann.dk/icon/).
+
+See examples of icons in `<button>`'s at [elements.stoumann.dk/icon](https://elements.stoumann.dk/button/).
+
+See examples of icons in links at [elements.stoumann.dk/icon](https://elements.stoumann.dk/link/).
 
 ---
 
@@ -333,7 +350,7 @@ And it's markup:
 </svg>
 ```
 
-By using Jake Archibald's [SVGOMG](https://jakearchibald.github.io/svgomg/) tool, a lot of the unnecesarry bits can be cut off:
+By using Jake Archibald's SVGOMG-tool[^5], a lot of the unnecesarry bits can be cut off:
 
 ```xml
 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12">
@@ -359,7 +376,7 @@ Or, using `path`:
 </svg>
 ```
 
-Notice, that I changed `width` and `height` to `viewBox`, which creates a "real coordinate system" and will allow us to easier control responsiveness (more on that later). Instead of `fill`, I used `stroke`.
+Notice, that I changed `width` and `height` to `viewBox`, which creates a "real coordinate system" and will allow us to easier control responsiveness. Instead of `fill`, I used `stroke`.
 
 If the `<svg>` is going to be used *inline* or in an *spritemap* using `symbol` , we can also remove the `xmlns`-attribute and style-declarations (`stroke`, `fill` etc.):
 
@@ -377,14 +394,14 @@ That's **77 bytes**, approx. **5%** of the original file-size.
 
 > [...] Because of this ability to contain JavaScript, they are a perfect attack vector for Cross-Site Scripting on sites which allow either arbitrary file uploads or limit the file types to images and accept SVGs
 
-The quote above is from a blog-post entitled [Protecting against XSS in SVG](https://digi.ninja/blog/svg_xss.php), outlining the security issues related to using `<svg>`.
+The quote above is from a blog-post entitled Protecting against XSS in SVG[^6], outlining the security issues related to using `<svg>`.
 
 `<svg>` is `<xml>`, and thus it can contain a regular `<script>`-block.  
 If you have an _Icon System_ that automatically inlines `<svg>`'s in your final markup, thread carefully, if content-editors are allowed to upload `<svg>`'s directly.
 
 _Example:_
 
-```html
+```xml
 <svg viewBox="0 0 100 100" class="c-ico--stroke">
   <path d="M25,25 L75,75 M75,25 L25,75"></path>
   <script>console.log('Evil script running...');</script>
@@ -400,7 +417,7 @@ In newer browsers, scripts will not run if the `<svg>` is used from either `<img
 
 > This webpack plugin generates a single SVG spritemap containing multiple <symbol> elements from all .svg files in a directory. In addition, it can optimize the output and can also generate a stylesheet containing the sprites to be used directly from CSS. 
 
-Download [SvgSpritemapWebpackPlugin](https://github.com/cascornelissen/svg-spritemap-webpack-plugin) if you're looking for an easy way to convert a folder of `.svg`-files to a single _spritemap_. While the current version cannot generate _CSS Custom Properties_ from the `.svg`-files, there are `.scss` and `.less` mixin/variables that will let you use them from CSS.
+Download SvgSpritemapWebpackPlugin[^7] if you're looking for an easy way to convert a folder of `.svg`-files to a single _spritemap_. While the current version cannot generate _CSS Custom Properties_ from the `.svg`-files, there are `.scss` and `.less` mixin/variables that will let you use them from CSS.
 
 _Example for scss:_
 ```css
@@ -420,7 +437,7 @@ _Example for scss:_
 
 IE 11 doesn't support `<use>`, so you'll need a polyfill.
 
-[svg4everybody](https://github.com/jonathantneal/svg4everybody) is a popular polyfill for using `<use>` in _Internet Explorer_, and is highly recommended.
+svg4everybody[^8] is a popular polyfill for using `<use>` in _Internet Explorer_, and is highly recommended.
 
 Below is a simple example of conditionally loading _svg4everybody_, if the browser is IE11:
 
@@ -438,7 +455,7 @@ if (isIE11) {
 
 Download the script from _svg4everybody_'s GitHub-repo, and replace _s4eUrl_ with the correct path.
 
-Or link to it directly from [cdnjs.cloudflare.com](https://cdnjs.cloudflare.com/ajax/libs/svg4everybody/2.1.9/svg4everybody.min.js) or a similar CDN-service.
+Or link to it directly from Cloudflare[^9] or a similar CDN-service.
 
 While _svg4everybody_ works in most cases, I had a project where `<text>`-elements were being added dynamically to an `<svg>`-shape, so edtors could modify text-lines in an `<svg>`-shape from a CMS:
 
@@ -520,8 +537,32 @@ export function svgUse(scope = document) {
     });
   }
 ```
-
 ---
-**TODO**
-- Recode polyfill to ES5, so it can be used directly in IE?
-- Mention Icon Fonts, Material Designs' use of Icon Font: https://google.github.io/material-design-icons/
+
+## … but what about Icon Fonts?
+
+I think we've all encountered a slow-loading website, where strange letters or symbols were shown instead of an icon — until the _Icon Font_ finished loading.
+
+That's just _one_ of the downsides of using an _Icon font_.
+
+In the blog-post “It's 2019! Let's End The Debate On Iconm Fonts vs SVG Icons”[^10], `<svg>` is the clear winner when it comes to:
+
+- **Accessibility**. An `<svg>` is treated like an image, not as text, that will be read aloud by a screen-reader.
+
+- **Scalability**. This is the main reason why I switched to using `<svg>`. Also, they're easier to modify _on-the-fly_.
+
+- **Animation**. You can animate each `path`, `line` etc. in an `<svg>`
+
+Google provide an _Icon font_ for their Material Design[^11], so the format is nor completely dead — yet.
+
+[^1]: https://www.nngroup.com/articles/icon-usability
+[^2]: https://stackoverflow.com/questions/201479/what-is-base-64-encoding-used-for
+[^3]: https://css-tricks.com/svg-properties-and-css/
+[^4]: https://css-tricks.com/solved-with-css-colorizing-svg-backgrounds/
+[^5]: https://jakearchibald.github.io/svgomg/
+[^6]: https://digi.ninja/blog/svg_xss.php
+[^7]: https://github.com/cascornelissen/svg-spritemap-webpack-plugin
+[^8]: https://github.com/jonathantneal/svg4everybody
+[^9]: https://cdnjs.cloudflare.com/ajax/libs/svg4everybody/2.1.9/svg4everybody.min.js
+[^10]: https://www.lambdatest.com/blog/its-2019-lets-end-the-debate-on-icon-fonts-vs-svg-icons/
+[^11]: https://google.github.io/material-design-icons/
