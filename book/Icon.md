@@ -322,9 +322,9 @@ prefers-color-scheme: light         |  prefers-color-scheme: dark
 
 See this example at [elements.stoumann.dk/icon](https://elements.stoumann.dk/icon/).
 
-See examples of icons in `<button>`'s at [elements.stoumann.dk/icon](https://elements.stoumann.dk/button/).
+See examples of icons in `<button>`'s at [elements.stoumann.dk/button](https://elements.stoumann.dk/button/).
 
-See examples of icons in links at [elements.stoumann.dk/icon](https://elements.stoumann.dk/link/).
+See examples of icons in links at [elements.stoumann.dk/link](https://elements.stoumann.dk/link/).
 
 ---
 
