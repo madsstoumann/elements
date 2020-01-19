@@ -1,6 +1,6 @@
 # Iconic icons
 
-I don't think I was WIMPy as a kid, but I use WIMP (Window Icon Menu Pointing-device) everyday — and icons are a **huge** part of any _graphical user interface_.
+I don't think I was WIMPy as a kid, but I use WIMP (**W**indow **I**con **M**enu **P**ointing-device) everyday — and icons are a **huge** part of any _graphical user interface_.
 
 Icons can either be _informative_ — like icons next to form fields, providing additional visual clues — or _actionable_, like the infamous “hamburger”-icon, triggering a mobile navigation.
 
@@ -242,7 +242,6 @@ And in the CSS:
 ```
 
 The first `line`-element will use the `stroke`-property, the second one will use the `color`-property.  
-That's one extra color in your icon!
 
 ---
 
@@ -275,10 +274,6 @@ Place an `<svg>` as the `url()` of a `mask-image`-property on an element that al
 
 The `<svg>` will be “masked” with that color: 
 
-```html
-<i class="c-ico__mai c-ico--check" aria-hidden="true"></i>
-```
-
 ```css
 .c-ico__mai {
   /* excerpt */
@@ -303,7 +298,14 @@ It's super-easy to change the icon _and_ it's color with a modifier-class:
 }
 ```
 
-As the icon here has it's own element (`<i>`), all the usual CSS-tricks can be applied as well: `transform`, for example.
+As the icon here has it's own element (`<i>` in this example):
+
+
+```html
+<i class="c-ico__mai c-ico--check" aria-hidden="true"></i>
+```
+
+— all the usual CSS-tricks can be applied as well: `transform`, for example.
 
 ---
 
@@ -323,6 +325,29 @@ See this example at [elements.stoumann.dk/icon](https://elements.stoumann.dk/ico
 See examples of icons in `<button>`'s at [elements.stoumann.dk/icon](https://elements.stoumann.dk/button/).
 
 See examples of icons in links at [elements.stoumann.dk/icon](https://elements.stoumann.dk/link/).
+
+---
+
+## Security and `<svg>`
+
+> [...] Because of this ability to contain JavaScript, they are a perfect attack vector for Cross-Site Scripting on sites which allow either arbitrary file uploads or limit the file types to images and accept SVGs
+
+The quote above is from a blog-post entitled Protecting against XSS in SVG[^6], outlining the security issues related to using `<svg>`.
+
+`<svg>` is `<xml>`, and thus it can contain a regular `<script>`-block.  
+If you have an _Icon System_ that automatically inlines `<svg>`'s in your final markup, thread carefully, if content-editors are allowed to upload `<svg>`'s directly.
+
+_Example:_
+
+```xml
+<svg viewBox="0 0 100 100" class="c-ico--stroke">
+  <path d="M25,25 L75,75 M75,25 L25,75"></path>
+  <script>console.log('Evil script running...');</script>
+</svg>
+```
+
+When inlined, the script will run, check the `console`.
+In newer browsers, scripts will not run if the `<svg>` is used from either `<img>`-tags or via `<use>`.
 
 ---
 
@@ -388,28 +413,7 @@ If the `<svg>` is going to be used *inline* or in an *spritemap* using `symbol` 
 
 That's **77 bytes**, approx. **5%** of the original file-size.
 
----
-
-## Security and `<svg>`
-
-> [...] Because of this ability to contain JavaScript, they are a perfect attack vector for Cross-Site Scripting on sites which allow either arbitrary file uploads or limit the file types to images and accept SVGs
-
-The quote above is from a blog-post entitled Protecting against XSS in SVG[^6], outlining the security issues related to using `<svg>`.
-
-`<svg>` is `<xml>`, and thus it can contain a regular `<script>`-block.  
-If you have an _Icon System_ that automatically inlines `<svg>`'s in your final markup, thread carefully, if content-editors are allowed to upload `<svg>`'s directly.
-
-_Example:_
-
-```xml
-<svg viewBox="0 0 100 100" class="c-ico--stroke">
-  <path d="M25,25 L75,75 M75,25 L25,75"></path>
-  <script>console.log('Evil script running...');</script>
-</svg>
-```
-
-When inlined, the script will run, check the `console`.
-In newer browsers, scripts will not run if the `<svg>` is used from either `<img>`-tags or via `<use>`.
+To optimize `<svg>`'s automatically during a _build process_, read on.
 
 ---
 
@@ -429,6 +433,8 @@ _Example for scss:_
   background-image: url(map-get($sprites, 'check'));
 }
 ```
+
+_SvgSpritemapWebpackPlugin_ can also run **svgo** and **svg4everybody** automatically, check out the official documentation.
 
 ---
 
@@ -553,7 +559,7 @@ In the blog-post “It's 2019! Let's End The Debate On Iconm Fonts vs SVG Icons�
 
 - **Animation**. You can animate each `path`, `line` etc. in an `<svg>`
 
-Google provide an _Icon font_ for their Material Design[^11], so the format is nor completely dead — yet.
+Google provides an _Icon font_ for their Material Design[^11], so the format is not completely dead — yet.
 
 [^1]: https://www.nngroup.com/articles/icon-usability
 [^2]: https://stackoverflow.com/questions/201479/what-is-base-64-encoding-used-for
