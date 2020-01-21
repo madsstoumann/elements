@@ -1,18 +1,23 @@
 # Iconic icons
 
-I don't think I was WIMPy as a kid, but I use WIMP (**W**indow **I**con **M**enu **P**ointing-device) everyday — and icons are a **huge** part of any _graphical user interface_.
-
-Icons can either be _informative_ — like icons next to form fields, providing additional visual clues — or _actionable_, like the infamous “hamburger”-icon, triggering a mobile navigation.
+ Icons have played an important role since the birth of the _Graphical User Interface_ (GUI). They can either be _informative_ — like icons next to form fields, providing additional visual clues — or _actionable_, like the infamous “hamburger”-icon, triggering a mobile navigation.
 
 ---
 
-## User experience
+## User experience and accessibility
 The Nielsen Norman Group[^1] summarises the use of icons like this:
 
 > A user’s understanding of an icon is based on previous experience. Due to the absence of a standard usage for most icons, text labels are necessary to communicate the meaning and reduce ambiguity.
 
 Designers will most likely disagree with this, since they often use icons to _save_ space, thus ditching the text labels, and relying on the user recognizing the [meaning of the] icon.
 So, designers — _if possible_ — please use icons in conjunction with a descriptive text that's crisp and clear.
+
+An icon should — if it's _actionable_ — always be wrapped in either a `<button>` or an `<a>`nchor. The wrapping element should contain a textual explanation of what is does, either as visual text, or using the `aria-label`-attribute. The icon itself should have the `aria-hidden`-attribute set to `true`. 
+
+As you typically add `eventListeners` to the wrapping-element, set `pointer-events` to `none` for the icon in CSS.
+
+If an icon is _informative_, add either an `aria-label`-attribute, or use the `<title>`-tag in an `<svg>`.  
+For longer descriptions, `<svg>` also has a `<desc>`-tag
 
 ---
 
