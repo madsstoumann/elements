@@ -1,0 +1,162 @@
+/**
+ * c-snp.css
+ * @version 1.0.10
+ * @summary 07-02-2020
+ * @author Mads Stoumann
+ * @description Stylesheet for Snap Scroll Section
+	Variables are concatinated from: 
+	- element-prefix + 
+	- emmet-css-abbreviation + 
+	- modifier (:active, :disabled, :focus, :hover)
+	More on emmett: https://docs.emmet.io/cheat-sheet/
+*/
+@import 'config.css';
+
+/* For overlay:
+background-image: linear-gradient(to right, rgba(255,255,255,0.8) 0%, transparent 15%, transparent 85%, rgba(255,255,255,0.8) 100%);
+*/
+
+.c-snp {
+	--gap: 10px;
+	--gap-desktop: 20px;
+
+	--dot-bgc: grey;
+	--dot-bgc--cur: tomato;
+	--dot-m: 0 0.25rem;
+	--dot-sz: 0.5rem;
+	--dots-m: 1rem 0 0 0;
+
+	max-width: 100%;
+	position: relative;
+	scroll-behavior: smooth;
+}
+.c-snp__btn:disabled {
+	display: none;
+}
+.c-snp__btn[rel="next"] {
+	position: absolute;
+	right: 0;
+}
+.c-snp__dot {
+	background-color: var(--dot-bgc);
+	border: 0;
+	border-radius: 50%;
+	box-sizing: border-box;
+	display: block;
+	height: var(--dot-sz);
+	margin: var(--dot-m);
+	padding: 0;
+	width: var(--dot-sz);
+}
+.c-snp__dot--current {
+	background-color:var(--dot-bgc--cur);
+}
+.c-snp__dots {
+	display: none;
+	margin: var(--dots-m);
+	justify-content: center;
+}
+.c-snp__headline {
+	margin-left: var(--gap);
+}
+.c-snp__item {
+	box-sizing: border-box;
+	margin-left: var(--gap);
+	min-width: 80%;
+	position: relative;
+	scroll-margin-left: var(--gap);
+	scroll-snap-align: start;
+	width: 80%;
+}
+.c-snp__item:last-of-type::after {
+	content: "";
+	display: block;
+	border-right: var(--gap) solid transparent;
+	height: 100%;
+	position: absolute;
+	right: calc(0px - var(--gap));
+	top: 0;
+}
+.c-snp__nav {
+	display: none;
+	justify-content: space-between;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 100%;
+}
+.c-snp__scroller {
+	align-items: center;
+	display: flex;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	scroll-snap-type: x mandatory;
+}
+
+/* Desktop */
+@media screen and (min-width: 800px) {
+	.c-snp {
+		--gap: var(--gap-desktop);
+		margin: 0 var(--gap);
+	}
+	.c-snp__dots {
+		display: flex;
+	}
+	.c-snp__headline {
+		margin-left: 0;
+	}
+	.c-snp__item {
+		scroll-margin-left: 0;
+	}
+	.c-snp__item:first-of-type {
+		margin-left: 0;
+	}
+	.c-snp__item:last-of-type::after {
+		display: none;
+	}
+	.c-snp__nav {
+		display: flex;
+	}
+	.c-snp__scroller {
+		overflow: hidden;
+	}
+
+	[data-items-per-page="2"] .c-snp__item {
+		min-width: calc(50% - (var(--gap) / 2));
+		width: calc(50% - (var(--gap) / 2));
+	}
+	[data-items-per-page="3"] .c-snp__item {
+		min-width: calc((100% / 3) - (var(--gap) / (3/2)));
+		width: calc((100% / 3) - (var(--gap) / (3/2)));
+	}
+	[data-items-per-page="4"] .c-snp__item {
+		min-width: calc(25% - (var(--gap) / (4/3)));
+		width: calc(25% - (var(--gap) / (4/3)));
+	}
+	[data-items-per-page] .c-snp__item:nth-child(1n+2) {
+		margin-left: var(--gap);
+	}
+
+	/* Align Center: Preview of previous and next items. This only works with odd numbers, like 1 and 3 */
+	[data-align="center"] .c-snp__item {
+		scroll-snap-align: center;
+	}
+	[data-align="center"][data-items-per-page="3"] .c-snp__item {
+		min-width: 27.5%;
+		width: 27.5%;
+	}
+
+	/* Handle overlays, only for version with data-align="center" and data-items-per-page="3" */
+	[data-align="center"][data-page="1"][data-items-per-page="3"] .c-snp__item:nth-child(4n-4),
+	[data-align="center"][data-page="2"][data-items-per-page="3"] .c-snp__item:nth-child(4n+3),
+	[data-align="center"][data-page="3"][data-items-per-page="3"] .c-snp__item:nth-child(4n+2),
+	[data-align="center"][data-page="4"][data-items-per-page="3"] .c-snp__item:nth-child(4n+1),
+	[data-align="center"][data-page="5"][data-items-per-page="3"] .c-snp__item:nth-child(4n+0),
+	[data-align="center"][data-page="6"][data-items-per-page="3"] .c-snp__item:nth-child(4n+3),
+	[data-align="center"][data-page="7"][data-items-per-page="3"] .c-snp__item:nth-child(4n+0) {
+		opacity: 0.3;
+	}
+	[data-align="center"][data-items-per-page="3"] .c-snp__item:nth-last-of-type() {
+		opacity: 0.3;
+	}
+}

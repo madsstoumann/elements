@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Accordion</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/demo.css" rel="stylesheet">
+	<link href="../assets/css/c-acc.css" rel="stylesheet">
+	<link href="../assets/css/c-ico.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="c-acc__wrapper">
+		<h2 class="c-acc__wrapper-headline">FAQ</h2>
+		<details class="c-acc">
+			<summary class="c-acc__summary c-ico-maa c-ico--arr_dwn">
+				<span class="c-acc__headline">Hvad indebærer fri data?</span>
+			</summary>
+			<div class="c-acc__panel">Som udgangspunkt har man med et ONE abonnement fri data. For at undgå misbrug har Telia valgt at sætte en databegrænsning på 1.000 GB data pr. måned. Begrænsningen på 1.000 GB er fastsat ud fra, hvad Telia anser som det maksimale forbrug af data for en mobilbruger.</div>
+		</details>
+		<details class="c-acc">
+			<summary class="c-acc__summary c-ico-maa c-ico--arr_dwn">
+				<span class="c-acc__headline">Hvad indebærer fri data?</span>
+			</summary>
+			<div class="c-acc__panel">Som udgangspunkt har man med et ONE abonnement fri data. For at undgå misbrug har Telia valgt at sætte en databegrænsning på 1.000 GB data pr. måned. Begrænsningen på 1.000 GB er fastsat ud fra, hvad Telia anser som det maksimale forbrug af data for en mobilbruger.</div>
+		</details>
+		<details class="c-acc">
+			<summary class="c-acc__summary c-ico-maa c-ico--arr_dwn">
+				<span class="c-acc__headline">Hvad indebærer fri data og ande ting der gør, at overskriften går i 2 linjer?</span>
+			</summary>
+			<div class="c-acc__panel">
+				Som udgangspunkt har man med et ONE abonnement fri data. For at undgå misbrug har Telia valgt at sætte en databegrænsning på 1.000 GB data pr. måned. Begrænsningen på 1.000 GB er fastsat ud fra, hvad Telia anser som det maksimale forbrug af data for en mobilbruger.<br />
+				Som udgangspunkt har man med et ONE abonnement fri data. For at undgå misbrug har Telia valgt at sætte en databegrænsning på 1.000 GB data pr. måned. Begrænsningen på 1.000 GB er fastsat ud fra, hvad Telia anser som det maksimale forbrug af data for en mobilbruger.
+			</div>
+		</details>
+	</div>
+
+	<script type="module">
+		import { animateDetails } from '../assets/js/details.mjs';
+		animateDetails('details');
+	</script>
+</body>
+</html>

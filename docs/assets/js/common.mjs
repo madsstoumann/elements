@@ -1,8 +1,8 @@
 /**
  * Common
  * @module common.mjs
- * @version 0.8.00
- * @summary 30-10-2019
+ * @version 0.9.00
+ * @summary 05-02-2020
  * @author Mads Stoumann
  * @description Generic, small helper-functions
  */
