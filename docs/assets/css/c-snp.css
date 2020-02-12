@@ -13,23 +13,21 @@
 @import 'config.css';
 
 .c-snp {
-	--gap: 10px;
-	--gap-desktop: 20px;
-
-	--dot-bgc: grey;
-	--dot-bgc--cur: tomato;
-	--dot-m: 0 0.25rem;
-	--dot-sz: 0.5rem;
-	--dots-m: 1rem 0 0 0;
-
-	--scrbar-bdrs: 1rem;
-	--scrbar-bg: grey;
-	--scrbar-sz: 0.5rem;
-
-	--scroll-w: 1200px;
+	--snp-dot-bgc: grey;
+	--snp-dot-bgc--cur: tomato;
+	--snp-dot-m: 0 0.25rem;
+	--snp-dot-sz: 0.5rem;
+	--snp-dots-m: 1rem 0 0 0;
+	--snp-gap: 10px;
+	--snp-gap-desktop: 20px;
+	--snp-nav-z: 100;
+	--snp-scrbar-bdrs: 1rem;
+	--snp-scrbar-bg: grey;
+	--snp-scrbar-sz: 0.5rem;
+	--snp-scroll-w: 1200px;
 
 	max-width: 100%;
-	padding: var(--gap) 0;
+	padding: var(--snp-gap) 0;
 	position: relative;
 	scroll-behavior: smooth;
 }
@@ -53,51 +51,51 @@
 	right: 0;
 }
 .c-snp__dot {
-	background-color: var(--dot-bgc);
+	background-color: var(--snp-dot-bgc);
 	border: 0;
 	border-radius: 50%;
 	box-sizing: border-box;
 	display: block;
-	height: var(--dot-sz);
-	margin: var(--dot-m);
+	height: var(--snp-dot-sz);
+	margin: var(--snp-dot-m);
 	padding: 0;
-	width: var(--dot-sz);
+	width: var(--snp-dot-sz);
 }
 .c-snp__dot--current {
-	background-color: var(--dot-bgc--cur);
+	background-color: var(--snp-dot-bgc--cur);
 }
 .c-snp__dots {
 	display: none;
-	margin: var(--dots-m);
+	margin: var(--snp-dots-m);
 	justify-content: center;
 }
 .c-snp__headline {
-	margin-inline-start: var(--gap);
+	margin-inline-start: var(--snp-gap);
 	margin-top: 0;
 }
 .c-snp__item {
 	box-sizing: border-box;
-	margin-inline-start: var(--gap);
+	margin-inline-start: var(--snp-gap);
 	min-width: 80%;
 	position: relative;
-	scroll-margin-inline-start: var(--gap);
+	scroll-margin-inline-start: var(--snp-gap);
 	scroll-snap-align: start;
 	width: 80%;
 }
 .c-snp__item:last-of-type::after {
 	content: "";
 	display: block;
-	border-inline-end: var(--gap) solid transparent;
+	border-inline-end: var(--snp-gap) solid transparent;
 	height: 100%;
 	position: absolute;
-	right: calc(0px - var(--gap));
+	right: calc(0px - var(--snp-gap));
 	top: 0;
 }
 [dir="rtl"] .c-snp__item:last-of-type {
-	scroll-margin-inline-end: var(--gap);
+	scroll-margin-inline-end: var(--snp-gap);
 }
 [dir="rtl"] .c-snp__item:last-of-type::after {
-	left: calc(0px - var(--gap));
+	left: calc(0px - var(--snp-gap));
 	right: auto;
 }
 .c-snp__nav {
@@ -108,10 +106,11 @@
 	top: 50%;
 	transform: translateY(-50%);
 	width: 100%;
+	z-index: var(--snp-nav-z);
 }
 .c-snp__nav-inner {
 	margin: 0 auto;
-	max-width: var(--scroll-w);
+	max-width: var(--snp-scroll-w);
 	position: relative;
 	width: 100%;
 }
@@ -119,7 +118,7 @@
 	align-items: center;
 	display: flex;
 	margin: 0 auto;
-	max-width: var(--scroll-w);
+	max-width: var(--snp-scroll-w);
 	overflow-x: scroll;
 	overflow-y: hidden;
 	scroll-snap-type: x mandatory;
@@ -128,8 +127,8 @@
 /* Desktop */
 @media screen and (min-width: 800px) {
 	.c-snp {
-		--gap: var(--gap-desktop);
-		padding: var(--gap);
+		--snp-gap: var(--snp-gap-desktop);
+		padding: var(--snp-gap);
 	}
 	.c-snp__dots {
 		display: flex;
@@ -140,7 +139,7 @@
 	.c-snp__headline {
 		margin-inline-end: auto;
 		margin-inline-start: auto;
-		max-width: var(--scroll-w);
+		max-width: var(--snp-scroll-w);
 	}
 	.c-snp__item {
 		scroll-margin-inline-start: 0;
@@ -156,43 +155,43 @@
 	}
 
 	.c-snp__scroller {
-		padding-bottom: var(--gap);
+		padding-bottom: var(--snp-gap);
 	}
 	.c-snp__scroller--overflow {
 		overflow: hidden;
 		padding-bottom: 0;
 	}
 	.c-snp__scroller::-webkit-scrollbar {
-		width: var(--scrbar-sz);
-		height: var(--scrbar-sz);
+		width: var(--snp-scrbar-sz);
+		height: var(--snp-scrbar-sz);
 	}
 	.c-snp__scroller::-webkit-scrollbar-track {
-		-webkit-border-radius: var(--scrbar-bdrs);
-		border-radius: var(--scrbar-bdrs);
+		-webkit-border-radius: var(--snp-scrbar-bdrs);
+		border-radius: var(--snp-scrbar-bdrs);
 	}
 	.c-snp__scroller::-webkit-scrollbar-thumb {
-		-webkit-border-radius: var(--scrbar-bdrs);
-		border-radius: var(--scrbar-bdrs);
-		background: var(--scrbar-bg);
+		-webkit-border-radius: var(--snp-scrbar-bdrs);
+		border-radius: var(--snp-scrbar-bdrs);
+		background: var(--snp-scrbar-bg);
 	}
 	.c-snp__scroller::-webkit-scrollbar-thumb:window-inactive {
-		background: var(--scrbar-bg); 
+		background: var(--snp-scrbar-bg); 
 	}
 
 	[data-items-per-page=":2"] .c-snp__item {
-		min-width: calc(50% - (var(--gap) / 2));
-		width: calc(50% - (var(--gap) / 2));
+		min-width: calc(50% - (var(--snp-gap) / 2));
+		width: calc(50% - (var(--snp-gap) / 2));
 	}
 	[data-items-per-page=":3"] .c-snp__item {
-		min-width: calc((100% / 3) - (var(--gap) / (3/2)));
-		width: calc((100% / 3) - (var(--gap) / (3/2)));
+		min-width: calc((100% / 3) - (var(--snp-gap) / (3/2)));
+		width: calc((100% / 3) - (var(--snp-gap) / (3/2)));
 	}
 	[data-items-per-page=":4"] .c-snp__item {
-		min-width: calc(25% - (var(--gap) / (4/3)));
-		width: calc(25% - (var(--gap) / (4/3)));
+		min-width: calc(25% - (var(--snp-gap) / (4/3)));
+		width: calc(25% - (var(--snp-gap) / (4/3)));
 	}
 	[data-items-per-page] .c-snp__item:nth-child(1n+2) {
-		margin-inline-start: var(--gap);
+		margin-inline-start: var(--snp-gap);
 	}
 
 	/* Align Center: Preview of previous and next items. This only works with odd numbers, like 1 and 3 */

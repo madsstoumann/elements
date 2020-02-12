@@ -76,7 +76,7 @@ export default class Slider {
 
 		this.elements.nav.firstElementChild.appendChild(this.elements.prev);
 		this.elements.nav.firstElementChild.appendChild(this.elements.next);
-		this.slider.appendChild(this.elements.nav);
+		this.slider.insertBefore(this.elements.nav, this.elements.scroller);
 		this.slider.appendChild(this.elements.dots);
 		this.slider.refreshSlider = this.refreshSlider.bind(this);
 		this.elements.scroller.classList.add(this.settings.clsOverflow);
