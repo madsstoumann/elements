@@ -65,7 +65,7 @@ export default class Pagination {
 	}
 
 	/**
- * @function setpage
+ * @function setPage
  * @param {Number} page
  * @description Go to a specific page
  */

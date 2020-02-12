@@ -10,8 +10,11 @@
 	<style>
 		/* Demo Styles */
 		body {
-			background-color: lightgrey;
 			margin: 0;
+		}
+		.c-snp:nth-of-type(odd) {
+			background-color: #CCC;
+			color: #222;
 		}
 		.c-snp__item {
 			background-color: deepskyblue;
@@ -28,110 +31,126 @@
 
 	<!-- https://www.w3.org/TR/wai-aria-practices/examples/carousel/carousel-1.html -->
 
-	<section aria-roledescription="carousel" class="c-snp" data-align="center" data-items-per-page="3">
-		<h2 class="c-snp__headline">This section will snap</h2>
-		<div aria-live="polite" class="c-snp__scroller" data-scroller>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">1</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">2</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">3</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">4</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">5</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">6</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">7</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">8</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">9</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">10</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">11</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">12</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">13</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">14</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">15</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">16</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">17</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">18</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">19</div>
-			<div aria-roledescription="slide" class="c-snp__item" role="group">20</div>
+	<section class="c-snp"
+		data-align="center"
+		data-items-per-page=":3"
+		data-js="slider">
+
+		<h2 class="c-snp__headline">Preview of next and previous, 3 items per page</h2>
+		<div class="c-snp__scroller" data-scroller>
+			<div class="c-snp__item">1</div>
+			<div class="c-snp__item">2</div>
+			<div class="c-snp__item">3</div>
+			<div class="c-snp__item">4</div>
+			<div class="c-snp__item">5</div>
+			<div class="c-snp__item">6</div>
+			<div class="c-snp__item">7</div>
+			<div class="c-snp__item">8</div>
+			<div class="c-snp__item">9</div>
+			<div class="c-snp__item">10</div>
+			<div class="c-snp__item">11</div>
+			<div class="c-snp__item">12</div>
+			<div class="c-snp__item">13</div>
+			<div class="c-snp__item">14</div>
+			<div class="c-snp__item">15</div>
+			<div class="c-snp__item">16</div>
+			<div class="c-snp__item">17</div>
+			<div class="c-snp__item">18</div>
+			<div class="c-snp__item">19</div>
+			<div class="c-snp__item">20</div>
 		</div>
-		<nav class="c-snp__nav">
-			<button aria-label="Previous" class="c-snp__btn" rel="prev" type="button">Prev</button>
-			<button aria-label="Next" class="c-snp__btn" rel="next" type="button">Next</button>
-		</nav>
-		<nav class="c-snp__dots" data-pagination data-dot="c-snp__dot" data-dot-cur="c-snp__dot--current"></nav>
 	</section>
 
-	<script>
-		function setSnapScroll(selector = '.c-snp', scope = document) {
-			const sections = scope.querySelectorAll(selector);
-			sections.forEach(section => {
-				const btnNext = section.querySelector(`[rel="next"]`);
-				const btnPrev = section.querySelector(`[rel="prev"]`);
-				const dots = [];
-				const itemsPerPage = parseInt(section.dataset.itemsPerPage, 10);
-				const pagination = section.querySelector('[data-pagination]');
-				const scroller = section.querySelector('[data-scroller]');
-				const scrollItems = scroller.children;
-				const width = scroller.firstElementChild.offsetWidth;
-				const state = {
-					page: 1,
-					pages: Math.ceil(scroller.childElementCount / itemsPerPage) || 1
-				}
+	<section class="c-snp"
+		data-align="center"
+		data-items-per-page=":1"
+		data-js="slider">
 
-				if (pagination) {
-					for (let i = 1; i <= state.pages; i++) {
-						const dot = document.createElement('button');
-						dot.className = pagination.dataset.dot;
-						dot.type = 'button';
-						dot.dataset.page = i;
-						dot.addEventListener('click', () => {
-							state.page = parseInt(dot.dataset.page, 10);
-							update();
-						})
-						dots.push(dot);
-						pagination.appendChild(dot);
-					}
-				}
+		<h2 class="c-snp__headline">Preview of next and previous, 1 item per page</h2>
+		<div class="c-snp__scroller" data-scroller>
+			<div class="c-snp__item">1</div>
+			<div class="c-snp__item">2</div>
+			<div class="c-snp__item">3</div>
+			<div class="c-snp__item">4</div>
+			<div class="c-snp__item">5</div>
+			<div class="c-snp__item">6</div>
+			<div class="c-snp__item">7</div>
+			<div class="c-snp__item">8</div>
+			<div class="c-snp__item">9</div>
+			<div class="c-snp__item">10</div>
+			<div class="c-snp__item">11</div>
+			<div class="c-snp__item">12</div>
+			<div class="c-snp__item">13</div>
+			<div class="c-snp__item">14</div>
+			<div class="c-snp__item">15</div>
+			<div class="c-snp__item">16</div>
+			<div class="c-snp__item">17</div>
+			<div class="c-snp__item">18</div>
+			<div class="c-snp__item">19</div>
+			<div class="c-snp__item">20</div>
+		</div>
+	</section>
 
-				[...scrollItems].forEach((slide, index) => slide.setAttribute('aria-label', `${index+1}/${scrollItems.length}`));
+	<section class="c-snp"
+		data-items-per-page=":3"
+		data-js="slider"
+		data-loop=":true">
 
-				const update = () => {
-					/* Scroll to center of page, calculate using item-widths */
-					if (section.dataset.align && section.dataset.align === 'center') {
-						scroller.scrollTo({ left: (state.page - 1) * (width * itemsPerPage), behavior: 'smooth' });
-					}
-					/* Scroll to page, use page-based widths */
-					else {
-						scroller.scrollTo({ left: (state.page - 1) * scroller.offsetWidth, behavior: 'smooth' });
-					}
+		<h2 class="c-snp__headline">No preview, 3 items per page, continous</h2>
+		<div class="c-snp__scroller" data-scroller>
+			<div class="c-snp__item">1</div>
+			<div class="c-snp__item">2</div>
+			<div class="c-snp__item">3</div>
+			<div class="c-snp__item">4</div>
+			<div class="c-snp__item">5</div>
+			<div class="c-snp__item">6</div>
+			<div class="c-snp__item">7</div>
+			<div class="c-snp__item">8</div>
+			<div class="c-snp__item">9</div>
+		</div>
+	</section>
 
-					/* Set navigation buttons to disabled, if beginning or end */
-					btnNext.toggleAttribute('disabled', state.page === state.pages);
-					btnPrev.toggleAttribute('disabled', state.page === 1);
-					section.dataset.page = state.page;
+	<section class="c-snp"
+		data-items-per-page=":4"
+		data-js="slider">
 
-					/* Iterate navigation dots, set current */
-					if (pagination) {
-						dots.forEach((dot, index) => {
-							dot.classList.toggle(pagination.dataset.dotCur, index + 1 === state.page);
-						});
-					}
-				}
-				update();
+		<h2 class="c-snp__headline">This section will not be a slider on desktop</h2>
+		<div class="c-snp__scroller" data-scroller>
+			<div class="c-snp__item">1</div>
+			<div class="c-snp__item">2</div>
+			<div class="c-snp__item">3</div>
+			<div class="c-snp__item">4</div>
+		</div>
+	</section>
 
-				btnNext.addEventListener('click', () => {
-					state.page++;
-					if (state.page > state.pages) { state.page = state.pages }
-					update();
-				});
+	<section class="c-snp"
+		data-items-per-page=":3">
 
-				btnPrev.addEventListener('click', () => {
-					state.page--;
-					if (state.page < 1) {state.page = 1; }
-					update();
-				});
-			});
-		}
+		<h2 class="c-snp__headline">No JavaScript, 3 items per page, scrollbar</h2>
+		<div class="c-snp__scroller" data-scroller>
+			<div class="c-snp__item">1</div>
+			<div class="c-snp__item">2</div>
+			<div class="c-snp__item">3</div>
+			<div class="c-snp__item">4</div>
+			<div class="c-snp__item">5</div>
+			<div class="c-snp__item">6</div>
+			<div class="c-snp__item">7</div>
+			<div class="c-snp__item">8</div>
+			<div class="c-snp__item">9</div>
+		</div>
+	</section>
 
-		setSnapScroll();
+	<script type="module">
+		const elements = document.querySelectorAll('[data-js*="slider"]');
+			if (elements.length) {
+				import('../assets/js/slider.mjs')
+				.then(module => {
+					const jsClass = module.default;
+					elements.forEach(element => {
+						new jsClass(element, element.dataset);
+					});
+				})
+			}
 	</script>
 </body>
 </html>

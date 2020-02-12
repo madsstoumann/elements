@@ -1,7 +1,7 @@
 /**
  * c-snp.css
- * @version 1.0.10
- * @summary 07-02-2020
+ * @version 1.0.14
+ * @summary 12-02-2020
  * @author Mads Stoumann
  * @description Stylesheet for Snap Scroll Section
 	Variables are concatinated from: 
@@ -11,10 +11,6 @@
 	More on emmett: https://docs.emmet.io/cheat-sheet/
 */
 @import 'config.css';
-
-/* For overlay:
-background-image: linear-gradient(to right, rgba(255,255,255,0.8) 0%, transparent 15%, transparent 85%, rgba(255,255,255,0.8) 100%);
-*/
 
 .c-snp {
 	--gap: 10px;
@@ -26,7 +22,14 @@ background-image: linear-gradient(to right, rgba(255,255,255,0.8) 0%, transparen
 	--dot-sz: 0.5rem;
 	--dots-m: 1rem 0 0 0;
 
+	--scrbar-bdrs: 1rem;
+	--scrbar-bg: grey;
+	--scrbar-sz: 0.5rem;
+
+	--scroll-w: 1200px;
+
 	max-width: 100%;
+	padding: var(--gap) 0;
 	position: relative;
 	scroll-behavior: smooth;
 }
@@ -35,6 +38,18 @@ background-image: linear-gradient(to right, rgba(255,255,255,0.8) 0%, transparen
 }
 .c-snp__btn[rel="next"] {
 	position: absolute;
+	right: 0;
+}
+.c-snp__btn[rel="prev"] {
+	position: absolute;
+	left: 0;
+}
+[dir="rtl"] .c-snp__btn[rel="next"] {
+	left: 0;
+	right: auto;
+}
+[dir="rtl"] .c-snp__btn[rel="prev"] {
+	left: auto;
 	right: 0;
 }
 .c-snp__dot {
@@ -49,7 +64,7 @@ background-image: linear-gradient(to right, rgba(255,255,255,0.8) 0%, transparen
 	width: var(--dot-sz);
 }
 .c-snp__dot--current {
-	background-color:var(--dot-bgc--cur);
+	background-color: var(--dot-bgc--cur);
 }
 .c-snp__dots {
 	display: none;
@@ -57,37 +72,54 @@ background-image: linear-gradient(to right, rgba(255,255,255,0.8) 0%, transparen
 	justify-content: center;
 }
 .c-snp__headline {
-	margin-left: var(--gap);
+	margin-inline-start: var(--gap);
+	margin-top: 0;
 }
 .c-snp__item {
 	box-sizing: border-box;
-	margin-left: var(--gap);
+	margin-inline-start: var(--gap);
 	min-width: 80%;
 	position: relative;
-	scroll-margin-left: var(--gap);
+	scroll-margin-inline-start: var(--gap);
 	scroll-snap-align: start;
 	width: 80%;
 }
 .c-snp__item:last-of-type::after {
 	content: "";
 	display: block;
-	border-right: var(--gap) solid transparent;
+	border-inline-end: var(--gap) solid transparent;
 	height: 100%;
 	position: absolute;
 	right: calc(0px - var(--gap));
 	top: 0;
 }
+[dir="rtl"] .c-snp__item:last-of-type {
+	scroll-margin-inline-end: var(--gap);
+}
+[dir="rtl"] .c-snp__item:last-of-type::after {
+	left: calc(0px - var(--gap));
+	right: auto;
+}
 .c-snp__nav {
 	display: none;
 	justify-content: space-between;
+	left: 0;
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
 	width: 100%;
 }
+.c-snp__nav-inner {
+	margin: 0 auto;
+	max-width: var(--scroll-w);
+	position: relative;
+	width: 100%;
+}
 .c-snp__scroller {
 	align-items: center;
 	display: flex;
+	margin: 0 auto;
+	max-width: var(--scroll-w);
 	overflow-x: scroll;
 	overflow-y: hidden;
 	scroll-snap-type: x mandatory;
@@ -97,19 +129,24 @@ background-image: linear-gradient(to right, rgba(255,255,255,0.8) 0%, transparen
 @media screen and (min-width: 800px) {
 	.c-snp {
 		--gap: var(--gap-desktop);
-		margin: 0 var(--gap);
+		padding: var(--gap);
 	}
 	.c-snp__dots {
 		display: flex;
 	}
+	.c-snp__dots[hidden] {
+		display: none;
+	}
 	.c-snp__headline {
-		margin-left: 0;
+		margin-inline-end: auto;
+		margin-inline-start: auto;
+		max-width: var(--scroll-w);
 	}
 	.c-snp__item {
-		scroll-margin-left: 0;
+		scroll-margin-inline-start: 0;
 	}
 	.c-snp__item:first-of-type {
-		margin-left: 0;
+		margin-inline-start: 0;
 	}
 	.c-snp__item:last-of-type::after {
 		display: none;
@@ -117,46 +154,61 @@ background-image: linear-gradient(to right, rgba(255,255,255,0.8) 0%, transparen
 	.c-snp__nav {
 		display: flex;
 	}
+
 	.c-snp__scroller {
+		padding-bottom: var(--gap);
+	}
+	.c-snp__scroller--overflow {
 		overflow: hidden;
+		padding-bottom: 0;
+	}
+	.c-snp__scroller::-webkit-scrollbar {
+		width: var(--scrbar-sz);
+		height: var(--scrbar-sz);
+	}
+	.c-snp__scroller::-webkit-scrollbar-track {
+		-webkit-border-radius: var(--scrbar-bdrs);
+		border-radius: var(--scrbar-bdrs);
+	}
+	.c-snp__scroller::-webkit-scrollbar-thumb {
+		-webkit-border-radius: var(--scrbar-bdrs);
+		border-radius: var(--scrbar-bdrs);
+		background: var(--scrbar-bg);
+	}
+	.c-snp__scroller::-webkit-scrollbar-thumb:window-inactive {
+		background: var(--scrbar-bg); 
 	}
 
-	[data-items-per-page="2"] .c-snp__item {
+	[data-items-per-page=":2"] .c-snp__item {
 		min-width: calc(50% - (var(--gap) / 2));
 		width: calc(50% - (var(--gap) / 2));
 	}
-	[data-items-per-page="3"] .c-snp__item {
+	[data-items-per-page=":3"] .c-snp__item {
 		min-width: calc((100% / 3) - (var(--gap) / (3/2)));
 		width: calc((100% / 3) - (var(--gap) / (3/2)));
 	}
-	[data-items-per-page="4"] .c-snp__item {
+	[data-items-per-page=":4"] .c-snp__item {
 		min-width: calc(25% - (var(--gap) / (4/3)));
 		width: calc(25% - (var(--gap) / (4/3)));
 	}
 	[data-items-per-page] .c-snp__item:nth-child(1n+2) {
-		margin-left: var(--gap);
+		margin-inline-start: var(--gap);
 	}
 
 	/* Align Center: Preview of previous and next items. This only works with odd numbers, like 1 and 3 */
 	[data-align="center"] .c-snp__item {
 		scroll-snap-align: center;
 	}
-	[data-align="center"][data-items-per-page="3"] .c-snp__item {
+	[data-align="center"][data-items-per-page=":3"] .c-snp__item {
 		min-width: 27.5%;
 		width: 27.5%;
 	}
-
-	/* Handle overlays, only for version with data-align="center" and data-items-per-page="3" */
-	[data-align="center"][data-page="1"][data-items-per-page="3"] .c-snp__item:nth-child(4n-4),
-	[data-align="center"][data-page="2"][data-items-per-page="3"] .c-snp__item:nth-child(4n+3),
-	[data-align="center"][data-page="3"][data-items-per-page="3"] .c-snp__item:nth-child(4n+2),
-	[data-align="center"][data-page="4"][data-items-per-page="3"] .c-snp__item:nth-child(4n+1),
-	[data-align="center"][data-page="5"][data-items-per-page="3"] .c-snp__item:nth-child(4n+0),
-	[data-align="center"][data-page="6"][data-items-per-page="3"] .c-snp__item:nth-child(4n+3),
-	[data-align="center"][data-page="7"][data-items-per-page="3"] .c-snp__item:nth-child(4n+0) {
+	.c-snp__item.c-snp__item--left {
+		background-color: green;
 		opacity: 0.3;
 	}
-	[data-align="center"][data-items-per-page="3"] .c-snp__item:nth-last-of-type() {
+	.c-snp__item.c-snp__item--right {
+		background-color: tomato;
 		opacity: 0.3;
 	}
 }
