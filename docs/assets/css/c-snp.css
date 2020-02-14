@@ -39,8 +39,8 @@
 	right: 0;
 }
 .c-snp__btn[rel="prev"] {
-	position: absolute;
 	left: 0;
+	position: absolute;
 }
 [dir="rtl"] .c-snp__btn[rel="next"] {
 	left: 0;
@@ -59,17 +59,20 @@
 	height: var(--snp-dot-sz);
 	margin: var(--snp-dot-m);
 	padding: 0;
+	transition: .3s ease, background-color 0.3s ease;
 	width: var(--snp-dot-sz);
 }
 .c-snp__dot--current {
 	background-color: var(--snp-dot-bgc--cur);
+	transform: scale(1.5);
 }
 .c-snp__dots {
 	display: none;
-	margin: var(--snp-dots-m);
 	justify-content: center;
+	margin: var(--snp-dots-m);
 }
 .c-snp__headline {
+	margin-inline-end: var(--snp-gap);
 	margin-inline-start: var(--snp-gap);
 	margin-top: 0;
 }
@@ -83,9 +86,9 @@
 	width: 80%;
 }
 .c-snp__item:last-of-type::after {
+	border-inline-end: var(--snp-gap) solid transparent;
 	content: "";
 	display: block;
-	border-inline-end: var(--snp-gap) solid transparent;
 	height: 100%;
 	position: absolute;
 	right: calc(0px - var(--snp-gap));
@@ -124,6 +127,26 @@
 	scroll-snap-type: x mandatory;
 }
 
+/* Modifiers */
+
+/* Stack items instead of `overflow: scroll` */
+.c-snp[data-stack] {
+	padding-bottom: 0;
+}
+[data-stack] .c-snp__scroller {
+	flex-wrap: wrap;
+	overflow-x: hidden;
+	padding-bottom: 0;
+}
+[data-stack] .c-snp__item {
+	margin-bottom: var(--snp-gap);
+	width: calc(100% - (var(--snp-gap) * 2));
+}
+/* Sub-modifier: Glue 2 items together, only works with 2 items per page */
+[data-stack="no-gap"][data-items-per-page=":2"] .c-snp__item:first-of-type {
+	margin-bottom: 0;
+}
+
 /* Desktop */
 @media screen and (min-width: 800px) {
 	.c-snp {
@@ -153,30 +176,33 @@
 	.c-snp__nav {
 		display: flex;
 	}
-
 	.c-snp__scroller {
 		padding-bottom: var(--snp-gap);
+		scrollbar-color: var(--snp-scrbar-bg) transparent;
+		scrollbar-width: thin;
 	}
 	.c-snp__scroller--overflow {
 		overflow: hidden;
 		padding-bottom: 0;
 	}
 	.c-snp__scroller::-webkit-scrollbar {
-		width: var(--snp-scrbar-sz);
 		height: var(--snp-scrbar-sz);
+		width: var(--snp-scrbar-sz);
 	}
 	.c-snp__scroller::-webkit-scrollbar-track {
 		-webkit-border-radius: var(--snp-scrbar-bdrs);
 		border-radius: var(--snp-scrbar-bdrs);
 	}
 	.c-snp__scroller::-webkit-scrollbar-thumb {
+		background: var(--snp-scrbar-bg);
 		-webkit-border-radius: var(--snp-scrbar-bdrs);
 		border-radius: var(--snp-scrbar-bdrs);
-		background: var(--snp-scrbar-bg);
 	}
 	.c-snp__scroller::-webkit-scrollbar-thumb:window-inactive {
 		background: var(--snp-scrbar-bg); 
 	}
+
+	/* Modifiers */
 
 	[data-items-per-page=":2"] .c-snp__item {
 		min-width: calc(50% - (var(--snp-gap) / 2));
@@ -194,7 +220,8 @@
 		margin-inline-start: var(--snp-gap);
 	}
 
-	/* Align Center: Preview of previous and next items. This only works with odd numbers, like 1 and 3 */
+	/* Align Center: Shows snippets/previews of previous and next items. 
+	This only works with odd numbers, like 1, 3 and 5 */
 	[data-align="center"] .c-snp__item {
 		scroll-snap-align: center;
 	}
@@ -203,11 +230,32 @@
 		width: 27.5%;
 	}
 	.c-snp__item.c-snp__item--left {
-		background-color: green;
+		background-color: green; /* DEMO */
 		opacity: 0.3;
 	}
 	.c-snp__item.c-snp__item--right {
-		background-color: tomato;
+		background-color: tomato; /* DEMO */
 		opacity: 0.3;
+	}
+
+	/* Stack items instead of `overflow: scroll` */
+	[data-stack][data-items-per-page=":2"] .c-snp__item:nth-of-type(3n) {
+		margin-inline-start: 0;
+	}
+	[data-stack][data-items-per-page=":3"] .c-snp__item:nth-of-type(4n) {
+		margin-inline-start: 0;
+	}
+	[data-stack][data-items-per-page=":4"] .c-snp__item:nth-of-type(5n) {
+		margin-inline-start: 0;
+	}
+	/* Sub-modifier: Glue 2 items together, only works with 2 items per page */
+	[data-stack="no-gap"][data-items-per-page=":2"] .c-snp__item {
+		width: 50%;
+	}
+	[data-stack="no-gap"][data-items-per-page=":2"] .c-snp__item:first-of-type {
+		margin-bottom: var(--snp-gap);
+	}
+	[data-stack="no-gap"][data-items-per-page=":2"] .c-snp__item:last-of-type {
+		margin-inline-start: 0;
 	}
 }
