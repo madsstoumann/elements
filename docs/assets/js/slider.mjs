@@ -2,8 +2,8 @@
  * Slider module.
  * @module /assets/js/slider
  * @requires /assets/js/common
- * @version 1.0.14
- * @summary 12-02-2020
+ * @version 1.0.15
+ * @summary 15-02-2020
  * @description Content-slider
  * @example
  * <section data-js="slider">
@@ -47,6 +47,7 @@ export default class Slider {
 		/* Get text-direction */
 		this.dir = this.slider.dir || document.dir || 'ltr';
 		this.isChrome = window.navigator.userAgent.indexOf("Chrome") > -1;
+		this.isTouch = ('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
 
 		/* Create elements */
 		this.elements = {
@@ -79,7 +80,9 @@ export default class Slider {
 		this.slider.insertBefore(this.elements.nav, this.elements.scroller);
 		this.slider.appendChild(this.elements.dots);
 		this.slider.refreshSlider = this.refreshSlider.bind(this);
-		this.elements.scroller.classList.add(this.settings.clsOverflow);
+		if (!this.isTouch) {
+			this.elements.scroller.classList.add(this.settings.clsOverflow);
+		}
 		this.refreshSlider();
 
 		/* Set aria-attributes */
@@ -90,6 +93,19 @@ export default class Slider {
 			slide.setAttribute('aria-roledescription', this.settings.lblItemRole);
 			slide.setAttribute('role', 'group');
 		});
+
+		/* Breakpoints */
+		const len = this.settings.breakpoints.length;
+		if (len) {
+			this.breakpoints = [];
+			this.settings.breakpoints.forEach((item, index) => {
+				const [breakpoint, itemsPerPage] = item.toString().split('.');
+				const max = index === len-1 ? screen.width : Math.floor(this.settings.breakpoints[index + 1]) - 1;
+				const mediaQuery = window.matchMedia(`(min-width: ${breakpoint}px) and (max-width: ${max}px)`);
+				mediaQuery.addListener(this.updateItemsPerPage.bind(this, itemsPerPage-0))
+				this.breakpoints.push(mediaQuery);
+			});
+		}
 	}
 
 	/**
@@ -208,5 +224,20 @@ export default class Slider {
 		const hide = this.state.itemLen <= this.settings.itemsPerPage;
 		this.elements.dots.hidden = hide;
 		this.elements.nav.hidden = hide;
+	}
+
+/**
+	 * @function updateItemsPerPage
+	 * @description Updates items per page on matchMedia-match
+	 */
+	updateItemsPerPage(itemsPerPage) {
+		this.breakpoints.forEach((breakpoint) => {
+			if (breakpoint.matches) {
+				this.settings.itemsPerPage = itemsPerPage;
+				this.refreshSlider();
+				// eslint-disable-next-line
+				console.log(itemsPerPage);
+			}
+		});
 	}
 }

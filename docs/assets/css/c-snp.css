@@ -1,7 +1,7 @@
 /**
  * c-snp.css
- * @version 1.0.14
- * @summary 12-02-2020
+ * @version 1.0.15
+ * @summary 15-02-2020
  * @author Mads Stoumann
  * @description Stylesheet for Snap Scroll Section
 	Variables are concatinated from: 
@@ -36,19 +36,19 @@
 }
 .c-snp__btn[rel="next"] {
 	position: absolute;
-	right: 0;
+	right: var(--snp-gap);
 }
 .c-snp__btn[rel="prev"] {
-	left: 0;
+	left: var(--snp-gap);
 	position: absolute;
 }
 [dir="rtl"] .c-snp__btn[rel="next"] {
-	left: 0;
+	left: var(--snp-gap);
 	right: auto;
 }
 [dir="rtl"] .c-snp__btn[rel="prev"] {
 	left: auto;
-	right: 0;
+	right: var(--snp-gap);
 }
 .c-snp__dot {
 	background-color: var(--snp-dot-bgc);
@@ -148,7 +148,7 @@
 }
 
 /* Desktop */
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 768px) {
 	.c-snp {
 		--snp-gap: var(--snp-gap-desktop);
 		padding: var(--snp-gap);
@@ -258,4 +258,9 @@
 	[data-stack="no-gap"][data-items-per-page=":2"] .c-snp__item:last-of-type {
 		margin-inline-start: 0;
 	}
+}
+
+/* TODO Touch */
+@media (hover: none) and (pointer: coarse) {
+	/* ... */
 }
