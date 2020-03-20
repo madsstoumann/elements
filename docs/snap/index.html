@@ -5,18 +5,18 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<link href="../assets/css/demo.css" rel="stylesheet">
-	<link href="../assets/css/c-snp.css" rel="stylesheet">
+	<link href="../assets/css/c-sec.css" rel="stylesheet">
 
 	<style>
 		/* Demo Styles */
 		body {
 			margin: 0;
 		}
-		.c-snp:nth-of-type(odd) {
+		.c-sec:nth-of-type(odd) {
 			background-color: #CCC;
 			color: #222;
 		}
-		.c-snp__item {
+		.c-sec__item {
 			background-color: deepskyblue;
 			border-radius: 10px;
 			color: #FFF;
@@ -31,195 +31,202 @@
 
 	<!-- https://www.w3.org/TR/wai-aria-practices/examples/carousel/carousel-1.html -->
 
-	<section class="c-snp"
+	<section class="c-sec c-sec__dot--line "
 		data-align="center"
 		data-items-per-page=":3"
-		data-section-type="slider"
-		data-section-width="medium"
-		data-js="slider">
-		<h2 class="c-snp__headline">Preview of next and previous, 3 items per page</h2>
-		<div class="c-snp__scroller" data-scroller>
-			<div class="c-snp__item">1</div>
-			<div class="c-snp__item">2</div>
-			<div class="c-snp__item">3</div>
-			<div class="c-snp__item">4</div>
-			<div class="c-snp__item">5</div>
-			<div class="c-snp__item">6</div>
-			<div class="c-snp__item">7</div>
-			<div class="c-snp__item">8</div>
-			<div class="c-snp__item">9</div>
-			<div class="c-snp__item">10</div>
-			<div class="c-snp__item">11</div>
-			<div class="c-snp__item">12</div>
-			<div class="c-snp__item">13</div>
-			<div class="c-snp__item">14</div>
-			<div class="c-snp__item">15</div>
-			<div class="c-snp__item">16</div>
-			<div class="c-snp__item">17</div>
-			<div class="c-snp__item">18</div>
-			<div class="c-snp__item">19</div>
-			<div class="c-snp__item">20</div>
+		data-section-type="slider">
+		<h2 class="c-sec__headline">Preview: 3 items per page</h2>
+		<p class="c-sec__description">
+			Shows a preview of the previous and the next item in the section, centers items after first page. 
+			Using the attributes <code>data-align="center"</code>, <code>data-items-per-page=":3"</code>, and <code>data-section-type="slider"</code></p>
+		<div class="c-sec__scroller" data-scroller>
+			<div class="c-sec__item">1</div>
+			<div class="c-sec__item">2</div>
+			<div class="c-sec__item">3</div>
+			<div class="c-sec__item">4</div>
+			<div class="c-sec__item">5</div>
+			<div class="c-sec__item">6</div>
+			<div class="c-sec__item">7</div>
+			<div class="c-sec__item">8</div>
+			<div class="c-sec__item">9</div>
+			<div class="c-sec__item">10</div>
+			<div class="c-sec__item">11</div>
+			<div class="c-sec__item">12</div>
+			<div class="c-sec__item">13</div>
+			<div class="c-sec__item">14</div>
+			<div class="c-sec__item">15</div>
+			<div class="c-sec__item">16</div>
+			<div class="c-sec__item">17</div>
+			<div class="c-sec__item">18</div>
+			<div class="c-sec__item">19</div>
+			<div class="c-sec__item">20</div>
 		</div>
 	</section>
 
-	<section class="c-snp"
+	<section class="c-sec"
 		data-align="center"
 		data-items-per-page=":1"
-		data-js="slider">
-		<h2 class="c-snp__headline">Preview of next and previous, 1 item per page</h2>
-		<div class="c-snp__scroller" data-scroller>
-			<div class="c-snp__item">1</div>
-			<div class="c-snp__item">2</div>
-			<div class="c-snp__item">3</div>
-			<div class="c-snp__item">4</div>
-			<div class="c-snp__item">5</div>
-			<div class="c-snp__item">6</div>
-			<div class="c-snp__item">7</div>
-			<div class="c-snp__item">8</div>
-			<div class="c-snp__item">9</div>
-			<div class="c-snp__item">10</div>
-			<div class="c-snp__item">11</div>
-			<div class="c-snp__item">12</div>
-			<div class="c-snp__item">13</div>
-			<div class="c-snp__item">14</div>
-			<div class="c-snp__item">15</div>
-			<div class="c-snp__item">16</div>
-			<div class="c-snp__item">17</div>
-			<div class="c-snp__item">18</div>
-			<div class="c-snp__item">19</div>
-			<div class="c-snp__item">20</div>
+		data-section-type="slider"
+		data-section-width="medium">
+		<h2 class="c-sec__headline">Preview of next and previous, 1 item per page</h2>
+		<p class="c-sec__description">
+			Using <code>data-section-width="medium"</code>
+		</p>
+		<div class="c-sec__scroller" data-scroller>
+			<div class="c-sec__item">1</div>
+			<div class="c-sec__item">2</div>
+			<div class="c-sec__item">3</div>
+			<div class="c-sec__item">4</div>
+			<div class="c-sec__item">5</div>
+			<div class="c-sec__item">6</div>
+			<div class="c-sec__item">7</div>
+			<div class="c-sec__item">8</div>
+			<div class="c-sec__item">9</div>
+			<div class="c-sec__item">10</div>
+			<div class="c-sec__item">11</div>
+			<div class="c-sec__item">12</div>
+			<div class="c-sec__item">13</div>
+			<div class="c-sec__item">14</div>
+			<div class="c-sec__item">15</div>
+			<div class="c-sec__item">16</div>
+			<div class="c-sec__item">17</div>
+			<div class="c-sec__item">18</div>
+			<div class="c-sec__item">19</div>
+			<div class="c-sec__item">20</div>
 		</div>
 	</section>
 
-	<section class="c-snp"
+	<section class="c-sec"
 		data-breakpoints=":[0.1,768.2,1000.3,1200.4]"
-		data-js="slider">
-		<h2 class="c-snp__headline">Section with custom breakpoints</h2>
-		<div class="c-snp__scroller" data-scroller>
-			<div class="c-snp__item">1</div>
-			<div class="c-snp__item">2</div>
-			<div class="c-snp__item">3</div>
-			<div class="c-snp__item">4</div>
-			<div class="c-snp__item">5</div>
-			<div class="c-snp__item">6</div>
-			<div class="c-snp__item">7</div>
-			<div class="c-snp__item">8</div>
-			<div class="c-snp__item">9</div>
-			<div class="c-snp__item">10</div>
-			<div class="c-snp__item">11</div>
-			<div class="c-snp__item">12</div>
-			<div class="c-snp__item">13</div>
-			<div class="c-snp__item">14</div>
-			<div class="c-snp__item">15</div>
-			<div class="c-snp__item">16</div>
-			<div class="c-snp__item">17</div>
-			<div class="c-snp__item">18</div>
-			<div class="c-snp__item">19</div>
-			<div class="c-snp__item">20</div>
+		data-section-type="slider">
+		<h2 class="c-sec__headline">Section with custom breakpoints</h2>
+		<p class="c-sec__description">This section will update <code>items-per-page</code> dynamically, based on the value of the <code>data-breakpoints</code>-attribute.</p>
+		<div class="c-sec__scroller" data-scroller>
+			<div class="c-sec__item">1</div>
+			<div class="c-sec__item">2</div>
+			<div class="c-sec__item">3</div>
+			<div class="c-sec__item">4</div>
+			<div class="c-sec__item">5</div>
+			<div class="c-sec__item">6</div>
+			<div class="c-sec__item">7</div>
+			<div class="c-sec__item">8</div>
+			<div class="c-sec__item">9</div>
+			<div class="c-sec__item">10</div>
+			<div class="c-sec__item">11</div>
+			<div class="c-sec__item">12</div>
+			<div class="c-sec__item">13</div>
+			<div class="c-sec__item">14</div>
+			<div class="c-sec__item">15</div>
+			<div class="c-sec__item">16</div>
+			<div class="c-sec__item">17</div>
+			<div class="c-sec__item">18</div>
+			<div class="c-sec__item">19</div>
+			<div class="c-sec__item">20</div>
 		</div>
 	</section>
 
-	<section class="c-snp"
+	<section class="c-sec"
 		data-items-per-page=":3"
-		data-js="slider"
+		data-section-type="slider"
 		data-loop=":true">
-		<h2 class="c-snp__headline">No preview, 3 items per page, continous</h2>
-		<div class="c-snp__scroller" data-scroller>
-			<div class="c-snp__item">1</div>
-			<div class="c-snp__item">2</div>
-			<div class="c-snp__item">3</div>
-			<div class="c-snp__item">4</div>
-			<div class="c-snp__item">5</div>
-			<div class="c-snp__item">6</div>
-			<div class="c-snp__item">7</div>
-			<div class="c-snp__item">8</div>
-			<div class="c-snp__item">9</div>
+		<h2 class="c-sec__headline">No preview, 3 items per page, continous</h2>
+		<div class="c-sec__scroller" data-scroller>
+			<div class="c-sec__item">1</div>
+			<div class="c-sec__item">2</div>
+			<div class="c-sec__item">3</div>
+			<div class="c-sec__item">4</div>
+			<div class="c-sec__item">5</div>
+			<div class="c-sec__item">6</div>
+			<div class="c-sec__item">7</div>
+			<div class="c-sec__item">8</div>
+			<div class="c-sec__item">9</div>
 		</div>
 	</section>
 
-	<section class="c-snp"
+	<section class="c-sec"
 		data-items-per-page=":4"
 		data-js="slider">
-		<h2 class="c-snp__headline">This section will not be a slider on desktop</h2>
-		<div class="c-snp__scroller" data-scroller>
-			<div class="c-snp__item">1</div>
-			<div class="c-snp__item">2</div>
-			<div class="c-snp__item">3</div>
-			<div class="c-snp__item">4</div>
+		<h2 class="c-sec__headline">This section will not be a slider on desktop</h2>
+		<div class="c-sec__scroller" data-scroller>
+			<div class="c-sec__item">1</div>
+			<div class="c-sec__item">2</div>
+			<div class="c-sec__item">3</div>
+			<div class="c-sec__item">4</div>
 		</div>
 	</section>
 
-	<section class="c-snp"
+	<section class="c-sec"
 		data-items-per-page=":3"
-		data-stack="">
-		<h2 class="c-snp__headline">This section will stack</h2>
-		<div class="c-snp__scroller" data-scroller>
-			<div class="c-snp__item">1</div>
-			<div class="c-snp__item">2</div>
-			<div class="c-snp__item">3</div>
-			<div class="c-snp__item">4</div>
-			<div class="c-snp__item">5</div>
+		data-section-type="stack">
+		<h2 class="c-sec__headline">This section will stack</h2>
+		<div class="c-sec__scroller" data-scroller>
+			<div class="c-sec__item">1</div>
+			<div class="c-sec__item">2</div>
+			<div class="c-sec__item">3</div>
+			<div class="c-sec__item">4</div>
+			<div class="c-sec__item">5</div>
 		</div>
 	</section>
 
-	<section class="c-snp"
+	<section class="c-sec"
+		data-item-gap="none"
 		data-items-per-page=":2"
-		data-stack="no-gap">
-		<h2 class="c-snp__headline">These 2 items will stack and "glue" together</h2>
-		<div class="c-snp__scroller" data-scroller>
-			<div class="c-snp__item">1</div>
-			<div class="c-snp__item">2</div>
+		data-section-type="stack">
+		<h2 class="c-sec__headline">These 2 items will stack and "glue" together</h2>
+		<div class="c-sec__scroller" data-scroller>
+			<div class="c-sec__item">1</div>
+			<div class="c-sec__item">2</div>
 		</div>
 	</section>
 
-	<section class="c-snp"
+	<section class="c-sec"
 		data-items-per-page=":3">
-		<h2 class="c-snp__headline">No JavaScript, 3 items per page, scrollbar</h2>
-		<div class="c-snp__scroller" data-scroller>
-			<div class="c-snp__item">1</div>
-			<div class="c-snp__item">2</div>
-			<div class="c-snp__item">3</div>
-			<div class="c-snp__item">4</div>
-			<div class="c-snp__item">5</div>
-			<div class="c-snp__item">6</div>
-			<div class="c-snp__item">7</div>
-			<div class="c-snp__item">8</div>
-			<div class="c-snp__item">9</div>
+		<h2 class="c-sec__headline">No JavaScript, 3 items per page, scrollbar</h2>
+		<div class="c-sec__scroller" data-scroller>
+			<div class="c-sec__item">1</div>
+			<div class="c-sec__item">2</div>
+			<div class="c-sec__item">3</div>
+			<div class="c-sec__item">4</div>
+			<div class="c-sec__item">5</div>
+			<div class="c-sec__item">6</div>
+			<div class="c-sec__item">7</div>
+			<div class="c-sec__item">8</div>
+			<div class="c-sec__item">9</div>
 		</div>
 	</section>
 
-	<section class="c-snp"
+	<section class="c-sec"
 		data-align="center"
 		data-items-per-page=":3"
 		data-js="slider"
 		dir="rtl">
-		<h2 class="c-snp__headline">RTL: Preview of next and previous, 3 items per page</h2>
-		<div class="c-snp__scroller" data-scroller>
-			<div class="c-snp__item">1</div>
-			<div class="c-snp__item">2</div>
-			<div class="c-snp__item">3</div>
-			<div class="c-snp__item">4</div>
-			<div class="c-snp__item">5</div>
-			<div class="c-snp__item">6</div>
-			<div class="c-snp__item">7</div>
-			<div class="c-snp__item">8</div>
-			<div class="c-snp__item">9</div>
-			<div class="c-snp__item">10</div>
-			<div class="c-snp__item">11</div>
-			<div class="c-snp__item">12</div>
-			<div class="c-snp__item">13</div>
-			<div class="c-snp__item">14</div>
-			<div class="c-snp__item">15</div>
-			<div class="c-snp__item">16</div>
-			<div class="c-snp__item">17</div>
-			<div class="c-snp__item">18</div>
-			<div class="c-snp__item">19</div>
-			<div class="c-snp__item">20</div>
+		<h2 class="c-sec__headline">RTL: Preview of next and previous, 3 items per page</h2>
+		<div class="c-sec__scroller" data-scroller>
+			<div class="c-sec__item">1</div>
+			<div class="c-sec__item">2</div>
+			<div class="c-sec__item">3</div>
+			<div class="c-sec__item">4</div>
+			<div class="c-sec__item">5</div>
+			<div class="c-sec__item">6</div>
+			<div class="c-sec__item">7</div>
+			<div class="c-sec__item">8</div>
+			<div class="c-sec__item">9</div>
+			<div class="c-sec__item">10</div>
+			<div class="c-sec__item">11</div>
+			<div class="c-sec__item">12</div>
+			<div class="c-sec__item">13</div>
+			<div class="c-sec__item">14</div>
+			<div class="c-sec__item">15</div>
+			<div class="c-sec__item">16</div>
+			<div class="c-sec__item">17</div>
+			<div class="c-sec__item">18</div>
+			<div class="c-sec__item">19</div>
+			<div class="c-sec__item">20</div>
 		</div>
 	</section>
 
 	<script type="module">
-		const elements = document.querySelectorAll('[data-js*="slider"]');
+		const elements = document.querySelectorAll('[data-section-type="slider"]');
 			if (elements.length) {
 				import('../assets/js/slider.mjs')
 				.then(module => {

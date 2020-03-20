@@ -2,8 +2,8 @@
  * Slider module.
  * @module /assets/js/slider
  * @requires /assets/js/common
- * @version 1.0.15
- * @summary 15-02-2020
+ * @version 1.0.16
+ * @summary 16-02-2020
  * @description Content-slider
  * @example
  * <section data-js="slider">
@@ -16,16 +16,16 @@ export default class Slider {
 		this.settings = Object.assign({
 			align: '',
 			breakpoints: [],
-			clsBtnNext: 'c-snp__btn',
-			clsBtnPrev: 'c-snp__btn',
-			clsDot: 'c-snp__dot',
-			clsDotCur: 'c-snp__dot--current',
-			clsDotWrap: 'c-snp__dots',
-			clsItemLeft: 'c-snp__item--left',
-			clsItemRight: 'c-snp__item--right',
-			clsNav: 'c-snp__nav',
-			clsNavInner: 'c-snp__nav-inner',
-			clsOverflow: 'c-snp__scroller--overflow',
+			clsBtnNext: 'c-sec__btn',
+			clsBtnPrev: 'c-sec__btn',
+			clsDot: 'c-sec__dot',
+			clsDotCur: 'c-sec__dot--current',
+			clsDotWrap: 'c-sec__dots',
+			clsItemLeft: 'c-sec__item--left',
+			clsItemRight: 'c-sec__item--right',
+			clsNav: 'c-sec__nav',
+			clsNavInner: 'c-sec__nav-inner',
+			clsOverflow: 'c-sec__scroller--overflow',
 			itemsPerPage: 3,
 			lblItemRole: 'slide',
 			lblNext: 'Next',
@@ -80,9 +80,11 @@ export default class Slider {
 		this.slider.insertBefore(this.elements.nav, this.elements.scroller);
 		this.slider.appendChild(this.elements.dots);
 		this.slider.refreshSlider = this.refreshSlider.bind(this);
+
 		if (!this.isTouch) {
 			this.elements.scroller.classList.add(this.settings.clsOverflow);
 		}
+
 		this.refreshSlider();
 
 		/* Set aria-attributes */
@@ -94,6 +96,38 @@ export default class Slider {
 			slide.setAttribute('role', 'group');
 		});
 
+		/* Intersection Observer */
+		// let IO = new IntersectionObserver((entries) => { 
+		// 	entries.forEach(entry => {
+		// 		if (entry.intersectionRatio > 0 && entry.intersectionRatio < 0.5) {
+		// 			console.log(entry.target)
+		// 		}
+		// 		if (entry.intersectionRatio >= 0.8) {
+		// 			const page = Math.ceil(parseInt(entry.target.dataset.item, 10) / this.settings.itemsPerPage);
+		// 			if (page !== this.state.page) {
+		// 				this.state.page = page;
+		// 				this.slider.dataset.page = this.state.page;
+
+						
+					
+		// 				this.dots.forEach((dot, index) => {
+		// 					dot.classList.toggle(this.settings.clsDotCur, index + 1 === this.state.page);
+		// 				});
+		// 				console.log(this.state.page);
+		// 			}
+		// 		}
+		// 	});
+		// }, {
+		// 	root: this.elements.scroller,
+		// 	rootMargin: '0px',
+		// 	threshold: 0.8
+		// });
+
+		// this.state.items.forEach((item, index) => {
+		// 	item.dataset.item = index + 1;
+		// 	IO.observe(item);
+		// });
+
 		/* Breakpoints */
 		const len = this.settings.breakpoints.length;
 		if (len) {
@@ -104,6 +138,7 @@ export default class Slider {
 				const mediaQuery = window.matchMedia(`(min-width: ${breakpoint}px) and (max-width: ${max}px)`);
 				mediaQuery.addListener(this.updateItemsPerPage.bind(this, itemsPerPage-0))
 				this.breakpoints.push(mediaQuery);
+				// this.updateItemsPerPage(itemsPerPage-0);
 			});
 		}
 	}

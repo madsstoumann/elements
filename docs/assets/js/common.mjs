@@ -1,8 +1,8 @@
 /**
  * Common
  * @module common.mjs
- * @version 0.9.00
- * @summary 05-02-2020
+ * @version 0.9.10
+ * @summary 16-03-2020
  * @author Mads Stoumann
  * @description Generic, small helper-functions
  */
@@ -78,6 +78,28 @@ export function focusable(element) {
 }
 
 /**
+ * @function getCustomProp
+ * @param {Node} element
+ * @param {String} prop
+ * @param {String} castAs
+ * @description Returns a CSS Custom property
+ * @returns String
+ */
+export function getCustomProp(element = document.documentElement, prop, castAs = 'string') {
+	let response = getComputedStyle(element).getPropertyValue(prop);
+	switch (castAs) {
+		case 'number':
+			return parseInt(response, 10);
+		case 'float':
+			return parseFloat(response, 10);
+		case 'boolean':
+			return response === 'true' || response === '1';
+		default: break;
+	}
+	return response.trim();
+}
+
+/**
  * @function h
  * @param {String} type
  * @param {Array | Object} attributes
@@ -100,6 +122,15 @@ export function h(type, attributes, children = []) {
 		});
 	}
 	return element;
+}
+
+/**
+ * @function isIOS
+ * @description Detects iOS
+ * @returns Boolean
+ */
+export function isIOS() {
+	return navigator.userAgent.match(/ipad|iphone/i);
 }
 
 /**
@@ -176,6 +207,7 @@ export function selectAll(element) {
 	const selection = window.getSelection();
 	selection.removeAllRanges();
 	selection.addRange(range);
+	element.setSelectionRange(0, 999999);
 }
 
 	/**
