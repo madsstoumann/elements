@@ -2,8 +2,8 @@
  * ColorPicker module.
  * @module /assets/js/colorpicker
  * @requires /assets/js/common
- * @version 0.0.7
- * @summary 19-03-2020
+ * @version 0.1.4
+ * @summary 26-03-2020
  * @description Color Picker
  * @example
  * <section data-js="colorpicker">
@@ -15,18 +15,32 @@ import { stringToType } from './common.mjs';
 export default class ColorPicker {
 	constructor(element, settings) {
 		this.settings = Object.assign({
-			clsColor: 'cp__color',
-			clsColorGroup: 'cp__color-group',
-			clsColorGroupHeadline: 'cp__color-group-headline',
 			eventAddColor: 'eventAddColor',
+			eventDelColor: 'eventDelColor',
+			gradient: {
+				angle: 90, 
+				stops: [],
+				type: 'linear-gradient'
+			},
+			lblAddStop: 'Add current color',
 			lblAddToSwatches: 'Add to swatches',
 			lblAlpha: 'Alpha',
+			lblAngle: 'Angle',
 			lblBrightness: 'Brightness',
+			lblColorDelete: '✕',
+			lblColorDeleteQuery: 'Delete color-stop?',
+			lblColorHint: 'Color/Hint',
+			lblColorStop: 'Stop',
+			lblGradient: 'Gradient',
+			lblGradientType: 'Gradient type',
 			lblHue: 'Hue',
 			lblLightness: 'Lightness',
+			lblOverwrite: 'Overwrite existing swatch?',
 			lblSaturation: 'Saturation',
+			lblSolid: 'Solid',
+			lblSwatchName: 'Swatch name',
 			lblSwatches: 'Swatches',
-			groups: [
+			libraries: [
 				{
 					name: 'Generated Colors',
 					open: true,
@@ -83,20 +97,31 @@ export default class ColorPicker {
 					]
 				}
 			],
+			storageKey: 'color-picker',
 			swatches: {
 				name: 'Swatches',
 				open: true,
-				values: [
-					{ 
-						name: 'Primary',
-						value: 'crimson'
-					}
-				]
+				values: []
 			},
+			useLocalStorage: true
 		}, stringToType(settings));
 
 		this.app = element;
 		this.initColorPicker();
+	}
+
+		/**
+	* @function addStop
+	* @description Adds a color-stop to a gradient
+	*/
+	addStop() {
+		const rgb = this.getBGC(this.elements.selected);
+		this.settings.gradient.stops.push({
+			color: rgb,
+			stop: ''
+		});
+		this.elements.colorStops.innerHTML = this.templateColorStops();
+		this.renderGradient();
 	}
 
 	/**
@@ -104,37 +129,92 @@ export default class ColorPicker {
 	* @description Adds a swatch to Custom Swatches
 	*/
 	addSwatch() {
-		/* TODO: WIP */
-		const color = {
-			// eslint-disable-next-line no-alert
-			name: window.prompt('Name'),
-			value: this.elements.hex.value
+		if (this.elements.swatchName.value) {
+			const key = this.elements.swatchName.value.replace(' ', "-").toLowerCase();
+			const isGradient = this.elements.colorGradient.checked && this.settings.gradient.stops.length > 0;
+			const swatchIndex = this.findSwatch(key);
+			const value = isGradient ? this.setGradient() : this.elements.hex.value;
+
+			this.elements.swatchName.value = key;
+			const color = {
+				name: key,
+				object: isGradient ? this.settings.gradient : '',
+				value: value
+			}
+
+			if (swatchIndex > -1) {
+				// eslint-disable-next-line no-alert
+				if (!window.confirm(this.settings.lblOverwrite)) {
+					return;
+				}
+				this.settings.swatches.values.splice(swatchIndex, 1, color);
+			}
+			else {
+				this.settings.swatches.values.push(color);
+			}
+			this.app.dispatchEvent(new CustomEvent(this.settings.eventAddColor, { detail: JSON.stringify(color) }));
+			this.renderSwatches();
+
+			if (this.settings.useLocalStorage) {
+				window.localStorage.setItem(this.settings.storageKey, JSON.stringify(this.settings.swatches.values));
+			}
 		}
-		this.settings.swatches.values.push(color);
-		this.app.dispatchEvent(new CustomEvent(this.settings.eventAddColor, { detail: JSON.stringify(color) }));
-		this.elements.swatches.innerHTML = this.templateColorSubGroup(this.settings.swatches.values);
 	}
 
 	/**
 	* @function copySwatch
-	* @param {Event} event
 	* @description Copies a swatch-color-string to the clipboard
 	*/
 	copySwatch(element) {
-		const rgb = this.getBGC(element);
-		this.elements.clipboard.value = rgb2hex(rgb);
+		if (element === this.elements.selected) { 
+			const rgb = this.getBGC(this.elements.selected);
+			this.elements.clipboard.value = rgb2hex(rgb);
+		}
+		else {
+			this.elements.clipboard.value = this.setGradient();
+		}
 		this.elements.clipboard.select();
 		document.execCommand('copy');
 	}
 
 	/**
-	* @function editSwatch
+	* @function deleteStop
 	* @param {Node} element
-	* @description Edits a color-swatch
+	* @description Delete a color-stop from gradient
 	*/
-	editSwatch(element) {
-		// eslint-disable-next-line
-		console.log(element);
+	deleteStop(element) {
+		const index = parseInt(element.dataset.index, 10);
+		this.settings.gradient.stops.splice(index, 1);
+		this.elements.colorStops.innerHTML = this.templateColorStops();
+		this.renderGradient();
+	}
+
+	/**
+	* @function deleteSwatch
+	* @param {Node} element
+	* @description Delete a color-swatch
+	*/
+	deleteSwatch(element) {
+		const swatchIndex = this.findSwatch(element.dataset.swatchKey);
+		if (swatchIndex > -1) {
+			const color = this.settings.swatches.values[swatchIndex];
+			this.settings.swatches.values.splice(swatchIndex, 1);
+			this.app.dispatchEvent(new CustomEvent(this.settings.eventDelColor, { detail: JSON.stringify(color) }));
+			this.renderSwatches();
+
+			if (this.settings.useLocalStorage) {
+				window.localStorage.setItem(this.settings.storageKey, JSON.stringify(this.settings.swatches.values));
+			}
+		}
+	}
+
+	/**
+	* @function findSwatch
+	* @param {String} key
+	* @description Look up a swatch in swatches-collection, return index in array
+	*/
+	findSwatch(key) {
+		return this.settings.swatches.values.findIndex(obj => { return obj.name === key });
 	}
 
 	/**
@@ -146,6 +226,30 @@ export default class ColorPicker {
 		return window.getComputedStyle(element).getPropertyValue('background-color');
 	}
 
+		/**
+	* @function handleClick
+	* @param {Event} event
+	* @description Handle main form clicks.
+	*/
+	handleClick(event) {
+		const element = event.target;
+		if (element.tagName === 'BUTTON' && element.dataset.elm) {
+			switch(element.dataset.elm) {
+				case 'add':
+					this.addSwatch();
+					break;
+				case 'addStop':
+					this.addStop();
+					break;
+				case 'gradientStopDelete': {
+					this.deleteStop(element);
+					break;
+				}
+				default: break;
+			}
+		}
+	}
+
 	/**
 	* @function handleInput
 	* @param {Event} event
@@ -153,6 +257,7 @@ export default class ColorPicker {
 	*/
 	handleInput(event) {
 		const element = event.target;
+		let index = 0;
 		/* If range-slider, set related CSS Custom prop */
 		if (element.type === 'range') {
 			this.elements.picker.style.setProperty(`--${element.dataset.elm}`,`${element.value}${element.dataset.suffix || ''}`);
@@ -164,6 +269,24 @@ export default class ColorPicker {
 			let updateRGB = true;
 
 			switch(element.dataset.elm) {
+				case 'gradientAngle':
+					this.settings.gradient.angle = element.value;
+					this.renderGradient();
+					return;
+				case 'gradientStop':
+					index = parseInt(element.dataset.index, 10);
+					this.settings.gradient.stops[index].stop = element.value || '';
+					this.renderGradient();
+					return;
+				case 'gradientStopColor':
+					index = parseInt(element.dataset.index, 10);
+					this.settings.gradient.stops[index].color = element.value || '';
+					this.renderGradient();
+					return;
+				case 'gradientType':
+					this.settings.gradient.type = element.value;
+					this.renderGradient();
+					return;
 				case 'hex':
 					this.elements.sample.style.background = element.value;
 					updateHEX = false;
@@ -176,7 +299,10 @@ export default class ColorPicker {
 					this.elements.sample.style.background = `rgba(${this.elements.rgbR.value},${this.elements.rgbG.value},${this.elements.rgbB.value},${this.elements.rgbA.value})`;
 					updateRGB = false;
 					break;
-				default: break;
+				case 'swatchName':
+					this.elements.add.disabled = element.value === '';
+					return;
+				default: return;
 			}
 			this.setColor(this.elements.sample, true, updateHSL, updateRGB, updateHEX);
 		}
@@ -196,11 +322,21 @@ export default class ColorPicker {
 		});
 
 		/* Add eventListeners */
-		this.elements.add.addEventListener('click', () => { this.addSwatch() });
+		this.elements.picker.addEventListener('click', this.handleClick.bind(this));
 		this.elements.picker.addEventListener('input', this.handleInput.bind(this));
 		this.elements.colors.addEventListener('keydown', this.keyDown.bind(this));
 		this.elements.colors.addEventListener('pointerdown', this.pointerDown.bind(this));
 		this.elements.colors.addEventListener('pointerup', this.pointerUp.bind(this));
+		this.elements.gradient.addEventListener('click', (event) => {return this.copySwatch(event.target)});
+		this.elements.selected.addEventListener('click', (event) => {return this.copySwatch(event.target)});
+
+		if (this.settings.useLocalStorage) {
+			const swatches = window.localStorage.getItem(this.settings.storageKey);
+			if (swatches) {
+				this.settings.swatches.values = JSON.parse(swatches || []);
+			}
+			this.renderSwatches();
+		}
 
 		/* Set initial color */
 		this.setColor(this.elements.selected);
@@ -216,7 +352,7 @@ export default class ColorPicker {
 		if (element.tagName === 'BUTTON') {
 			switch (event.key) {
 				case ' ': this.setColor(element); break;
-				case 'e': this.editSwatch(element); break;
+				case 'Delete': this.deleteSwatch(element); break;
 				default: break;
 			}
 		}
@@ -230,10 +366,9 @@ export default class ColorPicker {
 	pointerDown(event) {
 		const element = event.target;
 		if (element.tagName === 'BUTTON') {
-			// this.copySwatch(element);
 			this.setColor(element);
 			if (!this.clickTimer) {
-				this.clickTimer = setTimeout(() => { this.editSwatch(element) }, this.clickTimerDuration);
+				// this.clickTimer = setTimeout(() => { this.deleteSwatch(element) }, this.clickTimerDuration);
 			}
 		}
 	}
@@ -250,6 +385,22 @@ export default class ColorPicker {
 	}
 
 	/**
+	* @function renderGradient
+	* @description Renders/updates gradient preview
+	*/
+	renderGradient() {
+		this.elements.gradient.style.backgroundImage = this.setGradient();
+	}
+
+	/**
+	* @function renderSwatches
+	* @description Renders/updates custom swatches
+	*/
+	renderSwatches() {
+		this.elements.swatches.innerHTML = this.templateColorSubGroup(this.settings.swatches.values);
+	}
+
+	/**
 	* @function setColor
 	* @param {Node} element
 	* @param {Boolean} updateProps If `true`: update CSS Custom Props and range-sliders.value
@@ -259,46 +410,80 @@ export default class ColorPicker {
 	* @description Sets current color from swatch/range or default CSS Custom Props.
 	*/
 	setColor(element, updateProps = true, updateHSL = true, updateRGB = true, updateHEX = true) {
-		const rgb = this.getBGC(element);
-		const [r, g, b, alpha] = rgb2arr(rgb);
-		const [h, s, l] = updateProps ? rgb2hsl(r, g, b) : [this.elements.hue.value, this.elements.saturation.value, this.elements.lightness.value];
-		const a = parseFloat(alpha, 10) || 1;
+		const gradientObj = element.dataset.swatchObj;
+		const key = element.dataset.swatchKey;
+		let swatchName = '';
 
-		if (updateProps) {
-		/* Set CSS Custom Props */
-			this.elements.picker.style.setProperty(`--hue`,`${h}`);
-			this.elements.picker.style.setProperty(`--saturation`,`${s}%`);
-			this.elements.picker.style.setProperty(`--lightness`,`${l}%`);
-			this.elements.picker.style.setProperty(`--alpha`,`${a}`);
+		if (gradientObj) {
+			this.elements.colorGradient.checked = true;
+			this.settings.gradient = JSON.parse(gradientObj);
+			this.elements.colorStops.innerHTML = this.templateColorStops();
+			this.elements.gradientAngle.value = this.settings.gradient.angle;
+			this.elements.gradientType.value = this.settings.gradient.type;
+			this.renderGradient();
+		}
+		else {
+			if (element !== this.elements.selected) {
+				this.elements.colorSolid.checked = true;
+			}
+			const rgb = this.getBGC(element);
+			const [r, g, b, alpha] = rgb2arr(rgb);
+			const [h, s, l] = updateProps ? rgb2hsl(r, g, b) : [this.elements.hue.value, this.elements.saturation.value, this.elements.lightness.value];
+			const a = parseFloat(alpha, 10) || 1;
 
-			/* Set range-sliders */
-			this.elements.hue.value = h;
-			this.elements.saturation.value = s;
-			this.elements.lightness.value = l;
-			this.elements.alpha.value = a;
+			if (updateProps) {
+			/* Set CSS Custom Props */
+				this.elements.picker.style.setProperty(`--hue`,`${h}`);
+				this.elements.picker.style.setProperty(`--saturation`,`${s}%`);
+				this.elements.picker.style.setProperty(`--lightness`,`${l}%`);
+				this.elements.picker.style.setProperty(`--alpha`,`${a}`);
+
+				/* Set range-sliders */
+				this.elements.hue.value = h;
+				this.elements.saturation.value = s;
+				this.elements.lightness.value = l;
+				this.elements.alpha.value = a;
+			}
+
+			/* Set HSL inputs */
+			if (updateHSL) {
+				this.elements.hslH.value = parseInt(h, 10);
+				this.elements.hslS.value = parseInt(s, 10);
+				this.elements.hslL.value = parseInt(l, 10);
+				this.elements.hslA.value = a;
+			}
+
+			/* Set RGB inputs */
+			if (updateRGB) {
+				this.elements.rgbR.value = parseInt(r, 10);
+				this.elements.rgbG.value = parseInt(g, 10);
+				this.elements.rgbB.value = parseInt(b, 10);
+				this.elements.rgbA.value = a;
+			}
+
+			if (updateHEX) {
+				this.elements.hex.value = rgb2hex(rgb);
+			}
+
+			this.elements.luminance.value = brightness(r, g, b) || 0;
 		}
 
-		/* Set HSL inputs */
-		if (updateHSL) {
-			this.elements.hslH.value = parseInt(h, 10);
-			this.elements.hslS.value = parseInt(s, 10);
-			this.elements.hslL.value = parseInt(l, 10);
-			this.elements.hslA.value = a;
+		if (key) {
+			const swatchIndex = this.findSwatch(key);
+			if (swatchIndex > -1) {
+				swatchName = this.settings.swatches.values[swatchIndex].name;
+			}
 		}
+		this.elements.swatchName.value = swatchName;
+	}
 
-		/* Set RGB inputs */
-		if (updateRGB) {
-			this.elements.rgbR.value = parseInt(r, 10);
-			this.elements.rgbG.value = parseInt(g, 10);
-			this.elements.rgbB.value = parseInt(b, 10);
-			this.elements.rgbA.value = a;
-		}
-
-		if (updateHEX) {
-			this.elements.hex.value = rgb2hex(rgb);
-		}
-
-		this.elements.luminance.value = brightness(r, g, b) || 0;
+	
+	/**
+	* @function setGradient
+	* @description Renders gradient from object
+	*/
+	setGradient() {
+		return `${this.settings.gradient.type}(${this.settings.gradient.type.includes('linear') ? `${this.settings.gradient.angle}deg,`: ''}${this.settings.gradient.stops.map(color => { return `${color.color}${color.stop ? ` ${color.stop}`: ''}` }).join(',')})`;
 	}
 
 	/**
@@ -307,54 +492,84 @@ export default class ColorPicker {
 	*/
 	template() {
 		return `
-		<form class="cp__picker" data-elm="picker">
+		<form class="c-clp" data-elm="picker">
 			<label>${this.settings.lblHue}
-				<input type="range" class="c-rng cp__hue" min="0" max="360" value="0" data-elm="hue" />
+				<input type="range" class="c-rng" min="0" max="360" value="0" data-elm="hue" />
 			</label>
 
-			<div class="cp__inner">
-				<div class="cp__ranges">
+			<div class="c-clp__inner">
+				<div class="c-clp__ranges">
+					<div data-elm="selected"></div>
 					<label>${this.settings.lblSaturation}
-						<input type="range"class="c-rng cp__saturation" min="0" max="100" value="100" data-elm="saturation" data-suffix="%" />
+						<input type="range"class="c-rng" min="0" max="100" value="100" data-elm="saturation" data-suffix="%" />
 					</label>
-
 					<label>${this.settings.lblLightness}
-						<input type="range" class="c-rng cp__lightness" min="0" max="100" value="50" data-elm="lightness" data-suffix="%" />
+						<input type="range" class="c-rng" min="0" max="100" value="50" data-elm="lightness" data-suffix="%" />
 					</label>
-		
 					<label>${this.settings.lblAlpha}
-						<input type="range" class="c-rng cp__alpha" min="0" max="1" step="0.01" value="1" data-elm="alpha" />
+						<input type="range" class="c-rng" min="0" max="1" step="0.01" value="1" data-elm="alpha" />
 					</label>
 				</div>
 
-				<div class="cp__inputs">
-					<div class="cp__selected" data-elm="selected"></div>
-					<div class="cp__fieldset">
-						<label class="cp__label"><input type="number" min="0" max="255" size="3" data-elm="rgbR" />R</label>
-						<label class="cp__label"><input type="number" min="0" max="255" size="3" data-elm="rgbG" />G</label>
-						<label class="cp__label"><input type="number" min="0" max="255" size="3" data-elm="rgbB" />B</label>
-						<label class="cp__label"><input type="number" min="0" max="1" step="0.01" size="3" data-elm="rgbA" />A</label>
-					</div>
-					<div class="cp__fieldset">
-						<label class="cp__label"><input type="number" min="0" max="360" size="3" data-elm="hslH" />H</label>
-						<label class="cp__label"><input type="number" min="0" max="100" size="3" data-elm="hslS" />S</label>
-						<label class="cp__label"><input type="number" min="0" max="100" size="3" data-elm="hslL" />L</label>
-						<label class="cp__label"><input type="number" min="0" max="1" step="0.01" size="3" data-elm="hslA" />A</label>
-					</div>
-					<div class="cp__fieldset">
-						<label class="cp__label"><input type="text" data-elm="hex" size="9" data-lpignore="true" />HEX/A</label>
-						<label class="cp__label"><input type="text" data-elm="luminance" size="3" readonly />${this.settings.lblBrightness}</label>
-					</div>
-					<button type="button" data-elm="add">${this.settings.lblAddToSwatches}</button>
+				<div class="c-clp__inputs">
+					<input type="radio" id="cp-solid" name="cp-solid-gradient" class="u-hidden" value="solid" data-elm="colorSolid" checked>
+					<input type="radio" id="cp-gradient" name="cp-solid-gradient" class="u-hidden" value="gradient" data-elm="colorGradient">
 
-					<textarea data-elm="clipboard" tabindex="-1"></textarea>
-					<div data-elm="sample"></div>
+					<div class="c-clp__fieldset">
+						<label class="c-clp__label-group" for="cp-solid">${this.settings.lblSolid}</label>
+						<label class="c-clp__label-group" for="cp-gradient">${this.settings.lblGradient}</label>
+					</div>
+
+					<div class="c-clp__fieldset" data-state="gradient">
+						<div data-elm="gradient"></div>
+						<label class="c-clp__label">	
+							<select data-elm="gradientType">
+								<option value="linear-gradient">linear</option>
+								<option value="repeating-linear-gradient">repeating-linear</option>
+								<option value="radial-gradient">radial</option>
+								<option value="repeating-radial-gradient">repeating-radial</option>
+								<option value="conic-gradient">conic</option>
+							</select>
+							${this.settings.lblGradientType}
+						</label>
+						<label class="c-clp__label"><input type="number" min="0" max="360" size="3" value="90" data-elm="gradientAngle" />${this.settings.lblAngle}</label>
+					</div>
+
+					<div data-state="gradient" data-elm="colorStops"></div>
+
+					<div class="c-clp__fieldset" data-state="gradient">
+						<button type="button" data-elm="addStop">${this.settings.lblAddStop}</button>
+					</div>
+
+					<div class="c-clp__fieldset" data-state="solid">
+						<label class="c-clp__label"><input type="number" min="0" max="255" size="3" data-elm="rgbR" />R</label>
+						<label class="c-clp__label"><input type="number" min="0" max="255" size="3" data-elm="rgbG" />G</label>
+						<label class="c-clp__label"><input type="number" min="0" max="255" size="3" data-elm="rgbB" />B</label>
+						<label class="c-clp__label"><input type="number" min="0" max="1" step="0.01" size="3" data-elm="rgbA" />A</label>
+					</div>
+					<div class="c-clp__fieldset" data-state="solid">
+						<label class="c-clp__label"><input type="number" min="0" max="360" size="3" data-elm="hslH" />H</label>
+						<label class="c-clp__label"><input type="number" min="0" max="100" size="3" data-elm="hslS" />S</label>
+						<label class="c-clp__label"><input type="number" min="0" max="100" size="3" data-elm="hslL" />L</label>
+						<label class="c-clp__label"><input type="number" min="0" max="1" step="0.01" size="3" data-elm="hslA" />A</label>
+					</div>
+					<div class="c-clp__fieldset" data-state="solid">
+						<label class="c-clp__label"><input type="text" data-elm="hex" size="9" data-lpignore="true" />HEX/A</label>
+						<label class="c-clp__label"><input type="text" data-elm="luminance" size="3" readonly />${this.settings.lblBrightness}</label>
+					</div>
+					<div class="c-clp__fieldset">
+						<label class="c-clp__label"><input type="text" data-elm="swatchName" data-lpignore="true" size="15" />${this.settings.lblSwatchName}</label>
+					</div>
+					<button type="button" data-elm="add" disabled>${this.settings.lblAddToSwatches}</button>
+
+					<label><textarea class="u-hidden" data-elm="clipboard" tabindex="-1" aria-hidden="true"></textarea></label>
+					<div class="u-hidden" data-elm="sample"></div>
 				</div>
 			</div>
 
 			<div data-elm="colors">
 				${this.templateColorGroup(this.settings.swatches, 'swatches')}
-				${this.settings.groups.map(group => { return this.templateColorGroup(group); }).join('')}
+				${this.settings.libraries.map(group => { return this.templateColorGroup(group); }).join('')}
 			</div>
 		</form>`
 	}
@@ -364,9 +579,32 @@ export default class ColorPicker {
 	* @description Renders a single color-swatch
 	*/
 	templateColor(color) {
-		const name = typeof color === 'object' ? color.name : color;
-		const value = typeof color === 'object' ? color.value : color;
-		return `<button type="button" class="${this.settings.clsColor}" style="background:${value}" title="${name}"></button>`;
+		const isSwatch = typeof color === 'object';
+		const name = isSwatch ? color.name : color;
+		const object = isSwatch && color.object ? JSON.stringify(color.object) : '';
+		const value = isSwatch ? color.value : color;
+		return `<button type="button" class="c-clp__color" style="background:${value}" title="${name}" ${isSwatch ? `data-swatch-key="${name}" data-swatch-obj='${object}'` : ''}></button>`;
+	}
+
+	/**
+	* @function templateColorStop
+	* @param {String} color
+	* @param {String} stop
+	* @param {Number} index
+	* @description Renders a single color-stop in a gradient
+	*/	
+	templateColorStop(color, stop = '', index = 0) {
+		return `
+		<div class="c-clp__fieldset">
+			<div class="c-clp__label c-clp__label--5" style="background:${color}"></div>
+			<label class="c-clp__label c-clp__label--55"><input type="text" size="8" value="${color}" data-elm="gradientStopColor" data-index="${index}" />${this.settings.lblColorHint}</label>
+			<label class="c-clp__label c-clp__label--15"><input type="text" size="3" value="${stop}" data-elm="gradientStop" data-index="${index}" />${this.settings.lblColorStop}</label>
+			<label class="c-clp__label c-clp__label--10"><button type="button" data-elm="gradientStopDelete" data-index="${index}" aria-label="${this.settings.lblColorDeleteQuery}">${this.settings.lblColorDelete}</button></label>
+		</div>`
+	}
+
+	templateColorStops() {
+		return this.settings.gradient.stops.map((color, index) => { return this.templateColorStop(color.color, color.stop || '', index)}).join('');
 	}
 
 	/**
@@ -376,13 +614,13 @@ export default class ColorPicker {
 	templateColorGroup(group, panel) {
 		return `
 		<details ${group.open ? 'open': ''}>
-			<summary class="cp__summary"><span>${group.name}</span></summary>
-			<div class="cp__panel" ${panel ? `data-elm="${panel}"`: ''}>
+			<summary class="c-clp__summary"><span>${group.name}</span></summary>
+			<div class="c-clp__panel" ${panel ? `data-elm="${panel}"`: ''}>
 			${group.subgroups ?
 				group.subgroups.map(subgroup => {
 			return `
-				<fieldset class="${this.settings.clsColorGroup}">
-					<legend class="${this.settings.clsColorGroupHeadline}">${subgroup.name}</legend>
+				<fieldset class="c-clp__color-group">
+					<legend class="c-clp__color-group-headline">${subgroup.name}</legend>
 					${this.templateColorSubGroup(subgroup.values)}
 				</fieldset>
 			`}).join('') : this.templateColorSubGroup(group.values)

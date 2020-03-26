@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Font XPlorer</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link rel="icon" href="/docs/favicon.svg" type="image/svg+xml" />
+	<link href="../assets/css/c-fxp.css" rel="stylesheet">
+</head>
+<body>
+	<div data-js="fontxplorer">FONT</div>
+
+	<script type="module">
+		const elements = document.querySelectorAll('[data-js="fontxplorer"]');
+			if (elements.length) {
+				import('../assets/js/fontxplorer.mjs')
+				.then(module => {
+					const jsClass = module.default;
+					elements.forEach(element => {
+						new jsClass(element, element.dataset);
+						element.addEventListener('eventAddFont', (event) => { console.log(JSON.parse(event.detail)); });
+						element.addEventListener('eventDelFont', (event) => { console.warn(JSON.parse(event.detail)); });
+					});
+				})
+			}
+
+			// https://developers.google.com/fonts/docs/css2?hl=da
+
+
+// 		<link href="https://fonts.googleapis.com/css?family=ABeeZee&display=swap" rel="stylesheet">
+
+// 		<style>
+// @import url('https://fonts.googleapis.com/css?family=ABeeZee&display=swap');
+// </style>
+
+// 		font-family: 'ABeeZee', sans-serif;
+	</script>
+</body>
+</html>
