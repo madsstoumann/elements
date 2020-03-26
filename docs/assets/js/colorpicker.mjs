@@ -7,6 +7,7 @@
  * @description Color Picker
  * @example
  * <section data-js="colorpicker">
+ * TODO: Reset gradient / remove name on color-switch, long-click to delete.
  */
 
 import { brightness, rgb2arr, rgb2hex, rgb2hsl } from './colorlib.mjs'

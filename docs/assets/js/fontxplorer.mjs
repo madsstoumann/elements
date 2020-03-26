@@ -48,7 +48,7 @@ export default class FontXplorer {
 				}]
 			},
 			gFontApi: 'https://www.googleapis.com/webfonts/v1/webfonts?key=',
-			gFontKey: 'AIzaSyBm9dHUdBVrd2Oze6-ePTQef039o6aeipQ',
+			gFontKey: '',
 			gFontList: [],
 			gFontVar: [
 				{
