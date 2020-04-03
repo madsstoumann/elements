@@ -33,7 +33,7 @@ export default class ColorPicker {
 			lblColorHint: 'Color/Hint',
 			lblColorStop: 'Stop',
 			lblGradient: 'Gradient',
-			lblGradientReset: 'Reset gradient',
+			lblGradientReset: 'Reset',
 			lblGradientType: 'Gradient type',
 			lblHue: 'Hue',
 			lblLightness: 'Lightness',
@@ -553,7 +553,7 @@ export default class ColorPicker {
 							${this.settings.lblGradientType}
 						</label>
 						<label class="c-clp__label"><input type="number" min="0" max="360" size="3" value="90" data-elm="gradientAngle" />${this.settings.lblAngle}</label>
-						<button type="button" data-elm="gradientReset" aria-label="${this.settings.lblGradientReset}"></button>
+						<button type="button" data-elm="gradientReset">${this.settings.lblGradientReset}</button>
 					</div>
 
 					<div data-state="gradient" data-elm="colorStops"></div>
