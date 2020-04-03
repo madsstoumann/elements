@@ -2,8 +2,8 @@
  * ColorPicker module.
  * @module /assets/js/colorpicker
  * @requires /assets/js/common
- * @version 0.1.4
- * @summary 26-03-2020
+ * @version 0.1.5
+ * @summary 03-04-2020
  * @description Color Picker
  * @example
  * <section data-js="colorpicker">
@@ -33,6 +33,7 @@ export default class ColorPicker {
 			lblColorHint: 'Color/Hint',
 			lblColorStop: 'Stop',
 			lblGradient: 'Gradient',
+			lblGradientReset: 'Reset gradient',
 			lblGradientType: 'Gradient type',
 			lblHue: 'Hue',
 			lblLightness: 'Lightness',
@@ -102,7 +103,13 @@ export default class ColorPicker {
 			swatches: {
 				name: 'Swatches',
 				open: true,
-				values: []
+				values: [
+					{
+						name: 'primary-brand-color',
+						deletable: false,
+						value: '#00C3FF'
+					}
+				]
 			},
 			useLocalStorage: true
 		}, stringToType(settings));
@@ -199,6 +206,7 @@ export default class ColorPicker {
 		const swatchIndex = this.findSwatch(element.dataset.swatchKey);
 		if (swatchIndex > -1) {
 			const color = this.settings.swatches.values[swatchIndex];
+			// TODO if (color.deletable)
 			this.settings.swatches.values.splice(swatchIndex, 1);
 			this.app.dispatchEvent(new CustomEvent(this.settings.eventDelColor, { detail: JSON.stringify(color) }));
 			this.renderSwatches();
@@ -241,6 +249,16 @@ export default class ColorPicker {
 					break;
 				case 'addStop':
 					this.addStop();
+					break;
+				case 'gradientReset':
+					this.settings.gradient = {
+						angle: 90, 
+						stops: [],
+						type: 'linear-gradient'
+					};
+					this.elements.colorStops.innerHTML = this.templateColorStops();
+					this.elements.gradient.removeAttribute('style');
+					this.elements.swatchName.value = '';
 					break;
 				case 'gradientStopDelete': {
 					this.deleteStop(element);
@@ -334,6 +352,7 @@ export default class ColorPicker {
 		if (this.settings.useLocalStorage) {
 			const swatches = window.localStorage.getItem(this.settings.storageKey);
 			if (swatches) {
+				/* TODO:MERGE OBJECTS */
 				this.settings.swatches.values = JSON.parse(swatches || []);
 			}
 			this.renderSwatches();
@@ -534,6 +553,7 @@ export default class ColorPicker {
 							${this.settings.lblGradientType}
 						</label>
 						<label class="c-clp__label"><input type="number" min="0" max="360" size="3" value="90" data-elm="gradientAngle" />${this.settings.lblAngle}</label>
+						<button type="button" data-elm="gradientReset" aria-label="${this.settings.lblGradientReset}"></button>
 					</div>
 
 					<div data-state="gradient" data-elm="colorStops"></div>

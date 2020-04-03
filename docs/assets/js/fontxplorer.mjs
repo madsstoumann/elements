@@ -7,6 +7,7 @@
  * @description Font Xplorer
  * @example
  * <section data-js="fontxplorer">
+ * https://www.googleapis.com/webfonts/v1/webfonts?key=
  */
 
 import { stringToType, uuid } from './common.mjs';
@@ -24,15 +25,15 @@ export default class FontXplorer {
 				values: [
 					{
 						var: 'body-text',
-						readonly: true
+						deletable: false
 					},
 					{
 						var: 'display',
-						readonly: true
+						deletable: false
 					},
 					{
 						var: 'headline',
-						readonly: true
+						deletable: false
 					},
 					
 					{
@@ -47,8 +48,7 @@ export default class FontXplorer {
 					url: ''
 				}]
 			},
-			gFontApi: 'https://www.googleapis.com/webfonts/v1/webfonts?key=',
-			gFontKey: '',
+			gFontApi: '../assets/data/gfonts.json',
 			gFontList: [],
 			gFontVar: [
 				{
@@ -172,9 +172,9 @@ export default class FontXplorer {
 			this.elements[element.dataset.elm] = element;
 		});
 
-		if (this.settings.gFontApi && this.settings.gFontKey) {
-			this.settings.gFontList = await (await fetch(`${this.settings.gFontApi}${this.settings.gFontKey}`)).json();
-			const filter = this.settings.gFontList.items.filter(font => font.category === 'handwriting');
+		if (this.settings.gFontApi) {
+			this.settings.gFontList = await (await fetch(this.settings.gFontApi)).json();
+			const filter = this.settings.gFontList.items.filter(font => {return font.category === 'handwriting'});
 			console.log(filter)
 		}
 
@@ -284,7 +284,7 @@ export default class FontXplorer {
 				The quick brown fox jumps over the lazy dog
 			</h1>
 			<p class="c-fxp__specimen">
-				ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ‘?’“!”(%)[#]{@}/&\<-+÷×=>®©$€£¥¢:;,.*
+				ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ‘?’“!”(%)[#]{@}/&\\<-+÷×=>®©$€£¥¢:;,.*
 			</p>
 			<p class="c-fxp__specimen" data-elm="fontWeights"></p>
 

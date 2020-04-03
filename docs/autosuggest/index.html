@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <title>Form: Autosuggest</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/demo.css" rel="stylesheet">
+	<link href="../assets/css/c-frm.css" rel="stylesheet">
+	<link href="../assets/css/c-inp.css" rel="stylesheet">
+	<link href="../assets/css/c-lbl.css" rel="stylesheet">
+</head>
+<body>
+
+	<fieldset class="c-frm__fld">
+		<legend class="c-frm__fld-header">
+			<label class="c-lbl" for="dawa">
+				<strong class="c-lbl__text">Dawa Address</strong>
+				<abbr class="c-lbl__required" title="Field is required">*</abbr>
+				<em class="c-lbl__hint">Type min. 3 chars</em>
+			</label>
+		</legend>
+		<div class="c-inp">
+			<input class="c-inp__inner" type="search" id="dawa" minlength="3" maxlength="30" placeholder="Search text" pattern="\S+.*"
+				data-js="autosuggest"
+				data-api="//dawa.aws.dk/adresser/autocomplete?side=1&per_side=10&q="
+				data-search-keys="tekst"
+				required>
+			<label for="dawa" class="c-inp__error" hidden>Must be at least 3 chars</label>
+		</div>
+	</fieldset>
+
+	<fieldset class="c-frm__fld">
+		<legend class="c-frm__fld-header">
+			<label class="c-lbl" for="gfont">
+				<strong class="c-lbl__text">Google Fonts</strong>
+				<abbr class="c-lbl__required" title="Field is required">*</abbr>
+				<em class="c-lbl__hint">Type min. 3 chars</em>
+			</label>
+		</legend>
+		<div class="c-inp">
+			<input class="c-inp__inner" type="search" id="gfont" minlength="3" maxlength="30" placeholder="Search text" pattern="\S+.*"
+				data-js="autosuggest"
+				data-api="../assets/data/gfonts.json?"
+				data-search-keys="family"
+				data-search-object=":true"
+				data-search-object-key="items"
+				required>
+			<label for="gfont" class="c-inp__error" hidden>Must be at least 3 chars</label>
+		</div>
+	</fieldset>
+
+  <script type="module">
+    const elements = document.querySelectorAll('[data-js*="autosuggest"]');
+    if (elements.length) {
+      import('../assets/js/autosuggest.mjs')
+      .then(module => {
+        const jsClass = module.default;
+        elements.forEach(element => {
+          new jsClass(element, element.dataset)
+        });
+      })
+		}
+		
+    /* Demo */
+    const dawa = document.getElementById('dawa');
+		dawa.addEventListener('autoSuggestSelect', (event) => { console.log(event.detail)});
+		const gfont = document.getElementById('gfont');
+    gfont.addEventListener('autoSuggestSelect', (event) => { console.log(event.detail)});
+  </script>
+</body>
+</html>
