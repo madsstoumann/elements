@@ -10,7 +10,6 @@
 	<link href="../assets/css/c-lbl.css" rel="stylesheet">
 </head>
 <body>
-
 	<fieldset class="c-frm__fld">
 		<legend class="c-frm__fld-header">
 			<label class="c-lbl" for="dawa">
@@ -41,7 +40,7 @@
 			<input class="c-inp__inner" type="search" id="gfont" minlength="3" maxlength="30" placeholder="Search text" pattern="\S+.*"
 				data-js="autosuggest"
 				data-api="../assets/data/gfonts.json?"
-				data-search-keys="family"
+				data-search-keys=':["family"]'
 				data-search-object=":true"
 				data-search-object-key="items"
 				required>

@@ -2,22 +2,24 @@
  * ColorPicker module.
  * @module /assets/js/colorpicker
  * @requires /assets/js/common
- * @version 0.1.5
- * @summary 03-04-2020
+ * @version 0.1.9
+ * @summary 11-04-2020
  * @description Color Picker
  * @example
  * <section data-js="colorpicker">
- * TODO: Reset gradient / remove name on color-switch, long-click to delete.
+ * TODO: long-click/touch to delete swatch - issue with expanding panel (gradient). 
  */
 
 import { brightness, rgb2arr, rgb2hex, rgb2hsl } from './colorlib.mjs'
-import { stringToType } from './common.mjs';
+import { mergeArrayOfObjects, stringToType, uuid } from './common.mjs';
+import Dialog from './dialog.mjs';
 
 export default class ColorPicker {
 	constructor(element, settings) {
 		this.settings = Object.assign({
 			eventAddColor: 'eventAddColor',
 			eventDelColor: 'eventDelColor',
+			eventSetColor: 'eventSetColor',
 			gradient: {
 				angle: 90, 
 				stops: [],
@@ -32,12 +34,15 @@ export default class ColorPicker {
 			lblColorDeleteQuery: 'Delete color-stop?',
 			lblColorHint: 'Color/Hint',
 			lblColorStop: 'Stop',
+			lblDialogCancel: 'Cancel',
+			lblDialogOK: 'Insert',
 			lblGradient: 'Gradient',
 			lblGradientReset: 'Reset',
 			lblGradientType: 'Gradient type',
 			lblHue: 'Hue',
 			lblLightness: 'Lightness',
 			lblOverwrite: 'Overwrite existing swatch?',
+			lblReset: '↺',
 			lblSaturation: 'Saturation',
 			lblSolid: 'Solid',
 			lblSwatchName: 'Swatch name',
@@ -100,6 +105,7 @@ export default class ColorPicker {
 				}
 			],
 			storageKey: 'color-picker',
+			svgTransparent: `url('data:image/svg+xml;utf8,<svg preserveAspectRatio="none" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="5" height="5" fill="grey" /><rect x="5" y="5" width="5" height="5" fill="grey" /><rect x="5" y="0" width="5" height="5" fill="white" /><rect x="0" y="5" width="5" height="5" fill="white" /></svg>')`,
 			swatches: {
 				name: 'Swatches',
 				open: true,
@@ -111,14 +117,14 @@ export default class ColorPicker {
 					}
 				]
 			},
+			valueFormat: 'hex',
 			useLocalStorage: true
 		}, stringToType(settings));
 
-		this.app = element;
-		this.initColorPicker();
+		this.initColorPicker(element);
 	}
 
-		/**
+	/**
 	* @function addStop
 	* @description Adds a color-stop to a gradient
 	*/
@@ -206,7 +212,9 @@ export default class ColorPicker {
 		const swatchIndex = this.findSwatch(element.dataset.swatchKey);
 		if (swatchIndex > -1) {
 			const color = this.settings.swatches.values[swatchIndex];
-			// TODO if (color.deletable)
+			if (Object.prototype.hasOwnProperty.call(color, 'deletable') && color.deletable === false) {
+				return;
+			}
 			this.settings.swatches.values.splice(swatchIndex, 1);
 			this.app.dispatchEvent(new CustomEvent(this.settings.eventDelColor, { detail: JSON.stringify(color) }));
 			this.renderSwatches();
@@ -331,8 +339,11 @@ export default class ColorPicker {
 	* @function initColorPicker
 	* @description Initialize: Create elements, add eventListeners etc.
 	*/
-	initColorPicker() {
-		this.app.innerHTML = this.template();
+	initColorPicker(elm) {
+		this.isPopup = elm.tagName === 'INPUT';
+		this.uuid = uuid();
+		this.app = this.isPopup ? document.createElement('div') : elm;
+		this.app.innerHTML = this.template(this.isPopup);
 		this.elements = {};
 		this.clickTimer = null;
 		this.clickTimerDuration = 800;
@@ -343,19 +354,41 @@ export default class ColorPicker {
 		/* Add eventListeners */
 		this.elements.picker.addEventListener('click', this.handleClick.bind(this));
 		this.elements.picker.addEventListener('input', this.handleInput.bind(this));
-		this.elements.colors.addEventListener('keydown', this.keyDown.bind(this));
-		this.elements.colors.addEventListener('pointerdown', this.pointerDown.bind(this));
-		this.elements.colors.addEventListener('pointerup', this.pointerUp.bind(this));
-		this.elements.gradient.addEventListener('click', (event) => {return this.copySwatch(event.target)});
 		this.elements.selected.addEventListener('click', (event) => {return this.copySwatch(event.target)});
 
-		if (this.settings.useLocalStorage) {
-			const swatches = window.localStorage.getItem(this.settings.storageKey);
-			if (swatches) {
-				/* TODO:MERGE OBJECTS */
-				this.settings.swatches.values = JSON.parse(swatches || []);
+		if (!this.isPopup) {
+			this.elements.colors.addEventListener('keydown', this.keyDown.bind(this));
+			this.elements.colors.addEventListener('pointerdown', this.pointerDown.bind(this));
+			this.elements.colors.addEventListener('pointerup', this.pointerUp.bind(this));
+			this.elements.gradient.addEventListener('click', (event) => {return this.copySwatch(event.target)});
+
+			if (this.settings.useLocalStorage) {
+				const swatches = window.localStorage.getItem(this.settings.storageKey);
+				if (swatches) {
+					const merged = mergeArrayOfObjects(this.settings.swatches.values, JSON.parse(swatches || []), 'name');
+					this.settings.swatches.values = merged;
+				}
+				this.renderSwatches();
 			}
-			this.renderSwatches();
+		}
+
+		if (this.isPopup) {
+			this.dialog = new Dialog({
+				accept: this.settings.lblDialogOK,
+				cancel: this.settings.lblDialogCancel,
+				clsDialog: 'c-dialog c-clp__dialog',
+				element: this.app
+			});
+
+			this.trigger = elm;
+			this.trigger.addEventListener('click', (event) => {
+				this.setDialog(event);
+			});
+			this.trigger.addEventListener('keydown', (event) => {
+				if (event.key === ' ') { this.setDialog(event); }
+			});
+
+			this.setTrigger();
 		}
 
 		/* Set initial color */
@@ -497,7 +530,20 @@ export default class ColorPicker {
 		this.elements.swatchName.value = swatchName;
 	}
 
-	
+	/**
+	* @function setDialog
+	* @description Open dialog, handle promise
+	*/
+	setDialog(event) {
+		event.preventDefault();
+		this.dialog.show().then((value) => {
+			if (value) {
+				this.setTrigger(this.elements.hex.value, true);
+			}
+			this.trigger.focus();
+		});
+	}
+
 	/**
 	* @function setGradient
 	* @description Renders gradient from object
@@ -507,10 +553,48 @@ export default class ColorPicker {
 	}
 
 	/**
+	* @function setTrigger
+	* @paramn {String} color
+	* @param {Boolean} sendEvent
+	* @description Sets a trigger-input to selected color
+	*/
+	setTrigger(color = this.trigger.value || '#000000', sendEvent = false) {
+		this.elements.sample.style.background = color;
+		this.setColor(this.elements.sample, true);
+		const obj = {
+			color: this.elements.luminance.value > 127 ? '#000' : '#FFF',
+			hex: color,
+			hsla: `hsla(${this.elements.hslH.value}, ${this.elements.hslS.value}, ${this.elements.hslL.value}, ${this.elements.hslA.value})`,
+			rgba: `rgba(${this.elements.rgbR.value}, ${this.elements.rgbG.value}, ${this.elements.rgbB.value}, ${this.elements.rgbA.value})`
+		}
+		if (this.trigger.type !== 'color') {
+			this.trigger.style.background = `${this.settings.svgTransparent} 0 0/1rem 1rem`;
+			this.trigger.style.boxShadow = `inset 0 0 0 1000px ${color}`;
+			this.trigger.style.color = obj.color;
+			switch (this.settings.valueFormat) {
+				case 'hsl':
+					this.trigger.value = obj.hsla;
+					break;
+				case 'rgb':
+					this.trigger.value = obj.rgba;
+					break;
+				default: break;
+			}
+		}
+		else {
+			this.trigger.value = color;
+		}
+		if (sendEvent) {
+			this.trigger.dispatchEvent(new CustomEvent(this.settings.eventSetColor, { detail: obj }));
+		}
+	}
+
+	/**
 	* @function template
+	* @param {Boolean} isPopup Stand-alone or popup/picker-mode
 	* @description Renders main template for ColorPicker
 	*/
-	template() {
+	template(isPopup) {
 		return `
 		<form class="c-clp" data-elm="picker">
 			<label>${this.settings.lblHue}
@@ -532,12 +616,12 @@ export default class ColorPicker {
 				</div>
 
 				<div class="c-clp__inputs">
-					<input type="radio" id="cp-solid" name="cp-solid-gradient" class="u-hidden" value="solid" data-elm="colorSolid" checked>
-					<input type="radio" id="cp-gradient" name="cp-solid-gradient" class="u-hidden" value="gradient" data-elm="colorGradient">
-
+					<input type="radio" id="cp-solid${this.uuid}" name="cp-solid-gradient" class="u-hidden" value="solid" data-elm="colorSolid" checked ${this.isPopup ? `tabindex="-1"` : ''}>
+					<input type="radio" id="cp-gradient${this.uuid}" name="cp-solid-gradient" class="u-hidden" value="gradient" data-elm="colorGradient" ${this.isPopup ? `tabindex="-1"` : ''}>
+					${!isPopup ? `
 					<div class="c-clp__fieldset">
-						<label class="c-clp__label-group" for="cp-solid">${this.settings.lblSolid}</label>
-						<label class="c-clp__label-group" for="cp-gradient">${this.settings.lblGradient}</label>
+						<label class="c-clp__label-group" for="cp-solid${this.uuid}" data-for="colorSolid">${this.settings.lblSolid}</label>
+						<label class="c-clp__label-group" for="cp-gradient${this.uuid}" data-for="colorGradient">${this.settings.lblGradient}</label>
 					</div>
 
 					<div class="c-clp__fieldset" data-state="gradient">
@@ -552,15 +636,15 @@ export default class ColorPicker {
 							</select>
 							${this.settings.lblGradientType}
 						</label>
-						<label class="c-clp__label"><input type="number" min="0" max="360" size="3" value="90" data-elm="gradientAngle" />${this.settings.lblAngle}</label>
-						<button type="button" data-elm="gradientReset">${this.settings.lblGradientReset}</button>
+						<label class="c-clp__label c-clp__label--15"><input type="number" min="0" max="360" size="3" value="90" data-elm="gradientAngle" />${this.settings.lblAngle}</label>
+						<label class="c-clp__label c-clp__label--10"><button type="button" data-elm="gradientReset" aria-label="${this.settings.lblGradientReset}">${this.settings.lblReset}</button>${this.settings.lblGradientReset}</label>
 					</div>
 
 					<div data-state="gradient" data-elm="colorStops"></div>
 
 					<div class="c-clp__fieldset" data-state="gradient">
 						<button type="button" data-elm="addStop">${this.settings.lblAddStop}</button>
-					</div>
+					</div>` : ''}
 
 					<div class="c-clp__fieldset" data-state="solid">
 						<label class="c-clp__label"><input type="number" min="0" max="255" size="3" data-elm="rgbR" />R</label>
@@ -578,20 +662,20 @@ export default class ColorPicker {
 						<label class="c-clp__label"><input type="text" data-elm="hex" size="9" data-lpignore="true" />HEX/A</label>
 						<label class="c-clp__label"><input type="text" data-elm="luminance" size="3" readonly />${this.settings.lblBrightness}</label>
 					</div>
-					<div class="c-clp__fieldset">
-						<label class="c-clp__label"><input type="text" data-elm="swatchName" data-lpignore="true" size="15" />${this.settings.lblSwatchName}</label>
+					<div class="c-clp__fieldset"${this.isPopup ? ' hidden' : ''}>
+						<label class="c-clp__label"><input type="text" data-elm="swatchName" data-lpignore="true" size="15" ${this.isPopup ? `tabindex="-1"` : ''} />${this.settings.lblSwatchName}</label>
 					</div>
-					<button type="button" data-elm="add" disabled>${this.settings.lblAddToSwatches}</button>
+					<button type="button" data-elm="add" disabled${this.isPopup ? ' hidden' : ''}>${this.settings.lblAddToSwatches}</button>
 
 					<label><textarea class="u-hidden" data-elm="clipboard" tabindex="-1" aria-hidden="true"></textarea></label>
 					<div class="u-hidden" data-elm="sample"></div>
 				</div>
 			</div>
-
+			${!isPopup ? `
 			<div data-elm="colors">
 				${this.templateColorGroup(this.settings.swatches, 'swatches')}
 				${this.settings.libraries.map(group => { return this.templateColorGroup(group); }).join('')}
-			</div>
+			</div>` : ''}
 		</form>`
 	}
 
@@ -618,12 +702,16 @@ export default class ColorPicker {
 		return `
 		<div class="c-clp__fieldset">
 			<div class="c-clp__label c-clp__label--5" style="background:${color}"></div>
-			<label class="c-clp__label c-clp__label--55"><input type="text" size="8" value="${color}" data-elm="gradientStopColor" data-index="${index}" />${this.settings.lblColorHint}</label>
+			<label class="c-clp__label c-clp__label--55"><input type="text" size="8" value="${color}" data-elm="gradientStopColor" data-index="${index}" data-lpignore="true" />${this.settings.lblColorHint}</label>
 			<label class="c-clp__label c-clp__label--15"><input type="text" size="3" value="${stop}" data-elm="gradientStop" data-index="${index}" />${this.settings.lblColorStop}</label>
 			<label class="c-clp__label c-clp__label--10"><button type="button" data-elm="gradientStopDelete" data-index="${index}" aria-label="${this.settings.lblColorDeleteQuery}">${this.settings.lblColorDelete}</button></label>
 		</div>`
 	}
 
+	/**
+	* @function templateColorStops
+	* @description Renders a group of ColorStops
+	*/
 	templateColorStops() {
 		return this.settings.gradient.stops.map((color, index) => { return this.templateColorStop(color.color, color.stop || '', index)}).join('');
 	}

@@ -23,7 +23,7 @@ export default class AutoSuggest {
 				listClass: 'c-inp__list',
 				listTag: 'ul',
 				listItemClass: 'c-inp__list-item',
-				searchKeys: '',
+				searchKeys: [],
 				searchObject: false,
 				searchObjectKey: '',
 				searchTemplate: (result) => {
@@ -35,7 +35,7 @@ export default class AutoSuggest {
 					})
 					.join('');
 				},
-				searchType: 'and|or',
+				searchType: 1,
 				setInputOnKeyNav: true,
 				txtNoResult: 'No items match your search'
 			},
@@ -62,8 +62,34 @@ export default class AutoSuggest {
 	 * @description Filter object
 	 */
 	filterData(data, value) {
-		/* TODO */
-		return data.filter(item => {return item.family.toLowerCase().includes(value)})
+		return data.filter(item => {
+			return this.searchObj(item, value.split(' '), this.settings.searchKeys, this.settings.searchType)
+		})
+	}
+
+	/**
+	 * @function searchObj
+	 * @param {Object} obj
+	 * @param {Array} values
+	 * @param {Array} keys
+	 * @param {Number} searchTypeInt
+	 * @returns {Boolean}
+	 * @description Search object by array of values, for specific keys
+	*/
+	searchObj(obj, values, keys = [], searchTypeInt = 0) {
+		const arrKeys = Array.isArray(keys) && keys.length ? keys : Object.keys(obj);
+		return arrKeys.some(key => {
+			return values.some(value => {
+				const prop = obj[key].toString().toLowerCase();
+				const str = value.toLowerCase();
+				switch(searchTypeInt) {
+					default: return prop.includes(str)
+					case 1: return prop.startsWith(str)
+					case 2: return prop.endsWith(str)
+					case 3: return prop === str
+				}
+			})
+		})
 	}
 
 	/**

@@ -146,6 +146,22 @@
 }
 
 /* TODO */
+.c-inp__color {
+	-webkit-appearance: none;
+	border: 1px solid #EEE;
+	border-radius: 50%;
+	height: 2.5rem;
+	padding: 0;
+	width: 2.5rem;
+}
+
+.c-inp__color::-webkit-color-swatch-wrapper {
+	padding: 0;	
+}
+.c-inp__color::-webkit-color-swatch {
+	border: none;
+	border-radius: 50%;
+}
 .c-inp__list {
 	background-color: #FFF;
 	border-color:var(--inp-bdc);

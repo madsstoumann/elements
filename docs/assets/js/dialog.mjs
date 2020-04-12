@@ -2,8 +2,8 @@
  * Dialog module.
  * @module /assets/js/dialog
  * @requires /assets/js/common
- * @version 0.9.9
- * @summary 27-12-2019
+ * @version 1.0.0
+ * @summary 10-04-2020
  * @author Mads Stoumann
  * @description Custom versions of alert, confirm and prompt, using <dialog>
  */
@@ -17,6 +17,7 @@ export default class Dialog {
 				accept: 'OK',
 				cancel: 'Cancel',
 				close: `✕<span class="c-ttp">Close</span>`,
+				element: '',
 				headline: '',
 				headlineTag: 'h2',
 				hideCancel: false,
@@ -103,6 +104,10 @@ export default class Dialog {
 			class: this.settings.clsNav
 		});
 
+		if (this.settings.element instanceof HTMLElement) {
+			this.message.appendChild(this.settings.element);
+		}
+
 		/* Add Sounds, if available */
 		if (this.settings.useSounds && this.settings.soundAccept) {
 			this.soundAccept = h('audio', {}, [h('source', { src: this.settings.soundAccept })]);
@@ -147,7 +152,9 @@ export default class Dialog {
 		this.headline.innerText = dialog.headline;
 		this.input.value = dialog.value;
 		this.input.hidden = this.input.value === '';
-		this.message.innerHTML = dialog.message + dialog.template;
+		if (!dialog.element) {
+			this.message.innerHTML = dialog.message + dialog.template;
+		}
 
 		if (this.settings.useSounds && this.soundPopup) {
 			this.soundPopup.play();
@@ -171,16 +178,18 @@ export default class Dialog {
 		return new Promise((resolve, reject) => {
 			const parent = this;
 			try {
+				this.dialog.addEventListener('cancel', function bindEscape() {
+					parent.dialog.removeEventListener('click', bindEscape);
+					reject(parent.cancel());
+				});
 				this.input.addEventListener('keydown', function bindKey(event) {
 					parent.input.removeEventListener('click', bindKey);
 					if (event.key === 'Enter' && parent.input.value) {
 						resolve(parent.accept());
 					}
-				}
-				);
+				});
 				this.acceptBtn.addEventListener('click', function bindAccept() {
 					parent.acceptBtn.removeEventListener('click', bindAccept);
-					// eslint-disable-next-line
 					if (parent.settings.useSounds && parent.soundAccept) {
 						parent.soundAccept.play();
 					}

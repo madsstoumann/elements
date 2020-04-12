@@ -1,0 +1,162 @@
+.c-shw{
+	--offsetX: 8px;
+	--offsetY: 8px;
+	--blur: 0;
+	--spread: 0;
+	--bxsh-c: rgba(0,0,0,0.3);
+
+	--cp-col-bdr: 1px solid #EEE;
+	--cp-col-bdrs: 50%;
+	--cp-col-bxsh--focus: 0 0 0 0.125rem rgba(127,127,127,1);
+	--cp-col-m: 0 0.125rem 0.125rem 0;
+	--cp-col-sz: 2.5rem;
+	--cp-ico-copy: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M18.984 21v-14.016h-10.969v14.016h10.969zM18.984 5.016q0.797 0 1.406 0.586t0.609 1.383v14.016q0 0.797-0.609 1.406t-1.406 0.609h-10.969q-0.797 0-1.406-0.609t-0.609-1.406v-14.016q0-0.797 0.609-1.383t1.406-0.586h10.969zM15.984 0.984v2.016h-12v14.016h-1.969v-14.016q0-0.797 0.586-1.406t1.383-0.609h12z"></path></svg>');
+	--cp-ico-w: 2rem;
+	--cp-inp-bdrs: 0.25rem;
+	--cp-inp-brd: 1px solid #DDD;
+	--cp-inp-ff: monospace;
+	--cp-inp-fz: 1rem;
+	--cp-inp-p: .25rem 0;
+	--cp-lbl-bdrs: 0.25em;
+	--cp-lbl-c: #606060;
+	--cp-lbl-m: 0.5rem 0.1rem 0 0.1rem;
+
+	--cp-fz-large: 1.25rem;
+	--cp-fz-small: 0.75rem;
+	--cp-m-unit: 1rem;
+
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+	margin: var(--cp-m-unit) auto;
+	max-width: 36rem;
+}
+
+.c-shw * {
+	box-sizing: border-box;
+}
+
+[data-elm="preview"] {
+	/* box-shadow: var(--offsetX) var(--offsetY) var(--blur) var(--spread) rgba(0,0,0,1); */
+	filter: drop-shadow(var(--offsetX) var(--offsetY) var(--blur) var(--bxsh-c));
+	/* filter: drop-shadow(-1px 6px 3px rgba(50, 50, 0, 0.5)); */
+}
+[data-elm="text"] {
+	font-size: 4rem;
+	font-weight: 900;
+	/* text-shadow: var(--offsetX) var(--offsetY) var(--blur) var(--bxsh-c); */
+	/* filter: drop-shadow(-1px 6px 3px rgba(50, 50, 0, 0.5)); */
+}
+[data-elm="inner"] {
+	background-color: beige;
+	/* box-shadow: var(--offsetX) var(--offsetY) var(--blur) var(--spread) rgba(0,0,0,1); */
+	clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+	height: 200px;
+	margin: 1rem 0;
+	width: 200px;
+}
+
+.app__fieldset {
+	display: flex;
+	width: 100%;
+}
+.app__label {
+	flex: 0 0 10%;
+	color: var(--cp-lbl-c);
+	display: flex;
+	flex: 1;
+	flex-flow: column;
+	font-size: var(--cp-fz-small);
+	margin: var(--cp-lbl-m);
+	text-align: center;
+}
+
+/* will-change: filter; */
+
+/* Checkbox */
+.app__label--checkbox {
+	flex: 0;
+}
+.app__label--checkbox span {
+	display: block;
+	height: 100%;
+	position: relative;
+}
+.app__label--checkbox span::before {
+	border: var(--cp-inp-brd);
+	border-radius: var(--cp-inp-bdrs);
+	font-family: var(--cp-inp-ff);
+	font-size: var(--cp-inp-fz);
+	padding: var(--cp-inp-p);
+	color: #FFF;
+	content: "";
+	display: block;
+	height: auto;
+	margin: 0 auto;
+	width: 1.5rem;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.app__label--checkbox input:checked + span::before {
+	background-color: cornflowerblue;
+	content: "✓";
+}
+
+.app__label--auto {
+	flex: 1 0 auto;
+}
+.app__label button,
+.app__label input:not([type="checkbox"]) {
+	border: var(--cp-inp-brd);
+	border-radius: var(--cp-inp-bdrs);
+	font-family: var(--cp-inp-ff);
+	font-size: var(--cp-inp-fz);
+	padding: var(--cp-inp-p);
+	text-align: center;
+	width: 100%;
+}
+
+.app__label-group {
+	align-items: center;
+	border: 1px solid var(--cp-lbl-c, grey);
+	color: var(-cp-lbl-c, black);
+  flex: 1;
+	font-size: var(--cp-fz-small, small);
+  margin: 0 0 calc(var(--cp-m-unit, 1rem) / 4) 0;
+	padding: 0.25em 0.75em;
+	text-align: center;
+	user-select: none;
+}
+.app__label-group:first-of-type {
+	border-right-width: 0;
+	border-radius: var(--cp-lbl-bdrs) 0 0 var(--cp-lbl-bdrs);
+}
+.app__label-group:last-of-type {
+	border-radius: 0 var(--cp-lbl-bdrs) var(--cp-lbl-bdrs) 0;
+}
+
+[data-elm="delete"] {
+	background-color: crimson;
+	color: white;
+}
+
+/* State */
+
+[data-elm="colorGradient"]:checked ~ [data-state="gradient"],
+[data-elm="colorSolid"]:checked ~ [data-state="solid"] {
+	display: flex;
+}
+
+[data-elm="boxShadow"]:checked ~ .app__fieldset [data-for="boxShadow"],
+[data-elm="dropShadow"]:checked ~ .app__fieldset [data-for="dropShadow"],
+[data-elm="textShadow"]:checked ~ .app__fieldset [data-for="textShadow"] {
+	background-color: #606060;
+	color: white;
+}
+
+[data-elm="colorGradient"]:focus ~ .c-clp__fieldset [data-for="colorGradient"],
+[data-elm="colorSolid"]:focus ~ .c-clp__fieldset [data-for="colorSolid"] {
+	text-decoration: underline;
+}

@@ -1,8 +1,8 @@
 /**
  * Common
  * @module common.mjs
- * @version 0.9.10
- * @summary 16-03-2020
+ * @version 1.0.10
+ * @summary 09-04-2020
  * @author Mads Stoumann
  * @description Generic, small helper-functions
  */
@@ -190,6 +190,27 @@ export function mark(item, term) {
 		: item.replace(RegExp(regExpEscape(term.trim()), 'gi'), '<mark>$&</mark>');
 }
 
+/**
+ * @function mergeArrayOfObjects
+ * @param {Array} arr1
+ * @param {Array} arr2
+ * @param {String} key
+ * @description Creates a selection-range
+ */
+export function mergeArrayOfObjects(arr1, arr2, key) {
+	return Object.values(arr1.concat(arr2).reduce((r,o) => {
+		r[o[key]] = o;
+		return r;
+	},{}));
+}
+
+/**
+ * @function replaceTagInString
+ * @param {String} str
+ * @param {String} oldTag
+ * @param {String} newTag
+ * @description Creates a selection-range
+ */
 export function replaceTagInString(str, oldTag, newTag) {
 	const start = new RegExp(`<${oldTag}`, "gi");
 	const end = new RegExp(`</${oldTag}`, "gi");
