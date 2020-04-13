@@ -19,6 +19,20 @@
 	max-width: 36rem;
 }
 
+.c-flm .c-rng {
+	--rng-h: 0.25rem;
+	--rng-m: 1rem 0;
+	--rng-thumb-h: 1.5rem;
+	--rng-thumb-w: 1.5rem;
+}
+.c-flm .c-rng__output {
+	--rng-output-bgc: transparent;
+	--rng-output-c: #444;
+	left: auto;
+	float: right;
+	text-align: right;
+}
+
 .c-flm * {
 	box-sizing: border-box;
 }

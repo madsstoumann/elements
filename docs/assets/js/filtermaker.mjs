@@ -10,7 +10,6 @@
  * Thanks to yoksel for the great SVG filters:
  * https://yoksel.github.io/svg-filters/#/presets
  * https://yoksel.github.io/svg-gradient-map
- 
  */
 
 import RangeSlider from './range.mjs';
@@ -26,10 +25,12 @@ export default class FilterMaker {
 			lblBlur: 'blur',
 			lblBrightness: 'brightness',
 			lblContrast: 'contrast',
+			lblDragImage: 'Drag image',
 			lblGrayscale: 'grayscale',
 			lblHueRotate: 'hue-rotate',
 			lblInvert: 'invert',
 			lblOpacity: 'opacity',
+			lblReset: 'Reset',
 			lblSaturate: 'saturate',
 			lblSepia: 'sepia',
 			preset: 
@@ -122,6 +123,7 @@ export default class FilterMaker {
 		return `
 		<form class="c-flm" data-elm="app">
 
+			<h3>${this.settings.lblDragImage}</h3>
 			<figure class="app__img-wrapper">
 				<img class="app__img" src="../assets/img/filter-demo.jpg" data-elm="preview" />
 				<input type="file" data-elm="filedrop" />
@@ -154,15 +156,15 @@ export default class FilterMaker {
 			<label class="app__label--range"><span>${this.settings.lblSepia}</span>
 				<input type="range" class="c-rng" min="0" max="1" step="0.01" value="0" data-elm="sepia" data-range-output=":true" />
 			</label>
+			<button type="button" class="c-btn" data-elm="reset">${this.settings.lblReset}</button>
 		</form>`
 	}
 
 	templateFilters(filters) {
-		return filters.map(filter => { return `
-			<label class="app__label--radio">
-				<input type="radio" class="u-hidden" name="svg" value="url('${this.settings.filterFile}#${filter.id}')" />
-				<span>${filter.title || filter.id}</span>
-			</label>`}).join('');
+		return filters.map((filter, index) => { return `
+		<label class="app__label--radio">
+			<input type="radio" class="u-hidden" name="svg" value="url('${this.settings.filterFile}#${filter.id}')"${index === 0 ? ' checked': ''} />
+			<span>${filter.title || filter.id}</span>
+		</label>`}).join('');
 	}
-
 }
