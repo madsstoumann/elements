@@ -5,6 +5,9 @@
  * @version 0.0.1
  * @summary 07-04-2020
  * @description box-shadow, filter: drop-shadow and text-shadow editor
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/drop-shadow
  * @example
  * <div data-js="shadowmaker">
  */
@@ -58,49 +61,52 @@ export default class ShadowMaker {
 		}, stringToType(settings));
 
 		this.app = element;
-		this.initShadowMaker();
-		console.log(this);
+		this.init();
 	}
 
 		/**
 	* @function handleInput
 	* @param {Event} event
-	* @description Handle main form input. Triggers when a user moves a range-slider or changes an input value.
+	* @description Handle main form input.
 	*/
 	handleInput(event) {
 		const element = event.target;
-		// let index = 0;
-		/* If range-slider, set related CSS Custom prop */
-		if (element.type === 'range') {
-			this.elements.app.style.setProperty(`--${element.dataset.elm}`,`${element.value}${element.dataset.suffix || ''}`);
-			// this.setPreview(this.elements.selected, false);
+		const index = element.dataset.index - 0 || 0;
+		const key = element.dataset.elm;
+		let value = element.value;
+
+		if (element.type === 'checkbox') {
+			value = element.checked ? true : false;
 		}
+		else if (element.type === 'number') {
+			value = value - 0;
+		}
+		else if (element.type === 'radio') {
+			return;
+		}
+		if (event.type === 'eventSetColor') {
+			value = event.detail.rgba;
+		}
+
+		const obj = this.settings.shadow.values[index];
+		obj[key] = value;
+		obj.value = `${obj.inset ? 'inset ' : ''}${obj.x}px ${obj.y}px ${obj.blur}px ${obj.spread ? `${obj.spread}px ` : '' }${obj.color}`
+		/* TODO: updateValue, updateShadow */		
+		console.log(obj)
 	}
 
 	/**
-	* @function initShadowMaker
+	* @function init
 	* @description Initialize: Create elements, add eventListeners etc.
 	*/
-	initShadowMaker() {
+	init() {
 		this.uuid = uuid();
 		this.app.innerHTML = this.template();
 		this.elements = {};
-		this.clickTimer = null;
-		this.clickTimerDuration = 800;
 		this.app.querySelectorAll(`[data-elm]`).forEach(element => {
 			this.elements[element.dataset.elm] = element;
 		});
 
-
-		// this.colorPicker = new ColorPicker(this.elements.color, this.elements.color.dataset);
-		// this.elements.color.addEventListener('eventSetColor', (event) => { 
-		// 	this.elements.app.style.setProperty(`--bxsh-c`,`${event.detail.rgba}`);
-
-		// });
-
-		// this.elements.app.style.setProperty(`--bxsh-c`,`${this.elements.color.value}`);
-		/* Add eventListeners */
-		// this.elements.app.addEventListener('click', this.handleClick.bind(this));
 		this.elements.app.addEventListener('input', this.handleInput.bind(this));
 
 		/* TODO TODO */
@@ -108,6 +114,7 @@ export default class ShadowMaker {
 		const colors = this.app.querySelectorAll(`[data-js="colorpicker"]`);
 		colors.forEach(color => {
 			new ColorPicker(color, color.dataset);
+			color.addEventListener('eventSetColor', (event) => { this.handleInput(event)})
 		})
 
 		this.elements.text.style.cssText = this.settings.shadow.type + ':' + this.settings.shadow.values.map(shadow => { return shadow.value; }).join(',') + ';';
@@ -122,11 +129,11 @@ export default class ShadowMaker {
 
 	/**
 	* @function template
-	* @description Renders main template for ColorPicker
+	* @description Renders main template
 	*/
 	template() {
 		return `
-		<form class="c-shw" data-elm="app">
+		<form class="app c-shw" data-elm="app">
 
 			<input type="radio" id="sm-box${this.uuid}" name="sm-type" class="u-hidden" value="box" data-elm="boxShadow" checked>
 			<input type="radio" id="sm-text${this.uuid}" name="sm-type" class="u-hidden" value="text" data-elm="textShadow">
@@ -146,21 +153,6 @@ export default class ShadowMaker {
 			<br /><br />
 
 			<div data-elm="shadows"></div>
-			
-			<!--
-			<label>${this.settings.lblOffsetX}
-				<input type="range" class="c-rng" min="-100" max="100" value="3" data-elm="offsetX" data-suffix="px" />
-			</label>
-			<label>${this.settings.lblOffsetY}
-				<input type="range" class="c-rng" min="-100" max="100" value="3" data-elm="offsetY" data-suffix="px" />
-			</label>
-			<label>${this.settings.lblBlur}
-				<input type="range" class="c-rng" min="-100" max="100" value="3" data-elm="blur" data-suffix="px" />
-			</label>
-			<label>${this.settings.lblSpread}
-				<input type="range" class="c-rng" min="-100" max="100" value="3" data-elm="spread" data-suffix="px" />
-			</label>
-			-->
 		</form>`
 	}
 
