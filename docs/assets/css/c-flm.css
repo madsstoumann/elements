@@ -74,8 +74,6 @@
     top: 50%;
 }
 
-
-
 [data-elm="preview"] {
 	filter: blur(var(--blur)) brightness(var(--brightness)) contrast(var(--contrast)) grayscale(var(--grayscale)) hue-rotate(var(--huerotate)) invert(var(--invert)) opacity(var(--opacity)) saturate(var(--saturate)) sepia(var(--sepia)) var(--url);
 	max-width: 100%;
