@@ -7,7 +7,7 @@
  * @description 
  * @example
  * <div data-js="filtermaker">
- * Thanks to yoksel for the great SVG filters:
+ * Thanks to yoksel for the great SVG filters, which I shamelessly copied:
  * https://yoksel.github.io/svg-filters/#/presets
  * https://yoksel.github.io/svg-gradient-map
  */
@@ -121,42 +121,64 @@ export default class FilterMaker {
 	*/
 	template() {
 		return `
-		<form class="c-flm" data-elm="app">
+		<form class="app" data-elm="app">
+			<div class="app__edit">
+				<div class="app__preview">
+					<!--<h3>${this.settings.lblDragImage}</h3>-->
+					<figure class="app__img-wrapper">
+						<img src="../assets/img/filter-demo.jpg" class="app__img" data-elm="preview" />
+						<input type="file" class="app__file-drop" data-elm="filedrop" />
+					</figure>
+					<details open data-elm="filters-wrapper">
+						<summary class="app__summary"><span>SVG Filters</span></summary>
+						<div class="app__panel" data-elm="filters">
+					</details>
+				</div>
 
-			<h3>${this.settings.lblDragImage}</h3>
-			<figure class="app__img-wrapper">
-				<img class="app__img" src="../assets/img/filter-demo.jpg" data-elm="preview" />
-				<input type="file" data-elm="filedrop" />
-			</figure>
-			<div class="app__label-group" data-elm="filters"></div>
-			<label class="app__label--range"><span>${this.settings.lblBlur}</span>
-				<input type="range" class="c-rng" min="0" max="10" value="0" step="0.1" data-elm="blur" data-suffix="px" data-range-output=":true" />
-			</label>
-			<label class="app__label--range"><span>${this.settings.lblBrightness}</span>
-				<input type="range" class="c-rng" min="0" max="3" value="1" step="0.1" data-elm="brightness" data-range-output=":true" />
-			</label>
-			<label class="app__label--range"><span>${this.settings.lblContrast}</span>
-				<input type="range" class="c-rng" min="0" max="3" value="1" step="0.1" data-elm="contrast" data-range-output=":true" />
-			</label>
-			<label class="app__label--range"><span>${this.settings.lblGrayscale}</span>
-				<input type="range" class="c-rng" min="0" max="1" value="0" step="0.01" data-elm="grayscale" data-range-output=":true" />
-			</label>
-			<label class="app__label--range"><span>${this.settings.lblHueRotate}</span>
-				<input type="range" class="c-rng" min="0" max="360" value="0" data-elm="huerotate" data-suffix="deg" data-range-output=":true" />
-			</label>
-			<label class="app__label--range"><span>${this.settings.lblInvert}</span>
-				<input type="range" class="c-rng" min="0" max="1" value="0" step="0.01" data-elm="invert" data-range-output=":true" />
-			</label>
-			<label class="app__label--range"><span>${this.settings.lblOpacity}</span>
-				<input type="range" class="c-rng" min="0" max="1" value="1" step="0.01" data-elm="opacity" data-range-output=":true" />
-			</label>
-			<label class="app__label--range"><span>${this.settings.lblSaturate}</span>
-				<input type="range" class="c-rng" min="0" max="3" value="1" step="0.1" data-elm="saturate" data-range-output=":true" />
-			</label>
-			<label class="app__label--range"><span>${this.settings.lblSepia}</span>
-				<input type="range" class="c-rng" min="0" max="1" step="0.01" value="0" data-elm="sepia" data-range-output=":true" />
-			</label>
-			<button type="button" class="c-btn" data-elm="reset">${this.settings.lblReset}</button>
+				<div class="app__controls">
+					<label class="app__label--range"><span>${this.settings.lblBlur}</span>
+						<input type="range" class="c-rng" min="0" max="10" value="0" step="0.1" data-elm="blur" data-suffix="px" data-range-output=":true" />
+					</label>
+					<label class="app__label--range"><span>${this.settings.lblBrightness}</span>
+						<input type="range" class="c-rng" min="0" max="3" value="1" step="0.1" data-elm="brightness" data-range-output=":true" />
+					</label>
+					<label class="app__label--range"><span>${this.settings.lblContrast}</span>
+						<input type="range" class="c-rng" min="0" max="3" value="1" step="0.1" data-elm="contrast" data-range-output=":true" />
+					</label>
+					<label class="app__label--range"><span>${this.settings.lblGrayscale}</span>
+						<input type="range" class="c-rng" min="0" max="1" value="0" step="0.01" data-elm="grayscale" data-range-output=":true" />
+					</label>
+					<label class="app__label--range"><span>${this.settings.lblHueRotate}</span>
+						<input type="range" class="c-rng" min="0" max="360" value="0" data-elm="huerotate" data-suffix="deg" data-range-output=":true" />
+					</label>
+					<label class="app__label--range"><span>${this.settings.lblInvert}</span>
+						<input type="range" class="c-rng" min="0" max="1" value="0" step="0.01" data-elm="invert" data-range-output=":true" />
+					</label>
+					<label class="app__label--range"><span>${this.settings.lblOpacity}</span>
+						<input type="range" class="c-rng" min="0" max="1" value="1" step="0.01" data-elm="opacity" data-range-output=":true" />
+					</label>
+					<label class="app__label--range"><span>${this.settings.lblSaturate}</span>
+						<input type="range" class="c-rng" min="0" max="3" value="1" step="0.1" data-elm="saturate" data-range-output=":true" />
+					</label>
+					<label class="app__label--range"><span>${this.settings.lblSepia}</span>
+						<input type="range" class="c-rng" min="0" max="1" step="0.01" value="0" data-elm="sepia" data-range-output=":true" />
+					</label>
+					<div class="app__fieldset">
+						<label class="app__label"><input type="text" data-elm="presetName" data-lpignore="true" size="15">Preset name</label>
+					</div>
+
+					<button type="button" class="app__button" data-elm="addPreset" disabled="">Add preset</button>
+					
+					<!--<button type="button" class="app__button" data-elm="reset">${this.settings.lblReset}</button>-->
+				</div>
+			</div>
+			<details class="app__details" open>
+				<summary class="app__summary"><span>Presets</span></summary>
+				<div class="app__panel" data-elm="presets">
+					<button type="button" class="app__preset" data-preset-key="" data-preset-obj="">Clody painting</button>
+					<button type="button" class="app__preset" data-preset-key="" data-preset-obj="">Old grainy photo</button>
+				</div>
+			</details>
 		</form>`
 	}
 

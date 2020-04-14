@@ -1,3 +1,8 @@
+@import 'c-btn.css';
+@import 'c-dlg.css';
+@import 'c-rng.css';
+@import 'c-ttp.css';
+
 .c-clp {
 	--alpha: 1;
   --hue: 0;
@@ -69,7 +74,7 @@
 
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 	margin: var(--cp-m-unit) auto;
-	max-width: 36rem;
+	max-width: 64rem;
 }
 
 .c-clp * {

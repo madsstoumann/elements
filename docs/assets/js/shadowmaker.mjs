@@ -2,8 +2,8 @@
  * ShadowMaker module.
  * @module /assets/js/shadowmaker
  * @requires /assets/js/common
- * @version 0.0.1
- * @summary 07-04-2020
+ * @version 0.0.3
+ * @summary 14-04-2020
  * @description box-shadow, filter: drop-shadow and text-shadow editor
  * https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow
  * https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow
@@ -117,7 +117,7 @@ export default class ShadowMaker {
 			color.addEventListener('eventSetColor', (event) => { this.handleInput(event)})
 		})
 
-		this.elements.text.style.cssText = this.settings.shadow.type + ':' + this.settings.shadow.values.map(shadow => { return shadow.value; }).join(',') + ';';
+		this.elements.previewText.style.cssText = this.settings.shadow.type + ':' + this.settings.shadow.values.map(shadow => { return shadow.value; }).join(',') + ';';
 		
 
 	}
@@ -133,26 +133,44 @@ export default class ShadowMaker {
 	*/
 	template() {
 		return `
-		<form class="app c-shw" data-elm="app">
+		<form class="app" data-elm="app">
 
 			<input type="radio" id="sm-box${this.uuid}" name="sm-type" class="u-hidden" value="box" data-elm="boxShadow" checked>
 			<input type="radio" id="sm-text${this.uuid}" name="sm-type" class="u-hidden" value="text" data-elm="textShadow">
 			<input type="radio" id="sm-drop${this.uuid}" name="sm-type" class="u-hidden" value="text" data-elm="dropShadow">
 			
-			<div class="app__fieldset">
-				<label class="app__label-group" for="sm-box${this.uuid}" data-for="boxShadow">${this.settings.lblBoxShadow}</label>
-				<label class="app__label-group" for="sm-text${this.uuid}" data-for="textShadow">${this.settings.lblTextShadow}</label>
-				<label class="app__label-group" for="sm-drop${this.uuid}" data-for="dropShadow">${this.settings.lblDropShadow}</label>
-			</div>
 
-			<div data-elm="preview">
-				<div data-elm="inner"></div>
-				
-			</div>
-			<div data-elm="text">HELLO SHADOW</div>
-			<br /><br />
 
-			<div data-elm="shadows"></div>
+			<div class="app__edit">
+				<div class="app__preview">
+					<div data-elm="previewBox"></div>
+					<div data-elm="previewDrop">
+						<div data-elm="previewDropInner"></div>
+					</div>
+					<div data-elm="previewText" contenteditable>HELLO SHADOW</div>
+				</div>
+
+				<div class="app__controls">
+					<div class="app__fieldset">
+						<label class="app__label-group" for="sm-box${this.uuid}" data-for="boxShadow">${this.settings.lblBoxShadow}</label>
+						<label class="app__label-group" for="sm-text${this.uuid}" data-for="textShadow">${this.settings.lblTextShadow}</label>
+						<label class="app__label-group" for="sm-drop${this.uuid}" data-for="dropShadow">${this.settings.lblDropShadow}</label>
+					</div>
+					<div data-elm="shadows"></div>
+					<div class="app__fieldset">
+						<label class="app__label"><input type="text" data-elm="presetName" data-lpignore="true" size="15">Preset name</label>
+					</div>
+
+					<button type="button" class="app__button" data-elm="addPreset" disabled="">Add preset</button>
+				</div>
+			</div>
+			<details class="app__details" open>
+				<summary class="app__summary"><span>Presets</span></summary>
+				<div class="app__panel" data-elm="presets">
+					<button type="button" class="app__preset" data-preset-key="" data-preset-obj="">Clody painting</button>
+					<button type="button" class="app__preset" data-preset-key="" data-preset-obj="">Old grainy photo</button>
+				</div>
+			</details>
 		</form>`
 	}
 
@@ -172,7 +190,7 @@ export default class ShadowMaker {
 			<label class="app__label"><input type="number" size="3" value="${shadow.blur}" data-elm="blur" data-index="${index}" />${this.settings.lblBlur}</label>
 			<label class="app__label"><input type="number" size="3" value="${shadow.spread}" data-elm="spread" data-index="${index}" />${this.settings.lblSpread}</label>
 			<label class="app__label app__label--auto"><input type="text" data-elm="color" data-index="${index}" data-js="colorpicker" data-value-format="rgb" value="${shadow.color}" readonly />${this.settings.lblColor}</label>
-			<label class="app__label"><button type="button" data-elm="delete" data-index="${index}" aria-label="">${this.settings.lblDelete}</button>del</label>
+			<label class="app__label app__label--del"><button type="button" data-elm="delete" data-index="${index}" aria-label="">${this.settings.lblDelete}</button>del</label>
 		</div>`
 	}
 
