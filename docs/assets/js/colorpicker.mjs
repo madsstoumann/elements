@@ -243,7 +243,7 @@ export default class ColorPicker {
 		return window.getComputedStyle(element).getPropertyValue('background-color');
 	}
 
-		/**
+	/**
 	* @function handleClick
 	* @param {Event} event
 	* @description Handle main form clicks.
@@ -562,11 +562,13 @@ export default class ColorPicker {
 		this.elements.sample.style.background = color;
 		this.setColor(this.elements.sample, true);
 		const obj = {
-			color: this.elements.luminance.value > 127 ? '#000' : '#FFF',
+			alpha: this.elements.alpha.value - 0,
+			color: this.elements.luminance.value > 127 || this.elements.alpha.value - 0 < 0.6 ? '#000' : '#FFF',
 			hex: color,
 			hsla: `hsla(${this.elements.hslH.value}, ${this.elements.hslS.value}, ${this.elements.hslL.value}, ${this.elements.hslA.value})`,
+			luminance: this.elements.luminance.value - 0,
 			rgba: `rgba(${this.elements.rgbR.value}, ${this.elements.rgbG.value}, ${this.elements.rgbB.value}, ${this.elements.rgbA.value})`
-		}
+		};
 		if (this.trigger.type !== 'color') {
 			this.trigger.style.background = `${this.settings.svgTransparent} 0 0/1rem 1rem`;
 			this.trigger.style.boxShadow = `inset 0 0 0 1000px ${color}`;

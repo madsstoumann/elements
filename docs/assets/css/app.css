@@ -169,7 +169,7 @@
 	width: 1.5rem;
 }
 .app__label--checkbox input:checked + span::before {
-	background-color: #444;
+	background-color: #606060;
 	color: #FFF;
 }
 .app__label--checkbox input:focus + span::before {
@@ -188,7 +188,7 @@
 	white-space: nowrap;
 }
 .app__label--radio > input:checked + span {
-	background-color: #555;
+	background-color: #606060;
 	color: #FFF;
 }
 .app__label--range {
@@ -205,7 +205,7 @@
 }
 .app__label-group {
 	align-items: center;
-	border-color: var(--app-bdc);
+	border-color: #404040;
 	border-style: solid;
 	border-width: 1px 1px 1px 0;
 	/* color: var(--app-lbl-c); */
@@ -228,7 +228,6 @@
 	margin-top: var(--app-m-unit);
 }
 .app__summary {
-
 	font-size: var(--app-fz-large);
   margin: calc(var(--app-m-unit) / 2) 0;
   outline: none;

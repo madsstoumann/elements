@@ -22,6 +22,7 @@ export default class ShadowMaker {
 			eventDelShadow: 'eventDelShadow',
 			lblBlur: 'blur',
 			lblBoxShadow: 'box-shadow',
+			lblCode: 'Generated code',
 			lblColor: 'color',
 			lblDelete: '✕',
 			lblDropShadow: 'drop-shadow',
@@ -29,39 +30,130 @@ export default class ShadowMaker {
 			lblOffsetY: 'y',
 			lblSpread: 'spread',
 			lblTextShadow: 'text-shadow',
-
-			shadow: 
-				{
-					name: 'light-shadow',
-					deletable: false,
-					type: 'text-shadow',
-					values:
-					[
-						{
-							blur: 0,
-							color: 'rgba(220, 194, 255, 0.85)',
-							inset: false,
-							spread: 0,
-							value: `-12px -12px 0 rgba(220, 194, 255, 0.85)`,
-							x: 3,
-							y: 3
-						},
-						{
-							blur: 0,
-							color: 'rgba(220, 194, 55, 1)',
-							inset: false,
-							spread: 0,
-							value: `18px 18px 0 rgba(220, 194, 55, 1)`,
-							x: 6,
-							y: 6
-						}
-					]
-				}
-			
+			presetDefault: {
+				blur: 2,
+				color: 'rgba(0, 0, 0, 0.06)',
+				inset: false,
+				spread: 0,
+				valueBox: `0px 1px 2px 0 rgba(0, 0, 0, 0.06)`,
+				valueText: `0px 1px 0 rgba(0, 0, 0, 0.06)`,
+				x: 0,
+				y: 1
+			},
+			presets: 
+				[
+					{
+						name: 'yellow-red',
+						deletable: false,
+						type: 'text-shadow',
+						values:
+						[
+							{
+								"blur": 0,
+								"color": "rgba(255, 205, 77, 1)",
+								"inset": false,
+								"spread": 0,
+								"valueBox": "9px 9px 0px rgba(255, 205, 77, 1)",
+								"valueText": "9px 9px 0px rgba(255, 205, 77, 1)",
+								"x": 9,
+								"y": 9
+							},
+							{
+								"blur": 0,
+								"color": "rgba(255, 0, 0, 0.75)",
+								"inset": false,
+								"spread": 0,
+								"valueBox": "15px 15px 0px rgba(255, 0, 0, 0.75)",
+								"valueText": "15px 15px 0px rgba(255, 0, 0, 0.75)",
+								"x": 15,
+								"y": 15
+							}
+						]
+					},
+					{
+						name: 'sm',
+						deletable: false,
+						type: 'box-shadow',
+						values:
+						[
+							{
+								"blur": 2,
+								"color": "rgba(0, 0, 0, 0.05)",
+								"inset": false,
+								"spread": 0,
+								"valueBox": "0px 1px 2px 0 rgba(0, 0, 0, 0.05)",
+								"valueText": "0px 1px 2px rgba(0, 0, 0, 0.05)",
+								"x": 0,
+								"y": 1
+							}
+						]
+					},
+					{
+						name: '2xl',
+						deletable: false,
+						type: 'box-shadow',
+						values:
+						[
+							{
+								"blur": 50,
+								"color": "rgba(0, 0, 0, 0.25)",
+								"inset": false,
+								"spread": -12,
+								"valueBox": "0px 25px 50px -12px rgba(0, 0, 0, 0.25)",
+								"valueText": "0px 25px 50px rgba(0, 0, 0, 0.25)",
+								"x": 0,
+								"y": 25
+							}
+						]
+					}
+				]
 		}, stringToType(settings));
 
 		this.app = element;
 		this.init();
+	}
+
+	/**
+	* @function addShadow
+	* @description Adds a new, empty shadow to default preset
+	*/
+	addShadow() {
+		this.preset.push({...this.settings.presetDefault});
+		this.setState();
+	}
+
+	/**
+	* @function delShadow
+	* @param {Node} element
+	* @description Delete a shadow-entry from preset
+	*/
+	delShadow(element) {
+		const index = parseInt(element.dataset.index, 10);
+		this.preset.splice(index, 1);
+		this.setState();
+	}
+
+	/**
+	* @function handleClick
+	* @param {Event} event
+	* @description Handle main form clicks.
+	*/
+	handleClick(event) {
+		const element = event.target;
+		if (element.tagName === 'BUTTON' && element.dataset.elm) {
+			switch(element.dataset.elm) {
+				case 'addPreset':
+					console.log('preset')
+					break;
+				case 'addShadow':
+					this.addShadow();
+					break;
+				case 'delShadow':
+					this.delShadow(element);
+					break;
+				default: break;
+			}
+		}
 	}
 
 		/**
@@ -88,11 +180,11 @@ export default class ShadowMaker {
 			value = event.detail.rgba;
 		}
 
-		const obj = this.settings.shadow.values[index];
+		const obj = this.preset[index];
 		obj[key] = value;
-		obj.value = `${obj.inset ? 'inset ' : ''}${obj.x}px ${obj.y}px ${obj.blur}px ${obj.spread ? `${obj.spread}px ` : '' }${obj.color}`
-		/* TODO: updateValue, updateShadow */		
-		console.log(obj)
+		obj.valueBox = `${obj.inset ? 'inset ' : ''}${obj.x}px ${obj.y}px ${obj.blur}px ${obj.spread ? `${obj.spread}px ` : '' }${obj.color}`;
+		obj.valueText = `${obj.x}px ${obj.y}px ${obj.blur}px ${obj.color}`;
+		this.setPreview(this.preset);
 	}
 
 	/**
@@ -106,25 +198,82 @@ export default class ShadowMaker {
 		this.app.querySelectorAll(`[data-elm]`).forEach(element => {
 			this.elements[element.dataset.elm] = element;
 		});
+		this.preset = [];
+		this.addShadow();
 
+		this.elements.app.addEventListener('click', this.handleClick.bind(this));
 		this.elements.app.addEventListener('input', this.handleInput.bind(this));
+		this.elements.presets.addEventListener('keydown', this.keyDown.bind(this));
+		this.elements.presets.addEventListener('pointerdown', this.pointerDown.bind(this));
 
-		/* TODO TODO */
-		this.elements.shadows.innerHTML = this.templateShadowEntries();
-		const colors = this.app.querySelectorAll(`[data-js="colorpicker"]`);
+		this.elements.presets.innerHTML = this.settings.presets.map((preset, index) => { return this.templatePresetEntry(preset, index)}).join('');
+	}
+
+	/**
+	* @function keyDown
+	* @paramn {Event} event
+	* @description Copies the color of the curent swatch, when user press "Spacebar"
+	*/
+	keyDown(event) {
+		const element = event.target;
+		if (element.tagName === 'BUTTON') {
+			switch (event.key) {
+				case ' ': this.setPreview(element); break;
+				case 'Delete': this.deletePreset(element); break;
+				default: break;
+			}
+		}
+	}
+
+	/**
+	* @function pointerDown
+	* @paramn {Event} event
+	* @description Copies the color of the curent swatch, starts a clickTimer-callback for "long-click"
+	*/
+	pointerDown(event) {
+		const element = event.target;
+		if (element.tagName === 'BUTTON') {
+			const index = parseInt(element.dataset.index, 10);
+			
+			const preset = this.settings.presets[index];
+			if (preset) {
+				this.elements.presetName.value = preset.name;
+				this.preset = preset.values;
+				this.setState()
+			}
+			if (!this.clickTimer) {
+				// this.clickTimer = setTimeout(() => { this.deleteSwatch(element) }, this.clickTimerDuration);
+			}
+		}
+	}
+
+	/**
+	* @function setPreview
+	* @paramn {Array} arr
+	* @description Updates preview of box-shadow, text-shadow and drop-shadow
+	*/
+	setPreview(arr) {
+		const boxShadow = arr.map(preset => { return preset.valueBox }).join(', ');
+		const dropShadow = arr.map(preset => { return `drop-shadow(${preset.valueText})` }).join(' ');
+		const textShadow = arr.map(preset => { return preset.valueText }).join(', ');
+		this.elements.previewBox.style.boxShadow = boxShadow;
+		this.elements.previewDrop.style.filter = dropShadow;
+		this.elements.previewText.style.textShadow = textShadow;
+		this.elements.presetCode.value = `box-shadow: ${boxShadow};\nfilter: ${dropShadow};\ntext-shadow: ${textShadow};`
+	}
+
+	setState(arr = this.preset) {
+		/* TODO */
+		this.elements.shadows.innerHTML = arr.map((preset, index) => { return this.templateShadowEntry(preset, index)}).join('');
+		/* Remove old color-pickers */
+		document.querySelectorAll('.c-clp__dialog').forEach(dialog => { dialog.parentNode.removeChild(dialog)})
+		/* Add new ones */
+		const colors = this.elements.shadows.querySelectorAll(`[data-js="colorpicker"]`);
 		colors.forEach(color => {
 			new ColorPicker(color, color.dataset);
 			color.addEventListener('eventSetColor', (event) => { this.handleInput(event)})
-		})
-
-		this.elements.previewText.style.cssText = this.settings.shadow.type + ':' + this.settings.shadow.values.map(shadow => { return shadow.value; }).join(',') + ';';
-		
-
-	}
-
-	setPreview() {
-		/* Set CSS Custom Props */
-
+		});
+		this.setPreview(arr);
 	}
 
 	/**
@@ -135,11 +284,9 @@ export default class ShadowMaker {
 		return `
 		<form class="app" data-elm="app">
 
-			<input type="radio" id="sm-box${this.uuid}" name="sm-type" class="u-hidden" value="box" data-elm="boxShadow" checked>
-			<input type="radio" id="sm-text${this.uuid}" name="sm-type" class="u-hidden" value="text" data-elm="textShadow">
-			<input type="radio" id="sm-drop${this.uuid}" name="sm-type" class="u-hidden" value="text" data-elm="dropShadow">
-			
-
+			<input type="radio" id="sm-box${this.uuid}" name="smtype" class="u-hidden" value="box" data-elm="boxShadow" checked>
+			<input type="radio" id="sm-text${this.uuid}" name="smtype" class="u-hidden" value="text" data-elm="textShadow">
+			<input type="radio" id="sm-drop${this.uuid}" name="smtype" class="u-hidden" value="text" data-elm="dropShadow">
 
 			<div class="app__edit">
 				<div class="app__preview">
@@ -157,27 +304,38 @@ export default class ShadowMaker {
 						<label class="app__label-group" for="sm-drop${this.uuid}" data-for="dropShadow">${this.settings.lblDropShadow}</label>
 					</div>
 					<div data-elm="shadows"></div>
+					<button type="button" class="app__button" data-elm="addShadow">Add shadow</button>
 					<div class="app__fieldset">
 						<label class="app__label"><input type="text" data-elm="presetName" data-lpignore="true" size="15">Preset name</label>
 					</div>
 
 					<button type="button" class="app__button" data-elm="addPreset" disabled="">Add preset</button>
+					<div class="app__fieldset">
+						<label class="app__label"><textarea data-elm="presetCode" readonly></textarea>${this.settings.lblCode}</label>
+					</div>
 				</div>
 			</div>
+
 			<details class="app__details" open>
 				<summary class="app__summary"><span>Presets</span></summary>
-				<div class="app__panel" data-elm="presets">
-					<button type="button" class="app__preset" data-preset-key="" data-preset-obj="">Clody painting</button>
-					<button type="button" class="app__preset" data-preset-key="" data-preset-obj="">Old grainy photo</button>
-				</div>
+				<div class="app__panel" data-elm="presets"></div>
 			</details>
 		</form>`
 	}
 
 		/**
+	* @function templatePresetEntry
+	* @param {Object} preset
+	* @param {Number} index
+	* @description Renders a single preset
+	*/	
+	templatePresetEntry(preset, index = 0) {
+		return `<button type="button" class="app__preset" data-index="${index}">${preset.name}</button>`
+	}
+
+	/**
 	* @function templateShadowEntry
 	* @param {String} color
-	* @param {String} stop
 	* @param {Number} index
 	* @description Renders a single shadow-entry in a list of shadows
 	*/	
@@ -190,15 +348,7 @@ export default class ShadowMaker {
 			<label class="app__label"><input type="number" size="3" value="${shadow.blur}" data-elm="blur" data-index="${index}" />${this.settings.lblBlur}</label>
 			<label class="app__label"><input type="number" size="3" value="${shadow.spread}" data-elm="spread" data-index="${index}" />${this.settings.lblSpread}</label>
 			<label class="app__label app__label--auto"><input type="text" data-elm="color" data-index="${index}" data-js="colorpicker" data-value-format="rgb" value="${shadow.color}" readonly />${this.settings.lblColor}</label>
-			<label class="app__label app__label--del"><button type="button" data-elm="delete" data-index="${index}" aria-label="">${this.settings.lblDelete}</button>del</label>
+			<label class="app__label app__label--del"><button type="button" data-elm="delShadow" data-index="${index}" aria-label="">${this.settings.lblDelete}</button>del</label>
 		</div>`
-	}
-
-	/**
-	* @function templateShadowEntries
-	* @description Renders a group of ShadowEntry's
-	*/
-	templateShadowEntries() {
-		return this.settings.shadow.values.map((shadow, index) => { return this.templateShadowEntry(shadow, index)}).join('');
 	}
 }
