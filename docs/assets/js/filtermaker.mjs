@@ -21,7 +21,8 @@ export default class FilterMaker {
 			clsDrag: 'app__img--drag',
 			eventAddPreset: 'eventAddPreset',
 			eventDelPreset: 'eventDelPreset',
-			filterFile: '../assets/svg/filters.svg',
+			filterFile: '/assets/svg/filters.svg',
+			lblAddPreset: 'Add preset',
 			lblBlur: 'blur',
 			lblBrightness: 'brightness',
 			lblCode: 'Generated code',
@@ -31,6 +32,7 @@ export default class FilterMaker {
 			lblHueRotate: 'hue-rotate',
 			lblInvert: 'invert',
 			lblOpacity: 'opacity',
+			lblPresetName: 'Preset name',
 			lblReset: 'Reset',
 			lblSaturate: 'saturate',
 			lblSepia: 'sepia',
@@ -43,7 +45,7 @@ export default class FilterMaker {
 						invert: 0.17,
 						saturate: 2.6,
 						sepia: 0.25,
-						url: `url('/docs/assets/svg/filters.svg#squiggly-1')`
+						url: `url('/assets/svg/filters.svg#squiggly-1')`
 					}
 				},
 				{
@@ -300,10 +302,10 @@ export default class FilterMaker {
 						<input type="range" class="c-rng" min="0" max="1" step="0.01" value="0" name="sepia" data-elm="sepia" data-range-output=":true" />
 					</label>
 					<div class="app__fieldset">
-						<label class="app__label"><input type="text" data-elm="presetName" data-lpignore="true" size="15">Preset name</label>
+						<label class="app__label"><input type="text" data-elm="presetName" data-lpignore="true" size="15">${this.settings.lblPresetName}</label>
 					</div>
 
-					<button type="button" class="app__button" data-elm="addPreset" disabled="">Add preset</button>
+					<button type="button" class="app__button" data-elm="addPreset" disabled>${this.settings.lblAddPreset}</button>
 					
 					<!--<button type="button" class="app__button" data-elm="reset">${this.settings.lblReset}</button>-->
 				</div>
