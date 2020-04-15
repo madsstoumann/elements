@@ -20,6 +20,8 @@ export default class ShadowMaker {
 		this.settings = Object.assign({
 			eventAddShadow: 'eventAddShadow',
 			eventDelShadow: 'eventDelShadow',
+			lblAddPreset: 'Add preset',
+			lblAddShadow: 'Add shadow',
 			lblBlur: 'blur',
 			lblBoxShadow: 'box-shadow',
 			lblCode: 'Generated code',
@@ -28,15 +30,16 @@ export default class ShadowMaker {
 			lblDropShadow: 'drop-shadow',
 			lblOffsetX: 'x',
 			lblOffsetY: 'y',
+			lblPresets: 'Presets',
 			lblSpread: 'spread',
 			lblTextShadow: 'text-shadow',
 			presetDefault: {
 				blur: 2,
-				color: 'rgba(0, 0, 0, 0.06)',
+				color: 'rgba(230, 230, 230, 1)',
 				inset: false,
 				spread: 0,
-				valueBox: `0px 1px 2px 0 rgba(0, 0, 0, 0.06)`,
-				valueText: `0px 1px 0 rgba(0, 0, 0, 0.06)`,
+				valueBox: `0px 1px 2px 0 rgba(230, 230, 230, 1)`,
+				valueText: `0px 1px 0 rgba(230, 230, 230, 1)`,
 				x: 0,
 				y: 1
 			},
@@ -259,13 +262,12 @@ export default class ShadowMaker {
 		this.elements.previewBox.style.boxShadow = boxShadow;
 		this.elements.previewDrop.style.filter = dropShadow;
 		this.elements.previewText.style.textShadow = textShadow;
-		this.elements.presetCode.value = `box-shadow: ${boxShadow};\nfilter: ${dropShadow};\ntext-shadow: ${textShadow};`
+		this.elements.presetCode.innerHTML = `<span>box-shadow:</span> ${boxShadow};<br /><span>filter:</span> ${dropShadow};<br /><span>text-shadow:</span> ${textShadow};`
 	}
 
 	setState(arr = this.preset) {
-		/* TODO */
 		this.elements.shadows.innerHTML = arr.map((preset, index) => { return this.templateShadowEntry(preset, index)}).join('');
-		/* Remove old color-pickers */
+		/* TODO: RISK OF REMOVING colorPickers from MAIN APP !!! Remove old color-pickers */
 		document.querySelectorAll('.c-clp__dialog').forEach(dialog => { dialog.parentNode.removeChild(dialog)})
 		/* Add new ones */
 		const colors = this.elements.shadows.querySelectorAll(`[data-js="colorpicker"]`);
@@ -304,21 +306,23 @@ export default class ShadowMaker {
 						<label class="app__label-group" for="sm-drop${this.uuid}" data-for="dropShadow">${this.settings.lblDropShadow}</label>
 					</div>
 					<div data-elm="shadows"></div>
-					<button type="button" class="app__button" data-elm="addShadow">Add shadow</button>
+					<button type="button" class="app__button" data-elm="addShadow">${this.settings.lblAddShadow}</button>
+					TODO: RESET
 					<div class="app__fieldset">
 						<label class="app__label"><input type="text" data-elm="presetName" data-lpignore="true" size="15">Preset name</label>
 					</div>
 
-					<button type="button" class="app__button" data-elm="addPreset" disabled="">Add preset</button>
-					<div class="app__fieldset">
-						<label class="app__label"><textarea data-elm="presetCode" readonly></textarea>${this.settings.lblCode}</label>
-					</div>
+					<button type="button" class="app__button" data-elm="addPreset" disabled>${this.settings.lblAddPreset}</button>
 				</div>
 			</div>
 
 			<details class="app__details" open>
-				<summary class="app__summary"><span>Presets</span></summary>
+				<summary class="app__summary"><span>${this.settings.lblPresets}</span></summary>
 				<div class="app__panel" data-elm="presets"></div>
+			</details>
+			<details class="app__details" open>
+				<summary class="app__summary"><span>${this.settings.lblCode}</span></summary>
+				<div data-elm="presetCode"></div>
 			</details>
 		</form>`
 	}
