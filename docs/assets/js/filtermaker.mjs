@@ -21,7 +21,7 @@ export default class FilterMaker {
 			clsDrag: 'app__img--drag',
 			eventAddPreset: 'eventAddPreset',
 			eventDelPreset: 'eventDelPreset',
-			filterFile: '/docs/assets/svg/filters.svg',
+			filterFile: '/assets/svg/filters.svg',
 			lblBlur: 'blur',
 			lblBrightness: 'brightness',
 			lblContrast: 'contrast',
