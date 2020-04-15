@@ -18,22 +18,6 @@
 	padding: 4rem 0;
   text-align: center;
 }
-[data-elm="presetCode"] {
-	background-color: #1e1e1e;
-	border: var(--app-inp-brd);
-	border-radius: var(--app-inp-bdrs);
-	color: #b5cea8;
-	flex: 0 0 100%;
-	font-family: monospace;
-	font-size: small;
-	min-height: 4rem;
-	padding: 0.5rem;
-	resize: none;
-	width: 100%;
-}
-[data-elm="presetCode"] span {
-	color: #7bdcfe;
-}
 [data-elm="previewBox"] {
 	background-color: white;
 	border-radius: .25rem;

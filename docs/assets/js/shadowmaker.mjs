@@ -2,8 +2,8 @@
  * ShadowMaker module.
  * @module /assets/js/shadowmaker
  * @requires /assets/js/common
- * @version 0.0.3
- * @summary 14-04-2020
+ * @version 0.0.4
+ * @summary 15-04-2020
  * @description box-shadow, filter: drop-shadow and text-shadow editor
  * https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow
  * https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow
@@ -208,7 +208,6 @@ export default class ShadowMaker {
 		this.elements.app.addEventListener('input', this.handleInput.bind(this));
 		this.elements.presets.addEventListener('keydown', this.keyDown.bind(this));
 		this.elements.presets.addEventListener('pointerdown', this.pointerDown.bind(this));
-
 		this.elements.presets.innerHTML = this.settings.presets.map((preset, index) => { return this.templatePresetEntry(preset, index)}).join('');
 	}
 
@@ -322,12 +321,12 @@ export default class ShadowMaker {
 			</details>
 			<details class="app__details" open>
 				<summary class="app__summary"><span>${this.settings.lblCode}</span></summary>
-				<div data-elm="presetCode"></div>
+				<div class="app__code" data-elm="presetCode"></div>
 			</details>
 		</form>`
 	}
 
-		/**
+	/**
 	* @function templatePresetEntry
 	* @param {Object} preset
 	* @param {Number} index

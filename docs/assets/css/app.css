@@ -57,6 +57,22 @@
 	padding: 0.35rem;
 	width: 100%;
 }
+.app__code {
+	background-color: #1e1e1e;
+	border: var(--app-inp-brd);
+	border-radius: var(--app-inp-bdrs);
+	color: #b5cea8;
+	flex: 0 0 100%;
+	font-family: monospace;
+	font-size: small;
+	min-height: 4rem;
+	padding: 0.5rem;
+	resize: none;
+	width: 100%;
+}
+.app__code span {
+	color: #7bdcfe;
+}
 .app__controls,
 .app__preview {
 	width: 48%;
