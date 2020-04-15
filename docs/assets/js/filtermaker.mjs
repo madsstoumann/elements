@@ -21,7 +21,7 @@ export default class FilterMaker {
 			clsDrag: 'app__img--drag',
 			eventAddPreset: 'eventAddPreset',
 			eventDelPreset: 'eventDelPreset',
-			filterFile: '/docs/assets/svg/filters.svg',
+			filterFile: '../assets/svg/filters.svg',
 			lblBlur: 'blur',
 			lblBrightness: 'brightness',
 			lblCode: 'Generated code',
@@ -55,7 +55,7 @@ export default class FilterMaker {
 						'hue-rotate': 5,
 						opacity: 0.9,
 						saturate: 1.3,
-						sepia: 0.71,
+						sepia: 0.40,
 						url: ''
 					}
 				}
