@@ -16,8 +16,6 @@ import RangeSlider from './range.mjs';
 export default class CssFont extends CssApp {
 	constructor(element, settings) {
 		super(element, Object.assign({
-			fontCategories: ['serif', 'sans-serif', 'display', 'handwriting', 'monospace'],
-			fontFamilies: ['serif', 'sans-serif', 'monospace', 'cursive', 'fantasy', 'system-ui', 'emoji', 'math', 'fangsong'],
 			lblAppHeader: 'CSS Transform Editor',
 			lblFontSearch: 'Search Google Fonts',
 			lblFontSize: 'Size',

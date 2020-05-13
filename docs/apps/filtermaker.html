@@ -11,12 +11,12 @@
 		data-app-type="filter"
 		data-lbl-app-header="CSS &lt;code&gt;filter&lt;/code&gt; Editor"
 		data-url-presets="../assets/data/presets-filter.json"
-		data-filter-file="wghtFrom">
+		data-filter-file="../assets/svg/filters.svg">
 	</div>
 	<script type="module">
 		const elements = document.querySelectorAll('[data-js="filtermaker"]');
 			if (elements.length) {
-				import('/assets/svg/filters.svg')
+				import('../assets/js/css-filter.mjs')
 				.then(module => {
 					const jsClass = module.default;
 					elements.forEach(element => {
