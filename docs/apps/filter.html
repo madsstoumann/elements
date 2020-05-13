@@ -7,17 +7,21 @@
 	<link href="../assets/css/app-filtermaker.css" rel="stylesheet">
 </head>
 <body>
-	<div data-js="filtermaker"></div>
+	<div data-js="filtermaker"
+		data-app-type="filter"
+		data-lbl-app-header="CSS &lt;code&gt;filter&lt;/code&gt; Editor"
+		data-url-presets="../assets/data/presets-filter.json">
+	</div>
 	<script type="module">
 		const elements = document.querySelectorAll('[data-js="filtermaker"]');
 			if (elements.length) {
-				import('../assets/js/filtermaker.mjs')
+				import('../assets/js/css-filter.mjs')
 				.then(module => {
 					const jsClass = module.default;
 					elements.forEach(element => {
 						new jsClass(element, element.dataset);
-						// element.addEventListener('eventAddShadow', (event) => { console.log(JSON.parse(event.detail)); });
-						// element.addEventListener('eventDelShadow', (event) => { console.warn(JSON.parse(event.detail)); });
+						element.addEventListener('eventAddPreset', (event) => { console.log(JSON.parse(event.detail)); });
+						element.addEventListener('eventDelPreset', (event) => { console.warn(JSON.parse(event.detail)); });
 					});
 				})
 			}

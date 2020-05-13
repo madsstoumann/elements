@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 <head>
-	<title>Font XPlorer</title>
+	<title>CSS Font</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-	<link rel="icon" href="/docs/favicon.svg" type="image/svg+xml" />
-	<link href="../assets/css/c-fxp.css" rel="stylesheet">
+	<link href="../assets/css/app-font.css" rel="stylesheet">
 </head>
 <body>
-	<div data-js="fontxplorer">FONT</div>
 
+	<div data-js="font"
+		data-app-type="font"
+		data-lbl-app-header="CSS &lt;code&gt;font-family&lt;/code&gt; Explorer"
+		data-url-presets="../assets/data/presets-font.json"
+		data-url-font-list="../assets/data/google-fonts.json">
+	</div>
 	<script type="module">
-		const elements = document.querySelectorAll('[data-js="fontxplorer"]');
+		const elements = document.querySelectorAll('[data-js="font"]');
 			if (elements.length) {
-				import('../assets/js/fontxplorer.mjs')
+				import('../assets/js/css-font.mjs')
 				.then(module => {
 					const jsClass = module.default;
 					elements.forEach(element => {
@@ -25,7 +29,6 @@
 			}
 
 			// https://developers.google.com/fonts/docs/css2?hl=da
-
 
 // 		<link href="https://fonts.googleapis.com/css?family=ABeeZee&display=swap" rel="stylesheet">
 

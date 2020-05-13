@@ -8,6 +8,8 @@
  * @example
  * <section data-js="fontxplorer">
  * https://www.googleapis.com/webfonts/v1/webfonts?key=
+ * 
+ * TODO: letter-spacing ! presets etc.
  */
 
 import { stringToType, uuid } from './common.mjs';
@@ -228,25 +230,6 @@ export default class FontXplorer {
 				this.clickTimer = setTimeout(() => { this.deleteSwatch(element) }, this.clickTimerDuration);
 			}
 		}
-	}
-
-	/**
-	* @function pointerUp
-	* @description Cancels this.clickTimer, if not null
-	*/
-	pointerUp() {
-		if (this.clickTimer) {
-			clearTimeout(this.clickTimer);
-			this.clickTimer = null;
-		}
-	}
-
-	/**
-	* @function renderSwatches
-	* @description Renders/updates custom swatches
-	*/
-	renderSwatches() {
-		this.elements.swatches.innerHTML = this.templateColorSubGroup(this.settings.swatches.values);
 	}
 
 	/**

@@ -1,9 +1,8 @@
 /**
  * FilterMaker module.
  * @module /assets/js/filtermaker
- * @requires /assets/js/common
- * @version 0.0.4
- * @summary 15-04-2020
+ * @version 0.0.6
+ * @summary 12-05-2020
  * @description 
  * @example
  * <div data-js="filtermaker">
@@ -12,60 +11,42 @@
  * https://yoksel.github.io/svg-gradient-map
  */
 
+import CssApp from './css-app.mjs';
 import RangeSlider from './range.mjs';
-import { stringToType, uuid } from './common.mjs';
 
-export default class FilterMaker {
+export default class CssFilter extends CssApp {
 	constructor(element, settings) {
-		this.settings = Object.assign({
+		super(element, Object.assign({
 			clsDrag: 'app__img--drag',
-			eventAddPreset: 'eventAddPreset',
-			eventDelPreset: 'eventDelPreset',
-			filterFile: '/assets/svg/filters.svg',
-			lblAddPreset: 'Add preset',
+			filterFile: '/docs/assets/svg/filters.svg',
+			imgPreview: '../assets/img/filter-demo.jpg',
+			lblAppHeader: 'CSS Filter Editor',
 			lblBlur: 'blur',
 			lblBrightness: 'brightness',
-			lblCode: 'Generated code',
 			lblContrast: 'contrast',
-			lblDragImage: 'Drag image',
+			lblFilters: 'SVG Filters',
 			lblGrayscale: 'grayscale',
 			lblHueRotate: 'hue-rotate',
 			lblInvert: 'invert',
 			lblOpacity: 'opacity',
-			lblPresetName: 'Preset name',
-			lblReset: 'Reset',
 			lblSaturate: 'saturate',
 			lblSepia: 'sepia',
-			presets: [
-				{
-					name: 'watercolor',
-					values:
-					{
-						brightness: 1.3,
-						invert: 0.17,
-						saturate: 2.6,
-						sepia: 0.25,
-						url: `url('/assets/svg/filters.svg#squiggly-1')`
-					}
-				},
-				{
-					name: 'old photo',
-					values:
-					{
-						blur: 0.2,
-						brightness: 1.1,
-						'hue-rotate': 5,
-						opacity: 0.9,
-						saturate: 1.3,
-						sepia: 0.40,
-						url: ''
-					}
-				}
-			]
-		}, stringToType(settings));
+			lblUploadImage: 'Upload or drag image',
+			presetEntry: {
+				blur: 0,
+				brightness: 1,
+				contrast: 1,
+				grayscale: 0,
+				'hue-rotate': 0,
+				invert: 0,
+				opacity: 1,
+				saturate: 1,
+				sepia: 0,
+				url: ''
+			}
+		}, settings));
 
-		this.app = element;
-		this.initFilterMaker();
+		this.init()
 	}
 
 	/**
@@ -75,52 +56,35 @@ export default class FilterMaker {
 	*/
 	handleInput(event) {
 		const element = event.target;
+		if (element?.type === 'text' || element?.type === 'textarea') { return; }
 		const key = element.dataset.elm;
 		this.elements.app.style.setProperty(`--${key}`,`${element.value}${element.dataset.suffix || ''}`);
-		this.preset[key] = key === 'url' ? element.value : element.value - 0;
-		this.setCode();
+		this.preset.values[0][key] = key === 'url' ? element.value : element.value - 0;
+		this.setValue();
 	}
 
 	/**
-	* @function initFilterMaker
+	* @function init
 	* @description Initialize: Create elements, add eventListeners etc.
 	*/
-	async initFilterMaker() {
-		this.uuid = uuid();
-		this.app.innerHTML = this.template();
-		this.elements = {};
-		this.presetDefault = 
-		{
-			blur: 0,
-			brightness: 1,
-			contrast: 1,
-			grayscale: 0,
-			'hue-rotate': 0,
-			invert: 0,
-			opacity: 1,
-			saturate: 1,
-			sepia: 0,
-			url: ''
-		};
-		this.preset = {...this.presetDefault};
-		this.clickTimer = null;
-		this.clickTimerDuration = 800;
-		this.app.querySelectorAll(`[data-elm]`).forEach(element => {
+	async init() {
+		await super.init();
+
+		/* Add RangeSliders */
+		Object.values(this.elements).forEach(element => {
 			if (element.type && element.type === 'range') {
 				element.__range = new RangeSlider(element, element.dataset)
 			}
 			this.elements[element.dataset.elm] = element;
 		});
 
-		this.elements.app.addEventListener('input', this.handleInput.bind(this));
+		/* Add drag/drop functionality to preview-image-area */
 		this.elements.filedrop.addEventListener("change", this.setImage.bind(this));
-		this.elements.presets.addEventListener('keydown', this.keyDown.bind(this));
-		this.elements.presets.addEventListener('pointerdown', this.pointerDown.bind(this));
-		this.elements.presets.innerHTML = this.settings.presets.map((preset, index) => { return this.templatePresetEntry(preset, index)}).join('');
 		this.elements.preview.addEventListener("dragover", (event) => { event.preventDefault(); return false; });
 		this.elements.preview.addEventListener("dragenter", () => { this.elements.preview.classList.add(this.settings.clsDrag); });
 		document.addEventListener("drop", () => { this.elements.preview.classList.remove(this.settings.clsDrag) ;});
 
+		/* Load optional svg-filters from file */
 		const filterFile = await (await fetch(this.settings.filterFile)).text();
 		if (filterFile) {
 			const parser = new DOMParser;
@@ -129,8 +93,6 @@ export default class FilterMaker {
 			this.settings.filters = [...filters].map(filter => { return { id: filter.id, title: filter.title }})
 			this.elements.filters.innerHTML = this.templateFilters(this.settings.filters);
 		}
-
-		this.setCode();
 	}
 
 	/**
@@ -139,93 +101,103 @@ export default class FilterMaker {
 	* @description Loads preset / overwrites preset
 	*/
 	loadPreset(element) {
-		const index = parseInt(element.dataset.index, 10);
-		const preset = this.settings.presets[index];
-		if (preset && preset.values) {
-			this.preset = Object.assign({...this.presetDefault}, preset.values);
-			for (let key in this.preset) {
-				let input;
-				if (key === 'url') {
-					let svgID = 'none';
-					if (this.preset.url) {
-						const url = this.preset.url.match(/#(.*)'/);
-						if (url.length && url[1]) {
-							svgID = url[1]
-						}
-					} 
-					input = this.elements.app.elements[`filter-${svgID}`];
+		/* If element exists, load preset - otherwise `reset` to default values */
+		if (element) {
+			super.loadPreset(element);
+		}
+
+		let input;
+		let hasSVG = false;
+		let svgID = 'none';
+
+		/* Merge preset with default settings */
+		const obj = {...this.settings.presetEntry, ...this.preset.values[0]};
+
+		Object.entries(obj).forEach(arr => {
+			const [key, value] = [...arr];
+			
+			if (key === 'url') {
+				/* Extract SVG filter-id */
+				const url = value.match(/#(.*)'/);
+				if (url && url.length && url[1]) {
+					svgID = url[1];
+				}
+				input = this.elements.app.elements[`filter-${svgID}`];
+
+				if (input) {
+					hasSVG = true;
 					input.checked = true;
 				}
-				else {
-					input = this.elements.app.elements[key];
+			}
+			else {
+				input = this.elements.app.elements[key];
+			}
+
+			if (input) {
+				input.value = value;
+				this.elements.app.style.setProperty(`--${key}`,`${input.value}${input.dataset.suffix || ''}`);
+
+				/* Update rangeSlider */
+				if (input.__range) {
+					const min = parseInt(input.min, 10);
+					const multiplier = 100 / ((parseInt(input.max, 10) || 100) - min);
+					input.__range.updateRange(input, min, multiplier);
 				}
-				if (input) {
-					input.value = this.preset[key];
-					this.elements.app.style.setProperty(`--${key}`,`${input.value}${input.dataset.suffix || ''}`);
-					if (input.__range) {
-						/* TODO : UPDATE rangeSlider */
-						const min = parseInt(input.min, 10);
-						const multiplier = 100 / ((parseInt(input.max, 10) || 100) - min);
-						input.__range.updateRange(input, min, multiplier);
-					}
-				}
 			}
-			this.setCode();
-			// this.elements.presetName.value = preset.name;
-			// this.preset = preset.values;
+		});
+
+		if (!hasSVG) {
+			input = this.elements.app.elements[`filter-${svgID}`];
+			if (input) { input.checked = true; }
 		}
+
+		this.setValue();
 	}
 
 	/**
-	* @function keyDown
-	* @paramn {Event} event
-	* @description Copies the color of the curent swatch, when user press "Spacebar"
-	*/
-	keyDown(event) {
-		const element = event.target;
-		if (element.tagName === 'BUTTON') {
-			switch (event.key) {
-				case ' ': this.loadPreset(element); break;
-				case 'Delete': this.deletePreset(element); break;
-				default: break;
-			}
-		}
-	}
-
-	/**
-	* @function pointerDown
-	* @paramn {Event} event
-	* @description Copies the color of the curent swatch, starts a clickTimer-callback for "long-click"
-	*/
-	pointerDown(event) {
-		const element = event.target;
-		if (element.tagName === 'BUTTON') {
-			this.loadPreset(element);
-			if (!this.clickTimer) {
-				// this.clickTimer = setTimeout(() => { this.deleteSwatch(element) }, this.clickTimerDuration);
-			}
-		}
-	}
-
-	/**
-	* @function objDiff
+	* @function objFilter
+	* @param {Object} obj1
+	* @param {Object} obj2
 	* @description Compare 2 simple objects, return object with differences
 	*/
-	objDiff(obj1, obj2) {
+	objFilter(obj1, obj2) {
 		const obj = {};
-		Object.keys(obj1).forEach(key => { if(obj1[key] !== obj2[key]) { obj[key] = obj2[key] }});
+		Object.keys(obj1).forEach(key => { if(obj1[key] !== obj2[key]) { obj[key] = obj1[key] }});
 		return obj;
 	}
 
 	/**
-	* @function setCode
-	* @description Updates code in `generated code`-box
+	* @function resetPreset
+	* @description Resets to default
 	*/
-	setCode() {
-		/* TODO: remove SVCG filter if includes "none" */
-		const obj = this.objDiff(this.presetDefault, this.preset);
+	resetPreset() {
+		super.resetPreset();
+		this.preset.values[0] = {...this.settings.presetEntry};
+		this.loadPreset(null);
+	}
+
+	/**
+	* @function setImage
+	* @description Sets preview-image to dragged (or file-upload) image-src.
+	*/
+	setImage(event) {
+		const reader = new FileReader();
+		reader.onload = (e) => {
+			this.elements.preview.setAttribute("src", e.target.result);
+		};
+		reader.readAsDataURL(event.target.files[0]);
+	}
+
+	/**
+	* @function setValue
+	* @description Updates `value`-part of current preset, filters out default values
+	*/
+	setValue() {
 		let str = '';
+		/* Remove default settings from preset, only store values that are *not* default */
+		const obj = this.objFilter(this.preset.values[0], this.settings.presetEntry);
 		let suffix = '';
+
 		for (let key in obj) {
 			if (key === 'blur') { 
 				suffix = 'px'; }
@@ -237,19 +209,9 @@ export default class FilterMaker {
 			}
 			str += `${key}(${obj[key]}${suffix}) `;
 		}
-		this.elements.presetCode.innerHTML = str ? `<span>filter:</span> ${str.slice(0,-1)};` : '/* Make some changes */';
-	}
-
-	/**
-	* @function setImage
-	* @description Sets preview-image to dragged image-src.
-	*/
-	setImage(event) {
-		const reader = new FileReader();
-		reader.onload = (e) => {
-			this.elements.preview.setAttribute("src", e.target.result);
-		};
-		reader.readAsDataURL(event.target.files[0]);
+		this.preset.value = str;
+		this.preset.values[0] = obj;
+		super.setCode();
 	}
 
 	/**
@@ -259,17 +221,17 @@ export default class FilterMaker {
 	template() {
 		return `
 		<form class="app" data-elm="app">
+			<strong class="app__header">${this.settings.lblAppHeader}</strong>
 			<div class="app__edit">
 				<div class="app__preview">
-					<!--<h3>${this.settings.lblDragImage}</h3>-->
 					<figure class="app__img-wrapper">
-					<!-- TODO FIX -->
-						<img src="../assets/img/filter-demo.jpg" class="app__img" data-elm="preview" />
-						<input type="file" class="app__file-drop" data-elm="filedrop" />
+						<img src="${this.settings.imgPreview}" class="app__img" data-elm="preview" />
+						<input type="file" id="${this.uuid}file" class="app__file-drop" data-elm="filedrop" />
 					</figure>
+					<label for="${this.uuid}file" class="app__label">${this.settings.lblUploadImage}</label>
 					<details open data-elm="filters-wrapper">
-						<summary class="app__summary"><span>SVG Filters</span></summary>
-						<div class="app__panel" data-elm="filters">
+						<summary class="app__summary"><span>${this.settings.lblFilters}</span></summary>
+						<div class="app__panel" data-elm="filters"></div>
 					</details>
 				</div>
 
@@ -301,23 +263,31 @@ export default class FilterMaker {
 					<label class="app__label--range"><span>${this.settings.lblSepia}</span>
 						<input type="range" class="c-rng" min="0" max="1" step="0.01" value="0" name="sepia" data-elm="sepia" data-range-output=":true" />
 					</label>
-					<div class="app__fieldset">
+
+					<div class="app__fieldset app__fieldset--topspace">
 						<label class="app__label"><input type="text" data-elm="presetName" data-lpignore="true" size="15">${this.settings.lblPresetName}</label>
 					</div>
-
-					<button type="button" class="app__button" data-elm="addPreset" disabled>${this.settings.lblAddPreset}</button>
-					
-					<!--<button type="button" class="app__button" data-elm="reset">${this.settings.lblReset}</button>-->
+					<div class="app__fieldset">
+						<label class="app__label"><textarea data-elm="presetDesc" data-lpignore="true"></textarea>${this.settings.lblPresetDesc}</label>
+					</div>
+					<div class="app__fieldset app__button-group">
+						<button type="button" class="app__button app__button--reset" data-elm="resetPreset">${this.settings.lblReset}</button>
+						<button type="button" class="app__button" data-elm="addPreset">${this.settings.lblAddPreset}</button>
+					</div>
 				</div>
 			</div>
 			<details class="app__details" open>
-				<summary class="app__summary"><span>Presets</span></summary>
+				<summary class="app__summary"><span>${this.settings.lblPresets}</span></summary>
 				<div class="app__panel" data-elm="presets"></div>
 			</details>
-			<details class="app__details" open>
-			<summary class="app__summary"><span>${this.settings.lblCode}</span></summary>
-			<div class="app__code" data-elm="presetCode"></div>
-		</details>
+			<details class="app__details">
+				<summary class="app__summary"><span>${this.settings.lblCSSCode}</span></summary>
+				<div class="app__code" data-elm="cssCode"></div>
+			</details>
+			<details class="app__details">
+				<summary class="app__summary"><span>${this.settings.lblPresetCode}</span></summary>
+				<div class="app__code" data-elm="presetCode"></div>
+			</details>
 		</form>`
 	}
 
@@ -337,15 +307,5 @@ export default class FilterMaker {
 				<input type="radio" class="u-hidden" id="filter-${filter.id}" name="url" data-elm="url" value="url('${this.settings.filterFile}#${filter.id}')" />
 				<span>${filter.title || filter.id}</span>
 			</label>`}).join('')}`;
-	}
-
-	/**
-	* @function templatePresetEntry
-	* @param {Object} preset
-	* @param {Number} index
-	* @description Renders a single preset
-	*/	
-	templatePresetEntry(preset, index = 0) {
-		return `<button type="button" class="app__preset" data-index="${index}">${preset.name}</button>`
 	}
 }

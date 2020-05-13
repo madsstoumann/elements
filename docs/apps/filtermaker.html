@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Filter Maker</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/app-filtermaker.css" rel="stylesheet">
+</head>
+<body>
+	<div data-js="filtermaker"
+		data-app-type="filter"
+		data-lbl-app-header="CSS &lt;code&gt;filter&lt;/code&gt; Editor"
+		data-url-presets="../assets/data/presets-filter.json"
+		data-filter-file="wghtFrom">
+	</div>
+	<script type="module">
+		const elements = document.querySelectorAll('[data-js="filtermaker"]');
+			if (elements.length) {
+				import('/assets/svg/filters.svg')
+				.then(module => {
+					const jsClass = module.default;
+					elements.forEach(element => {
+						new jsClass(element, element.dataset);
+						element.addEventListener('eventAddPreset', (event) => { console.log(JSON.parse(event.detail)); });
+						element.addEventListener('eventDelPreset', (event) => { console.warn(JSON.parse(event.detail)); });
+					});
+				})
+			}
+	</script>
+</body>
+</html>

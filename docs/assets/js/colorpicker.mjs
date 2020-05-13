@@ -2,15 +2,15 @@
  * ColorPicker module.
  * @module /assets/js/colorpicker
  * @requires /assets/js/common
- * @version 0.1.9
- * @summary 11-04-2020
+ * @version 0.2.1
+ * @summary 07-05-2020
  * @description Color Picker
  * @example
  * <section data-js="colorpicker">
  * TODO: long-click/touch to delete swatch - issue with expanding panel (gradient). 
  */
 
-import { brightness, rgb2arr, rgb2hex, rgb2hsl } from './colorlib.mjs'
+import { brightness, rgb2arr, rgb2cmyk, rgb2hex, rgb2hsl } from './colorlib.mjs'
 import { mergeArrayOfObjects, stringToType, uuid } from './common.mjs';
 import Dialog from './dialog.mjs';
 
@@ -344,6 +344,7 @@ export default class ColorPicker {
 		this.uuid = uuid();
 		this.app = this.isPopup ? document.createElement('div') : elm;
 		this.app.innerHTML = this.template(this.isPopup);
+		elm.__colorpickerId = this.uuid;
 		this.elements = {};
 		this.clickTimer = null;
 		this.clickTimerDuration = 800;
@@ -377,7 +378,8 @@ export default class ColorPicker {
 				accept: this.settings.lblDialogOK,
 				cancel: this.settings.lblDialogCancel,
 				clsDialog: 'c-dialog c-clp__dialog',
-				element: this.app
+				element: this.app,
+				id: this.uuid
 			});
 
 			this.trigger = elm;
@@ -481,6 +483,7 @@ export default class ColorPicker {
 			}
 			const rgb = this.getBGC(element);
 			const [r, g, b, alpha] = rgb2arr(rgb);
+			const [c, m, y, k] = rgb2cmyk(r, g, b);
 			const [h, s, l] = updateProps ? rgb2hsl(r, g, b) : [this.elements.hue.value, this.elements.saturation.value, this.elements.lightness.value];
 			const a = parseFloat(alpha, 10) || 1;
 
@@ -497,6 +500,15 @@ export default class ColorPicker {
 				this.elements.lightness.value = l;
 				this.elements.alpha.value = a;
 			}
+
+			/* Set CMYK inputs */
+			/* TODO */
+			// if (updateCMYK) {
+				this.elements.cmyC.value = parseInt(c, 10);
+				this.elements.cmyM.value = parseInt(m, 10);
+				this.elements.cmyY.value = parseInt(y, 10);
+				this.elements.cmyK.value = parseInt(k, 10);
+			// }
 
 			/* Set HSL inputs */
 			if (updateHSL) {
@@ -659,6 +671,12 @@ export default class ColorPicker {
 						<label class="c-clp__label"><input type="number" min="0" max="100" size="3" data-elm="hslS" />S</label>
 						<label class="c-clp__label"><input type="number" min="0" max="100" size="3" data-elm="hslL" />L</label>
 						<label class="c-clp__label"><input type="number" min="0" max="1" step="0.01" size="3" data-elm="hslA" />A</label>
+					</div>
+					<div class="c-clp__fieldset" data-state="solid">
+						<label class="c-clp__label"><input type="number" min="0" max="100" size="3" data-elm="cmyC" />C</label>
+						<label class="c-clp__label"><input type="number" min="0" max="100" size="3" data-elm="cmyM" />M</label>
+						<label class="c-clp__label"><input type="number" min="0" max="100" size="3" data-elm="cmyY" />Y</label>
+						<label class="c-clp__label"><input type="number" min="0" max="100" size="3" data-elm="cmyK" />K</label>
 					</div>
 					<div class="c-clp__fieldset" data-state="solid">
 						<label class="c-clp__label"><input type="text" data-elm="hex" size="9" data-lpignore="true" />HEX/A</label>

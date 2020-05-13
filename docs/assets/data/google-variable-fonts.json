@@ -1,0 +1,52 @@
+[
+  {
+    "family": "Changa",
+    "wghtFrom": 200,
+    "wghtTo": 800
+  },
+  {
+    "family": "Comfortaa",
+    "wghtFrom": 300,
+    "wghtTo": 700
+  },
+  {
+    "family": "Crimson Pro",
+    "wghtFrom": 200,
+    "wghtTo": 900
+  },
+  {
+    "family": "Dancing Script",
+    "wghtFrom": 400,
+    "wghtTo": 700
+  },
+  {
+    "family": "Dosis",
+    "wghtFrom": 200,
+    "wghtTo": 800
+  },
+  {
+    "family": "EB Garamond",
+    "wghtFrom": 400,
+    "wghtTo": 800
+  },
+  {
+    "family": "Faustina",
+    "wghtFrom": 400,
+    "wghtTo": 700
+  },
+  {
+    "family": "Fira Code",
+    "wghtFrom": 300,
+    "wghtTo": 700
+  },
+  {
+    "family": "Hepta Slab",
+    "wghtFrom": 100,
+    "wghtTo": 900
+  },
+  {
+    "family": "Inter",
+    "wghtFrom": 100,
+    "wghtTo": 900
+  }
+]

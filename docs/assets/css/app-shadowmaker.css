@@ -21,13 +21,10 @@
 [data-elm="previewBox"] {
 	background-color: white;
 	border-radius: .25rem;
-	display: none;
 	height: var(--preview-sz);
 	width: var(--preview-sz);
 }
-[data-elm="previewDrop"] {
-	display: none;
-}
+
 [data-elm="previewDropInner"] {
 	background-color: white;
 	clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
@@ -35,25 +32,6 @@
 	width: var(--preview-sz);
 }
 [data-elm="previewText"] {
-	display: none;
 	font-size: 4rem;
 	font-weight: 900;
-}
-
-/* State */
-[data-elm="boxShadow"]:checked ~ .app__edit [data-elm="previewBox"],
-[data-elm="textShadow"]:checked ~ .app__edit [data-elm="previewText"],
-[data-elm="dropShadow"]:checked ~ .app__edit [data-elm="previewDrop"] {
-	display: block;
-}
-[data-elm="boxShadow"]:checked ~ .app__edit .app__controls .app__fieldset [data-for="boxShadow"],
-[data-elm="dropShadow"]:checked ~ .app__edit .app__controls .app__fieldset [data-for="dropShadow"],
-[data-elm="textShadow"]:checked ~ .app__edit .app__controls .app__fieldset [data-for="textShadow"] {
-	background-color: #606060;
-	color: white;
-}
-[data-elm="boxShadow"]:focus ~ .app__edit .app__controls .app__fieldset [data-for="boxShadow"],
-[data-elm="dropShadow"]:focus ~ .app__edit .app__controls .app__fieldset [data-for="dropShadow"],
-[data-elm="textShadow"]:focus ~ .app__edit .app__controls .app__fieldset [data-for="textShadow"] {
-	text-decoration: underline;
 }

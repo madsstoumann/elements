@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Icon</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/app-iconxplorer.css" rel="stylesheet">
+</head>
+<body>
+
+	<div data-js="iconxplorer"
+		data-app-type="icon"
+		data-lbl-app-header="Icons Xplorer — svg to url()"
+		data-url-presets="../assets/data/presets-icon.json">
+	</div>
+
+	<script type="module">
+		const elements = document.querySelectorAll('[data-js="iconxplorer"]');
+			if (elements.length) {
+				import('../assets/js/iconxplorer.mjs')
+				.then(module => {
+					const jsClass = module.default;
+					elements.forEach(element => {
+						new jsClass(element, element.dataset);
+						element.addEventListener('eventAddPreset', (event) => { console.log(JSON.parse(event.detail)); });
+						element.addEventListener('eventDelPreset', (event) => { console.warn(JSON.parse(event.detail)); });
+					});
+				})
+			}
+	</script>
+</body>
+</html>

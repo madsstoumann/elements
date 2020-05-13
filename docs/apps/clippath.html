@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>ClipPath</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/app-clippath.css" rel="stylesheet">
+</head>
+<body>
+	<!-- <div id="result" style="width:200px;height:200px;background:tomato;"></div>
+
+	<svg>
+		<path id="test" d="M 73.924957,90 49.42372,75.971326 24.48224,89.124336 29.669821,60.42209 10,39.681618 37.707342,35.971327 50.492205,10 62.4287,36.409157 90,41.098468 69.669822,61.130517 Z" />
+	</svg> -->
+	
+	<script>
+	/* TODO  CHeck svg viewBox, divide paths
+	https://css-tricks.com/an-initial-implementation-of-clip-path-path/
+	https://caniuse.com/#feat=mdn-css_properties_clip-path_path
+	https://stackoverflow.com/questions/53393966/convert-svg-path-to-polygon-coordinates 
+	
+	
+	https://github.com/desandro/draggabilly
+	*/
+	// var path = document.getElementById("test").getAttribute('d').split(' ');
+	// path = path.map(c => { return c.replace(',', '% ')+'%'});
+	// path.pop(); /* FIX */
+	// path.shift(); /* FIX */
+	// console.log(path.join(','))
+	
+	// const result = document.getElementById('result');
+	// result.style.clipPath = `polygon(${path.join(',')})`;
+	</script>
+
+	<div data-js="clippath"
+		data-app-type="clippath"
+		
+		data-url-presets="../assets/data/presets-clippath.json">
+	</div>
+	<!-- <script src="https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js"></script> -->
+	<script type="module">
+		const elements = document.querySelectorAll('[data-js="clippath"]');
+			if (elements.length) {
+				import('../assets/js/clippath.mjs')
+				.then(module => {
+					const jsClass = module.default;
+					elements.forEach(element => {
+						new jsClass(element, element.dataset);
+						element.addEventListener('eventAddPreset', (event) => { console.log(JSON.parse(event.detail)); });
+						element.addEventListener('eventDelPreset', (event) => { console.warn(JSON.parse(event.detail)); });
+					});
+				})
+			}
+	</script>
+</body>
+</html>

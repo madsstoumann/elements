@@ -2,8 +2,8 @@
  * Dialog module.
  * @module /assets/js/dialog
  * @requires /assets/js/common
- * @version 1.0.0
- * @summary 10-04-2020
+ * @version 1.1.0
+ * @summary 16-04-2020
  * @author Mads Stoumann
  * @description Custom versions of alert, confirm and prompt, using <dialog>
  */
@@ -21,6 +21,7 @@ export default class Dialog {
 				headline: '',
 				headlineTag: 'h2',
 				hideCancel: false,
+				id: '',
 				message: '',
 				template: '',
 				value: '',
@@ -88,7 +89,7 @@ export default class Dialog {
 		});
 		this.dialog = h('dialog', {
 			class: this.settings.clsDialog,
-			id: uuid()
+			id: this.settings.id || uuid()
 		});
 		this.headline = h(this.settings.headlineTag, {
 			class: this.settings.clsHeadline

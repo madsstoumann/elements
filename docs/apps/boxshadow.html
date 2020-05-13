@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Box Shadow</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/app-shadowmaker.css" rel="stylesheet">
+</head>
+<body>
+
+	<div data-js="box-shadow"
+		data-app-type="box-shadow"
+		data-lbl-app-header="CSS &lt;code&gt;box-shadow&lt;/code&gt; Editor"
+		data-url-presets="../assets/data/presets-box-shadow.json">
+	</div>
+
+	<script type="module">
+		const elements = document.querySelectorAll('[data-js="box-shadow"]');
+			if (elements.length) {
+				import('../assets/js/css-shadows.mjs')
+				.then(module => {
+					const jsClass = module.default;
+					elements.forEach(element => {
+						new jsClass(element, element.dataset);
+						element.addEventListener('eventAddPreset', (event) => { console.log(JSON.parse(event.detail)); });
+						element.addEventListener('eventDelPreset', (event) => { console.warn(JSON.parse(event.detail)); });
+					});
+				})
+			}
+	</script>
+</body>
+</html>

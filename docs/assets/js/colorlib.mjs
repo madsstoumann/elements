@@ -19,6 +19,33 @@ export function brightness(r, g, b) {
 	return parseInt(((r*299)+(g*587)+(b*114))/1000, 10);
 }
 
+function cmyk2rgb(c, m, y, k, normalized){
+	c = (c / 100);
+	m = (m / 100);
+	y = (y / 100);
+	k = (k / 100);
+	
+	c = c * (1 - k) + k;
+	m = m * (1 - k) + k;
+	y = y * (1 - k) + k;
+	
+	var r = 1 - c;
+	var g = 1 - m;
+	var b = 1 - y;
+	
+	if(!normalized){
+			r = Math.round(255 * r);
+			g = Math.round(255 * g);
+			b = Math.round(255 * b);
+	}
+	
+	return {
+			r: r,
+			g: g,
+			b: b
+	}
+}
+
 export function contrast(rgb1, rgb2) {
 	var lum1 = luminanace(rgb1[0], rgb1[1], rgb1[2]);
 	var lum2 = luminanace(rgb2[0], rgb2[1], rgb2[2]);
@@ -83,7 +110,7 @@ export function rgb2cmyk(r, g, b, normalized){
 	y = isNaN(y) ? 0 : y;
 	k = isNaN(k) ? 0 : k;
 	
-	return { c, m, y, k }
+	return [ c, m, y, k ]
 }
 
 /**

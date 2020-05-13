@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Transform</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/app-transform.css" rel="stylesheet">
+</head>
+<body>
+
+	<div data-js="transform"
+		data-app-type="transform"
+		data-lbl-app-header="CSS &lt;code&gt;transform&lt;/code&gt; Editor"
+		data-url-presets="../assets/data/presets-transform.json">
+	</div>
+
+	<script type="module">
+		const elements = document.querySelectorAll('[data-js="transform"]');
+			if (elements.length) {
+				import('../assets/js/css-transform.mjs')
+				.then(module => {
+					const jsClass = module.default;
+					elements.forEach(element => {
+						new jsClass(element, element.dataset);
+						element.addEventListener('eventAddPreset', (event) => { console.log(JSON.parse(event.detail)); });
+						element.addEventListener('eventDelPreset', (event) => { console.warn(JSON.parse(event.detail)); });
+					});
+				})
+			}
+	</script>
+</body>
+</html>

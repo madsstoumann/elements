@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Color Picker</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/c-clp.css" rel="stylesheet">
+</head>
+<body>
+	<div data-js="colorpicker"></div>
+
+	<script type="module">
+		const elements = document.querySelectorAll('[data-js="colorpicker"]');
+			if (elements.length) {
+				import('../assets/js/colorpicker.mjs')
+				.then(module => {
+					const jsClass = module.default;
+					elements.forEach(element => {
+						new jsClass(element, element.dataset);
+						element.addEventListener('eventAddColor', (event) => { console.log(JSON.parse(event.detail)); });
+						element.addEventListener('eventDelColor', (event) => { console.warn(JSON.parse(event.detail)); });
+					});
+				})
+			}
+	</script>
+</body>
+</html>
