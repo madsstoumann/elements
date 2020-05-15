@@ -7,6 +7,7 @@
  * @description 
  * @example
  * <div data-js="transform">
+ * https://developers.google.com/fonts/docs/css2?hl=da
  */
 
 import CssApp from './css-app.mjs';
@@ -20,7 +21,8 @@ export default class CssFont extends CssApp {
 			lblFontSearch: 'Search Google Fonts',
 			lblFontSize: 'Size',
 			lblSpecimen: 'The quick brown fox jumps over the lazy dog',
-			urlFontList: ''
+			urlFontList: '',
+			urlVariableList: '',
 		}, settings));
 
 		this.init()

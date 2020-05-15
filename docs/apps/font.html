@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 <head>
-	<title>CSS Font</title>
+	<title>CSS FontFamily Explorer</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<link href="../assets/css/app-font.css" rel="stylesheet">
@@ -12,8 +12,10 @@
 		data-app-type="font"
 		data-lbl-app-header="CSS &lt;code&gt;font-family&lt;/code&gt; Explorer"
 		data-url-presets="../assets/data/presets-font.json"
-		data-url-font-list="../assets/data/google-fonts.json">
+		data-url-font-list="../assets/data/google-fonts.json"
+		data-url-variable-list="../assets/data/google-variable-fonts.json">
 	</div>
+
 	<script type="module">
 		const elements = document.querySelectorAll('[data-js="font"]');
 			if (elements.length) {
@@ -27,16 +29,6 @@
 					});
 				})
 			}
-
-			// https://developers.google.com/fonts/docs/css2?hl=da
-
-// 		<link href="https://fonts.googleapis.com/css?family=ABeeZee&display=swap" rel="stylesheet">
-
-// 		<style>
-// @import url('https://fonts.googleapis.com/css?family=ABeeZee&display=swap');
-// </style>
-
-// 		font-family: 'ABeeZee', sans-serif;
 	</script>
 </body>
 </html>
