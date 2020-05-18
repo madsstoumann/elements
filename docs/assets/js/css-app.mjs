@@ -2,12 +2,12 @@
  * CSS App
  * @module /assets/js/css-app
  * @requires /assets/js/common
- * @version 0.0.2
- * @summary 11-05-2020
+ * @version 0.0.3
+ * @summary 17-05-2020
  * @description Generic CSS App, extend other CSS apps from this
  */
 
-import { mergeArrayOfObjects, stringToType, uuid } from './common.mjs';
+import { mergeArrayOfObjects, stringToType, syntaxHighlight, uuid } from './common.mjs';
 
 export default class CssApp {
 	constructor(element, settings) {
@@ -58,6 +58,7 @@ export default class CssApp {
 			if (this.settings.useLocalStorage) {
 				window.localStorage.setItem(this.settings.appType, JSON.stringify(this.presets));
 			}
+			this.setCode();
 		}
 	}
 
@@ -225,7 +226,7 @@ export default class CssApp {
 			name: this.settings.txtEmptyPreset,
 			readonly: false,
 			value: '',
-			values: [{}]
+			values: []
 		};
 	}
 
@@ -246,7 +247,8 @@ export default class CssApp {
 			this.elements.cssCode.innerHTML = `<span>${this.settings.appType}:</span> ${this.preset.value};`;
 		}
 		if (this.elements.presetCode) {
-			this.elements.presetCode.innerHTML = `${JSON.stringify(this.preset)};`;
+			const str = JSON.stringify(this.preset, null, '\t');
+			this.elements.presetCode.innerHTML = syntaxHighlight(str);
 		}
 	}
 

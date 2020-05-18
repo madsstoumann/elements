@@ -4,8 +4,8 @@
  * @requires /assets/js/css-app
  * @requires /assets/colorpicker
  * @requires /assets/js/common
- * @version 0.1.1
- * @summary 11-05-2020
+ * @version 0.1.2
+ * @summary 18-05-2020
  * @description box-shadow, filter: drop-shadow and text-shadow editor
  * @example
  * <div data-js="[box/drop/text]-shadow" data-app-type="[box/drop/text]-shadow">
@@ -88,7 +88,7 @@ export default class CssShadows extends CssApp {
 					this.delEntry(element);
 					break;
 				case 'resetPreset':
-					super.resetPreset();
+					this.resetPreset();
 					break;
 				default: break;
 			}
@@ -105,6 +105,8 @@ export default class CssShadows extends CssApp {
 		const index = element.dataset.index - 0 || 0;
 		const key = element.dataset.elm;
 		let value = element.value;
+
+		if (key === 'presetDesc' || key === 'presetName') { return; }
 
 		if (element.type === 'checkbox') {
 			value = element.checked ? true : false;
@@ -149,8 +151,6 @@ export default class CssShadows extends CssApp {
 	resetPreset() {
 		super.resetPreset();
 		this.addEntry();
-		this.setValue();
-		this.setState();
 	}
 
 	/**
@@ -254,7 +254,7 @@ export default class CssShadows extends CssApp {
 			</details>
 			<details class="app__details">
 				<summary class="app__summary"><span>${this.settings.lblPresetCode}</span></summary>
-				<div class="app__code" data-elm="presetCode"></div>
+				<div class="app__code"><pre data-elm="presetCode"></pre></div>
 			</details>
 		</form>`
 	}

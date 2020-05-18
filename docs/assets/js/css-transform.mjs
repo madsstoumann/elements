@@ -2,8 +2,8 @@
  * CssTransform module.
  * @module /assets/js/filtermaker
 
- * @version 0.0.2
- * @summary 13-05-2020
+ * @version 0.0.3
+ * @summary 17-05-2020
  * @description 
  * @example
  * <div data-js="transform">
@@ -205,7 +205,7 @@ export default class CssTransform extends CssApp {
 			</details>
 			<details class="app__details">
 				<summary class="app__summary"><span>${this.settings.lblPresetCode}</span></summary>
-				<div class="app__code" data-elm="presetCode"></div>
+				<div class="app__code"><pre data-elm="presetCode"></pre></div>
 			</details>
 		</form>`
 	}

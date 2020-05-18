@@ -1,8 +1,8 @@
 /**
  * FilterMaker module.
  * @module /assets/js/filtermaker
- * @version 0.0.6
- * @summary 12-05-2020
+ * @version 0.0.7
+ * @summary 18-05-2020
  * @description 
  * @example
  * <div data-js="filtermaker">
@@ -209,7 +209,7 @@ export default class CssFilter extends CssApp {
 			}
 			str += `${key}(${obj[key]}${suffix}) `;
 		}
-		this.preset.value = str;
+		this.preset.value = str.trim();
 		this.preset.values[0] = obj;
 		super.setCode();
 	}
@@ -286,7 +286,7 @@ export default class CssFilter extends CssApp {
 			</details>
 			<details class="app__details">
 				<summary class="app__summary"><span>${this.settings.lblPresetCode}</span></summary>
-				<div class="app__code" data-elm="presetCode"></div>
+				<div class="app__code"><pre data-elm="presetCode"></pre></div>
 			</details>
 		</form>`
 	}

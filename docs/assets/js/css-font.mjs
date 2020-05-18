@@ -66,6 +66,7 @@ export default class CssFont extends CssApp {
 
 	setValue(font) {
 		/* TODO: HANDLE WEIGHT 
+		/TODO: Replace 'regular' with 400
 		:wght@${this.font.variants.map(variant => { return variant }).join(';')}
 		*/
 		this.setStyleLink(`https://fonts.googleapis.com/css2?family=${font.family.replace(' ', '+')}`);
@@ -130,7 +131,7 @@ export default class CssFont extends CssApp {
 			</details>
 			<details class="app__details" open>
 				<summary class="app__summary"><span>${this.settings.lblPresetCode}</span></summary>
-				<div class="app__code" data-elm="presetCode"></div>
+				<div class="app__code"><pre data-elm="presetCode"></pre></div>
 			</details>
 		</form>`
 	}

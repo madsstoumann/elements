@@ -1,8 +1,8 @@
 /**
  * Common
  * @module common.mjs
- * @version 1.0.10
- * @summary 09-04-2020
+ * @version 1.0.30
+ * @summary 18-05-2020
  * @author Mads Stoumann
  * @description Generic, small helper-functions
  */
@@ -240,20 +240,45 @@ export function selectAll(element) {
 	element.setSelectionRange(0, 999999);
 }
 
-	/**
-	 * @function stringToType
-	 * @param {Object} obj
-	 * @description Convert data-attribute value to type-specific value
-	 */
-	export function stringToType(obj) {
-		const object = Object.assign({}, obj);
-		Object.keys(object).forEach(key => {
-			if (typeof object[key] === 'string' && object[key].charAt(0) === ':') {
-				object[key] = JSON.parse(object[key].slice(1));
+/**
+ * @function stringToType
+ * @param {Object} obj
+ * @description Convert data-attribute value to type-specific value
+ */
+export function stringToType(obj) {
+	const object = Object.assign({}, obj);
+	Object.keys(object).forEach(key => {
+		if (typeof object[key] === 'string' && object[key].charAt(0) === ':') {
+			object[key] = JSON.parse(object[key].slice(1));
+		}
+	});
+	return object;
+}
+
+/**
+ * @function syntaxHighlight
+ * @param {String} str pre-formatted JSON-string
+ * @description Adds wrapper-classes to individual parts in a JSON (object)
+ * @returns String
+ */
+export function syntaxHighlight(str) {
+	let json = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+	return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+		let cls = 'code--number';
+		if (/^"/.test(match)) {
+			if (/:$/.test(match)) {
+				cls = 'code--key';
+			} else {
+				cls = 'code--string';
 			}
-		});
-		return object;
-	}
+		} else if (/true|false/.test(match)) {
+			cls = 'code--boolean';
+		} else if (/null/.test(match)) {
+			cls = 'code--null';
+		}
+		return `<span class="${cls}">${match}</span>`;
+	});
+}
 
 /**
  * @function uuid

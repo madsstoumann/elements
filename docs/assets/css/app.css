@@ -72,11 +72,16 @@
 	min-height: 4rem;
 	padding: 0.5rem;
 	resize: none;
+	tab-size: 2;
 	width: 100%;
 }
-.app__code span {
-	color: #7bdcfe;
-}
+/* .app__code span { color: #7bdcfe; } */
+.code--boolean { color: deepskyblue; }
+.code--key { color: lightblue; }
+.code--null { color: lightcoral; }
+.code--number { color: lightgreen; }
+.code--string {	color: lightsalmon; }
+
 .app__controls,
 .app__preview {
 	width: calc(50% - (var(--app-m-unit) / 2));
