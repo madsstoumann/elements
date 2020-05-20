@@ -40,10 +40,14 @@ export function animateDetails(selector, wrapper = document) {
 	});
 
 	details.forEach(detail => {
-		RO.observe(detail);
 		detail.addEventListener("toggle", () => {
-			const height = detail.open ? parseInt(detail.dataset.height, 10) + parseInt(detail.dataset.panelHeight, 10) : detail.dataset.height;
-			detail.style.height = `${height}px`;
+			detail.classList.toggle('c-acc--open', detail.open)
 		});
+		// RO.observe(detail);
+		// detail.addEventListener("toggle", () => {
+		// 	const height = detail.open ? parseInt(detail.dataset.height, 10) + parseInt(detail.dataset.panelHeight, 10) : detail.dataset.height;
+		// 	detail.style.height = `${height}px`;
+		// });
+
 	});
 }

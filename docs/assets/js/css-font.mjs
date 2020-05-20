@@ -19,7 +19,7 @@ export default class CssFont extends CssApp {
 		super(element, Object.assign({
 			lblAppHeader: 'CSS Transform Editor',
 			lblFontSearch: 'Search Google Fonts',
-			lblFontSize: 'Size',
+			lblFontSize: 'Preview size',
 			lblSpecimen: 'The quick brown fox jumps over the lazy dog',
 			urlFontList: '',
 			urlVariableList: '',
@@ -94,7 +94,7 @@ export default class CssFont extends CssApp {
 
 					<div class="app__fieldset app__fieldset--topspace">
 						<div class="app__label app__panel-wrapper">
-							<input type="search" data-elm="fontList" minlength="3" maxlength="30" placeholder="${this.settings.lblFontSearch}"
+							<input type="search" data-elm="fontList" minlength="1" maxlength="30" placeholder="${this.settings.lblFontSearch}"
 							data-js="autosuggest"
 							data-api="${this.settings.urlFontList}"
 							data-search-keys=':["family"]'
