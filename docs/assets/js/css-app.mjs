@@ -159,11 +159,13 @@ export default class CssApp {
 					presets = presets ? mergeArrayOfObjects(presets, localPresets, 'name') : localPresets;
 				}
 			}
-
 			this.presets = presets || [];
 			this.renderPresets();
 		}
-		this.resetPreset();
+		/* Initialize preset, if elements exists */
+		if (this.elements.presetDesc && this.elements.presetName) {
+			this.resetPreset();
+		}
 	}
 
 	/**

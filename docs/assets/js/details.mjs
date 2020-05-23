@@ -40,8 +40,21 @@ export function animateDetails(selector, wrapper = document) {
 	});
 
 	details.forEach(detail => {
-		detail.addEventListener("toggle", () => {
-			detail.classList.toggle('c-acc--open', detail.open)
+		// detail.dataset.open = 'false';
+		detail.addEventListener('toggle', (event) => {
+			// const timeStamp = event.timeStamp;
+			// if (!detail.dataset.time) {
+			// 	detail.dataset.time = timeStamp;
+			// }
+			// else {
+			// 	console.log(timeStamp - detail.dataset.time-0);
+			// }
+			// detail.open = true;
+			// const open = JSON.parse(detail.dataset.open);
+			// console.log(event.timeStamp);
+			// detail.dataset.open = !open;
+			detail.classList.toggle('c-acc--open', detail.open);
+			
 		});
 		// RO.observe(detail);
 		// detail.addEventListener("toggle", () => {

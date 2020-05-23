@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Image Component</title>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/c-fle.css" rel="stylesheet">
+	<link href="../assets/css/c-btn.css" rel="stylesheet">
+	<link href="../assets/css/c-ico.css" rel="stylesheet">
+</head>
+<body>
+
+	<input type="file" multiple
+		data-js="file-upload"
+		data-list="thumb"
+	/>
+
+	<script type="module">
+		const elements = document.querySelectorAll('[data-js="file-upload"]');
+			if (elements.length) {
+				import('../assets/js/file-upload.mjs')
+				.then(module => {
+					const jsClass = module.default;
+					elements.forEach(element => {
+						new jsClass(element, element.dataset);
+					});
+				})
+			}
+	</script>
+</body>
+</html>

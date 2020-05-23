@@ -150,7 +150,8 @@
 	display: block;
 	padding-bottom: 56.25%;
 }
-.app__img--drag + .app__file-drop {
+.app__img--drag + .app__file-drop,
+.app__img--drag .app__file-drop {
 	background-color: rgba(0, 0, 0, 0.5);
 	opacity: 1;
 	z-index: 2;
@@ -175,6 +176,7 @@
 	height: var(--app-inp-h);
 	padding: var(--app-inp-p);
 	text-align: center;
+	/* -webkit-appearance: none; */
 	width: 100%;
 }
 .app__label textarea {

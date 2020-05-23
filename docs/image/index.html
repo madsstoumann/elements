@@ -3,31 +3,8 @@
 <head>
 	<title>Image Component</title>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <style>
-    figure {
-      margin: 0;
-      padding: 0;
-    }
-    picture {
-      display: block;
-      position: relative;
-      width: 50%;
-    }
-    picture::before {
-      content: '';
-      display: block;
-      padding-bottom: calc(var(--h) / var(--w) * 100%);
-    }
-    img {
-      height: 100%;
-      left: 0;
-      object-fit: cover;
-      position: absolute;
-      top: 0;
-      width: 100%;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link href="../assets/css/app-image.css" rel="stylesheet">
 </head>
 <body>
 <!--
@@ -35,10 +12,11 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/@media/aspect-ratio
 https://www.smashingmagazine.com/2014/05/responsive-images-done-right-guide-picture-srcset/
 https://addyosmani.com/blog/lazy-loading/
 
+Chrome ignores importance="high", use loading="eager" instead
 FOCAL POINT
 -->
-  <figure>
-    <picture style="--w:16;--h:9;">
+
+    <!-- <picture class="c-img" style="--w:16;--h:8;">
       <source
         media="(min-width: 800px)"
         srcset="big.jpg 1600w, big-hd.jpg 3000w"
@@ -53,59 +31,24 @@ FOCAL POINT
         loading="lazy"
         src="fallback.jpg"
        />
-    </picture>
-    <figcaption>Hello world</figcaption>
-  </figure>
+    </picture> -->
 
-<!-- Chrome ignores importance="high", use loading="eager" instead -->
+    <div data-js="image-component"
+		data-app-type="image"
+		data-lbl-app-header="Responsive &lt;code&gt;picture&lt;/code&gt; Editor">
+	</div>
 
-<script>
-  const ImageSizes = [600, 900, 1200, 1400];
-  const Model = {
-    alt: 'This is the alt text',
-    aspectHeight: 1,
-    aspectWidth: 1,
-    crossorigin: 'anonymous',
-    decoding: 'async',
-    loading: 'lazy',
-    images: [
-      {
-        src: 'fallback.jpg'
-      },
-      {
-        src: 'big.jpg',
-        minWidth: 900
-      }
-    ]
-  }
-
-  function renderImage(Model) {
-    return `<img alt="${Model.alt}" src="${Model.images[0].src}"
-      ${Model.crossorigin ? ` crossorigin="${Model.crossorigin}"`: ''}
-      ${Model.decoding ? ` decoding="${Model.decoding}"`: ''}
-      ${Model.loading ? ` loading="${Model.loading}"`: ''}/>`;
-  }
-
-  function renderPicture(Model, ImageSizes) {
-    return `
-      <picture style="--h:${Model.aspectHeight};--w:${Model.aspectWidth};">
-        ${renderPictureSource(Model, ImageSizes)}
-        ${renderImage(Model)}
-      </picture>`;
-  }
-
-  function renderPictureSource(Model, ImageSizes) {
-    return `
-      ${Model.images.map(image => {
-        /* TODO: if minWidth, split ImageSizes */
-        return `<source
-        ${image.minWidth ? `media="(min-width: ${image.minWidth}px)"` : ''}
-        srcset="${ImageSizes.map(size => { return `${image.src}?w=${size} ${size}w` }).join(', ')}"
-        sizes="100vw">  
-    `}).join('')}`
-  }
-
-  console.log(renderPicture(Model, ImageSizes));
-</script>
+	<script type="module">
+		const elements = document.querySelectorAll('[data-js="image-component"]');
+			if (elements.length) {
+				import('../assets/js/image-component.mjs')
+				.then(module => {
+					const jsClass = module.default;
+					elements.forEach(element => {
+						new jsClass(element, element.dataset);
+					});
+				})
+			}
+	</script>
 </body>
 </html>
