@@ -1,14 +1,14 @@
 /**
  * Details
  * @module details.mjs
- * @version 0.1.00
- * @summary 05-02-2020
+ * @version 0.1.10
+ * @summary 25-05-2020
  * @author Mads Stoumann
- * @description Helper-methods for `details`-tag
+ * @description Helper-methods for animating `details`-tag
  */
 
  /**
- * @function animateDeatils
+ * @function animateDetails
  * @param {String} selector querySelector
  * @description Calculates height of <detail>-elements for smooth animations.
  */
@@ -22,6 +22,7 @@ export function animateDetails(selector, wrapper = document) {
 				/* Clear previous calculations */
 				detail.removeAttribute('style');
 
+				detail.open = false;
 				let rect = detail.getBoundingClientRect();
 				detail.dataset.width = rect.width;
 				detail.style.setProperty(`--collapsed`,`${rect.height}px`);
