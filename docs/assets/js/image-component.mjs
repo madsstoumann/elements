@@ -14,6 +14,7 @@ export default class ImageComponent extends CssApp {
 	constructor(element, settings) {
 		super(element, Object.assign({
 			clsDrag: 'app__img--drag',
+			lblAltText: 'alt text',
 			lblAppHeader: 'CSS Transform Editor',
 			lblAspectHeight: 'aspect-ratio height',
 			lblAspectWidth: 'aspect-ratio width',
@@ -27,7 +28,52 @@ export default class ImageComponent extends CssApp {
 			lblSize: 'size approx.',
 			lblSizeUnit: 'unit',
 			lblUploadImage: 'Upload or drag image/s',
-			sizes: ['em', 'ex', 'ch', 'rem', 'vw', 'vh', 'vmin', 'vmax', 'cm', 'mm', 'q', 'in', 'pc', 'pt', 'px']
+			presetEntry: {
+				alt: 'alt text',
+				aspectHeight: 1,
+				aspectWidth: 1,
+				crossorigin: 'anonymous',
+				decoding: 'async',
+				images: [
+					{
+						src: 'small.jpg'
+					},
+					{
+						src: 'big.jpg',
+						minWidth: 1024
+					}
+				],
+				loading: 'lazy',
+				media: [
+					{
+						breakpoint: 320,
+						size: 100,
+						unit: 'vw'
+					},
+					{
+						breakpoint: 768,
+						size: 100,
+						unit: 'vw'
+					},
+					{
+						breakpoint: 1024,
+						size: 50,
+						unit: 'vw'
+					},
+					{
+						breakpoint: 1200,
+						size: 33,
+						unit: 'vw'
+					},
+					{
+						breakpoint: 1800,
+						size: 25,
+						unit: 'vw'
+					}
+				],
+				tag: 'picture'
+			},
+			sizes: ['ch', 'cm', 'em', 'ex', 'in', 'mm', 'pc', 'pt', 'px', 'q', 'rem', 'vw', 'vh', 'vmin', 'vmax']
 		}, settings));
 
 		this.init();
@@ -51,7 +97,6 @@ export default class ImageComponent extends CssApp {
 	* @description Initialize: Create elements, add eventListeners etc.
 	*/
 	async init() {
-		this.breakpoints = [320, 768, 1024, 1200, 1800];
 		await super.init();
 		/* Add drag/drop functionality to preview-image-area */
 		this.elements.filedrop.addEventListener("change", this.setImage.bind(this));
@@ -59,36 +104,31 @@ export default class ImageComponent extends CssApp {
 		this.elements.preview.addEventListener("dragenter", () => { this.elements.preview.classList.add(this.settings.clsDrag); });
 		document.addEventListener("drop", () => { this.elements.preview.classList.remove(this.settings.clsDrag) ;});
 
-		
-		const ImageSizes = [600, 900, 1200, 1400];
-		const Model = {
-			alt: 'This is the alt text',
-			aspectHeight: 1,
-			aspectWidth: 1,
-			media: [
-				{
-					breakpoint: 320,
-					size: 100,
-					unit: 'vw'
-				}
-			],
-			crossorigin: 'anonymous',
-			decoding: 'async',
-			loading: 'lazy',
-			images: [
-				{
-					src: 'fallback.jpg'
-				},
-				{
-					src: 'big.jpg',
-					minWidth: 900
-				}
-			]
+
+		// this.preset = {...this.settings.presetEntry};
+		super.resetPreset();
+		this.preset.values[0] = {...this.settings.presetEntry};
+
+	/* TODO: Set aspect ratio per breakpoint */
+
+		console.log(this.preset)
+		// console.log(this.renderPicture(this.preset));
+	}
+
+		/**
+	* @function loadPreset
+	* @paramn {Node} element
+	* @description Loads preset / overwrites preset
+	*/
+	loadPreset(element) {
+		/* If element exists, load preset - otherwise `reset` to default values */
+		if (element) {
+			super.loadPreset(element);
 		}
-	
-	
-	
-		console.log(this.renderPicture(Model, ImageSizes));
+
+		/* Merge preset with default settings */
+		
+		this.setValue();
 	}
 
 	/**
@@ -98,9 +138,13 @@ export default class ImageComponent extends CssApp {
 	* @description Compare 2 simple objects, return object with differences
 	*/
 	objFilter(obj1, obj2) {
-		const obj = {};
-		Object.keys(obj1).forEach(key => { if(obj1[key] !== obj2[key]) { obj[key] = obj1[key] }});
-		return obj;
+		// const obj = {};
+		// Object.keys(obj1).forEach(key => { if(obj1[key] !== obj2[key]) { obj[key] = obj1[key] }});
+		// return obj;
+	}
+
+	renderBreakpoints() {
+		// ${this.preset.values[0].media.map((breakpoint, index) => { return this.templateBreakPoints(breakpoint, index) }).join('')}
 	}
 
   renderImage(Model) {
@@ -143,6 +187,16 @@ export default class ImageComponent extends CssApp {
 		// reader.readAsDataURL(event.target.files[0]);
 	}
 
+		/**
+	* @function setValue
+	* @description Updates `value`-part of current preset, filters out default values
+	*/
+	setValue() {
+		// this.preset.value = str.trim();
+		// this.preset.values[0] = obj;
+		super.setCode();
+	}
+
 	/**
 	* @function template
 	* @description Renders main template for ColorPicker
@@ -153,7 +207,7 @@ export default class ImageComponent extends CssApp {
 			<strong class="app__header">${this.settings.lblAppHeader}</strong>
 			<div class="app__edit">
 				<div class="app__preview">
-					<div  data-elm="preview">
+					<div data-elm="preview">
 						<input type="file" id="${this.uuid}file" class="app__file-drop" data-elm="filedrop" multiple />
 					</div>
 					<ul data-elm="filelist"></ul>
@@ -161,42 +215,58 @@ export default class ImageComponent extends CssApp {
 				</div>
 
 				<div class="app__controls">
-
+					<div class="app__fieldset">
+						<label class="app__label app__label--checkbox"><input type="checkbox" class="u-hidden" data-elm="imgTag" data-index="0"><span></span>img</label>
+						<label class="app__label"><input type="text" size="50" data-elm="alt" />${this.settings.lblAltText}</label>
+					</div>
 					<div class="app__fieldset">
 						<label class="app__label"><input type="number" size="3" value="0" data-elm="w" />${this.settings.lblAspectWidth}</label>
 						<label class="app__label"><input type="number" size="3" value="0" data-elm="h" />${this.settings.lblAspectHeight}</label>
 					</div>
+					<div class="app__fieldset">
+						<label class="app__label">	
+							<select data-elm="crossorigin">
+								<option value="">none</option>
+								<option value="anonymous">anonymous</option>
+								<option value="use-credentials">use-credentials</option>
+							</select>
+							${this.settings.lblCrossorigin}
+						</label>
+						<label class="app__label">	
+							<select data-elm="decoding">
+								<option value="">auto</option>
+								<option value="async">async</option>
+								<option value="sync">sync</option>
+							</select>
+							${this.settings.lblDecoding}
+						</label>
+						<label class="app__label">	
+							<select data-elm="loading">
+								<option value="">auto</option>
+								<option value="eager">eager</option>
+								<option value="lazy">lazy</option>
+							</select>
+							${this.settings.lblLoading}
+						</label>
+					</div>
 
-				<label class="app__label">	
-					<select data-elm="crossorigin">
-						<option value="">none</option>
-						<option value="anonymous">anonymous</option>
-						<option value="use-credentials">use-credentials</option>
-					</select>
-					${this.settings.lblCrossorigin}
-				</label>
-				<label class="app__label">	
-					<select data-elm="decoding">
-						<option value="">auto</option>
-						<option value="async">async</option>
-						<option value="sync">sync</option>
-					</select>
-					${this.settings.lblDecoding}
-				</label>
-				<label class="app__label">	
-					<select data-elm="loading">
-						<option value="">auto</option>
-						<option value="eager">eager</option>
-						<option value="lazy">lazy</option>
-					</select>
-					${this.settings.lblLoading}
-				</label>
+					<strong class="app__subheader">media min-width and <code>sizes</code></strong>
+					<p class="app__text">For a given breakpoint, fill out the approx. size, the final image will have at that breakpoint.</p>
 
-				<code>media min-width</code> and <code>sizes</code>
-				<div data-elm="breakpoints">
-					${this.breakpoints.map((breakpoint, index) => { return this.templateBreakPoints(breakpoint, index) }).join('')}
-				</div>
-				
+					<div data-elm="breakpoints">
+					</div>
+
+					<div class="app__fieldset app__fieldset--topspace">
+						<label class="app__label"><input type="text" data-elm="presetName" data-lpignore="true" size="15">${this.settings.lblPresetName}</label>
+					</div>
+					<div class="app__fieldset">
+						<label class="app__label"><textarea data-elm="presetDesc" data-lpignore="true"></textarea>${this.settings.lblPresetDesc}</label>
+					</div>
+					<div class="app__fieldset app__button-group">
+						<button type="button" class="app__button app__button--reset" data-elm="resetPreset">${this.settings.lblReset}</button>
+						<button type="button" class="app__button" data-elm="addPreset">${this.settings.lblAddPreset}</button>
+					</div>
+
 				</div>
 			</div>
 

@@ -21,46 +21,21 @@ export function animateDetails(selector, wrapper = document) {
 			if (width !== entry.contentRect.width) {
 				/* Clear previous calculations */
 				detail.removeAttribute('style');
-				const detailRect = detail.getBoundingClientRect();
-				const panel = detail.firstElementChild.nextElementSibling;
 
-				/* Store current width/height in data-attributes, set fixed height, remove overflow */
-				detail.dataset.height = detailRect.height;
-				detail.dataset.width = detailRect.width;
-				detail.style.height = `${detailRect.height}px`;
-				detail.style.overflow = 'hidden';
+				let rect = detail.getBoundingClientRect();
+				detail.dataset.width = rect.width;
+				detail.style.setProperty(`--collapsed`,`${rect.height}px`);
 
 				/* Set [open] to enable getting dimensions of hidden panel */
 				detail.open = true;
-				const panelRect = panel.getBoundingClientRect();
-				detail.dataset.panelHeight = panelRect.height;
+				rect = detail.getBoundingClientRect();
+				detail.style.setProperty(`--expanded`,`${rect.height}px`);
 				detail.open = false;
 			}
 		})
 	});
 
 	details.forEach(detail => {
-		// detail.dataset.open = 'false';
-		detail.addEventListener('toggle', (event) => {
-			// const timeStamp = event.timeStamp;
-			// if (!detail.dataset.time) {
-			// 	detail.dataset.time = timeStamp;
-			// }
-			// else {
-			// 	console.log(timeStamp - detail.dataset.time-0);
-			// }
-			// detail.open = true;
-			// const open = JSON.parse(detail.dataset.open);
-			// console.log(event.timeStamp);
-			// detail.dataset.open = !open;
-			detail.classList.toggle('c-acc--open', detail.open);
-			
-		});
-		// RO.observe(detail);
-		// detail.addEventListener("toggle", () => {
-		// 	const height = detail.open ? parseInt(detail.dataset.height, 10) + parseInt(detail.dataset.panelHeight, 10) : detail.dataset.height;
-		// 	detail.style.height = `${height}px`;
-		// });
-
+		RO.observe(detail);
 	});
 }

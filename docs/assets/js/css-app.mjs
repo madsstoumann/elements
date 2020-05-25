@@ -220,8 +220,8 @@ export default class CssApp {
 	* @description Resets current preset
 	*/
 	resetPreset() {
-		this.elements.presetDesc.value = '';
-		this.elements.presetName.value = '';
+		// this.elements.presetDesc.value = '';
+		// this.elements.presetName.value = '';
 		this.preset = {
 			deletable: true,
 			description: '',

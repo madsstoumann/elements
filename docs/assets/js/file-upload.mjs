@@ -90,6 +90,7 @@ export default class FileUpload {
 		/* TODO: 
 		https://stackoverflow.com/questions/50157450/send-blob-object-with-post-form
 		Rename this.input - create new hidden input and store files as value ? */
+		/* TODO:Max-files, max-size, mime-type */
 		this.input.parentNode.insertBefore(this.app, this.input.nextSibling);
 		this.elements.input.parentNode.replaceChild(this.input, this.elements.input);
 

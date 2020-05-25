@@ -125,7 +125,8 @@
 	font-size: 2rem;
 	margin-bottom: 0.75rem;
 }
-.app__header code {
+.app__header code,
+.app__subheader code {
 	background-color: #DDD;
 	margin: 0 0.5ch;
 	padding: 0 0.5ch;
@@ -271,6 +272,17 @@
 }
 .app__label-group:last-of-type {
 	border-radius: 0 var(--app-inp-bdrs) var(--app-inp-bdrs) 0;
+}
+.app__subheader {
+	align-items: center;
+	color: #222;
+	display: flex;
+	font-size: 1.25rem;
+	margin: 1rem 0 0 0;
+}
+.app__text {
+	font-size: 0.75rem;
+	margin: 0 0 0.75rem 0;
 }
 .app__details {
 	border-top: 1px solid #DDD;
