@@ -9,7 +9,14 @@
  */
 
 import CssApp from './css-app.mjs';
+/* TODO  : Dark Mode ?
 
+<picture>
+	<source srcset="dark.png" media="(prefers-color-scheme: dark)">
+	<img src="bright.png">
+</picture>
+
+*/
 export default class ImageComponent extends CssApp {
 	constructor(element, settings) {
 		super(element, Object.assign({
