@@ -17,7 +17,7 @@ export default class ClipPath extends CssApp {
 			lblAnimation: 'Animation preview',
 			lblAnimationIntro: 'Hover to see animation between original state and current state.<br />Animation will only work if the number of points are the same.',
 			lblAppHeader: 'CSS <code>clip-path</code> Editor',
-			lblAppIntro: 'To add a point, select the point you want to insert a new point <em>after</em> and press <kbd>+</kbd><br />To delete the selected point, press <kbd>-</kbd> or <kbd>Delete</kbd><br />To <em>move</em> the selected point, use mouse, touch or <kbd>Arrow</kbd>-keys.<br />Hold down <kbd>ctrl</kbd> while selecting a preset to <em>only</em> update animation clip-path',
+			lblAppIntro: 'To add a point, select the point you want to insert a new point <em>after</em> and press <kbd>+</kbd><br />To delete the selected point, press <kbd>-</kbd> or <kbd>Delete</kbd><br />To <em>move</em> the selected point, use mouse, touch or <kbd>Arrow</kbd>-keys.<br />Hold down <kbd>ctrl</kbd> while selecting a preset to <em>only</em> update animation clip-path.',
 			pointSize: 40,
 			previewImage: '../assets/img/clippath-demo.jpg'
 		}, settings));
@@ -63,6 +63,7 @@ export default class ClipPath extends CssApp {
 		}
 		super.loadPreset(element);
 		this.elements.animation.style.setProperty('--clippath-ani', this.preset.value);
+		this.isPolygon = this.preset.values[0].type === 'polygon';
 		this.setControls(true);
 		if (this.preset.values[0].coords) {
 			this.pointCreate();
@@ -75,6 +76,7 @@ export default class ClipPath extends CssApp {
 	* @description Add a point to a polygon
 	*/
 	pointAdd(index) {
+		if (!this.isPolygon) { return false; }
 		const len = this.preset.values[0].coords.length;
 		const position = index + 1 < len ? index + 1 : 0;
 		let [x, y] = [...this.preset.values[0].coords[index]];
@@ -110,6 +112,7 @@ export default class ClipPath extends CssApp {
 	* @description Deletes a point from a polygon
 	*/
 	pointDelete(index) {
+		if (!this.isPolygon) { return false; }
 		this.preset.values[0].coords.splice(index, 1);
 		this.pointCreate();
 		this.pointRender();
@@ -204,9 +207,17 @@ export default class ClipPath extends CssApp {
 	* @description  Renders a polygon from coords, sets current preset
 	*/
 	pointRender() {
-		/* TODO: Handle `circle` and `ellipsis` */
-		const polygon = this.preset.values[0].coords.map(entry => { return entry.map(i => `${i}%`).join(' ')}).join(',');
-		this.preset.value = `polygon(${polygon})`;
+		if (this.isPolygon) {
+			const polygon = this.preset.values[0].coords.map(entry => { return entry.map(i => `${i}%`).join(' ')}).join(',');
+			this.preset.value = `polygon(${polygon})`;
+		}
+		else {
+			const [position, y, x] = [...this.preset.values[0].coords];
+			const radiusX = x[0] - 50;
+			const radiusY = 50 - y[1];
+			this.preset.value = `ellipse(${radiusX}% ${radiusY}% at ${position.join('% ')}%)`;
+			
+		}
 		this.setControls();
 	}
 
@@ -218,7 +229,6 @@ export default class ClipPath extends CssApp {
 	* @description Triggers whena single point updates
 	*/
 	pointUpdate(index, x, y) {
-		/* TODO: Handle `circle` and `ellipsis` */
 		this.preset.values[0].coords.splice(index, 1, [x, y]);
 		this.elements.coords.innerText = `point ${index} — x: ${x}, y: ${y}`;
 		this.pointRender();

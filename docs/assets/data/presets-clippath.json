@@ -292,38 +292,21 @@
 		{
 			"name": "circle",
 			"deletable": false,
-			"value": "circle(50% at 50% 50%)",
+			"value": "ellipse(45% 45% at 50% 50%)",
 			"values": [
 				{
-					"radius": 50,
-					"position": [50, 50],
-					"coords": [[100, 50], [50, 50]],
-					"type": "circle"
+					"coords": [[50, 50], [50, 5], [95, 50]],
+					"type": "ellipse"
 				}
 			]
 		},
 		{
 			"name": "ellipse",
 			"deletable": false,
-			"value": "ellipse(25% 40% at 50% 50%)",
+			"value": "ellipse(25% 45% at 50% 50%)",
 			"values": [
 				{
-					"radius": [25, 40],
-					"position": [50, 50],
-					"coords": [[50, 50], [0, 50], [0, 50]],
-					"type": "ellipse"
-				}
-			]
-		},
-		{
-			"name": "ellipse2",
-			"deletable": false,
-			"value": "ellipse(80% 92% at 19% 0%)",
-			"values": [
-				{
-					"radius": [25, 40],
-					"position": [50, 50],
-					"coords": [[50, 50], [0, 50], [0, 50]],
+					"coords": [[50, 50], [50, 5], [75, 50]],
 					"type": "ellipse"
 				}
 			]
