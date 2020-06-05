@@ -177,6 +177,7 @@
 	height: var(--app-inp-h);
 	padding: var(--app-inp-p);
 	text-align: center;
+	text-align-last: center;
 	/* -webkit-appearance: none; */
 	width: 100%;
 }
@@ -186,6 +187,9 @@
 }
 .app__label button {
 	font-size: x-small;
+}
+.app__label--del {
+	flex: 0 0 2rem;
 }
 .app__label--del button,
 .app__button--reset {
@@ -273,12 +277,15 @@
 .app__label-group:last-of-type {
 	border-radius: 0 var(--app-inp-bdrs) var(--app-inp-bdrs) 0;
 }
-.app__subheader {
+.app__subheader,
+.app__subheader--mt {
 	align-items: center;
 	color: #222;
 	display: flex;
 	font-size: 1.25rem;
-	margin: 1rem 0 0 0;
+}
+.app__subheader--mt {
+	margin-top: 1rem;
 }
 .app__text {
 	font-size: 0.75rem;

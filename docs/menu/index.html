@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Menu</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/demo.css" rel="stylesheet">
+	<link href="../assets/css/c-mnu.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<nav style="padding:2em 1em;"><a href="#account">Account</a></nav>
+		<nav class="c-mnu">
+			<span aria-label="Main Navigation" data-js="a11yMenu" data-menu-data="../assets/data/menu.json" data-mega-menu=":true"></span>
+			<a href="#dummylink" class="c-mnu__item-name--1">link</a>
+			
+			<span aria-label="Icon Navigation">
+				<details class="c-mnu__item--1">
+					<summary class="c-mnu__item-name--1" role="button"  data-level="1">SEARCH</summary>
+					<div class="c-mnu__panel--1" role="menu">
+						SEARCH PANEL
+						
+					</div>
+				</details>
+				<details class="c-mnu__item--1">
+					<summary class="c-mnu__item-name--1" role="button" data-level="1">ACCOUNT</summary>
+					<div class="c-mnu__panel--1" role="menu">
+						USER PANEL
+						
+					</div>
+				</details>
+				<details class="c-mnu__item--1">
+					<summary class="c-mnu__item-name--1" role="button" data-level="1">BASKET</summary>
+					<div class="c-mnu__panel--1" role="menu">
+						BASKET PANEL
+						
+					</div>
+				</details>
+
+			</span>
+		</nav>
+	</header>
+
+	<main style="padding:2em 1em;">
+		<a href="#">HERE's  A LINK</a>
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia quisquam, temporibus incidunt quidem, nobis molestias et commodi, accusantium dolorum consequatur placeat sed harum repellat illo fugit id distinctio possimus neque.</p>
+	</main>
+	<script type="module">
+		const elements = document.querySelectorAll('[data-js*="a11yMenu"]');
+		if (elements.length) {
+			import('../assets/js/a11ymenu.mjs')
+			.then(module => {
+				const a11yMenuModule = module.a11yMenu;
+				elements.forEach(element => {
+					new a11yMenuModule(element, element.dataset);
+				});
+			})
+		}
+	</script>
+</body>
+</html>

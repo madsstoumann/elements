@@ -1,53 +1,52 @@
 /**
  * ImageComponent module.
  * @module /image-component.mjs
- * @version 0.0.1
- * @summary 21-05-2020
+ * @version 0.0.3
+ * @summary 04-06-2020
  * @description Generate code for responsive <picture>
  * @example
  * <div data-js="image-component">
  */
-
 import CssApp from './css-app.mjs';
-/* TODO  : Dark Mode ?
-
-<picture>
-	<source srcset="dark.png" media="(prefers-color-scheme: dark)">
-	<img src="bright.png">
-</picture>
-
-*/
 export default class ImageComponent extends CssApp {
 	constructor(element, settings) {
 		super(element, Object.assign({
 			clsDrag: 'app__img--drag',
+			lblAddBreakpoint: 'Add breakpoint',
+			lblAddImage: 'Add image',
 			lblAltText: 'alt text',
+			lblAndOr: 'and / or',
 			lblAppHeader: 'CSS Transform Editor',
 			lblAspectHeight: 'aspect-ratio height',
 			lblAspectWidth: 'aspect-ratio width',
 			lblBreakpoint: 'breakpoint (px)',
+			lblColorScheme: 'color-scheme',
 			lblCrossorigin: 'crossorigin',
 			lblDecoding: 'decoding',
 			lblDelete: '✕',
 			lblJSONCode: 'JSON',
 			lblHTMLCode: 'HTML',
 			lblLoading: 'loading',
+			lblMinWidth: 'min-width (px)',
 			lblSize: 'size approx.',
 			lblSizeUnit: 'unit',
 			lblUploadImage: 'Upload or drag image/s',
 			presetEntry: {
 				alt: 'alt text',
-				aspectHeight: 1,
-				aspectWidth: 1,
+				aspectHeight: 9,
+				aspectWidth: 16,
 				crossorigin: 'anonymous',
 				decoding: 'async',
 				images: [
 					{
+						breakpoint: 320,
+						colorscheme: '',
 						src: 'small.jpg'
 					},
 					{
-						src: 'big.jpg',
-						minWidth: 1024
+						breakpoint: 768,
+						colorscheme: 'dark',
+						src: 'big.jpg'
 					}
 				],
 				loading: 'lazy',
@@ -61,42 +60,121 @@ export default class ImageComponent extends CssApp {
 						breakpoint: 768,
 						size: 100,
 						unit: 'vw'
-					},
-					{
-						breakpoint: 1024,
-						size: 50,
-						unit: 'vw'
-					},
-					{
-						breakpoint: 1200,
-						size: 33,
-						unit: 'vw'
-					},
-					{
-						breakpoint: 1800,
-						size: 25,
-						unit: 'vw'
 					}
-				],
-				tag: 'picture'
+				]
 			},
-			sizes: ['ch', 'cm', 'em', 'ex', 'in', 'mm', 'pc', 'pt', 'px', 'q', 'rem', 'vw', 'vh', 'vmin', 'vmax']
+			colorscheme: ['', 'dark', 'light'],
+			crossorigin: ['anonymous', 'use-credentials'],
+			decoding: ['auto', 'async', 'sync'],
+			loading: ['auto', 'eager', 'lazy'],
+			units: ['ch', 'cm', 'em', 'ex', 'in', 'mm', 'pc', 'pt', 'px', 'q', 'rem', 'vw', 'vh', 'vmin', 'vmax']
 		}, settings));
 
 		this.init();
 	}
 
-		/**
+	/**
+	* @function addBreakpoint
+	* @description Adds a new entry to the default preset
+	*/
+	addBreakpoint() {
+		this.preset.values[0].media.push({ breakpoint: 0, size: 100, unit: 'vw' });
+		this.renderBreakpoints();
+		this.setCode();
+	}
+
+	/**
+	* @function addImage
+	* @description Adds a new entry to the default preset
+	*/
+	addImage() {
+		this.preset.values[0].images.push({ src: 'image.jpg' });
+		this.renderImageList();
+		this.setCode();
+	}
+
+	/**
+	* @function delBreakpoint
+	* @param {Node} element
+	* @description Delete an entry from the default preset
+	*/
+	delBreakpoint(element) {
+		if (this.preset.values[0].media.length === 1) { return false; }
+		const index = parseInt(element.dataset.index, 10);
+		this.preset.values[0].media.splice(index, 1);
+		this.renderBreakpoints();
+		this.setCode();
+	}
+
+	/**
+	* @function delBreakpoint
+	* @param {Node} element
+	* @description Delete an entry from the default preset
+	*/
+	delImage(element) {
+		if (this.preset.values[0].images.length === 1) { return false; }
+		const index = parseInt(element.dataset.index, 10);
+		this.preset.values[0].images.splice(index, 1);
+		this.renderImageList();
+		this.setCode();
+	}
+
+	/**
+	* @function handleClick
+	* @param {Event} event
+	* @description Handle main form clicks.
+	*/
+	handleClick(event) {
+		const element = event.target;
+		if (element.tagName === 'BUTTON' && element.dataset.elm) {
+			switch(element.dataset.elm) {
+				case 'addPreset':
+					super.addPreset();
+					break;
+				case 'addBreakpoint':
+					this.addBreakpoint();
+					break;
+				case 'addImage':
+					this.addImage();
+					break;
+				case 'delBreakpoint':
+					this.delBreakpoint(element);
+					break;
+				case 'delImage':
+					this.delImage(element);
+					break;
+				case 'resetPreset':
+					// super.resetPreset();
+					break;
+				default: break;
+			}
+		}
+	}
+
+	/**
 	* @function handleInput
 	* @param {Event} event
 	* @description Handle main form input.
 	*/
 	handleInput(event) {
 		const element = event.target;
+		const index = element.dataset.index - 0 || 0;
 		const key = element.dataset.elm;
-		// this.elements.app.style.setProperty(`--${key}`,`${element.value}${element.dataset.suffix || ''}`);
-		// this.preset.values[0][key] = key === 'url' ? element.value : element.value - 0;
-		// this.setValue();
+		const obj = element.dataset.obj;
+		let value = element.value;
+
+		if (key === 'presetDesc' || key === 'presetName') { return; }
+
+		if (element.type === 'number') {
+			value = value - 0;
+		}
+		if (obj) {
+			this.preset.values[0][obj][index][key] = value;
+		}
+		else {
+			this.preset.values[0][key] = value;
+		}
+		this.setCode();
 	}
 
 	/**
@@ -105,21 +183,7 @@ export default class ImageComponent extends CssApp {
 	*/
 	async init() {
 		await super.init();
-		/* Add drag/drop functionality to preview-image-area */
-		this.elements.filedrop.addEventListener("change", this.setImage.bind(this));
-		this.elements.preview.addEventListener("dragover", (event) => { event.preventDefault(); return false; });
-		this.elements.preview.addEventListener("dragenter", () => { this.elements.preview.classList.add(this.settings.clsDrag); });
-		document.addEventListener("drop", () => { this.elements.preview.classList.remove(this.settings.clsDrag) ;});
-
-
-		// this.preset = {...this.settings.presetEntry};
-		super.resetPreset();
-		this.preset.values[0] = {...this.settings.presetEntry};
-
-	/* TODO: Set aspect ratio per breakpoint */
-
-		console.log(this.preset)
-		// console.log(this.renderPicture(this.preset));
+		this.loadPreset();
 	}
 
 		/**
@@ -132,76 +196,51 @@ export default class ImageComponent extends CssApp {
 		if (element) {
 			super.loadPreset(element);
 		}
-
-		/* Merge preset with default settings */
-		
-		this.setValue();
-	}
-
-	/**
-	* @function objFilter
-	* @param {Object} obj1
-	* @param {Object} obj2
-	* @description Compare 2 simple objects, return object with differences
-	*/
-	objFilter(obj1, obj2) {
-		// const obj = {};
-		// Object.keys(obj1).forEach(key => { if(obj1[key] !== obj2[key]) { obj[key] = obj1[key] }});
-		// return obj;
+		else {
+			this.preset.values[0] = {...this.settings.presetEntry};
+		}
+		this.renderImageInfo();
+		this.renderImageList();	
+		this.renderBreakpoints();
+		this.setCode();
 	}
 
 	renderBreakpoints() {
-		// ${this.preset.values[0].media.map((breakpoint, index) => { return this.templateBreakPoints(breakpoint, index) }).join('')}
+		this.elements.breakpoints.innerHTML = this.preset.values[0].media.map((breakpoint, index) => {
+			return this.templateBreakPoints(breakpoint, index)
+		}).join('');
 	}
 
-  renderImage(Model) {
-    return `<img alt="${Model.alt}" src="${Model.images[0].src}"
-      ${Model.crossorigin ? ` crossorigin="${Model.crossorigin}"`: ''}
-      ${Model.decoding ? ` decoding="${Model.decoding}"`: ''}
-      ${Model.loading ? ` loading="${Model.loading}"`: ''}/>`;
-  }
+	renderImage(preset) {
+		return `\n\t<img alt="${preset.alt}" src="${preset.images[0].src}"${preset.crossorigin ? ` crossorigin="${preset.crossorigin}"`: ''}${preset.decoding ? ` decoding="${preset.decoding}"`: ''}${preset.loading ? ` loading="${preset.loading}"`: ''} />`;
+	}
 
-  renderPicture(Model, ImageSizes) {
-    return `
-      <picture style="--h:${Model.aspectHeight};--w:${Model.aspectWidth};">
-        ${this.renderPictureSource(Model, ImageSizes)}
-        ${this.renderImage(Model)}
-      </picture>`;
-  }
+	renderImageInfo() {
+		this.elements.imageinfo.innerHTML = this.templateImageInfo(this.preset.values[0]);
+	}
 
-  renderPictureSource(Model, ImageSizes) {
-    return `
-      ${Model.images.map(image => {
-        /* TODO: if minWidth, split ImageSizes */
-        return `<source
-        ${image.minWidth ? `media="(min-width: ${image.minWidth}px)"` : ''}
-        srcset="${ImageSizes.map(size => { return `${image.src}?w=${size} ${size}w` }).join(', ')}"
-        sizes="100vw">  
-    `}).join('')}`
-  }
+	renderImageList() {
+		this.elements.imagelist.innerHTML = this.preset.values[0].images.map((image, index) => {
+			return this.templateImageList(image, index);
+		}).join('');
+	}
+
+	renderPicture(preset) {
+		return `<picture style="--h:${preset.aspectHeight};--w:${preset.aspectWidth};">${this.renderPictureSource(preset)}${this.renderImage(preset)}\n</picture>`;
+	}
+
+	renderPictureSource(preset) {
+		/* TODO: if breakpoint exists, split ImageSizes, color-scheme etc. */
+		return `${preset.images.map(image => { return `\n\t<source media="${image.breakpoint > 0 ? ` (min-width: ${image.breakpoint}px)` : ''}${(image.breakpoint > 0) && image.colorscheme ? ` and ` : ''}${image.colorscheme ? `(prefers-color-scheme: ${image.colorscheme})`: ''}" srcset="\n${preset.media.map(entry => { return `\t\t${image.src}?w=${entry.breakpoint} ${entry.breakpoint}w` }).join(',\n')}" \n\t\tsizes="100vw">\n`}).join('')}`
+	}
 
 	/**
-	* @function setImage
-	* @description Sets preview-image to dragged (or file-upload) image-src.
+	* @function setCode
+	* @description Updates CSS- and preset-code
 	*/
-	setImage(event) {
-		console.log(this.elements.filedrop.files)
-		const reader = new FileReader();
-		reader.onload = (e) => {
-			// this.elements.preview.setAttribute("src", e.target.result);
-			// console.log(e.target.result);
-		};
-		// reader.readAsDataURL(event.target.files[0]);
-	}
-
-		/**
-	* @function setValue
-	* @description Updates `value`-part of current preset, filters out default values
-	*/
-	setValue() {
-		// this.preset.value = str.trim();
-		// this.preset.values[0] = obj;
+	setCode() {
 		super.setCode();
+		this.elements.htmlCode.innerText = this.renderPicture(this.preset.values[0]);
 	}
 
 	/**
@@ -214,54 +253,23 @@ export default class ImageComponent extends CssApp {
 			<strong class="app__header">${this.settings.lblAppHeader}</strong>
 			<div class="app__edit">
 				<div class="app__preview">
-					<div data-elm="preview">
-						<input type="file" id="${this.uuid}file" class="app__file-drop" data-elm="filedrop" multiple />
-					</div>
-					<ul data-elm="filelist"></ul>
-					<label for="${this.uuid}file" class="app__label">${this.settings.lblUploadImage}</label>
+					<strong class="app__subheader">Basic <code>img</code> info</strong>
+					<p class="app__text">Fill out <code>alt</code>-text, if a fixed aspect-ratio is needed, change the values from <code>0</code></p>
+					<div data-elm="imageinfo"></div>
 				</div>
 
 				<div class="app__controls">
-					<div class="app__fieldset">
-						<label class="app__label app__label--checkbox"><input type="checkbox" class="u-hidden" data-elm="imgTag" data-index="0"><span></span>img</label>
-						<label class="app__label"><input type="text" size="50" data-elm="alt" />${this.settings.lblAltText}</label>
-					</div>
-					<div class="app__fieldset">
-						<label class="app__label"><input type="number" size="3" value="0" data-elm="w" />${this.settings.lblAspectWidth}</label>
-						<label class="app__label"><input type="number" size="3" value="0" data-elm="h" />${this.settings.lblAspectHeight}</label>
-					</div>
-					<div class="app__fieldset">
-						<label class="app__label">	
-							<select data-elm="crossorigin">
-								<option value="">none</option>
-								<option value="anonymous">anonymous</option>
-								<option value="use-credentials">use-credentials</option>
-							</select>
-							${this.settings.lblCrossorigin}
-						</label>
-						<label class="app__label">	
-							<select data-elm="decoding">
-								<option value="">auto</option>
-								<option value="async">async</option>
-								<option value="sync">sync</option>
-							</select>
-							${this.settings.lblDecoding}
-						</label>
-						<label class="app__label">	
-							<select data-elm="loading">
-								<option value="">auto</option>
-								<option value="eager">eager</option>
-								<option value="lazy">lazy</option>
-							</select>
-							${this.settings.lblLoading}
-						</label>
-					</div>
+					<strong class="app__subheader">Image-list</strong>
+					<p class="app__text">If you have more than one image, chose which breakpoint to use, or if that image should be shown for a preferred <code>color-scheme</code>, or a combination.</p>
 
-					<strong class="app__subheader">media min-width and <code>sizes</code></strong>
+					<div data-elm="imagelist"></div>
+					<button type="button" class="app__button" data-elm="addImage">${this.settings.lblAddImage}</button>
+
+					<strong class="app__subheader--mt"><code>srcset</code> and <code>sizes</code></strong>
 					<p class="app__text">For a given breakpoint, fill out the approx. size, the final image will have at that breakpoint.</p>
 
-					<div data-elm="breakpoints">
-					</div>
+					<div data-elm="breakpoints"></div>
+					<button type="button" class="app__button" data-elm="addBreakpoint">${this.settings.lblAddBreakpoint}</button>
 
 					<div class="app__fieldset app__fieldset--topspace">
 						<label class="app__label"><input type="text" data-elm="presetName" data-lpignore="true" size="15">${this.settings.lblPresetName}</label>
@@ -273,34 +281,88 @@ export default class ImageComponent extends CssApp {
 						<button type="button" class="app__button app__button--reset" data-elm="resetPreset">${this.settings.lblReset}</button>
 						<button type="button" class="app__button" data-elm="addPreset">${this.settings.lblAddPreset}</button>
 					</div>
-
 				</div>
 			</div>
 
 			<details class="app__details" open>
 				<summary class="app__summary"><span>${this.settings.lblHTMLCode}</span></summary>
-				<div class="app__code" data-elm="htmlCode"></div>
+				<div class="app__code"><pre data-elm="htmlCode"></pre></div>
 			</details>
-			<details class="app__details">
+			<details class="app__details" open>
 				<summary class="app__summary"><span>${this.settings.lblJSONCode}</span></summary>
-				<div class="app__code"><pre data-elm="jsonCode"></pre></div>
+				<div class="app__code"><pre data-elm="presetCode"></pre></div>
 			</details>
 		</form>`
 	}
+
 	/**
 	* @function templateBreakPoints
 	* @description Renders a breakpoint
 	*/
-	templateBreakPoints(breakpoint, index = 0) {
+	templateBreakPoints(entry, index = 0) {
 		return `
 			<div class="app__fieldset">
-				<label class="app__label"><input type="number" size="3" value="${breakpoint}" data-elm="x" data-index="${index}" />${this.settings.lblBreakpoint}</label>
-				<label class="app__label"><input type="number" size="3" value="30" data-elm="y" data-index="0" />${this.settings.lblSize}</label>
+				<label class="app__label"><input type="number" min="0" size="3" value="${entry.breakpoint}" data-elm="breakpoint" data-index="${index}" data-obj="media" />${this.settings.lblBreakpoint}</label>
+				<label class="app__label"><input type="number" min="0" size="3" value="${entry.size}" data-elm="size" data-index="${index}" data-obj="media" />${this.settings.lblSize}</label>
 				<label class="app__label">	
-					<select>${this.settings.sizes.map(unit => { return `<option value="${unit}">${unit}</option>`}).join('')}</select>
+					<select data-elm="unit" data-index="${index}" data-obj="media">${this.settings.units.map(unit => { return `<option value="${unit}"${entry.unit === unit ? ' selected': ''}>${unit}</option>`}).join('')}</select>
 					${this.settings.lblSizeUnit}
 				</label>
-			<label class="app__label app__label--del"><button type="button" data-elm="delEntry" data-index="${index}" aria-label="">${this.settings.lblDelete}</button>del</label>
+			<label class="app__label app__label--del"><button type="button" data-elm="delBreakpoint" data-index="${index}" aria-label="">${this.settings.lblDelete}</button>del</label>
+		</div>`
+	}
+
+	/**
+	* @function templateImageInfo
+	* @description Renders basic image-info
+	*/
+	templateImageInfo(entry) {
+		return `
+			<div class="app__fieldset">
+				<label class="app__label"><input type="text" size="50" data-elm="alt" value="${entry.alt}" />${this.settings.lblAltText}</label>
+			</div>
+			<div class="app__fieldset">
+				<label class="app__label"><input type="number" min="0" size="3" data-elm="aspectWidth" value="${entry.aspectWidth}" />${this.settings.lblAspectWidth}</label>
+				<label class="app__label"><input type="number" min="0" size="3" data-elm="aspectHeight" value="${entry.aspectHeight}" />${this.settings.lblAspectHeight}</label>
+			</div>
+			<div class="app__fieldset">
+				<label class="app__label">	
+					<select data-elm="crossorigin">
+						${this.settings.crossorigin.map(value => { return `<option value="${value}"${entry.crossorigin === value ? ' selected': ''}>${value}</option>`}).join('')}
+					</select>
+					${this.settings.lblCrossorigin}
+				</label>
+				<label class="app__label">	
+					<select data-elm="decoding">
+						${this.settings.decoding.map(value => { return `<option value="${value}"${entry.decoding === value ? ' selected': ''}>${value}</option>`}).join('')}
+					</select>
+					${this.settings.lblDecoding}
+				</label>
+				<label class="app__label">	
+					<select data-elm="loading">
+						${this.settings.loading.map(value => { return `<option value="${value}"${entry.loading === value ? ' selected': ''}>${value}</option>`}).join('')}
+					</select>
+					${this.settings.lblLoading}
+				</label>
+			</div>`
+	}
+
+	/**
+	* @function templateImageList
+	* @description Renders a breakpoint
+	*/
+	templateImageList(entry, index = 0) {
+		return `
+			<div class="app__fieldset">
+				<label class="app__label app__label--auto"><input type="text" data-elm="src" data-index="${index}" data-obj="images" value="${entry.src}" />src</label>
+				<label class="app__label">	
+					<select data-elm="colorscheme" data-index="${index}" data-obj="images">
+						${this.settings.colorscheme.map(value => { return `<option value="${value}"${entry.colorscheme === value ? ' selected': ''}>${value}</option>`}).join('')}
+					</select>
+					${this.settings.lblColorScheme}
+				</label>
+				<label class="app__label"><input type="number" min="0" size="3" value="${entry.breakpoint}" data-elm="breakpoint" data-index="${index}" data-obj="images" />${this.settings.lblMinWidth}</label>
+				<label class="app__label app__label--del"><button type="button" data-elm="delImage" data-index="${index}" aria-label="">${this.settings.lblDelete}</button>del</label>
 		</div>`
 	}
 }

@@ -1,6 +1,7 @@
 @import 'app.css';
 .app {
 	--clippath: ;
+	--clippath-ani: ;
 }
 
 .app__img {
@@ -13,11 +14,32 @@
 	top: 20px;
 	width: calc(100% - 40px);
 }
+.app__img-animation {
+	bottom: 0;
+	clip-path: var(--clippath-ani);
+	height: 100%;
+	left: 0;
+	position: absolute;
+	right: 0;
+	transition: clip-path 500ms ease-in;
+	top: 0;
+	width: 100%;
+}
+
 .app__img-wrapper {
 	position: relative;
-	/* border: 1px solid tomato; */
 }
-.app__img-wrapper::after {
+.app__img-wrapper-animation {
+	margin: 0 0 1rem 0;
+	padding: 0;
+	position: relative;
+	width: 200px;
+}
+.app__img-wrapper-animation:hover .app__img-animation {
+	clip-path: var(--clippath);
+}
+.app__img-wrapper::after,
+.app__img-wrapper-animation::after {
 	content: "";
 	display: block;
 	padding-bottom: 100%;

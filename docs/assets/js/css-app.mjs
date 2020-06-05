@@ -2,8 +2,8 @@
  * CSS App
  * @module /assets/js/css-app
  * @requires /assets/js/common
- * @version 0.0.3
- * @summary 17-05-2020
+ * @version 0.0.5
+ * @summary 05-06-2020
  * @description Generic CSS App, extend other CSS apps from this
  */
 
@@ -118,6 +118,7 @@ export default class CssApp {
 	handleInput(event) {
 		const element = event.target;
 		const key = element.dataset.elm;
+		if (key === 'presetDesc' || key === 'presetName') { return; }
 		this.elements.app.style.setProperty(`--${key}`,`${element.value}${element.dataset.suffix || ''}`);
 	}
 
@@ -177,7 +178,7 @@ export default class CssApp {
 		const element = event.target;
 		if (element.tagName === 'BUTTON') {
 			switch (event.key) {
-				case ' ': this.loadPreset(element); break;
+				case ' ': this.loadPreset(element, event); break;
 				case 'Delete': this.delPreset(element); break;
 				default: break;
 			}
@@ -211,7 +212,7 @@ export default class CssApp {
 	pointerDown(event) {
 		const element = event.target;
 		if (element.tagName === 'BUTTON') {
-			this.loadPreset(element);
+			this.loadPreset(element, event);
 		}
 	}
 
@@ -220,8 +221,11 @@ export default class CssApp {
 	* @description Resets current preset
 	*/
 	resetPreset() {
-		// this.elements.presetDesc.value = '';
-		// this.elements.presetName.value = '';
+		try {
+			this.elements.presetDesc.value = '';
+			this.elements.presetName.value = '';
+		}
+		catch(err) { console.error(err); }
 		this.preset = {
 			deletable: true,
 			description: '',
