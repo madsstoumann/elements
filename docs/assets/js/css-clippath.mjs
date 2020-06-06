@@ -268,11 +268,15 @@ export default class ClipPath extends CssApp {
 				</div>
 
 				<div class="app__controls">
-					<strong class="app__subheader">${this.settings.lblAnimation}</strong>
-					<p class="app__text">${this.settings.lblAnimationIntro}</p>
-					<figure class="app__img-wrapper-animation">
-						<img src="${this.settings.previewImage}" class="app__img-animation" data-elm="animation" />
-					</figure>
+					<div class="app__animation">
+						<figure class="app__img-wrapper-animation">
+							<img src="${this.settings.previewImage}" class="app__img-animation" data-elm="animation" />
+						</figure>
+						<header>
+							<strong class="app__subheader">${this.settings.lblAnimation}</strong>
+							<p class="app__text">${this.settings.lblAnimationIntro}</p>
+						</header>
+					</div>
 					<div class="app__fieldset">
 						<label class="app__label"><textarea data-elm="path" data-lpignore="true"></textarea>${this.settings.lblPath}</label>
 					</div>

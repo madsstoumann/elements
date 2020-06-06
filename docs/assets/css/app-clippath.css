@@ -3,7 +3,9 @@
 	--clippath: ;
 	--clippath-ani: ;
 }
-
+.app__animation {
+	display: flex;
+}
 .app__img {
 	bottom: 20px;
 	clip-path: var(--clippath);
@@ -31,10 +33,10 @@
 	touch-action: none;
 }
 .app__img-wrapper-animation {
-	margin: 0 0 1rem 0;
+	flex: 0 0 210px;
+	margin: 0 1rem 1rem 0;
 	padding: 0;
 	position: relative;
-	width: 200px;
 }
 .app__img-wrapper-animation:hover .app__img-animation {
 	clip-path: var(--clippath);
