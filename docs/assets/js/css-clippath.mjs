@@ -19,7 +19,7 @@ export default class ClipPath extends CssApp {
 			lblAnimation: 'Animation preview',
 			lblAnimationIntro: 'Hover to see animation between original state and current state.<br />Animation will only work if the number of points are the same.',
 			lblAppHeader: 'CSS <code>clip-path</code> Editor',
-			lblAppIntro: 'To add a point, select the point you want to insert a new point <em>after</em> and press <kbd>+</kbd><br />To delete the selected point, press <kbd>-</kbd> or <kbd>Delete</kbd><br />To <em>move</em> the selected point, use mouse, touch or <kbd>Arrow</kbd>-keys.<br />Hold down <kbd>ctrl</kbd> while selecting a preset to <em>only</em> update animation clip-path.',
+			lblAppIntro: 'To add a point, select the point you want to insert a new point <em>after</em> and press <kbd>+</kbd><br />To delete the selected point, press <kbd>-</kbd> or <kbd>Delete</kbd><br />To <em>move</em> the selected point, use mouse, touch or <kbd>Arrow</kbd>-keys.<br />Hold down <kbd>shift</kbd> while selecting a preset to <em>only</em> update animation clip-path.',
 			lblPath: 'url() raw data',
 			pointSize: 40,
 			previewImage: '../assets/img/clippath-demo.jpg'
@@ -63,7 +63,7 @@ export default class ClipPath extends CssApp {
 	* @description Loads preset / overwrites preset
 	*/
 	loadPreset(element, event) {
-		if (event && event.ctrlKey) {
+		if (event && event.shiftKey) {
 			/* Update animation-preview only */
 			const style = element?.firstChild.getAttribute('style').replace('clip-path:', '');
 			this.elements.animation.style.setProperty('--clippath-ani', style);
@@ -249,12 +249,18 @@ export default class ClipPath extends CssApp {
 	*/
 	setControls(resetPoints = false) {
 		if (resetPoints) {
+			this.elements.coords.innerHTML = '';
 			this.elements.points.innerHTML = '';
 		}
 		super.setCode();
 		this.elements.app.style.setProperty('--clippath', this.preset.value);
 	}
 
+	/**
+	* @function svgInsert
+	* @param {Object} preset
+	* @description Creates and inserts svg clipPath
+	*/
 	svgInsert(preset) {
 		this.svgWrapper.insertAdjacentHTML('beforeEnd', svgCreateClipPath(preset.name, preset.values[0].data, preset.values[0].width, preset.values[0].height));
 	}
@@ -287,7 +293,7 @@ export default class ClipPath extends CssApp {
 							<p class="app__text">${this.settings.lblAnimationIntro}</p>
 						</header>
 					</div>
-					<div class="app__fieldset">
+					<div class="app__fieldset" hidden><!-- TODO -->
 						<label class="app__label"><textarea data-elm="path" data-lpignore="true"></textarea>${this.settings.lblPath}</label>
 					</div>
 					<div class="app__fieldset">
