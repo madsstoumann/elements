@@ -18,6 +18,7 @@ export default class ClipPath extends CssApp {
 			lblAnimationIntro: 'Hover to see animation between original state and current state.<br />Animation will only work if the number of points are the same.',
 			lblAppHeader: 'CSS <code>clip-path</code> Editor',
 			lblAppIntro: 'To add a point, select the point you want to insert a new point <em>after</em> and press <kbd>+</kbd><br />To delete the selected point, press <kbd>-</kbd> or <kbd>Delete</kbd><br />To <em>move</em> the selected point, use mouse, touch or <kbd>Arrow</kbd>-keys.<br />Hold down <kbd>ctrl</kbd> while selecting a preset to <em>only</em> update animation clip-path.',
+			lblPath: 'Manual path()-data',
 			pointSize: 40,
 			previewImage: '../assets/img/clippath-demo.jpg'
 		}, settings));
@@ -271,6 +272,9 @@ export default class ClipPath extends CssApp {
 					<figure class="app__img-wrapper-animation">
 						<img src="${this.settings.previewImage}" class="app__img-animation" data-elm="animation" />
 					</figure>
+					<div class="app__fieldset">
+						<label class="app__label"><textarea data-elm="path" data-lpignore="true"></textarea>${this.settings.lblPath}</label>
+					</div>
 					<div class="app__fieldset">
 						<label class="app__label"><input type="text" data-elm="presetName" data-lpignore="true" size="15">${this.settings.lblPresetName}</label>
 					</div>

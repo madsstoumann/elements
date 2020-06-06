@@ -28,6 +28,7 @@
 
 .app__img-wrapper {
 	position: relative;
+	touch-action: none;
 }
 .app__img-wrapper-animation {
 	margin: 0 0 1rem 0;
