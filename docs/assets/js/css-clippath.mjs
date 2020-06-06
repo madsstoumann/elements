@@ -14,6 +14,7 @@ import CssApp from './css-app.mjs';
 export default class ClipPath extends CssApp {
 	constructor(element, settings) {
 		super(element, Object.assign({
+			appType: 'clip-path',
 			lblAnimation: 'Animation preview',
 			lblAnimationIntro: 'Hover to see animation between original state and current state.<br />Animation will only work if the number of points are the same.',
 			lblAppHeader: 'CSS <code>clip-path</code> Editor',
