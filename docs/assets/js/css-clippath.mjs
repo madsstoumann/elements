@@ -331,6 +331,6 @@ export default class ClipPath extends CssApp {
 	*/	
 	templatePresetEntry(preset, index = 0) {
 		if (preset.values[0].type === 'url') { this.svgInsert(preset); }
-		return `<button type="button" class="app__preset--clip" data-index="${index}"><div style="clip-path:${preset.value}"></div>${preset.name}</button>`
+		return `<button type="button" class="app__preset--clip" data-type="${preset.values[0].type}" data-index="${index}"><div style="clip-path:${preset.value}"></div>${preset.name}</button>`
 	}
 }

@@ -100,6 +100,17 @@
 	height: 60px;
 	margin: 0 0.25rem 0.25rem 0;
 	overflow: hidden;
+	position: relative;
+}
+.app__preset--clip::before {
+	border-radius: 50%;
+	content: '';
+	display: inline-block;
+	height: 8px;
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 8px;
 }
 .app__preset--clip:focus,
 .app__preset--clip:hover {
@@ -111,4 +122,8 @@
 	margin: 0.25rem 0;
 	pointer-events: none;
 	width: 32px;
+}
+
+[data-type="url"]::before {
+	background-color: orange;
 }

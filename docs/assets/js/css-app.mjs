@@ -56,7 +56,9 @@ export default class CssApp {
 			this.renderPresets();
 
 			if (this.settings.useLocalStorage) {
-				window.localStorage.setItem(this.settings.appType, JSON.stringify(this.presets));
+				const localIndex = this.localPresets.length;
+				this.localPresets.push(Object.assign({ localIndex }, this.preset));
+				window.localStorage.setItem(this.settings.appType, JSON.stringify(this.localPresets));
 			}
 			this.setCode();
 		}
@@ -71,12 +73,14 @@ export default class CssApp {
 		const presetIndex = parseInt(element.dataset.index, 10);
 		if (presetIndex > -1) {
 			const preset = this.presets[presetIndex];
+			let localIndex = Object.prototype.hasOwnProperty.call(preset, 'localIndex') ? preset.localIndex : -1;
 			this.presets.splice(presetIndex, 1);
 			this.app.dispatchEvent(new CustomEvent(this.settings.eventDelPreset, { detail: JSON.stringify(preset) }));
 			this.renderPresets();
 
-			if (this.settings.useLocalStorage) {
-				window.localStorage.setItem(this.settings.appType, JSON.stringify(this.presets));
+			if (this.settings.useLocalStorage && localIndex > -1) {
+				this.localPresets.splice(localIndex, 1);
+				window.localStorage.setItem(this.settings.appType, JSON.stringify(this.localPresets));
 			}
 		}
 	}
@@ -154,10 +158,11 @@ export default class CssApp {
 
 			/* Get optional, locally stored presets */
 			if (this.settings.useLocalStorage) {
-				let localPresets = window.localStorage.getItem(this.settings.appType);
+				this.localPresets = [];
+				const localPresets = window.localStorage.getItem(this.settings.appType);
 				if (localPresets) {
-					localPresets = JSON.parse(localPresets);
-					presets = presets ? mergeArrayOfObjects(presets, localPresets, 'name') : localPresets;
+					this.localPresets = JSON.parse(localPresets);
+					presets = presets ? mergeArrayOfObjects(presets, this.localPresets, 'name') : this.localPresets;
 				}
 			}
 			this.presets = presets || [];
