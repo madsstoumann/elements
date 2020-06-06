@@ -2,14 +2,15 @@
  * ClipPath module.
  * @module /assets/js/clippath
  * @requires /assets/js/common
- * @version 0.2.1
- * @summary 05-06-2020
- * @description Edit clip-path data, polygon
+ * @version 0.2.2
+ * @summary 06-06-2020
+ * @description Edit clip-path: ellipse, polygon, url
  * @example
  * <div data-js="clippath">
  */
 
-import { scrollPosition } from './common.mjs';
+import { scrollPosition, uuid } from './common.mjs';
+import { svgCreateWrapper, svgCreateClipPath } from './svg.mjs';
 import CssApp from './css-app.mjs';
 export default class ClipPath extends CssApp {
 	constructor(element, settings) {
@@ -19,7 +20,7 @@ export default class ClipPath extends CssApp {
 			lblAnimationIntro: 'Hover to see animation between original state and current state.<br />Animation will only work if the number of points are the same.',
 			lblAppHeader: 'CSS <code>clip-path</code> Editor',
 			lblAppIntro: 'To add a point, select the point you want to insert a new point <em>after</em> and press <kbd>+</kbd><br />To delete the selected point, press <kbd>-</kbd> or <kbd>Delete</kbd><br />To <em>move</em> the selected point, use mouse, touch or <kbd>Arrow</kbd>-keys.<br />Hold down <kbd>ctrl</kbd> while selecting a preset to <em>only</em> update animation clip-path.',
-			lblPath: 'Manual path()-data',
+			lblPath: 'url() raw data',
 			pointSize: 40,
 			previewImage: '../assets/img/clippath-demo.jpg'
 		}, settings));
@@ -31,7 +32,12 @@ export default class ClipPath extends CssApp {
 	* @description Initialize: Create elements, add eventListeners etc.
 	*/
 	async init() {
+		let svgID = uuid();
+		document.body.insertAdjacentHTML('beforeEnd', svgCreateWrapper(svgID));
+		this.svgWrapper = document.getElementById(svgID);
+
 		await super.init();
+
 		this.elements.points.addEventListener('pointerdown', (event) => { this.pointDown(event); });
 		this.elements.points.addEventListener('pointerup', () => { this.point.element = null; });
 		this.elements.points.addEventListener('pointerleave', () => {
@@ -249,6 +255,10 @@ export default class ClipPath extends CssApp {
 		this.elements.app.style.setProperty('--clippath', this.preset.value);
 	}
 
+	svgInsert(preset) {
+		this.svgWrapper.insertAdjacentHTML('beforeEnd', svgCreateClipPath(preset.name, preset.values[0].data, preset.values[0].width, preset.values[0].height));
+	}
+
 	/**
 	* @function template
 	* @description Renders main template
@@ -286,8 +296,7 @@ export default class ClipPath extends CssApp {
 					<div class="app__fieldset">
 						<label class="app__label"><textarea data-elm="presetDesc" data-lpignore="true"></textarea>${this.settings.lblPresetDesc}</label>
 					</div>
-					<div class="app__fieldset app__button-group">
-						<button type="button" class="app__button app__button--reset" data-elm="resetPreset">${this.settings.lblReset}</button>
+					<div class="app__fieldset">
 						<button type="button" class="app__button" data-elm="addPreset">${this.settings.lblAddPreset}</button>
 					</div>
 				</div>
@@ -315,6 +324,7 @@ export default class ClipPath extends CssApp {
 	* @description Renders a single preset
 	*/	
 	templatePresetEntry(preset, index = 0) {
+		if (preset.values[0].type === 'url') { this.svgInsert(preset); }
 		return `<button type="button" class="app__preset--clip" data-index="${index}"><div style="clip-path:${preset.value}"></div>${preset.name}</button>`
 	}
 }

@@ -1,7 +1,7 @@
 /**
  * app.css
- * @version 1.0.0
- * @summary 14-04-2020
+ * @version 1.1.0
+ * @summary 06-06-2020
  * @author Mads Stoumann
  * @description Stylesheet for micro-apps, ie. ColorPicker, FilterMaker, ShadowMaker etc..
 	Variables are concatinated from: 
@@ -74,13 +74,14 @@
 	resize: none;
 	tab-size: 2;
 	width: 100%;
+	word-break: break-all;
 }
 /* .app__code span { color: #7bdcfe; } */
 .code--boolean { color: deepskyblue; }
 .code--key { color: lightblue; }
 .code--null { color: lightcoral; }
 .code--number { color: lightgreen; }
-.code--string {	color: lightsalmon; }
+.code--string {	color: lightsalmon; white-space: initial;}
 
 .app__controls,
 .app__preview {

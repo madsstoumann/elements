@@ -7,30 +7,20 @@
 	<link href="../assets/css/app-clippath.css" rel="stylesheet">
 </head>
 <body>
-	<!-- <div id="result" style="width:200px;height:200px;background:tomato;"></div>
-
-	<svg>
-		<path id="test" d="M 73.924957,90 49.42372,75.971326 24.48224,89.124336 29.669821,60.42209 10,39.681618 37.707342,35.971327 50.492205,10 62.4287,36.409157 90,41.098468 69.669822,61.130517 Z" />
-	</svg> -->
-	
-	<script>
-	/* TODO  CHeck svg viewBox, divide paths
+	<!--
 	https://css-tricks.com/an-initial-implementation-of-clip-path-path/
 	https://caniuse.com/#feat=mdn-css_properties_clip-path_path
 	https://stackoverflow.com/questions/53393966/convert-svg-path-to-polygon-coordinates 
-	
-	
-	https://github.com/desandro/draggabilly
-	*/
-	// var path = document.getElementById("test").getAttribute('d').split(' ');
-	// path = path.map(c => { return c.replace(',', '% ')+'%'});
-	// path.pop(); /* FIX */
-	// path.shift(); /* FIX */
-	// console.log(path.join(','))
-	
-	// const result = document.getElementById('result');
-	// result.style.clipPath = `polygon(${path.join(',')})`;
-	</script>
+	https://css-tricks.com/create-a-responsive-css-motion-path-sure-we-can/
+	http://meyerweb.com/eric/thoughts/2017/02/24/scaling-svg-clipping-paths-for-css-use/
+	https://yoksel.github.io/relative-clip-path/
+	-->
+
+	<!-- <svg  aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
+	<clipPath id="heart" clipPathUnits="objectBoundingBox" transform="scale(0.01, 0.01)">
+		 <path d="M 10,30 A 20,20 0,0,1 50,30 A 20,20 0,0,1 90,30 Q 90,60 50,90 Q 10,60 10,30 z">
+	 </clipPath>
+ </svg> -->
 
 	<div data-js="clippath"
 		data-url-presets="../assets/data/presets-clippath.json">
