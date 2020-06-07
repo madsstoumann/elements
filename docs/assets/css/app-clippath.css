@@ -27,7 +27,6 @@
 	top: 0;
 	width: 100%;
 }
-
 .app__img-wrapper {
 	position: relative;
 	touch-action: none;
@@ -124,6 +123,35 @@
 	width: 32px;
 }
 
-[data-type="url"]::before {
+button[data-type="ellipse"][data-index="0"] {
 	background-color: orange;
+}
+button[data-type="ellipse"][data-index="1"] {
+	background-color: #70a370;
+}
+button[data-type="ellipse"][data-index="2"] {
+	background-color: tomato;
+}
+code[data-type="ellipse"] {
+	background-color: orange;
+}
+code[data-type="polygon"] {
+	background-color: #70a370;
+}
+code[data-type="url"] {
+	background-color: tomato;
+}
+code[data-type] {
+	color: #fff;
+	padding: 2px 4px;
+}
+
+[data-type="ellipse"]::before {
+	background-color: orange;
+}
+[data-type="polygon"]::before {
+	background-color: #70a370;
+}
+[data-type="url"]::before {
+	background-color: tomato;
 }

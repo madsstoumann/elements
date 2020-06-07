@@ -178,16 +178,19 @@
 	height: var(--app-inp-h);
 	padding: var(--app-inp-p);
 	text-align: center;
-	text-align-last: center;
 	width: 100%;
 }
 .app__label input[type="text"],
 .app__label textarea {
 	-webkit-appearance: none; 
 }
+.app__label select {
+	text-align-last: center;
+}
 .app__label textarea {
 	min-height: 4rem;
 	resize: vertical;
+	text-align: left;
 }
 .app__label button {
 	font-size: x-small;

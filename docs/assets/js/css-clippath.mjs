@@ -2,13 +2,12 @@
  * ClipPath module.
  * @module /assets/js/clippath
  * @requires /assets/js/common
- * @version 0.2.2
- * @summary 06-06-2020
+ * @version 0.2.3
+ * @summary 07-06-2020
  * @description Edit clip-path: ellipse, polygon, url
  * @example
  * <div data-js="clippath">
  */
-
 import { scrollPosition, uuid } from './common.mjs';
 import { svgCreateWrapper, svgCreateClipPath } from './svg.mjs';
 import CssApp from './css-app.mjs';
@@ -19,8 +18,10 @@ export default class ClipPath extends CssApp {
 			lblAnimation: 'Animation preview',
 			lblAnimationIntro: 'Hover to see animation between original state and current state.<br />Animation will only work if the number of points are the same.',
 			lblAppHeader: 'CSS <code>clip-path</code> Editor',
-			lblAppIntro: 'To add a point, select the point you want to insert a new point <em>after</em> and press <kbd>+</kbd><br />To delete the selected point, press <kbd>-</kbd> or <kbd>Delete</kbd><br />To <em>move</em> the selected point, use mouse, touch or <kbd>Arrow</kbd>-keys.<br />Hold down <kbd>shift</kbd> while selecting a preset to <em>only</em> update animation clip-path.',
-			lblPath: 'url() raw data',
+			lblAppIntro: 'Start by selecting a <code data-type="polygon">polygon()</code> — <code data-type="ellipse">ellipse()</code> or <code data-type="url">url()</code>-preset.<br /><code data-type="polygon">polygon()</code> : To add a point, select the point you want to insert a new point <em>after</em> and press <kbd>+</kbd><br />To delete the selected point, press <kbd>-</kbd> or <kbd>Delete</kbd><br />To <em>move</em> the selected point, use mouse, touch or <kbd>Arrow</kbd>-keys.<br />Hold down <kbd>shift</kbd> while selecting a preset to <em>only</em> update animation clip-path.',
+			lblSvgData: 'SVG clipPath data',
+			lblSvgHeight: 'SVG viewBox height',
+			lblSvgWidth: 'SVG viewBox width',
 			pointSize: 40,
 			previewImage: '../assets/img/clippath-demo.jpg'
 		}, settings));
@@ -71,9 +72,12 @@ export default class ClipPath extends CssApp {
 		}
 		super.loadPreset(element);
 		this.elements.animation.style.setProperty('--clippath-ani', this.preset.value);
-		this.isPolygon = this.preset.values[0].type === 'polygon';
+		this.presetType = this.preset.values[0].type; 
 		this.setControls(true);
-		if (this.preset.values[0].coords) {
+		if (this.presetType === 'url') {
+			this.elements.svgClip.innerHTML = this.templateSvgClipPath(this.preset.values[0]);
+		} else {
+			this.elements.svgClip.innerHTML = '';
 			this.pointCreate();
 		}
 	}
@@ -84,7 +88,7 @@ export default class ClipPath extends CssApp {
 	* @description Add a point to a polygon
 	*/
 	pointAdd(index) {
-		if (!this.isPolygon) { return false; }
+		if (this.presetType !== 'polygon') { return false; }
 		const len = this.preset.values[0].coords.length;
 		const position = index + 1 < len ? index + 1 : 0;
 		let [x, y] = [...this.preset.values[0].coords[index]];
@@ -106,6 +110,7 @@ export default class ClipPath extends CssApp {
 			point.addEventListener('keydown', (event) => this.pointKeyMove(event));
 			point.classList.add('app__point');
 			point.dataset.index = index;
+			point.dataset.type = this.presetType;
 			point.innerText = index;
 			point.style.left = `${(x * this.point.percent)}px`;
 			point.style.top = `${(y * this.point.percent)}px`;
@@ -120,7 +125,7 @@ export default class ClipPath extends CssApp {
 	* @description Deletes a point from a polygon
 	*/
 	pointDelete(index) {
-		if (!this.isPolygon) { return false; }
+		if (this.presetType !== 'polygon') { return false; }
 		this.preset.values[0].coords.splice(index, 1);
 		this.pointCreate();
 		this.pointRender();
@@ -215,16 +220,15 @@ export default class ClipPath extends CssApp {
 	* @description  Renders a polygon from coords, sets current preset
 	*/
 	pointRender() {
-		if (this.isPolygon) {
+		if (this.presetType === 'polygon') {
 			const polygon = this.preset.values[0].coords.map(entry => { return entry.map(i => `${i}%`).join(' ')}).join(',');
 			this.preset.value = `polygon(${polygon})`;
 		}
-		else {
+		else if (this.presetType === 'ellipse') {
 			const [position, y, x] = [...this.preset.values[0].coords];
 			const radiusX = x[0] - 50;
 			const radiusY = 50 - y[1];
 			this.preset.value = `ellipse(${radiusX}% ${radiusY}% at ${position.join('% ')}%)`;
-			
 		}
 		this.setControls();
 	}
@@ -293,9 +297,9 @@ export default class ClipPath extends CssApp {
 							<p class="app__text">${this.settings.lblAnimationIntro}</p>
 						</header>
 					</div>
-					<div class="app__fieldset" hidden><!-- TODO -->
-						<label class="app__label"><textarea data-elm="path" data-lpignore="true"></textarea>${this.settings.lblPath}</label>
-					</div>
+
+					<div data-elm="svgClip"></div>
+
 					<div class="app__fieldset">
 						<label class="app__label"><input type="text" data-elm="presetName" data-lpignore="true" size="15">${this.settings.lblPresetName}</label>
 					</div>
@@ -332,5 +336,22 @@ export default class ClipPath extends CssApp {
 	templatePresetEntry(preset, index = 0) {
 		if (preset.values[0].type === 'url') { this.svgInsert(preset); }
 		return `<button type="button" class="app__preset--clip" data-type="${preset.values[0].type}" data-index="${index}"><div style="clip-path:${preset.value}"></div>${preset.name}</button>`
+	}
+
+	/**
+	* @function templateSvgClipPath
+	* @param {Object} preset
+	* @param {Number} index
+	* @description Renders a single preset
+	*/	
+	templateSvgClipPath(preset) {
+		return `
+		<div class="app__fieldset">
+			<label class="app__label"><input type="number" min="0" size="5" data-elm="aspectWidth" value="${preset.width}" />${this.settings.lblSvgWidth}</label>
+			<label class="app__label"><input type="number" min="0" size="5" data-elm="aspectHeight" value="${preset.height}" />${this.settings.lblSvgHeight}</label>
+		</div>
+		<div class="app__fieldset">
+			<label class="app__label"><textarea data-elm="svgData" data-lpignore="true">${preset.data}</textarea>${this.settings.lblSvgData}</label>
+		</div>`
 	}
 }
