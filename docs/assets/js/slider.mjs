@@ -165,8 +165,13 @@ export default class Slider {
 		/* Scroll to center of page, calculate scroll using itemWidth */
 		if (this.settings.align === 'center') {
 			if (this.dir === 'ltr') {
-				xPos = (this.state.page - 1) * (this.state.itemWidth * this.settings.itemsPerPage);
-				console.log('here')
+				if (this.settings.itemsPerPage === 1) {
+					xPos = (this.state.page - 1) * (this.state.itemWidth * this.settings.itemsPerPage);
+					console.log('fix in safari');
+				}
+				else {
+					xPos = (this.state.page - 1) * (this.state.itemWidth * this.settings.itemsPerPage) - (this.state.gap * this.settings.itemsPerPage);
+				}
 			}
 			else {
 				/* Firefox and Safari handles scrollLeft with negative values, when using `dir="rtl"` */
