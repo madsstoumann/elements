@@ -32,7 +32,8 @@ export default class Slider {
 			lblPrev: 'Previous',
 			lblRole: 'carousel',
 			loop: false,
-			scrollBehavior: 'smooth'
+			scrollBehavior: 'smooth',
+			varGap: '--snp-gap'
 		}, stringToType(settings));
 
 		this.slider = element;
@@ -165,6 +166,7 @@ export default class Slider {
 		if (this.settings.align === 'center') {
 			if (this.dir === 'ltr') {
 				xPos = (this.state.page - 1) * (this.state.itemWidth * this.settings.itemsPerPage);
+				console.log('here')
 			}
 			else {
 				/* Firefox and Safari handles scrollLeft with negative values, when using `dir="rtl"` */
@@ -191,13 +193,14 @@ export default class Slider {
 		/* Scroll to page, use page-based widths */
 		else {
 			if (this.dir === 'ltr') {
-				xPos = (this.state.page - 1) * this.elements.scroller.offsetWidth;
+				xPos = (this.state.page - 1) * (this.elements.scroller.offsetWidth + this.state.gap);
 			} else {
 				if (this.isChrome) {
 					xPos = this.elements.scroller.scrollWidth - (this.state.page) * this.elements.scroller.offsetWidth;
 				}
 				else {
 					xPos = 0 - (this.state.page - 1) * this.elements.scroller.offsetWidth;
+
 				}
 			}
 		}
@@ -242,6 +245,7 @@ export default class Slider {
  */
 	setState() {
 		this.state = {
+			gap: getComputedStyle(this.slider).getPropertyValue(this.settings.varGap).match(/(\d+)/)[0] - 0,
 			items: [...this.elements.scroller.children],
 			itemLen: this.elements.scroller.childElementCount,
 			itemWidth: this.elements.scroller.scrollWidth / this.elements.scroller.childElementCount,
