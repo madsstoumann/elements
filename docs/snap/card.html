@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>App Store Card</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/demo.css" rel="stylesheet">
+	<style>
+		
+		body {
+			background-color: #EEE;
+			display: grid;
+			padding: 10px;
+		}
+
+		.c-ob {
+			background: #FFF;
+			border-radius: 1em;
+			box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+			cursor: pointer;
+			margin-bottom: 2em;
+			overflow-y: scroll; 
+			position: relative;
+		}
+		.c-ob__bg {
+			border-radius: 1em 1em 0 0;
+			height: 100%;
+			left: 0;
+			max-width: 100%;
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}
+		.c-ob__bg-wrapper {
+			border-radius: 1em 1em 0 0;
+			margin: 0;
+			position: relative;
+		}
+		.c-ob__bg-wrapper::after {
+			content: "";
+			display: block;
+			padding-bottom: 56.25%;
+		}
+		.c-ob__close {
+			align-items: center;
+			background-color: rgba(45, 45, 45, .7);
+			border-radius: 50%;
+			color: #FFF;
+			display: inline-flex;
+			font-size: 20px;
+			height: 32px;
+			justify-content: center;
+			opacity: 0;
+			position: fixed;
+			right: 20px;
+			text-decoration: none;
+			top: 20px;
+			transform: scale(0);
+			transition: all .2s ease-in;
+			width: 32px;
+			z-index: 2;
+		}
+		.c-ob__content {
+			padding: 1em 1em 2em 1em;
+		}
+		.c-ob__headline {
+			margin: .25em 0;
+		}
+		.c-ob__link {
+			bottom: 0;
+			display: block;
+			grid-area: link-pri;
+			left: 0;
+			overflow: hidden;
+			position: absolute;
+			right: 0;
+			text-indent: 200%;
+			top: 0;
+			visibility: visible;
+			white-space: nowrap;
+		}
+		.c-ob__tagline {
+			color: darkgray;
+			text-transform: uppercase;
+		}
+		.c-ob__text { 
+			max-height: 0;
+			opacity: 0;
+			transform: scale(0);
+			transform-origin: 50% 50%;
+			transition: all .2s cubic-bezier(.25,.46,.45,.94);
+		 }
+
+		 /* State */
+		.c-ob:target {
+			bottom: 0;
+			border-radius: 0;
+			height: 100vh;
+			left: 0;
+			position: fixed;
+			right: 0;
+			top: 0;
+			width: 100vw;
+			z-index: 1;
+		}
+		.c-ob:target .c-ob__bg,
+		.c-ob:target .c-ob__bg-wrapper {
+			border-radius: 0;
+		}
+		.c-ob:target .c-ob__close {
+			opacity: 1;
+			transform: scale(1);
+		}
+		.c-ob:target .c-ob__intro {
+			display: none;
+		}
+		.c-ob:target .c-ob__text {
+			max-height: auto;
+			opacity: 1;
+			transform: scale(1);
+		}
+		@media screen and (min-width: 768px) {
+			body {
+				grid-template-columns: 1fr 1fr;
+				gap: 20px;
+			}
+		}
+		</style>
+</head>
+<body>
+
+	<div class="c-ob" id="ob1" itemscope itemtype="http://schema.org/CreativeWork">
+		<a class="c-ob__close" href="#">×</a>
+		<figure class="c-ob__bg-wrapper" itemscope itemtype="http://schema.org/ImageObject">
+			<img class="c-ob__bg" itemprop="image" src="/docs/assets/img/filter-demo.jpg" loading="lazy" />
+		</figure>
+		<section class="c-ob__content">
+			<div class="c-ob__tagline">Exclusive app</div>
+			<h2 class="c-ob__headline" itemprop="headline">This app is really amazing</h2>
+			<div class="c-ob__intro" itemprop="description">Some introduction about the awesome app.</div>
+			<div class="c-ob__text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci reiciendis tempora, officiis enim hic ullam nisi maiores distinctio quam, expedita nesciunt in excepturi. Reprehenderit doloremque, quisquam nostrum neque nulla placeat officiis nam, alias, ab minima facilis sunt! Maxime temporibus id tempora. Sed, corporis. Ratione nesciunt debitis vitae officia! Architecto ducimus quisquam quos quas! Illum cumque accusamus veritatis id molestias. Illo, dolorem numquam nulla enim dolore deserunt, aut voluptates dolorum voluptatum aliquid deleniti aperiam doloremque nisi quisquam repellendus non eum omnis pariatur inventore et delectus earum reprehenderit? Quo, neque. Perspiciatis fugit amet odio odit vero repellat, mollitia minima maiores expedita quod ratione tempore voluptas repellendus, corporis fuga accusantium ut dicta sit! Veniam, modi aspernatur distinctio beatae fugit dignissimos maiores, earum inventore, est officia rerum illo neque? Doloremque alias, aspernatur reiciendis perferendis et omnis repellat, iusto aperiam laudantium dolor fuga nemo voluptate sed vero ipsam. Ipsa cumque doloremque magnam odio excepturi velit labore, sequi, laborum in maiores totam nulla nobis architecto id, iusto explicabo aliquam. Eius tenetur aliquid, doloribus maxime illo sapiente assumenda repellendus itaque aperiam ea enim quasi unde vero quis velit, eligendi repudiandae neque quos. Veritatis, perferendis ea neque, id exercitationem dolorem tempora amet sapiente tenetur asperiores officiis harum obcaecati est ut eos nihil mollitia officia iste possimus, et esse explicabo! Modi quod minus officia, temporibus similique necessitatibus perferendis hic veniam dolorum dolore ratione iste enim esse cumque omnis accusantium! At assumenda quasi totam quo aliquam, earum provident reiciendis voluptatum perferendis veniam facilis cupiditate necessitatibus doloremque molestias, magnam vel quisquam qui ducimus ab nisi, quia animi. Nobis ducimus aperiam placeat quam, autem id sit quod dolore soluta incidunt vitae minima aspernatur cupiditate et nisi quia pariatur, ad dolorum at nam enim! Optio, nulla consectetur! Eveniet minus nemo quaerat dolores. Excepturi illo corporis praesentium. Expedita eum ratione omnis laboriosam aperiam natus sint distinctio commodi vel, impedit accusantium explicabo aut odio minus debitis et fugit. Debitis libero aperiam dolorum placeat amet ad error, exercitationem dicta non pariatur commodi voluptates consequuntur eveniet suscipit, beatae laudantium repellat nihil minus architecto doloribus ipsam ipsum aliquam deleniti. Necessitatibus dignissimos, quo id voluptatibus minima natus asperiores voluptate molestias molestiae magni corrupti laudantium et fugiat, blanditiis, consequuntur odio soluta eos. Veniam, officiis. Dolor id cumque repudiandae, nemo, recusandae dignissimos ipsa accusamus sed odio iusto officiis ipsam esse consequatur enim reprehenderit commodi quod, temporibus eveniet beatae labore ad amet sequi. Eligendi, modi? Delectus, libero incidunt quia consequuntur a maiores veniam eos, facilis voluptates adipisci, non veritatis cum ipsam ea minima repellat at nihil deleniti numquam aspernatur ullam? Necessitatibus eos provident, nobis deleniti beatae quis nisi deserunt enim dicta, quidem cum. Eaque, facere. Velit ducimus nam, deleniti voluptas quae officia officiis tempore accusamus! Rem obcaecati adipisci vel, amet quam pariatur necessitatibus molestias iusto ea incidunt ad repellat in atque error, totam fugiat, neque enim aliquam. Officiis totam numquam quibusdam exercitationem tempora eveniet aliquam consectetur nihil harum voluptate inventore veritatis, dolore sint architecto. Autem, corrupti architecto incidunt nemo nesciunt illo illum? Ipsum, rerum laboriosam. Laudantium necessitatibus velit provident. Nostrum, deleniti delectus.</div>
+		</section>
+		<a class="c-ob__link" href="#ob1" itemprop="url">Read more</a>
+	</div>
+
+	<div class="c-ob" id="ob2" itemscope itemtype="http://schema.org/CreativeWork">
+		<a class="c-ob__close" href="#">×</a>
+		<figure class="c-ob__bg-wrapper" itemscope itemtype="http://schema.org/ImageObject">
+			<img class="c-ob__bg" itemprop="image" src="/docs/assets/img/clippath-demo.jpg" loading="lazy" />
+		</figure>
+		<section class="c-ob__content">
+			<div class="c-ob__tagline">Exclusive app</div>
+			<h2 class="c-ob__headline" itemprop="headline">Read more about this</h2>
+			<div class="c-ob__intro" itemprop="description">Some introduction about the awesome stuff.</div>
+			<div class="c-ob__text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci reiciendis tempora, officiis enim hic ullam nisi maiores distinctio quam, expedita nesciunt in excepturi. Reprehenderit doloremque, quisquam nostrum neque nulla placeat officiis nam, alias, ab minima facilis sunt! Maxime temporibus id tempora. Sed, corporis. Ratione nesciunt debitis vitae officia! Architecto ducimus quisquam quos quas! Illum cumque accusamus veritatis id molestias. Illo, dolorem numquam nulla enim dolore deserunt, aut voluptates dolorum voluptatum aliquid deleniti aperiam doloremque nisi quisquam repellendus non eum omnis pariatur inventore et delectus earum reprehenderit? Quo, neque. Perspiciatis fugit amet odio odit vero repellat, mollitia minima maiores expedita quod ratione tempore voluptas repellendus, corporis fuga accusantium ut dicta sit! Veniam, modi aspernatur distinctio beatae fugit dignissimos maiores, earum inventore, est officia rerum illo neque? Doloremque alias, aspernatur reiciendis perferendis et omnis repellat, iusto aperiam laudantium dolor fuga nemo voluptate sed vero ipsam. Ipsa cumque doloremque magnam odio excepturi velit labore, sequi, laborum in maiores totam nulla nobis architecto id, iusto explicabo aliquam. Eius tenetur aliquid, doloribus maxime illo sapiente assumenda repellendus itaque aperiam ea enim quasi unde vero quis velit, eligendi repudiandae neque quos. Veritatis, perferendis ea neque, id exercitationem dolorem tempora amet sapiente tenetur asperiores officiis harum obcaecati est ut eos nihil mollitia officia iste possimus, et esse explicabo! Modi quod minus officia, temporibus similique necessitatibus perferendis hic veniam dolorum dolore ratione iste enim esse cumque omnis accusantium! At assumenda quasi totam quo aliquam, earum provident reiciendis voluptatum perferendis veniam facilis cupiditate necessitatibus doloremque molestias, magnam vel quisquam qui ducimus ab nisi, quia animi. Nobis ducimus aperiam placeat quam, autem id sit quod dolore soluta incidunt vitae minima aspernatur cupiditate et nisi quia pariatur, ad dolorum at nam enim! Optio, nulla consectetur! Eveniet minus nemo quaerat dolores. Excepturi illo corporis praesentium. Expedita eum ratione omnis laboriosam aperiam natus sint distinctio commodi vel, impedit accusantium explicabo aut odio minus debitis et fugit. Debitis libero aperiam dolorum placeat amet ad error, exercitationem dicta non pariatur commodi voluptates consequuntur eveniet suscipit, beatae laudantium repellat nihil minus architecto doloribus ipsam ipsum aliquam deleniti. Necessitatibus dignissimos, quo id voluptatibus minima natus asperiores voluptate molestias molestiae magni corrupti laudantium et fugiat, blanditiis, consequuntur odio soluta eos. Veniam, officiis. Dolor id cumque repudiandae, nemo, recusandae dignissimos ipsa accusamus sed odio iusto officiis ipsam esse consequatur enim reprehenderit commodi quod, temporibus eveniet beatae labore ad amet sequi. Eligendi, modi? Delectus, libero incidunt quia consequuntur a maiores veniam eos, facilis voluptates adipisci, non veritatis cum ipsam ea minima repellat at nihil deleniti numquam aspernatur ullam? Necessitatibus eos provident, nobis deleniti beatae quis nisi deserunt enim dicta, quidem cum. Eaque, facere. Velit ducimus nam, deleniti voluptas quae officia officiis tempore accusamus! Rem obcaecati adipisci vel, amet quam pariatur necessitatibus molestias iusto ea incidunt ad repellat in atque error, totam fugiat, neque enim aliquam. Officiis totam numquam quibusdam exercitationem tempora eveniet aliquam consectetur nihil harum voluptate inventore veritatis, dolore sint architecto. Autem, corrupti architecto incidunt nemo nesciunt illo illum? Ipsum, rerum laboriosam. Laudantium necessitatibus velit provident. Nostrum, deleniti delectus.</div>
+		</section>
+		<a class="c-ob__link" href="#ob2" itemprop="url">Read more</a>
+	</div>
+
+	<div class="c-ob" id="ob3" itemscope itemtype="http://schema.org/CreativeWork">
+		<a class="c-ob__close" href="#">×</a>
+		<figure class="c-ob__bg-wrapper" itemscope itemtype="http://schema.org/ImageObject">
+			<img class="c-ob__bg" itemprop="image" src="/docs/assets/img/filter-demo.jpg" loading="lazy" />
+		</figure>
+		<section class="c-ob__content">
+			<div class="c-ob__tagline">Exclusive app</div>
+			<h2 class="c-ob__headline" itemprop="headline">This app is really amazing</h2>
+			<div class="c-ob__intro" itemprop="description">Some introduction about the awesome app.</div>
+			<div class="c-ob__text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci reiciendis tempora, officiis enim hic ullam nisi maiores distinctio quam, expedita nesciunt in excepturi. Reprehenderit doloremque, quisquam nostrum neque nulla placeat officiis nam, alias, ab minima facilis sunt! Maxime temporibus id tempora. Sed, corporis. Ratione nesciunt debitis vitae officia! Architecto ducimus quisquam quos quas! Illum cumque accusamus veritatis id molestias. Illo, dolorem numquam nulla enim dolore deserunt, aut voluptates dolorum voluptatum aliquid deleniti aperiam doloremque nisi quisquam repellendus non eum omnis pariatur inventore et delectus earum reprehenderit? Quo, neque. Perspiciatis fugit amet odio odit vero repellat, mollitia minima maiores expedita quod ratione tempore voluptas repellendus, corporis fuga accusantium ut dicta sit! Veniam, modi aspernatur distinctio beatae fugit dignissimos maiores, earum inventore, est officia rerum illo neque? Doloremque alias, aspernatur reiciendis perferendis et omnis repellat, iusto aperiam laudantium dolor fuga nemo voluptate sed vero ipsam. Ipsa cumque doloremque magnam odio excepturi velit labore, sequi, laborum in maiores totam nulla nobis architecto id, iusto explicabo aliquam. Eius tenetur aliquid, doloribus maxime illo sapiente assumenda repellendus itaque aperiam ea enim quasi unde vero quis velit, eligendi repudiandae neque quos. Veritatis, perferendis ea neque, id exercitationem dolorem tempora amet sapiente tenetur asperiores officiis harum obcaecati est ut eos nihil mollitia officia iste possimus, et esse explicabo! Modi quod minus officia, temporibus similique necessitatibus perferendis hic veniam dolorum dolore ratione iste enim esse cumque omnis accusantium! At assumenda quasi totam quo aliquam, earum provident reiciendis voluptatum perferendis veniam facilis cupiditate necessitatibus doloremque molestias, magnam vel quisquam qui ducimus ab nisi, quia animi. Nobis ducimus aperiam placeat quam, autem id sit quod dolore soluta incidunt vitae minima aspernatur cupiditate et nisi quia pariatur, ad dolorum at nam enim! Optio, nulla consectetur! Eveniet minus nemo quaerat dolores. Excepturi illo corporis praesentium. Expedita eum ratione omnis laboriosam aperiam natus sint distinctio commodi vel, impedit accusantium explicabo aut odio minus debitis et fugit. Debitis libero aperiam dolorum placeat amet ad error, exercitationem dicta non pariatur commodi voluptates consequuntur eveniet suscipit, beatae laudantium repellat nihil minus architecto doloribus ipsam ipsum aliquam deleniti. Necessitatibus dignissimos, quo id voluptatibus minima natus asperiores voluptate molestias molestiae magni corrupti laudantium et fugiat, blanditiis, consequuntur odio soluta eos. Veniam, officiis. Dolor id cumque repudiandae, nemo, recusandae dignissimos ipsa accusamus sed odio iusto officiis ipsam esse consequatur enim reprehenderit commodi quod, temporibus eveniet beatae labore ad amet sequi. Eligendi, modi? Delectus, libero incidunt quia consequuntur a maiores veniam eos, facilis voluptates adipisci, non veritatis cum ipsam ea minima repellat at nihil deleniti numquam aspernatur ullam? Necessitatibus eos provident, nobis deleniti beatae quis nisi deserunt enim dicta, quidem cum. Eaque, facere. Velit ducimus nam, deleniti voluptas quae officia officiis tempore accusamus! Rem obcaecati adipisci vel, amet quam pariatur necessitatibus molestias iusto ea incidunt ad repellat in atque error, totam fugiat, neque enim aliquam. Officiis totam numquam quibusdam exercitationem tempora eveniet aliquam consectetur nihil harum voluptate inventore veritatis, dolore sint architecto. Autem, corrupti architecto incidunt nemo nesciunt illo illum? Ipsum, rerum laboriosam. Laudantium necessitatibus velit provident. Nostrum, deleniti delectus.</div>
+		</section>
+		<a class="c-ob__link" href="#ob3" itemprop="url">Read more</a>
+	</div>
+</body>
+</html>

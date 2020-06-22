@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<link href="../assets/css/demo.css" rel="stylesheet">
+	<link href="../assets/css/animations.css" rel="stylesheet">
 	<link href="../assets/css/c-sec.css" rel="stylesheet">
 
 	<style>
@@ -13,11 +14,12 @@
 			margin: 0;
 		}
 		.c-sec:nth-of-type(odd) {
-			background-color: #CCC;
-			color: #222;
+			/* background-color: #CCC;
+			color: #222; */
 		}
-		.c-sec__item {
+		.item {
 			background-color: deepskyblue;
+			box-shadow: 0px 10px 5px -5px rgba(0, 0, 0, 0.15);
 			border-radius: 10px;
 			color: #FFF;
 			font-family: sans-serif;
@@ -31,201 +33,323 @@
 
 	<!-- https://www.w3.org/TR/wai-aria-practices/examples/carousel/carousel-1.html -->
 
-	<section class="c-sec c-sec__dot--line "
-		data-align="center"
-		data-items-per-page=":3"
-		data-section-type="slider">
+	<section class="c-sec"
+		
+		data-layout=""
+		data-layout-tablet="100"
+		data-section-type="slider"
+		style="--sec-bg:#CCC;">
 		<h2 class="c-sec__headline">Preview: 3 items per page</h2>
-		<p class="c-sec__description">
+		<div class="c-sec__description">
 			Shows a preview of the previous and the next item in the section, centers items after first page. 
-			Using the attributes <code>data-align="center"</code>, <code>data-items-per-page=":3"</code>, and <code>data-section-type="slider"</code></p>
-		<div class="c-sec__scroller" data-scroller>
-			<div class="c-sec__item">1</div>
-			<div class="c-sec__item">2</div>
-			<div class="c-sec__item">3</div>
-			<div class="c-sec__item">4</div>
-			<div class="c-sec__item">5</div>
-			<div class="c-sec__item">6</div>
-			<div class="c-sec__item">7</div>
-			<div class="c-sec__item">8</div>
-			<div class="c-sec__item">9</div>
-			<div class="c-sec__item">10</div>
-			<div class="c-sec__item">11</div>
-			<div class="c-sec__item">12</div>
-			<div class="c-sec__item">13</div>
-			<div class="c-sec__item">14</div>
-			<div class="c-sec__item">15</div>
-			<div class="c-sec__item">16</div>
-			<div class="c-sec__item">17</div>
-			<div class="c-sec__item">18</div>
-			<div class="c-sec__item">19</div>
-			<div class="c-sec__item">20</div>
+			Using the attributes <code>data-align="center"</code>, <code>data-items-per-page=":3"</code>, and <code>data-section-type="slider"</code>
+		</div>
+		<div class="c-sec__outer">
+			<div class="c-sec__inner" data-scroller>
+				<div class="c-sec__item"><div class="item">1</div></div>
+				<div class="c-sec__item"><div class="item">2</div></div>
+				<div class="c-sec__item"><div class="item">3<a href="#hello">TEST LINK</a></div></div>
+				<div class="c-sec__item"><div class="item">4</div></div>
+				<div class="c-sec__item"><div class="item">5</div></div>
+				<div class="c-sec__item"><div class="item">6</div></div>
+				<div class="c-sec__item"><div class="item">7</div></div>
+				<div class="c-sec__item"><div class="item">8</div></div>
+				<div class="c-sec__item"><div class="item">9</div></div>
+				<div class="c-sec__item"><div class="item">10</div></div>
+				<div class="c-sec__item"><div class="item">11</div></div>
+				<div class="c-sec__item"><div class="item">12</div></div>
+				<div class="c-sec__item"><div class="item">13</div></div>
+				<div class="c-sec__item"><div class="item">14</div></div>
+				<div class="c-sec__item"><div class="item">15</div></div>
+				<div class="c-sec__item"><div class="item">16</div></div>
+				<div class="c-sec__item"><div class="item">17</div></div>
+				<div class="c-sec__item"><div class="item">18</div></div>
+				<div class="c-sec__item"><div class="item">19</div></div>
+				<div class="c-sec__item"><div class="item">20</div></div>
+			</div>
 		</div>
 	</section>
 
 	<section class="c-sec"
+	data-layout="100"
+	data-layout-tablet="50:50"
+	data-layout-desktop="33:33:33"
+	data-section-type="slider"
+	style="--sec-bg:orange;">
+	<h2 class="c-sec__headline">TEST: 3 items per page</h2>
+	<div class="c-sec__description">
+		TEST
+	</div>
+	<div class="c-sec__outer">
+		<div class="c-sec__inner" data-scroller>
+			<div class="c-sec__item"><div class="item">1</div></div>
+			<div class="c-sec__item"><div class="item">2</div></div>
+			<div class="c-sec__item"><div class="item">3</div></div>
+			<div class="c-sec__item"><div class="item">4</div></div>
+			<div class="c-sec__item"><div class="item">5</div></div>
+			<div class="c-sec__item"><div class="item">6</div></div>
+		</div>
+	</div>
+</section>
+
+<section class="c-sec"
+data-layout="50:50"
+data-layout-tablet="33:66"
+data-layout-desktop="25:25:25:25"
+data-section-type="stack"
+style="--sec-bg:indianred;">
+<h2 class="c-sec__headline">STACK 2</h2>
+<div class="c-sec__description">
+	TEST
+</div>
+<div class="c-sec__outer">
+	<div class="c-sec__inner" data-scroller>
+		<div class="c-sec__item"><div class="item">1</div></div>
+		<div class="c-sec__item"><div class="item">2</div></div>
+		<div class="c-sec__item"><div class="item">3</div></div>
+		<div class="c-sec__item"><div class="item">4</div></div>
+	</div>
+</div>
+</section>
+<section class="c-sec"
+data-layout="50:50"
+data-layout-tablet="33:33:33"
+data-layout-desktop="25:50:25"
+data-section-type="slider"
+style="--sec-bg:indianred;">
+
+<div class="c-sec__outer">
+	<div class="c-sec__inner" data-scroller>
+		<div class="c-sec__item"><div class="item">1</div></div>
+		<div class="c-sec__item"><div class="item">2</div></div>
+		<div class="c-sec__item"><div class="item">3</div></div>
+		<div class="c-sec__item"><div class="item">4</div></div>
+	</div>
+</div>
+</section>
+
+	<section class="c-sec"
+		data-layout="100"
+		data-layout-tablet="50:50"
+		data-layout-desktop="33:33:33"
+		data-section-type="stack"
+		style="--sec-bg:forestgreen;">
+		<h2 class="c-sec__headline">TEST: 3 items per page</h2>
+		<div class="c-sec__description">
+			TEST
+		</div>
+		<div class="c-sec__outer">
+			<div class="c-sec__inner" data-scroller>
+				<div class="c-sec__item"><div class="item">1</div></div>
+				<div class="c-sec__item"><div class="item">2</div></div>
+				<div class="c-sec__item"><div class="item">3</div></div>
+				<div class="c-sec__item"><div class="item">4</div></div>
+				<div class="c-sec__item"><div class="item">5</div></div>
+				<div class="c-sec__item"><div class="item">6</div></div>
+			</div>
+		</div>
+	</section>
+
+	<section class="c-sec"
+		data-animation="a-fade-in-bl"
 		data-align="center"
 		data-items-per-page=":1"
 		data-section-type="slider"
 		data-section-width="medium">
 		<h2 class="c-sec__headline">Preview of next and previous, 1 item per page</h2>
-		<p class="c-sec__description">
+		<div class="c-sec__description">
 			Using <code>data-section-width="medium"</code>
-		</p>
-		<div class="c-sec__scroller" data-scroller>
-			<div class="c-sec__item">1</div>
-			<div class="c-sec__item">2</div>
-			<div class="c-sec__item">3</div>
-			<div class="c-sec__item">4</div>
-			<div class="c-sec__item">5</div>
-			<div class="c-sec__item">6</div>
-			<div class="c-sec__item">7</div>
-			<div class="c-sec__item">8</div>
-			<div class="c-sec__item">9</div>
-			<div class="c-sec__item">10</div>
-			<div class="c-sec__item">11</div>
-			<div class="c-sec__item">12</div>
-			<div class="c-sec__item">13</div>
-			<div class="c-sec__item">14</div>
-			<div class="c-sec__item">15</div>
-			<div class="c-sec__item">16</div>
-			<div class="c-sec__item">17</div>
-			<div class="c-sec__item">18</div>
-			<div class="c-sec__item">19</div>
-			<div class="c-sec__item">20</div>
+		</div>
+		<div class="c-sec__outer">
+			<div class="c-sec__inner" data-scroller>
+				<div class="c-sec__item"><div class="item">1</div></div>
+				<div class="c-sec__item"><div class="item">2</div></div>
+				<div class="c-sec__item"><div class="item">3</div></div>
+				<div class="c-sec__item"><div class="item">4</div></div>
+				<div class="c-sec__item"><div class="item">5</div></div>
+				<div class="c-sec__item"><div class="item">6</div></div>
+				<div class="c-sec__item"><div class="item">7</div></div>
+				<div class="c-sec__item"><div class="item">8</div></div>
+				<div class="c-sec__item"><div class="item">9</div></div>
+				<div class="c-sec__item"><div class="item">10</div></div>
+				<div class="c-sec__item"><div class="item">11</div></div>
+				<div class="c-sec__item"><div class="item">12</div></div>
+				<div class="c-sec__item"><div class="item">13</div></div>
+				<div class="c-sec__item"><div class="item">14</div></div>
+				<div class="c-sec__item"><div class="item">15</div></div>
+				<div class="c-sec__item"><div class="item">16</div></div>
+				<div class="c-sec__item"><div class="item">17</div></div>
+				<div class="c-sec__item"><div class="item">18</div></div>
+				<div class="c-sec__item"><div class="item">19</div></div>
+				<div class="c-sec__item"><div class="item">20</div></div>
+			</div>
 		</div>
 	</section>
 
 	<section class="c-sec"
+		data-animation="a-fade-in-bottom"
+		data-expanded="false"
+		data-layout="100"
+		data-layout-tablet="66:33"
+		data-layout-desktop="66:33"
+		data-section-type="stack"
+		style="--sec-bg:#CCC;">
+		<h2 class="c-sec__headline">Section with expand</h2>
+		<p class="c-sec__description">This section will expand</p>
+		<div class="c-sec__outer">
+			<div class="c-sec__inner" data-scroller>
+				<div class="c-sec__item"><div class="item">1</div></div>
+				<div class="c-sec__item"><div class="item">2</div></div>
+				<div class="c-sec__item"><div class="item">3</div></div>
+				<div class="c-sec__item"><div class="item">4</div></div>
+			</div>
+		</div>
+			<!-- TODO -->
+		<nav class="c-sec__dots">
+			<button type="button" aria-label="Expand" data-toggle="COLLAPSE">Expand</button>
+		</nav>
+	</section>
+
+	<section class="c-sec"
+		data-animation="a-fade-in-bottom"
 		data-breakpoints=":[0.1,768.2,1000.3,1200.4]"
 		data-section-type="slider">
 		<h2 class="c-sec__headline">Section with custom breakpoints</h2>
 		<p class="c-sec__description">This section will update <code>items-per-page</code> dynamically, based on the value of the <code>data-breakpoints</code>-attribute.</p>
-		<div class="c-sec__scroller" data-scroller>
-			<div class="c-sec__item">1</div>
-			<div class="c-sec__item">2</div>
-			<div class="c-sec__item">3</div>
-			<div class="c-sec__item">4</div>
-			<div class="c-sec__item">5</div>
-			<div class="c-sec__item">6</div>
-			<div class="c-sec__item">7</div>
-			<div class="c-sec__item">8</div>
-			<div class="c-sec__item">9</div>
-			<div class="c-sec__item">10</div>
-			<div class="c-sec__item">11</div>
-			<div class="c-sec__item">12</div>
-			<div class="c-sec__item">13</div>
-			<div class="c-sec__item">14</div>
-			<div class="c-sec__item">15</div>
-			<div class="c-sec__item">16</div>
-			<div class="c-sec__item">17</div>
-			<div class="c-sec__item">18</div>
-			<div class="c-sec__item">19</div>
-			<div class="c-sec__item">20</div>
+		<div class="c-sec__outer">
+			<div class="c-sec__inner" data-scroller>
+				<div class="c-sec__item"><div class="item">1</div></div>
+				<div class="c-sec__item"><div class="item">2</div></div>
+				<div class="c-sec__item"><div class="item">3</div></div>
+				<div class="c-sec__item"><div class="item">4</div></div>
+				<div class="c-sec__item"><div class="item">5</div></div>
+				<div class="c-sec__item"><div class="item">6</div></div>
+				<div class="c-sec__item"><div class="item">7</div></div>
+				<div class="c-sec__item"><div class="item">8</div></div>
+				<div class="c-sec__item"><div class="item">9</div></div>
+				<div class="c-sec__item"><div class="item">10</div></div>
+				<div class="c-sec__item"><div class="item">11</div></div>
+				<div class="c-sec__item"><div class="item">12</div></div>
+				<div class="c-sec__item"><div class="item">13</div></div>
+				<div class="c-sec__item"><div class="item">14</div></div>
+				<div class="c-sec__item"><div class="item">15</div></div>
+				<div class="c-sec__item"><div class="item">16</div></div>
+				<div class="c-sec__item"><div class="item">17</div></div>
+				<div class="c-sec__item"><div class="item">18</div></div>
+				<div class="c-sec__item"><div class="item">19</div></div>
+				<div class="c-sec__item"><div class="item">20</div></div>
+			</div>
 		</div>
 	</section>
 
 	<section class="c-sec"
-		data-items-per-page=":3"
+		data-animation="a-fade-in-bottom"
+		data-animation-target="items"
+		data-layout="100"
+		data-layout-tablet="50:50"
+		data-layout-desktop="33:33:33"
 		data-section-type="slider"
 		data-loop=":true">
 		<h2 class="c-sec__headline">No preview, 3 items per page, continous</h2>
-		<div class="c-sec__scroller" data-scroller>
-			<div class="c-sec__item">1</div>
-			<div class="c-sec__item">2</div>
-			<div class="c-sec__item">3</div>
-			<div class="c-sec__item">4</div>
-			<div class="c-sec__item">5</div>
-			<div class="c-sec__item">6</div>
-			<div class="c-sec__item">7</div>
-			<div class="c-sec__item">8</div>
-			<div class="c-sec__item">9</div>
+		<div class="c-sec__outer">
+			<div class="c-sec__inner" data-scroller>
+				<div class="c-sec__item"><div class="item">1</div></div>
+				<div class="c-sec__item"><div class="item">2</div></div>
+				<div class="c-sec__item"><div class="item">3</div></div>
+				<div class="c-sec__item"><div class="item">4</div></div>
+				<div class="c-sec__item"><div class="item">5</div></div>
+				<div class="c-sec__item"><div class="item">6</div></div>
+				<div class="c-sec__item"><div class="item">7</div></div>
+				<div class="c-sec__item"><div class="item">8</div></div>
+				<div class="c-sec__item"><div class="item">9</div></div>
+			</div>
 		</div>
 	</section>
 
 	<section class="c-sec"
+		data-animation="a-bounce-in-top"
 		data-items-per-page=":4"
 		data-js="slider">
 		<h2 class="c-sec__headline">This section will not be a slider on desktop</h2>
-		<div class="c-sec__scroller" data-scroller>
-			<div class="c-sec__item">1</div>
-			<div class="c-sec__item">2</div>
-			<div class="c-sec__item">3</div>
-			<div class="c-sec__item">4</div>
+		<div class="c-sec__outer">
+			<div class="c-sec__inner" data-scroller>
+				<div class="c-sec__item"><div class="item">1</div></div>
+				<div class="c-sec__item"><div class="item">2</div></div>
+				<div class="c-sec__item"><div class="item">3</div></div>
+				<div class="c-sec__item"><div class="item">4</div></div>
+			</div>
 		</div>
 	</section>
 
 	<section class="c-sec"
-		data-items-per-page=":3"
-		data-section-type="stack">
-		<h2 class="c-sec__headline">This section will stack</h2>
-		<div class="c-sec__scroller" data-scroller>
-			<div class="c-sec__item">1</div>
-			<div class="c-sec__item">2</div>
-			<div class="c-sec__item">3</div>
-			<div class="c-sec__item">4</div>
-			<div class="c-sec__item">5</div>
-		</div>
-	</section>
-
-	<section class="c-sec"
-		data-item-gap="none"
-		data-items-per-page=":2"
+		data-animation="a-fade-in-bl"
+		data-gap="none"
+		data-layout="100"
+		data-layout-tablet="50:50"
+		data-layout-desktop="50:50"
 		data-section-type="stack">
 		<h2 class="c-sec__headline">These 2 items will stack and "glue" together</h2>
-		<div class="c-sec__scroller" data-scroller>
-			<div class="c-sec__item">1</div>
-			<div class="c-sec__item">2</div>
+		<div class="c-sec__outer">
+			<div class="c-sec__inner" data-scroller>
+				<div class="c-sec__item"><div class="item">1</div></div>
+				<div class="c-sec__item"><div class="item">2</div></div>
+			</div>
 		</div>
 	</section>
 
 	<section class="c-sec"
-		data-items-per-page=":3">
+		data-animate="false"
+		data-animate-type="items"
+		data-layout="25:50:25">
 		<h2 class="c-sec__headline">No JavaScript, 3 items per page, scrollbar</h2>
-		<div class="c-sec__scroller" data-scroller>
-			<div class="c-sec__item">1</div>
-			<div class="c-sec__item">2</div>
-			<div class="c-sec__item">3</div>
-			<div class="c-sec__item">4</div>
-			<div class="c-sec__item">5</div>
-			<div class="c-sec__item">6</div>
-			<div class="c-sec__item">7</div>
-			<div class="c-sec__item">8</div>
-			<div class="c-sec__item">9</div>
+		<div class="c-sec__outer">
+			<div class="c-sec__inner" data-scroller>
+				<div class="c-sec__item"><div class="item">1</div></div>
+				<div class="c-sec__item"><div class="item">2</div></div>
+				<div class="c-sec__item"><div class="item">3</div></div>
+				<div class="c-sec__item"><div class="item">4</div></div>
+				<div class="c-sec__item"><div class="item">5</div></div>
+				<div class="c-sec__item"><div class="item">6</div></div>
+				<div class="c-sec__item"><div class="item">7</div></div>
+				<div class="c-sec__item"><div class="item">8</div></div>
+				<div class="c-sec__item"><div class="item">9</div></div>
+			</div>
 		</div>
 	</section>
 
-	<section class="c-sec"
+	<!-- <section class="c-sec"
 		data-align="center"
 		data-items-per-page=":3"
 		data-js="slider"
 		dir="rtl">
 		<h2 class="c-sec__headline">RTL: Preview of next and previous, 3 items per page</h2>
-		<div class="c-sec__scroller" data-scroller>
-			<div class="c-sec__item">1</div>
-			<div class="c-sec__item">2</div>
-			<div class="c-sec__item">3</div>
-			<div class="c-sec__item">4</div>
-			<div class="c-sec__item">5</div>
-			<div class="c-sec__item">6</div>
-			<div class="c-sec__item">7</div>
-			<div class="c-sec__item">8</div>
-			<div class="c-sec__item">9</div>
-			<div class="c-sec__item">10</div>
-			<div class="c-sec__item">11</div>
-			<div class="c-sec__item">12</div>
-			<div class="c-sec__item">13</div>
-			<div class="c-sec__item">14</div>
-			<div class="c-sec__item">15</div>
-			<div class="c-sec__item">16</div>
-			<div class="c-sec__item">17</div>
-			<div class="c-sec__item">18</div>
-			<div class="c-sec__item">19</div>
-			<div class="c-sec__item">20</div>
+		<div class="c-sec__outer">
+			<div class="c-sec__inner" data-scroller>
+				<div class="c-sec__item"><div class="item">1</div></div>
+				<div class="c-sec__item"><div class="item">2</div></div>
+				<div class="c-sec__item"><div class="item">3</div></div>
+				<div class="c-sec__item"><div class="item">4</div></div>
+				<div class="c-sec__item"><div class="item">5</div></div>
+				<div class="c-sec__item"><div class="item">6</div></div>
+				<div class="c-sec__item"><div class="item">7</div></div>
+				<div class="c-sec__item"><div class="item">8</div></div>
+				<div class="c-sec__item"><div class="item">9</div></div>
+				<div class="c-sec__item"><div class="item">10</div></div>
+				<div class="c-sec__item"><div class="item">11</div></div>
+				<div class="c-sec__item"><div class="item">12</div></div>
+				<div class="c-sec__item"><div class="item">13</div></div>
+				<div class="c-sec__item"><div class="item">14</div></div>
+				<div class="c-sec__item"><div class="item">15</div></div>
+				<div class="c-sec__item"><div class="item">16</div></div>
+				<div class="c-sec__item"><div class="item">17</div></div>
+				<div class="c-sec__item"><div class="item">18</div></div>
+				<div class="c-sec__item"><div class="item">19</div></div>
+				<div class="c-sec__item"><div class="item">20</div></div>
+			</div>
 		</div>
-	</section>
+	</section> -->
 
-	<script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script>
+	<!-- <script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script> -->
 	<script type="module">
 		const elements = document.querySelectorAll('[data-section-type="slider"]');
 			if (elements.length) {
@@ -237,6 +361,76 @@
 					});
 				})
 			}
-	</script>
+
+	/* Trigger animations */
+	const io = new IntersectionObserver((entries) => {	
+	entries.forEach(entry => {
+		if (entry.isIntersecting) {
+			const section = entry.target;
+			const animation = section.dataset.animation;
+			const target = section.dataset.animationTarget;
+			if (target) {
+				const items = section.querySelectorAll('.c-sec__item');
+				items.forEach(item => {
+					item.classList.add(animation)
+				});
+				if (target === 'both') {
+					section.classList.add(animation);
+				}
+			}
+			else {
+				section.classList.add(animation);
+			}
+			io.unobserve(entry.target);
+		}
+		},
+		{
+			threshold: [0.5]
+		});
+	});
+	const sections = document.querySelectorAll('[data-animation]')
+	sections.forEach(section => {
+		io.observe(section);
+	});
+
+	/* Toggle */
+	const togglers = document.querySelectorAll('[data-toggle]')
+	togglers.forEach(toggle => {
+
+		toggle.addEventListener('click', () => {
+			const section = toggle.closest('.c-sec');
+			const inner = section.querySelector('.c-sec__inner');
+			const height = inner.scrollHeight;
+			if (section) {
+				const expanded = section.dataset.expanded === 'true'
+				
+				console.log(expanded);
+				if (expanded) {
+					section.style.setProperty('--sec-expand-h', `250px`);
+					section.dataset.expanded = 'false';
+					const rect = section.getBoundingClientRect();
+					const scrollPos = (window.pageYOffset || document.documentElement.scrollTop) - (document.documentElement.clientTop || 0);
+					console.log(parseInt(rect.top + scrollPos));
+					window.setTimeout( () => {
+						window.scrollTo({ top: parseInt(rect.top + scrollPos), behavior: 'smooth'});
+					}, 250);
+					toggle.innerText = 'Expand';
+				// 
+				/* TODO: Set toggle button text (or icon) */
+				// section.dataset.sectionType = section.dataset.sectionType === 'expand' ? 'stack' : 'expand';
+				}
+				else {
+					section.style.setProperty('--sec-expand-h', `${height}px`);
+					toggle.innerText = toggle.dataset.toggle;
+					section.dataset.expanded = 'true';
+				}
+
+				// section.dataset.expanded = expanded ? 'false' : 'true';
+			}
+				
+		})
+	});
+
+</script>
 </body>
 </html>

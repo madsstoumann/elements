@@ -9,15 +9,15 @@
  * <section data-js="slider">
  */
 
-import { h, stringToType } from './common.mjs';
+import { debounced, h, stringToType } from './common.mjs';
 
 export default class Slider {
 	constructor(element, settings) {
 		this.settings = Object.assign({
 			align: '',
 			breakpoints: [],
-			clsBtnNext: 'c-sec__btn',
-			clsBtnPrev: 'c-sec__btn',
+			clsBtnNext: 'c-sec__nav-btn',
+			clsBtnPrev: 'c-sec__nav-btn',
 			clsDot: 'c-sec__dot',
 			clsDotCur: 'c-sec__dot--current',
 			clsDotWrap: 'c-sec__dots',
@@ -25,15 +25,15 @@ export default class Slider {
 			clsItemRight: 'c-sec__item--right',
 			clsNav: 'c-sec__nav',
 			clsNavInner: 'c-sec__nav-inner',
-			clsOverflow: 'c-sec__scroller--overflow',
-			itemsPerPage: 3,
+			clsOverflow: 'c-sec__inner--overflow',
+			itemsPerPage: 1,
 			lblItemRole: 'slide',
 			lblNext: 'Next',
-			lblPrev: 'Previous',
+			lblPrev: 'Prev',
 			lblRole: 'carousel',
 			loop: false,
 			scrollBehavior: 'smooth',
-			varGap: '--snp-gap'
+			varGap: '--sec-gap'
 		}, stringToType(settings));
 
 		this.slider = element;
@@ -50,11 +50,20 @@ export default class Slider {
 		this.isChrome = window.navigator.userAgent.indexOf("Chrome") > -1;
 		this.isTouch = ('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
 
+
+		/* TODO */
+		try {
+		this.itemsPerPage = this.settings.layoutDesktop.split(':').length;
+		console.log(this.itemsPerPage);
+	}
+	catch(err) {}
+
 		/* Create elements */
 		this.elements = {
 			dots: h('nav', { class: this.settings.clsDotWrap }),
 			nav: h('nav', { class: this.settings.clsNav }, [h('div', { class: this.settings.clsNavInner })]),
 			next: h('button', { class: this.settings.clsBtnNext, rel: 'next' }, [this.settings.lblNext]),
+			outer: this.slider.querySelector('.c-sec__outer'),
 			prev: h('button', { class: this.settings.clsBtnPrev, rel: 'prev' }, [this.settings.lblPrev]),
 			scroller: this.slider.querySelector('[data-scroller]')
 		}
@@ -76,14 +85,17 @@ export default class Slider {
 			this.scrollToPage();
 		});
 
+		this.elements.scroller.addEventListener('scroll', debounced(200, () => { this.handleScroll()}));
+
 		this.elements.nav.firstElementChild.appendChild(this.elements.prev);
 		this.elements.nav.firstElementChild.appendChild(this.elements.next);
-		this.slider.insertBefore(this.elements.nav, this.elements.scroller);
+		this.elements.outer.insertBefore(this.elements.nav, this.elements.scroller);
 		this.slider.appendChild(this.elements.dots);
 		this.slider.refreshSlider = this.refreshSlider.bind(this);
 
 		if (!this.isTouch) {
 			this.elements.scroller.classList.add(this.settings.clsOverflow);
+			/* TODO: Hide dots/arrows settings */
 		}
 
 		this.refreshSlider();
@@ -130,20 +142,26 @@ export default class Slider {
 		// });
 
 		/* Breakpoints */
-		const len = this.settings.breakpoints.length;
-		if (len) {
-			this.breakpoints = [];
-			this.settings.breakpoints.forEach((item, index) => {
-				const [breakpoint, itemsPerPage] = item.toString().split('.');
-				const max = index === len-1 ? screen.width : Math.floor(this.settings.breakpoints[index + 1]) - 1;
-				const mediaQuery = window.matchMedia(`(min-width: ${breakpoint}px) and (max-width: ${max}px)`);
-				mediaQuery.addListener(this.updateItemsPerPage.bind(this, itemsPerPage-0))
-				this.breakpoints.push(mediaQuery);
-				// this.updateItemsPerPage(itemsPerPage-0);
-			});
-		}
+		// const len = this.settings.breakpoints.length;
+		// if (len) {
+		// 	this.breakpoints = [];
+		// 	this.settings.breakpoints.forEach((item, index) => {
+		// 		const [breakpoint, itemsPerPage] = item.toString().split('.');
+		// 		const max = index === len-1 ? screen.width : Math.floor(this.settings.breakpoints[index + 1]) - 1;
+		// 		const mediaQuery = window.matchMedia(`(min-width: ${breakpoint}px) and (max-width: ${max}px)`);
+		// 		mediaQuery.addListener(this.updateItemsPerPage.bind(this, itemsPerPage-0))
+		// 		this.breakpoints.push(mediaQuery);
+		// 		this.updateItemsPerPage(itemsPerPage-0);
+		// 	});
+		// }
 	}
 
+	handleScroll() {
+		// const page = this.elements.scroller.scrollLeft;
+		// TODO : Multiply itemWidth with itemsPerPage!
+		console.log(Math.round(this.elements.scroller.scrollLeft / Math.floor(this.state.itemWidth)) + 1)
+		// console.log(Math.round(this.elements.scroller.scrollLeft / this.elements.scroller.offsetWidth )+1);
+	}
 	/**
 	 * @function refreshSlider
 	 * @description Run this method if/after slide-items are updated dynamically, to re-calculate state/dots etc.
@@ -211,7 +229,7 @@ export default class Slider {
 		}
 
 		this.elements.scroller.scrollTo({ left: xPos, behavior: this.settings.scrollBehavior });
-
+// console.log({ left: xPos, behavior: this.settings.scrollBehavior })
 		if (!this.settings.loop) {
 			/* Set navigation buttons to disabled, if beginning or end */
 			this.elements.next.toggleAttribute('disabled', this.state.page === this.state.pages);
@@ -221,9 +239,9 @@ export default class Slider {
 		this.slider.dataset.page = this.state.page;
 
 		/* Iterate navigation dots, set current */
-		this.dots.forEach((dot, index) => {
-			dot.classList.toggle(this.settings.clsDotCur, index + 1 === this.state.page);
-		});
+		// this.dots.forEach((dot, index) => {
+		// 	dot.classList.toggle(this.settings.clsDotCur, index + 1 === this.state.page);
+		// });
 	}
 
 	/**
@@ -249,6 +267,7 @@ export default class Slider {
  * @description Creates/updates a state-object
  */
 	setState() {
+		/*TODO: Create getGap-method */
 		this.state = {
 			gap: getComputedStyle(this.slider).getPropertyValue(this.settings.varGap).match(/(\d+)/)[0] - 0,
 			items: [...this.elements.scroller.children],

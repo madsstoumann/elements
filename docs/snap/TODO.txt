@@ -1,0 +1,22 @@
+
+
+Stack
+Slider / Auto-slider
+Expand
+Accordion
+
+Vars:
+Background-color / gradient / image / video
+Outer Width
+Padding-top
+Padding-bottom
+Margin-top
+Margin-bottom
+Inner Width
+Headline + Tag Selector: Text Position
+Description: Text Position
+
+Item: padding/margin bottom
+
+Arrow placement: Inline or outside
+Show dots

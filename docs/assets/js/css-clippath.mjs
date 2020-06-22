@@ -202,7 +202,7 @@ export default class ClipPath extends CssApp {
 		if (this.point.element) {
 			const index = this.point.element.dataset.index - 0;
 			const type = this.point.element.dataset.type;
-			console.log(type);
+
 			let x = event.clientX - this.point.offsetX - this.point.parentRect.left;
 			let y = event.clientY + scrollPosition() - this.point.offsetY - this.point.parentRect.top;
 
@@ -210,9 +210,10 @@ export default class ClipPath extends CssApp {
 			if (y < 0) y = 0;
 			if ((x  + this.point.width) > this.point.parentRect.width) x = this.point.parentRect.width - this.point.width;
 			if ((y + this.point.width) > this.point.parentRect.height) y = this.point.parentRect.height - this.point.width;
-
-			this.point.element.style.left = (type === 'ellipse' && index === 1) ? this.point.element.style.left :  `${x}px`;
-			this.point.element.style.top = (type === 'ellipse' && index === 2) ? this.point.element.style.top : `${y}px`;
+/*TODO: Lock axis with shift or alt-key */
+/*TODO fine-move 0.1 or 0.01 */
+			this.point.element.style.left = ((type === 'ellipse' && index === 1) || event.shiftKey) ? this.point.element.style.left :  `${x}px`;
+			this.point.element.style.top = ((type === 'ellipse' && index === 2) || event.altKey) ? this.point.element.style.top : `${y}px`;
 			this.pointUpdate(index, Math.ceil(x / this.point.percent), Math.ceil(y / this.point.percent));
 		}
 	}
