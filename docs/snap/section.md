@@ -1,5 +1,16 @@
 # SectionBlock
 
+!!! TODO: Control description and headline widths individually from section inner width.
+Set margin gaps and padding
+
+c-sec-mb
+c-sec-mb--medium
+c-sec-mb--large
+c-sec-mb--xlarge
+
+OR CUSTOM: update var(--sec-mb);
+
+
 ## Section Type [enum]  
 Set attribute `data-section-type`.
 1. Stack [default]

@@ -20,26 +20,45 @@
 		.item {
 			background-color: deepskyblue;
 			box-shadow: 0px 10px 5px -5px rgba(0, 0, 0, 0.15);
-			border-radius: 10px;
+			border-radius: 0px;
 			color: #FFF;
 			font-family: sans-serif;
 			font-size: 5rem;
 			height: 300px;
 			padding: 0 1rem;
 		}
+
+		/* HANDLE SCROLLBAR-STYLES: thick, thin etc. */
 	</style>
 </head>
 <body>
 
 	<!-- https://www.w3.org/TR/wai-aria-practices/examples/carousel/carousel-1.html -->
 
-	<section class="c-sec"
+	<!--
+		full-width hero
+
+		--sec-item-mis: 0px;
+		--sec-item-smis: 0px;
+		--sec-item-w: 100%;
+
+		stack no gap between items:
+		--sec-item-gap: 0px;
+		--sec-item-mis: 0px;
 		
+		stack - no gap between rows:
+		--sec-item-mb: 0px;
+		--sec-inner-pb: var(--sec-gap);
+
+	-->
+
+	<section class="c-sec c-sec--mb"
+		data-gap="left/right, below, between items" data-margin-top="etc..." data-margin-bottom="add if scrollbar!"
 		data-layout=""
-		data-layout-tablet="100"
+		data-layout-tablet=""
 		data-section-type="slider"
-		style="--sec-bg:#CCC;">
-		<h2 class="c-sec__headline">Preview: 3 items per page</h2>
+		style="--sec-bg:#FFF;">
+		<h2 class="c-sec__headline c-headline--h1">Cool new products</h2>
 		<div class="c-sec__description">
 			Shows a preview of the previous and the next item in the section, centers items after first page. 
 			Using the attributes <code>data-align="center"</code>, <code>data-items-per-page=":3"</code>, and <code>data-section-type="slider"</code>
@@ -70,12 +89,12 @@
 		</div>
 	</section>
 
-	<section class="c-sec"
+	<section class="c-sec c-sec--mb"
 	data-layout="100"
 	data-layout-tablet="50:50"
 	data-layout-desktop="33:33:33"
 	data-section-type="slider"
-	style="--sec-bg:orange;">
+	style="--sec-bg:#FFF;">
 	<h2 class="c-sec__headline">TEST: 3 items per page</h2>
 	<div class="c-sec__description">
 		TEST
@@ -357,7 +376,7 @@ style="--sec-bg:indianred;">
 				.then(module => {
 					const jsClass = module.default;
 					elements.forEach(element => {
-						new jsClass(element, element.dataset);
+						// new jsClass(element, element.dataset);
 					});
 				})
 			}
