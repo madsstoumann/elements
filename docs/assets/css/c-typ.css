@@ -1,0 +1,140 @@
+/**
+ * c-typ.css
+ * @version 1.0.1
+ * @summary 30-06-2020
+ * @author Mads Stoumann
+ * @description Stylesheet for Typography
+	Variables are concatinated from: 
+	- element-prefix + 
+	- emmet-css-abbreviation + 
+	- modifier (:active, :disabled, :focus, :hover)
+  More on emmett: https://docs.emmet.io/cheat-sheet/
+  
+  Use clamp() for dead-simple responsive typography:
+  font-size: clamp( (var(--font-min) * 1rem), 2vw, (var(--font-max) * 1rem) );
+
+  For more control, use .typo — see below.
+*/
+@import 'config.css';
+/* Remove default margin from <p>-tags, use spacers like `--space-top` or `--space-bottom` instead */
+.typo p {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.typo--dynamic {
+  /*
+    All values are in rem's, but should be specified without unit.
+    The values change fluidly between `min` and `max`.
+    Example: `--base-grid` changes fluidly from 0.75rem (12px) to 1.125rem (18px)
+  */
+  --base-min: 0.75;   /* 12px */
+  --base-max: 1.125;  /* 18px */
+  --min-screen: 20;   /* 320px */
+  --max-screen: 100;  /* 1600px and greater */
+  --base-grid: calc((var(--base-min) * 1rem) + (var(--base-max) - var(--base-min)) * ((100vw - (var(--min-screen) * 1rem)) / (var(--max-screen) - var(--min-screen))));
+
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+}
+
+.typo--dynamic,
+.typo--dynamic *,
+.typo--static,
+.typo--static * {
+  --font-min: 1;      /* 1rem = 16px */
+  --font-max: 1.5;    /* 1.5 rem = 24px */
+  --line-min: 2;      /* Multiplier: must be an integer. Multiply with --base-min, 2 x 0.75 = 1.5rem = 24px */
+  --line-max: 2;      /* Multiply with --base-max, 2 x 1.125rem = 2.25rem = 36px */
+
+  --font-size: calc((var(--font-min) * 1rem) + (var(--font-max) - var(--font-min)) * ((100vw - (var(--min-screen) * 1rem)) / (var(--max-screen) - var(--min-screen))));
+  --line-height: calc(((var(--base-min) * var(--line-min)) * 1rem) + ((var(--base-max) * var(--line-max)) - (var(--base-min) * var(--line-min))) * ((100vw - (var(--min-screen) * 1rem)) / (var(--max-screen) - var(--min-screen))));
+  --line-space: calc((var(--line-height) - var(--font-size)) / 2);
+
+  /* Spacer-units, use for padding/margins. One unit equals the value of `--base-grid` */
+  --space-top: calc((var(--spacer-top, 1) * var(--base-grid)));
+  --space-right: calc((var(--spacer-right, 0) * var(--base-grid)));
+  --space-bottom: calc((var(--spacer-bottom, 1) * var(--base-grid)));
+  --space-left: calc((var(--spacer-top, 0) * var(--base-grid)));
+}
+
+@media screen and (min-width: 100rem) {
+  .typo--dynamic {
+    --base-grid: calc(var(--base-max) * 1rem);
+  }
+  .typo--dynamic,
+  .typo--dynamic * {
+    --font-size: calc(var(--font-max) * 1rem);
+    --line-height: calc(var(--line-max) * 1rem);
+  }
+}
+
+/* Static grid, add breakpoints manually */
+.typo--static,
+.typo--static * {
+  --base-grid: 0.75rem;
+  --font-size: calc(var(--font-min) * 1rem);
+  --line-height: calc(var(--line-min) * var(--base-grid));
+
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+}
+
+.typo--static-grid {
+  /* Add to a section to render static grid-lines */
+  background-color: #C6FFCC;
+  background-image: linear-gradient(to bottom, lightblue 1px, transparent 1px);
+  background-size: 1px var(--base-grid);
+  /*
+    To visually align text to lines, deduct `line-space`, example:
+    margin-top: calc(0px - var(--line-space));
+  */
+}
+
+/* TODO
+ Typographic Widths */
+.typo--line {
+  max-width: 70ch;
+}
+
+/* Headlines */
+.c-headline--h1 {
+  --font-min: 2;
+  --font-max: 4;
+  --line-min: 3;
+  --line-max: 4.5;
+  --spacer-top: 2;
+  --spacer-bottom: 2;
+}
+
+.c-headline--h2 {
+  --font-min: 1.5;
+  --font-max: 3;
+  --line-min: 2.5;
+  --line-max: 3;
+  --spacer-top: 2;
+  --spacer-bottom: 1;
+}
+
+.c-headline--h1,
+.c-headline--h2,
+.c-headline--h3,
+.c-headline--h4,
+.c-headline--h5,
+.c-headline--h6,
+.c-typ--small {
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-bottom: var(--space-bottom);
+  padding-top: var(--space-top);
+}
+.c-typ--small {
+  --font-min: 0.5675;
+  --font-max: 1;
+  --line-min: 1;
+  --line-max: 1;
+  --spacer-top: 2;
+  --spacer-bottom: 1;
+}

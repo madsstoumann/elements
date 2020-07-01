@@ -7,15 +7,12 @@
 	<link href="../assets/css/demo.css" rel="stylesheet">
 	<link href="../assets/css/animations.css" rel="stylesheet">
 	<link href="../assets/css/c-sec.css" rel="stylesheet">
+	<link href="../assets/css/c-typ.css" rel="stylesheet">
 
 	<style>
 		/* Demo Styles */
 		body {
 			margin: 0;
-		}
-		.c-sec:nth-of-type(odd) {
-			/* background-color: #CCC;
-			color: #222; */
 		}
 		.item {
 			background-color: deepskyblue;
@@ -23,25 +20,20 @@
 			border-radius: 0px;
 			color: #FFF;
 			font-family: sans-serif;
-			font-size: 5rem;
+			font-size: 2rem;
 			height: 300px;
-			padding: 0 1rem;
+			line-height: 1.2;
+			padding: .75rem 0 0 1rem;
 		}
 
 		/* HANDLE SCROLLBAR-STYLES: thick, thin etc. */
 	</style>
 </head>
-<body>
+<body class="typo typo--dynamic">
 
 	<!-- https://www.w3.org/TR/wai-aria-practices/examples/carousel/carousel-1.html -->
 
 	<!--
-		full-width hero
-
-		--sec-item-mis: 0px;
-		--sec-item-smis: 0px;
-		--sec-item-w: 100%;
-
 		stack no gap between items:
 		--sec-item-gap: 0px;
 		--sec-item-mis: 0px;
@@ -51,23 +43,17 @@
 		--sec-inner-pb: var(--sec-gap);
 
 	-->
-
-	<section class="c-sec c-sec--mb"
-		data-gap="left/right, below, between items" data-margin-top="etc..." data-margin-bottom="add if scrollbar!"
+<main class="c-sec__wrapper">
+	<section class="c-sec c-sec--hero"
 		data-layout=""
 		data-layout-tablet=""
-		data-section-type="slider"
-		style="--sec-bg:#FFF;">
-		<h2 class="c-sec__headline c-headline--h1">Cool new products</h2>
-		<div class="c-sec__description">
-			Shows a preview of the previous and the next item in the section, centers items after first page. 
-			Using the attributes <code>data-align="center"</code>, <code>data-items-per-page=":3"</code>, and <code>data-section-type="slider"</code>
-		</div>
+		data-section-type="slider">
+
 		<div class="c-sec__outer">
 			<div class="c-sec__inner" data-scroller>
-				<div class="c-sec__item"><div class="item">1</div></div>
+				<div class="c-sec__item"><div class="item">full-width hero</div></div>
 				<div class="c-sec__item"><div class="item">2</div></div>
-				<div class="c-sec__item"><div class="item">3<a href="#hello">TEST LINK</a></div></div>
+				<div class="c-sec__item"><div class="item">3</div></div>
 				<div class="c-sec__item"><div class="item">4</div></div>
 				<div class="c-sec__item"><div class="item">5</div></div>
 				<div class="c-sec__item"><div class="item">6</div></div>
@@ -75,87 +61,128 @@
 				<div class="c-sec__item"><div class="item">8</div></div>
 				<div class="c-sec__item"><div class="item">9</div></div>
 				<div class="c-sec__item"><div class="item">10</div></div>
-				<div class="c-sec__item"><div class="item">11</div></div>
-				<div class="c-sec__item"><div class="item">12</div></div>
-				<div class="c-sec__item"><div class="item">13</div></div>
-				<div class="c-sec__item"><div class="item">14</div></div>
-				<div class="c-sec__item"><div class="item">15</div></div>
-				<div class="c-sec__item"><div class="item">16</div></div>
-				<div class="c-sec__item"><div class="item">17</div></div>
-				<div class="c-sec__item"><div class="item">18</div></div>
-				<div class="c-sec__item"><div class="item">19</div></div>
-				<div class="c-sec__item"><div class="item">20</div></div>
 			</div>
 		</div>
 	</section>
 
-	<section class="c-sec c-sec--mb"
+	<section class="c-sec c-sec--pt c-sec--desc-m"
+		data-gap="left/right, below, between items" data-margin-top="etc..." data-margin-bottom="add if scrollbar!"
+		data-layout=""
+		data-layout-tablet=""
+		data-section-type="slider">
+		<h2 class="c-sec__headline c-headline--h1">Slider with preview of next item and a headline, that spans multiple lines.</h2>
+		<div class="c-sec__description">
+			<p>
+				Shows a preview of the next item in the section. A scrollbar will ber shown on desktop devices, if JavaScript somehow fails.
+				This descriptive text has the modifier <code>c-sec__desc--s</code>, setting the max-width to 50%.
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum perferendis sint laudantium pariatur cum non aperiam cupiditate corporis eos numquam rerum error, facilis culpa distinctio dolore architecto illum magni quod quaerat quasi ab officiis soluta doloremque? Ratione sint libero incidunt, non saepe ad id? Debitis ducimus cum quas rem nostrum.
+			</p>
+			<h2 class="c-sec__headline c-headline--h2">Some smaller headline that will also be shown in multiple lines</h2>
+			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi corrupti similique, quia fuga maiores quam dolores tempore repellendus est excepturi quos assumenda obcaecati, vel ad. Non repellat dolor amet harum voluptas perspiciatis aperiam sequi nisi dicta? Eum saepe laborum obcaecati, eos ipsa, ullam officia ad odit minima suscipit ab ipsum. Eos animi aspernatur est quae, sint reiciendis voluptatem debitis quaerat maxime quod illo aliquam laborum possimus adipisci voluptates dolores sunt voluptatibus soluta eius reprehenderit nostrum?</p>
+			<p class="c-typ--small">Footnotes and other stuff<br />
+				&dagger; Footnote<br />
+				&Dagger; Another one
+			</p>
+		</div>
+
+		<div class="c-sec__outer">
+			<div class="c-sec__inner" data-scroller>
+				<div class="c-sec__item"><div class="item">1</div></div>
+				<div class="c-sec__item"><div class="item">2</div></div>
+				<div class="c-sec__item"><div class="item">3</div></div>
+				<div class="c-sec__item"><div class="item">4</div></div>
+				<div class="c-sec__item"><div class="item">5</div></div>
+				<div class="c-sec__item"><div class="item">6</div></div>
+				<div class="c-sec__item"><div class="item">7</div></div>
+				<div class="c-sec__item"><div class="item">8</div></div>
+				<div class="c-sec__item"><div class="item">9</div></div>
+				<div class="c-sec__item"><div class="item">10</div></div>
+			</div>
+		</div>
+	</section>
+
+	<section class="c-sec c-sec--pt c-sec--head-m c-sec--desc-s"
+		data-layout="100"
+		data-layout-tablet="50:50"
+		data-layout-desktop="33:33:33"
+		data-section-type="slider">
+		<h2 class="c-sec__headline c-headline--h1">Slider with no preview and multiple items per “page”</h2>
+		<div class="c-sec__description">
+			The headline use the <code>c-sec__head--m</code>-modidier to set max-width to 75%. Visible navigation arrows will be shown on all screensizes, since no preview indicates swipeability.
+		</div>
+		<div class="c-sec__outer">
+			<div class="c-sec__inner" data-scroller>
+				<div class="c-sec__item"><div class="item">1</div></div>
+				<div class="c-sec__item"><div class="item">2</div></div>
+				<div class="c-sec__item"><div class="item">3</div></div>
+				<div class="c-sec__item"><div class="item">4</div></div>
+				<div class="c-sec__item"><div class="item">5</div></div>
+				<div class="c-sec__item"><div class="item">6</div></div>
+			</div>
+		</div>
+	</section>
+
+	<section class="c-sec c-sec--w-xl c-sec--desc-m c-sec--head-m c-sec--pt"
+		data-layout="50:50"
+		data-layout-tablet="33:66"
+		data-layout-desktop="25:25:25:25"
+		data-section-type="stack"
+		style="--sec-bg:#DDD;">
+		<h2 class="c-sec__headline c-headline--h1">Grouped stacked sections with layout changes</h2>
+		<div class="c-sec__description">
+			The content in the top section is stacked, and will will change from <code>50:50</code> to <code>33:66</code> to <code>25:25:25:25</code>.
+			As the section has a custom background-color, the modifier <code>c-sec-pt</code> has been added, to add padding to the top.
+		</div>
+		<div class="c-sec__outer">
+			<div class="c-sec__inner" data-scroller>
+				<div class="c-sec__item"><div class="item">50% <br/> 33% <br/> 25%</div></div>
+				<div class="c-sec__item"><div class="item">50% <br/> 66% <br/> 25%</div></div>
+				<div class="c-sec__item"><div class="item">50% <br/> 33% <br/> 25%</div></div>
+				<div class="c-sec__item"><div class="item">50% <br/> 66% <br/> 25%</div></div>
+			</div>
+		</div>
+	</section>
+
+	<section class="c-sec c-sec--w-xl"
+		data-layout="50:50"
+		data-layout-tablet="33:33:33"
+		data-layout-desktop="25:50:25"
+		data-section-type="stack"
+		style="--sec-bg:#DDD;">
+		<div class="c-sec__outer">
+			<div class="c-sec__inner" data-scroller>
+				<div class="c-sec__item"><div class="item">50% <br/> 33% <br/> 25%</div></div>
+				<div class="c-sec__item"><div class="item">50% <br/> 33% <br/> 50%</div></div>
+				<div class="c-sec__item"><div class="item">50% <br/> 33% <br/> 25%</div></div>
+			</div>
+		</div>
+	</section>
+
+	<section class="c-sec c-sec--mb c-sec--w-xl"
 	data-layout="100"
 	data-layout-tablet="50:50"
-	data-layout-desktop="33:33:33"
-	data-section-type="slider"
-	style="--sec-bg:#FFF;">
-	<h2 class="c-sec__headline">TEST: 3 items per page</h2>
-	<div class="c-sec__description">
-		TEST
-	</div>
+	data-layout-desktop="75:25"
+	data-section-type="stack"
+	style="--sec-bg:#DDD;">
 	<div class="c-sec__outer">
 		<div class="c-sec__inner" data-scroller>
-			<div class="c-sec__item"><div class="item">1</div></div>
-			<div class="c-sec__item"><div class="item">2</div></div>
-			<div class="c-sec__item"><div class="item">3</div></div>
-			<div class="c-sec__item"><div class="item">4</div></div>
-			<div class="c-sec__item"><div class="item">5</div></div>
-			<div class="c-sec__item"><div class="item">6</div></div>
+			<div class="c-sec__item"><div class="item">100% <br/> 50% <br/> 75%</div></div>
+			<div class="c-sec__item"><div class="item">100% <br/> 50% <br/> 25%</div></div>
 		</div>
 	</div>
 </section>
 
-<section class="c-sec"
-data-layout="50:50"
-data-layout-tablet="33:66"
-data-layout-desktop="25:25:25:25"
-data-section-type="stack"
-style="--sec-bg:indianred;">
-<h2 class="c-sec__headline">STACK 2</h2>
-<div class="c-sec__description">
-	TEST
-</div>
-<div class="c-sec__outer">
-	<div class="c-sec__inner" data-scroller>
-		<div class="c-sec__item"><div class="item">1</div></div>
-		<div class="c-sec__item"><div class="item">2</div></div>
-		<div class="c-sec__item"><div class="item">3</div></div>
-		<div class="c-sec__item"><div class="item">4</div></div>
-	</div>
-</div>
-</section>
-<section class="c-sec"
-data-layout="50:50"
-data-layout-tablet="33:33:33"
-data-layout-desktop="25:50:25"
-data-section-type="slider"
-style="--sec-bg:indianred;">
-
-<div class="c-sec__outer">
-	<div class="c-sec__inner" data-scroller>
-		<div class="c-sec__item"><div class="item">1</div></div>
-		<div class="c-sec__item"><div class="item">2</div></div>
-		<div class="c-sec__item"><div class="item">3</div></div>
-		<div class="c-sec__item"><div class="item">4</div></div>
-	</div>
-</div>
-</section>
-
-	<section class="c-sec"
+	<section class="c-sec c-sec--w-m c-sec--pt c-sec--head-m c-sec--desc-m"
 		data-layout="100"
 		data-layout-tablet="50:50"
 		data-layout-desktop="33:33:33"
 		data-section-type="stack"
-		style="--sec-bg:forestgreen;">
-		<h2 class="c-sec__headline">TEST: 3 items per page</h2>
+		style="--sec-bg:#D8E8FF;">
+		<h2 class="c-sec__headline c-headline--h1">Stacked content, that will not slide</h2>
 		<div class="c-sec__description">
-			TEST
+			The content in this section is stacked — and will not be turned into a slider, when the screensize changes.
+			The section has the `medium-width`-modifier, <code>c-sec--w-m</code>, and a custom background-color.
+			This descriptive text use the modifier <code>c-sec--desc-m</code>
 		</div>
 		<div class="c-sec__outer">
 			<div class="c-sec__inner" data-scroller>
@@ -169,15 +196,13 @@ style="--sec-bg:indianred;">
 		</div>
 	</section>
 
-	<section class="c-sec"
+	<section class="c-sec c-sec--mb c-sec--head-m c-sec--pt"
 		data-animation="a-fade-in-bl"
 		data-align="center"
-		data-items-per-page=":1"
-		data-section-type="slider"
-		data-section-width="medium">
-		<h2 class="c-sec__headline">Preview of next and previous, 1 item per page</h2>
+		data-section-type="slider">
+		<h2 class="c-sec__headline c-headline--h1">Slider with preview of both previous and next items</h2>
 		<div class="c-sec__description">
-			Using <code>data-section-width="medium"</code>
+			The section slides in from the bottom, using the animation <code>a-fade-in-bl</code>
 		</div>
 		<div class="c-sec__outer">
 			<div class="c-sec__inner" data-scroller>
@@ -205,16 +230,18 @@ style="--sec-bg:indianred;">
 		</div>
 	</section>
 
-	<section class="c-sec"
+	<section class="c-sec c-sec--pt c-sec--mb c-sec--head-m"
 		data-animation="a-fade-in-bottom"
 		data-expanded="false"
 		data-layout="100"
 		data-layout-tablet="66:33"
 		data-layout-desktop="66:33"
 		data-section-type="stack"
-		style="--sec-bg:#CCC;">
-		<h2 class="c-sec__headline">Section with expand</h2>
-		<p class="c-sec__description">This section will expand</p>
+		style="--sec-bg:#DDD;">
+		<h2 class="c-sec__headline c-headline--h1">Section with expand and collapse functionality</h2>
+		<div class="c-sec__description">
+			This section will expand to reveal hidden content. The initial height is specified in modifiers <code>c-sec--exp-s</code>, <code>c-sec--exp-m</code> and <code>c-sec--exp-l</code>
+		</div>
 		<div class="c-sec__outer">
 			<div class="c-sec__inner" data-scroller>
 				<div class="c-sec__item"><div class="item">1</div></div>
@@ -367,7 +394,7 @@ style="--sec-bg:indianred;">
 			</div>
 		</div>
 	</section> -->
-
+</main>
 	<!-- <script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script> -->
 	<script type="module">
 		const elements = document.querySelectorAll('[data-section-type="slider"]');
