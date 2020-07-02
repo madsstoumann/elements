@@ -10,6 +10,8 @@ c-sec-mb--xlarge
 
 OR CUSTOM: update var(--sec-mb);
 
+## Text Below Content
+Boolean
 
 ## Section Type [enum]  
 Set attribute `data-section-type`.

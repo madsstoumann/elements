@@ -16,16 +16,16 @@ export default class Slider {
 		this.settings = Object.assign({
 			align: '',
 			breakpoints: [],
-			clsBtnNext: 'c-sec__nav-btn',
-			clsBtnPrev: 'c-sec__nav-btn',
-			clsDot: 'c-sec__dot',
-			clsDotCur: 'c-sec__dot--current',
-			clsDotWrap: 'c-sec__dots',
-			clsItemLeft: 'c-sec__item--left',
-			clsItemRight: 'c-sec__item--right',
-			clsNav: 'c-sec__nav',
-			clsNavInner: 'c-sec__nav-inner',
-			clsOverflow: 'c-sec__inner--overflow',
+			clsBtnNext: 'c-lay__nav-btn',
+			clsBtnPrev: 'c-lay__nav-btn',
+			clsDot: 'c-lay__dot',
+			clsDotCur: 'c-lay__dot--current',
+			clsDotWrap: 'c-lay__dots',
+			clsItemLeft: 'c-lay__item--left',
+			clsItemRight: 'c-lay__item--right',
+			clsNav: 'c-lay__nav',
+			clsNavInner: 'c-lay__nav-inner',
+			clsOverflow: 'c-lay__inner--overflow',
 			itemsPerPage: 1,
 			lblItemRole: 'slide',
 			lblNext: 'Next',
@@ -33,7 +33,7 @@ export default class Slider {
 			lblRole: 'carousel',
 			loop: false,
 			scrollBehavior: 'smooth',
-			varGap: '--sec-gap'
+			varGap: '--lay-gap'
 		}, stringToType(settings));
 
 		this.slider = element;
@@ -61,13 +61,13 @@ export default class Slider {
 		/* Create elements */
 		this.elements = {
 			dots: h('nav', { class: this.settings.clsDotWrap }),
+			inner: this.slider.querySelector('[data-inner]'),
 			nav: h('nav', { class: this.settings.clsNav }, [h('div', { class: this.settings.clsNavInner })]),
 			next: h('button', { class: this.settings.clsBtnNext, rel: 'next' }, [this.settings.lblNext]),
-			outer: this.slider.querySelector('.c-sec__outer'),
-			prev: h('button', { class: this.settings.clsBtnPrev, rel: 'prev' }, [this.settings.lblPrev]),
-			scroller: this.slider.querySelector('[data-scroller]')
+			outer: this.slider.querySelector('[data-outer]'),
+			prev: h('button', { class: this.settings.clsBtnPrev, rel: 'prev' }, [this.settings.lblPrev])
 		}
-
+console.log(this.elements)
 		/* Add eventListeners */
 		this.elements.next.addEventListener('click', () => {
 			this.state.page++;
@@ -85,23 +85,23 @@ export default class Slider {
 			this.scrollToPage();
 		});
 
-		this.elements.scroller.addEventListener('scroll', debounced(200, () => { this.handleScroll()}));
+		this.elements.inner.addEventListener('scroll', debounced(200, () => { this.handleScroll()}));
 
 		this.elements.nav.firstElementChild.appendChild(this.elements.prev);
 		this.elements.nav.firstElementChild.appendChild(this.elements.next);
-		this.elements.outer.insertBefore(this.elements.nav, this.elements.scroller);
+		this.elements.outer.insertBefore(this.elements.nav, this.elements.inner);
 		this.slider.appendChild(this.elements.dots);
 		this.slider.refreshSlider = this.refreshSlider.bind(this);
 
 		if (!this.isTouch) {
-			this.elements.scroller.classList.add(this.settings.clsOverflow);
+			this.elements.inner.classList.add(this.settings.clsOverflow);
 			/* TODO: Hide dots/arrows settings */
 		}
 
 		this.refreshSlider();
 
 		/* Set aria-attributes */
-		this.elements.scroller.setAttribute('aria-live', 'polite');
+		this.elements.inner.setAttribute('aria-live', 'polite');
 		this.slider.setAttribute('aria-roledescription', this.settings.lblRole);
 		this.state.items.forEach((slide, index) => {
 			slide.setAttribute('aria-label', `${index+1}/${this.state.itemLen}`);
@@ -131,7 +131,7 @@ export default class Slider {
 		// 		}
 		// 	});
 		// }, {
-		// 	root: this.elements.scroller,
+		// 	root: this.elements.inner,
 		// 	rootMargin: '0px',
 		// 	threshold: 0.8
 		// });
@@ -157,10 +157,10 @@ export default class Slider {
 	}
 
 	handleScroll() {
-		// const page = this.elements.scroller.scrollLeft;
+		// const page = this.elements.inner.scrollLeft;
 		// TODO : Multiply itemWidth with itemsPerPage!
-		console.log(Math.round(this.elements.scroller.scrollLeft / Math.floor(this.state.itemWidth)) + 1)
-		// console.log(Math.round(this.elements.scroller.scrollLeft / this.elements.scroller.offsetWidth )+1);
+		console.log(Math.round(this.elements.inner.scrollLeft / Math.floor(this.state.itemWidth)) + 1)
+		// console.log(Math.round(this.elements.inner.scrollLeft / this.elements.inner.offsetWidth )+1);
 	}
 	/**
 	 * @function refreshSlider
@@ -194,7 +194,7 @@ export default class Slider {
 			else {
 				/* Firefox and Safari handles scrollLeft with negative values, when using `dir="rtl"` */
 				if (this.isChrome) {
-					xPos = this.elements.scroller.scrollWidth - (this.state.page * (this.state.itemWidth * this.settings.itemsPerPage));
+					xPos = this.elements.inner.scrollWidth - (this.state.page * (this.state.itemWidth * this.settings.itemsPerPage));
 				}
 				else {
 					xPos = 0 - (this.state.page - 1) * (this.state.itemWidth * this.settings.itemsPerPage);
@@ -216,19 +216,19 @@ export default class Slider {
 		/* Scroll to page, use page-based widths */
 		else {
 			if (this.dir === 'ltr') {
-				xPos = (this.state.page - 1) * (this.elements.scroller.offsetWidth + this.state.gap);
+				xPos = (this.state.page - 1) * (this.elements.inner.offsetWidth + this.state.gap);
 			} else {
 				if (this.isChrome) {
-					xPos = this.elements.scroller.scrollWidth - (this.state.page) * this.elements.scroller.offsetWidth;
+					xPos = this.elements.inner.scrollWidth - (this.state.page) * this.elements.inner.offsetWidth;
 				}
 				else {
-					xPos = 0 - (this.state.page - 1) * this.elements.scroller.offsetWidth;
+					xPos = 0 - (this.state.page - 1) * this.elements.inner.offsetWidth;
 
 				}
 			}
 		}
 
-		this.elements.scroller.scrollTo({ left: xPos, behavior: this.settings.scrollBehavior });
+		this.elements.inner.scrollTo({ left: xPos, behavior: this.settings.scrollBehavior });
 // console.log({ left: xPos, behavior: this.settings.scrollBehavior })
 		if (!this.settings.loop) {
 			/* Set navigation buttons to disabled, if beginning or end */
@@ -270,11 +270,11 @@ export default class Slider {
 		/*TODO: Create getGap-method */
 		this.state = {
 			gap: getComputedStyle(this.slider).getPropertyValue(this.settings.varGap).match(/(\d+)/)[0] - 0,
-			items: [...this.elements.scroller.children],
-			itemLen: this.elements.scroller.childElementCount,
-			itemWidth: this.elements.scroller.scrollWidth / this.elements.scroller.childElementCount,
+			items: [...this.elements.inner.children],
+			itemLen: this.elements.inner.childElementCount,
+			itemWidth: this.elements.inner.scrollWidth / this.elements.inner.childElementCount,
 			page: 1,
-			pages: Math.ceil(this.elements.scroller.childElementCount / this.settings.itemsPerPage) || 1
+			pages: Math.ceil(this.elements.inner.childElementCount / this.settings.itemsPerPage) || 1
 		}
 		this.slider.dataset.itemsPerPage = `:${this.settings.itemsPerPage}`;
 	}
