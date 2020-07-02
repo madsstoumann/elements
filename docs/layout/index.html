@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<link href="../assets/css/demo.css" rel="stylesheet">
 	<link href="../assets/css/animations.css" rel="stylesheet">
+	<link href="../assets/css/c-ico.css" rel="stylesheet">
 	<link href="../assets/css/c-lay.css" rel="stylesheet">
 	<link href="../assets/css/c-typ.css" rel="stylesheet">
 
@@ -285,7 +286,6 @@
 		</div>
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
-
 			</div>
 		</div>
 	</section>
@@ -335,8 +335,10 @@
 			</div>
 		</div>
 			<!-- TODO -->
-		<nav class="c-lay__dots">
-			<button type="button" aria-label="Expand" data-toggle="COLLAPSE">Expand</button>
+		<nav class="c-lay__toggle-expand">
+			<button type="button" class="c-lay__nav-btn" aria-label="Expand/Collapse" data-toggle>
+				<i class="c-ico-mai c-ico--arr_dwn"></i>
+			</button>
 		</nav>
 	</section>
 
@@ -514,28 +516,25 @@
 			const height = inner.scrollHeight;
 			if (section) {
 				const expanded = section.dataset.expanded === 'true'
-				
-				console.log(expanded);
 				if (expanded) {
+					/* TODO */
 					section.style.setProperty('--lay-expand-h', `250px`);
 					section.dataset.expanded = 'false';
 					const rect = section.getBoundingClientRect();
 					const scrollPos = (window.pageYOffset || document.documentElement.scrollTop) - (document.documentElement.clientTop || 0);
-					console.log(parseInt(rect.top + scrollPos));
 					window.setTimeout( () => {
 						window.scrollTo({ top: parseInt(rect.top + scrollPos), behavior: 'smooth'});
 					}, 250);
-					toggle.innerText = 'Expand';
-				// 
-				/* TODO: Set toggle button text (or icon) */
-				// section.dataset.sectionType = section.dataset.sectionType === 'expand' ? 'stack' : 'expand';
+					/* TODO:update aria label/state */
+					// toggle.innerText = 'Expand';
 				}
 				else {
 					section.style.setProperty('--lay-expand-h', `${height}px`);
-					toggle.innerText = toggle.dataset.toggle;
+					/* TODO:update aria label/state */
+					// toggle.innerText = toggle.dataset.toggle;
 					section.dataset.expanded = 'true';
 				}
-
+				toggle.dataset.expanded = expanded ? 'false' : 'true';
 				// section.dataset.expanded = expanded ? 'false' : 'true';
 			}
 				

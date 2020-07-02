@@ -5,8 +5,8 @@ body {
 	background-color: var(--c-bg);
 	color: var(--c-txt);
 	font-family: var(--f-body);
-	min-height: 100vh;
-	min-height: -webkit-fill-available;
+	/* min-height: 100vh; */
+	/* min-height: -webkit-fill-available; */
 }
 code {
 	background-color: var(--c-grey-100);
