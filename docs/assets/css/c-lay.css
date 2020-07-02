@@ -1,7 +1,7 @@
 /**
  * c-lay.css
- * @version 1.2.3
- * @summary 24-06-2020
+ * @version 1.2.5
+ * @summary 02-07-2020
  * @author Mads Stoumann
  * @description Stylesheet for Layout Component
 	Variables are concatinated from: 
@@ -554,7 +554,7 @@ NAVIGATION
 }
 /* TODO: Create variables, control placement */
 .c-lay__nav-btn {
-	background-color: rgba(0, 0, 0, .5);
+	background-color: hsla(195, 75%, 15%, 0.85);
 	border: 0;
 	border-radius: var(--lay-nav-btn-sz);
 	color: #FFF;
