@@ -19,8 +19,7 @@
 			box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
 			cursor: pointer;
 			margin-bottom: 2em;
-			overflow-y: scroll; 
-			position: relative;
+
 		}
 		.c-ob__bg {
 			border-radius: 1em 1em 0 0;
@@ -41,26 +40,7 @@
 			display: block;
 			padding-bottom: 56.25%;
 		}
-		.c-ob__close {
-			align-items: center;
-			background-color: rgba(45, 45, 45, .7);
-			border-radius: 50%;
-			color: #FFF;
-			display: inline-flex;
-			font-size: 20px;
-			height: 32px;
-			justify-content: center;
-			opacity: 0;
-			padding: 10px;
-			position: fixed;
-			right: 20px;
-			text-decoration: none;
-			top: 20px;
-			transform: scale(0);
-			transition: all .2s ease-in;
-			width: 32px;
-			z-index: 2;
-		}
+
 		.c-ob__content {
 			padding: 1em 1em 2em 1em;
 		}
@@ -92,8 +72,18 @@
 			transition: all .2s cubic-bezier(.25,.46,.45,.94);
 		 }
 
+		 .c-lay__item > * {
+				overflow-y: scroll; 
+				position: relative;
+				/* transition: all .2s ease-in; */
+		 }
+
 		 /* State */
-		.c-ob:target {
+		.c-lay__item:target {
+			backdrop-filter: saturate(180%) blur(10px);
+			background-color: rgba(255,255,255,0.62);
+			transition: background-color 0.5s cubic-bezier(0.28, 0.11, 0.32, 1);
+			transition-property: background-color, backdrop-filter, -webkit-backdrop-filter;
 			bottom: 0;
 			border-radius: 0;
 			height: 100vh;
@@ -104,18 +94,42 @@
 			width: 100vw;
 			z-index: 1;
 		}
-		.c-ob:target .c-ob__bg,
-		.c-ob:target .c-ob__bg-wrapper {
+		.c-lay__item:target::after {
+			align-items: center;
+			background-color: rgba(45, 45, 45, .7);
+			border-radius: 50%;
+			color: #FFF;
+			content: 'x';
+			display: inline-flex;
+			font-size: 20px;
+			height: 32px;
+			justify-content: center;
+			opacity: 1;
+			padding: 10px;
+			position: fixed;
+			right: 20px;
+			text-decoration: none;
+			top: 20px;
+			/* transform: scale(0); */
+			transition: all .2s ease-in;
+			width: 32px;
+			z-index: 2;
+		}
+		.c-lay__item:target > * {
+			height: 100vh;
+			width: 100%;
+		}
+		.c-lay__item:target * {
 			border-radius: 0;
 		}
-		.c-ob:target .c-ob__close {
+		/* .c-lay__item:target .c-ob__close {
 			opacity: 1;
 			transform: scale(1);
-		}
-		.c-ob:target .c-ob__intro {
+		} */
+		.c-lay__item:target .c-ob__intro {
 			display: none;
 		}
-		.c-ob:target .c-ob__text {
+		.c-lay__item:target .c-ob__text {
 			max-height: auto;
 			opacity: 1;
 			transform: scale(1);
@@ -125,13 +139,19 @@
 				grid-template-columns: 1fr 1fr;
 				gap: 20px;
 			}
+			.c-lay__item:target .c-ob {
+				height: 100vh;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 768px;
+			}
 		}
 		</style>
 </head>
 <body>
 
-	<div class="c-ob" id="ob1" itemscope itemtype="http://schema.org/CreativeWork">
-		<a class="c-ob__close" href="#">×</a>
+<div class="c-lay__item" id="ob1">
+	<div class="c-ob" itemscope itemtype="http://schema.org/CreativeWork">
 		<figure class="c-ob__bg-wrapper" itemscope itemtype="http://schema.org/ImageObject">
 			<img class="c-ob__bg" itemprop="image" src="../assets/img/filter-demo.jpg" loading="lazy" />
 		</figure>
@@ -143,9 +163,10 @@
 		</section>
 		<a class="c-ob__link" href="#ob1" itemprop="url">Read more</a>
 	</div>
+</div>
 
-	<div class="c-ob" id="ob2" itemscope itemtype="http://schema.org/CreativeWork">
-		<a class="c-ob__close" href="#">×</a>
+<div class="c-lay__item" id="ob2">
+	<div class="c-ob" itemscope itemtype="http://schema.org/CreativeWork">
 		<figure class="c-ob__bg-wrapper" itemscope itemtype="http://schema.org/ImageObject">
 			<img class="c-ob__bg" itemprop="image" src="../assets/img/clippath-demo.jpg" loading="lazy" />
 		</figure>
@@ -157,9 +178,9 @@
 		</section>
 		<a class="c-ob__link" href="#ob2" itemprop="url">Read more</a>
 	</div>
-
-	<div class="c-ob" id="ob3" itemscope itemtype="http://schema.org/CreativeWork">
-		<a class="c-ob__close" href="#">×</a>
+</div>
+<div class="c-lay__item" id="ob3">
+	<div class="c-ob" itemscope itemtype="http://schema.org/CreativeWork">
 		<figure class="c-ob__bg-wrapper" itemscope itemtype="http://schema.org/ImageObject">
 			<img class="c-ob__bg" itemprop="image" src="../assets/img/filter-demo.jpg" loading="lazy" />
 		</figure>
@@ -171,5 +192,6 @@
 		</section>
 		<a class="c-ob__link" href="#ob3" itemprop="url">Read more</a>
 	</div>
+</div>
 </body>
 </html>

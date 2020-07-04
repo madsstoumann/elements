@@ -9,7 +9,10 @@ body {
 	/* min-height: -webkit-fill-available; */
 }
 code {
-	background-color: var(--c-grey-100);
+	background-color: #37B2AD;
+	color: #FEFEFE;
+	padding: 0 0.25em;
+	white-space: nowrap;
 }
 @media (prefers-color-scheme: dark) {
 	body {
@@ -17,6 +20,7 @@ code {
 		color: var(--c-txt--dark);
 	}
 	code {
+		background-color: #81E5d9;
 		color: var(--c-grey-900);
 	}
 }

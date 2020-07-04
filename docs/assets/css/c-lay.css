@@ -48,6 +48,7 @@
 
 	--lay-expand-h: 250px;
 
+	--lay-head-c: inherit;
 	--lay-head-maw: 100%;
 	--lay-head-pb: initial;
 	--lay-head-pt: initial;
@@ -88,8 +89,17 @@
 	text-align: var(--lay-desc-tal);
 }
 .c-lay__headline {
+	color: var(--lay-head-c);
 	max-width: var(--lay-head-maw);
 	text-align: var(--lay-head-tal);
+}
+.c-lay__header--line {
+	align-items: center;;
+	display: flex;
+	justify-content: space-between;
+}
+.c-lay__header--line * {
+	margin: 0 !important;
 }
 .c-lay__inner {
 	align-items: center;
@@ -660,6 +670,45 @@ DOTS
 }
 
 /*
+======
+CARDS
+======
+*/
+.c-lay__item--open > * {
+	overflow-y: scroll; 
+	position: relative;
+}
+.c-lay__item--open {
+	--lay-item-mis: 0px;
+	backdrop-filter: saturate(180%) blur(10px);
+	background-color: rgba(255,255,255,0.62);
+	transition: background-color 0.3s cubic-bezier(0.28, 0.11, 0.32, 1);
+	transition-property: background-color, backdrop-filter, -webkit-backdrop-filter;
+	bottom: 0;
+	border-radius: 0;
+	height: 100vh;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	width: 100vw !important;
+	z-index: 1;
+}
+.c-lay__item--open > * {
+	height: 100vh !important;
+	width: 100%;
+}
+@media screen and (min-width: 768px) {
+	.c-lay__item--open > * {
+		height: 100vh;
+		left: 50%;
+		top: calc(var(--lay-gap) * 2);
+		transform: translateX(-50%);
+		width: 768px;
+	}
+}
+
+/*
 =========
 EXPANDED
 =========
@@ -805,6 +854,44 @@ RIGHT-TO-LEFT
 	--lay-pr: 0px;
 	--lay-maw: 100%;
 }
+
+/* THEMES */
+.c-lay {
+	--lay-bg: #FFFFFF;
+	--lay-c: hsl(210, 24%, 16%);
+}
+.c-lay--theme01 {
+	--lay-bg:hsl(195, 20%, 95%);
+	--lay-c: hsl(210, 24%, 16%);
+}
+.c-lay--theme02 {
+	--lay-bg: hsl(195,100%,30%);
+	--lay-c: hsl(195, 100%, 100%);
+	--lay-scrbar-bg: hsl(195, 100%, 35%);
+	--lay-scrbar-thumb-bg: hsl(195, 100%, 90%);
+}
+@media (prefers-color-scheme: dark) {
+	.c-lay {
+		--lay-bg: #1A202C;
+		--lay-c: #FDFDFD;
+	}
+	.c-lay--theme01 {
+		--lay-bg:#2d3949;
+		--lay-c: #FEFEFE;
+	}
+	.c-lay--theme02 {
+		--lay-bg: #3a4656;
+		--lay-c: #FEFEFE;
+	}
+	.c-lay--theme03 {
+		--lay-bg: #4A5567;
+		--lay-c: #FEFEFE;
+	}
+}
+
+
+
+
 
 /* TODO Touch */
 @media (hover: none) and (pointer: coarse) {

@@ -26,7 +26,47 @@ Set attribute `data-section-type`.
 	- Set `data-section-type="stack"`
 	- Set `data-expanded="true"`
 ---
-## Layout [enum]  
+
+## Item Type [enum]
+Set attribute `data-item-type`
+1. Default
+2. Card
+
+## Theme [enum]
+A theme updates these five CSS Custom properties:
+1. `--lay-bg` (background-color)
+2. `--lay-c` (color)
+3. `--lay-head-c` (headline color)
+4. `--lay-scrbar-bg` (scrollbare background)
+5. `--lay-scrbar-thumb-bg` (scrollbar thumb)
+
+Default themes:
+
+1. Theme 1 (default)
+2. Theme 2: `.c-lay--theme01`
+3. Theme 3: `.c-lay--theme02`
+4. Theme 4: `.c-lay--theme03`
+5. Theme 5: `.c-lay--theme04` 
+
+_Example:_
+
+```css
+.c-lay--theme01 {
+	--lay-bg: hsl(195,100%,30%);
+	--lay-c: hsl(195, 100%, 100%);
+	--lay-scrbar-bg: hsl(195, 100%, 35%);
+	--lay-scrbar-thumb-bg: hsl(195, 100%, 90%);
+}
+@media (prefers-color-scheme: dark) {
+	.c-lay--theme01 {
+		--lay-bg:#2d3949;
+		--lay-c: #FEFEFE;
+	}
+}
+```
+
+
+## Phone Layout [enum]  
 Set attribute `data-layout`.
 1. None [default, don't render attribute]
 2. 100
