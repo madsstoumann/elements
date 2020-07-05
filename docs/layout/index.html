@@ -26,6 +26,15 @@
 			line-height: 1.2;
 			padding: .75rem 0 0 1rem;
 		}
+		.item--1 { background-color: hotpink; height: 200px; }
+		.item--2 { background-color: orange; height: 500px; }
+		.item--3 { background-color: greenyellow; height: 300px; }
+		.item--4 { background-color: plum; height: 600px; }
+		.item--5 { background-color: paleturquoise; height: 200px; }
+		.item--6 { background-color: burlywood; height: 400px; }
+		.item--7 { background-color: tomato; height: 300px; }
+		.item--8 { background-color: aquamarine; height: 600px; }
+		.item--9 { background-color: royalblue; height: 200px; }
 	</style>
 </head>
 <body class="typo typo--dynamic">
@@ -175,7 +184,7 @@
 			</div>
 		</header>
 		<div class="c-lay__outer" data-outer>
-			<div class="c-lay__toggle-layout" data-toggle-layout>Show all</div>
+			<div class="c-lay__toggle-layout c-ico-maa c-ico--arr_rgt" data-toggle-layout>Show all</div>
 			<div class="c-lay__inner" data-inner>
 				<div class="c-lay__item"><div class="item">1</div></div>
 				<div class="c-lay__item"><div class="item">2</div></div>
@@ -188,7 +197,7 @@
 			</div>
 		</div>
 	</section>
-
+ 
 	<section class="c-lay c-lay--theme02 c-lay--desc-m c-lay--head-m c-lay--pt"
 		data-animation="a-fade-in-bottom"
 		data-animation-target=".c-lay__item"
@@ -197,8 +206,9 @@
 		data-layout-desktop="25:25:25:25"
 		data-section-type="slider"
 		data-preview>
+		<header class="c-lay__header--line">
 			<h3 class="c-lay__headline c-headline--h4">Family-friendly releases</h3>
-			<div class="c-lay__toggle-layout" data-toggle-layout>Show all</div>
+			<div class="c-lay__toggle-layout c-ico-maa c-ico--arr_rgt" data-toggle-layout>Show all</div>
 		</header>
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
@@ -224,7 +234,7 @@
 		data-preview>
 		<header class="c-lay__header--line">
 			<h3 class="c-lay__headline c-headline--h4">Science Fiction and Fantasy releases</h3>
-			<div class="c-lay__toggle-layout" data-toggle-layout>Show all</div>
+			<div class="c-lay__toggle-layout c-ico-maa c-ico--arr_rgt" data-toggle-layout>Show all</div>
 		</header>
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
@@ -248,8 +258,9 @@
 		data-layout-desktop="100"
 		data-section-type="slider"
 		data-preview>
+		<header class="c-lay__header--line">
 			<h3 class="c-lay__headline c-headline--h4">Star Wars releases</h3>
-			<div class="c-lay__toggle-layout" data-toggle-layout>Show all</div>
+			<div class="c-lay__toggle-layout c-ico-maa c-ico--arr_rgt" data-toggle-layout>Show all</div>
 		</header>
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
@@ -431,6 +442,40 @@
 				<div class="c-lay__item"><div class="item">2</div></div>
 				<div class="c-lay__item"><div class="item">3</div></div>
 				<div class="c-lay__item"><div class="item">4</div></div>
+			</div>
+		</div>
+	</section>
+
+	<section class="c-lay c-lay--mb"
+		data-animation="a-fade-in-bottom"
+		data-animation-target=".c-lay__item"
+		data-section-type="masonry">
+		<header>
+			<h2 class="c-lay__headline c-headline--h1">Masonry</h2>
+			<div class="c-lay__description">
+				A masonry-simulation using CSS <code>column-count</code>.<br />
+				Columns change from 1 to 4, depending on device-width.
+			</div>
+		</header>
+		<div class="c-lay__outer" data-outer>
+			<div class="c-lay__inner" data-inner>
+				<div class="c-lay__item"><div class="item--1"></div></div>
+				<div class="c-lay__item"><div class="item--2"></div></div>
+				<div class="c-lay__item"><div class="item--3"></div></div>
+				<div class="c-lay__item"><div class="item--4"></div></div>
+				<div class="c-lay__item"><div class="item--5"></div></div>
+				<div class="c-lay__item"><div class="item--6"></div></div>
+				<div class="c-lay__item"><div class="item--7"></div></div>
+				<div class="c-lay__item"><div class="item--8"></div></div>
+				<div class="c-lay__item"><div class="item--9"></div></div>
+				<div class="c-lay__item"><div class="item--8"></div></div>
+				<div class="c-lay__item"><div class="item--7"></div></div>
+				<div class="c-lay__item"><div class="item--6"></div></div>
+				<div class="c-lay__item"><div class="item--5"></div></div>
+				<div class="c-lay__item"><div class="item--4"></div></div>
+				<div class="c-lay__item"><div class="item--3"></div></div>
+				<div class="c-lay__item"><div class="item--2"></div></div>
+				<div class="c-lay__item"><div class="item--1"></div></div>
 			</div>
 		</div>
 	</section>
