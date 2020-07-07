@@ -1,4 +1,12 @@
-# SectionBlock
+# Layout Block
+
+1. Headline
+	1. Tag Selector h1-h6
+	2. Style Selector h1-h6
+2. Description
+3. Content Area
+4. `Show All` Label
+5. `Collapse All` Label
 
 !!! TODO: Control description and headline widths individually from section inner width.
 Set margin gaps and padding
@@ -19,12 +27,11 @@ Set attribute `data-section-type`.
 	- Set `data-section-type="stack"`
 2. Slider
 	- Set `data-section-type="slider"`
-3. Expand - Collapsed
+3. Expand
 	- Set `data-section-type="stack"`
 	- Set `data-expanded="false"`
-4. Expand - Expanded
-	- Set `data-section-type="stack"`
-	- Set `data-expanded="true"`
+4. Masonry
+	- Set `data-section-type="masonry"`
 ---
 
 ## Item Type [enum]
@@ -159,18 +166,12 @@ _Examples:_
 ### Animation Target [enum]. Set `data-animation-target`.
 1. Section [default, don't set attribute]
 2. Items
-	- Set `data-animation-target="items"`
+	- Set `data-animation-target=".c-lay__item"`
 3. Both
 	- Set `data-animation-target="both"`
 ---
 ### Gap Between Items [enum]
-1. Default [default, don't set attribute]
-2. None
-	- Set `data-gap="none"`
-3. None, horizontally
-	- Set `data-gap="none-h"`
-4. None, vertically
-	- Set `data-gap="none-v"`
+
 ---
 ## CSS Custom Properties
 All these props must be set directly on the `style`-attribute of the section.

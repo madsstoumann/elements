@@ -1,0 +1,107 @@
+
+/*
+===========
+NAVIGATION
+===========
+*/
+.c-lay__nav {
+	display: block;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	
+}
+.c-lay__nav-expand {
+	display: flex;
+	justify-content: center;
+	padding-bottom: var(--lay-gap);
+	position: relative;
+}
+.c-lay__nav-inner {
+	align-items: center;
+	display: flex;
+	height: calc(100% - var(--lay-inner-pb));
+	margin: 0 auto;
+	max-width: var(--lay-inner-w);
+	position: relative;
+	width: 100%;
+}
+/* TODO: Create variables, control placement */
+.c-lay__nav-btn {
+	background-color: hsla(195, 75%, 15%, 0.85);
+	border: 0;
+	border-radius: var(--lay-nav-btn-sz);
+	color: #FFF;
+	cursor: pointer;
+	-webkit-font-smoothing: antialiased;
+	height: var(--lay-nav-btn-sz);
+	text-align: center;
+	transition: .25s background-color linear,.25s color linear,.25s opacity linear;
+	width: var(--lay-nav-btn-sz);
+	z-index: var(--lay-nav-btn-z);
+}
+.c-lay__nav-btn:disabled {
+	display: none;
+}
+.c-lay__nav-btn[rel="next"] {
+	position: absolute;
+	right: var(--lay-gap);
+}
+.c-lay__nav-btn[rel="prev"] {
+	left: var(--lay-gap);
+	position: absolute;
+}
+[dir="rtl"] .c-lay__nav-btn[rel="next"] {
+	left: var(--lay-gap);
+	right: auto;
+}
+[dir="rtl"] .c-lay__nav-btn[rel="prev"] {
+	left: auto;
+	right: var(--lay-gap);
+}
+.c-lay__nav-btn .c-ico-mai {
+	/* TODO */
+	--ico-h: 2em;
+	--ico-w: 2em;
+}
+[data-expanded="true"] .c-lay__nav-btn .c-ico-mai {
+	transform: rotate(180deg);
+}
+
+
+
+/*
+=====
+DOTS
+=====
+*/
+.c-lay__dot {
+	background-color: var(--lay-dot-bgc);
+	border: 0;
+	border-radius: var(--lay-dot-bdrs);
+	box-sizing: border-box;
+	display: block;
+	height: var(--lay-dot-h);
+	margin: var(--lay-dot-m);
+	padding: 0;
+	transition: .3s ease, background-color 0.3s ease-in;
+	width: var(--lay-dot-w);
+}
+.c-lay__dot--current {
+	background-color: var(--lay-dot-bgc--cur);
+}
+.c-lay__dots {
+	display: flex;
+	justify-content: center;
+	padding-bottom: var(--lay-dot-pb);
+	position: relative;
+}
+
+/* Modifiers */
+.c-lay__dot.c-lay__dot--line {
+	--lay-dot-bdrs: 0;
+	--lay-dot-h: 2px;
+	--lay-dot-w: 40px;
+}

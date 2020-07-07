@@ -130,6 +130,11 @@
   padding-bottom: var(--space-bottom);
   padding-top: var(--space-top);
 }
+
+.c-headline--h4 {
+  font-weight: 400;
+}
+
 .c-typ--small {
   --font-min: 0.5675;
   --font-max: 1;
