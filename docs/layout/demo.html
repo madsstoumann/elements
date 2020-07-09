@@ -106,14 +106,14 @@
 					Theme
 				</label>
 				<label class="app__label">	
-					<select data-type="dataset" data-key="layout">
+					<select data-type="dataset" data-key="gridPhone">
 						<option value="100" selected>100</option>
 						<option value="50:50">50:50</option>
 					</select>
-					Phone Layout
+					Phone Grid
 				</label>
 				<label class="app__label">	
-					<select data-type="dataset" data-key="layoutTablet">
+					<select data-type="dataset" data-key="gridTablet">
 						<option value="100">100</option>
 						<option value="50:50">50:50</option>
 						<option value="25:75">25:75</option>
@@ -124,11 +124,12 @@
 						<option value="50:25:25">50:25:25</option>
 						<option value="25:50:25">25:50:25</option>
 						<option value="25:25:50">25:25:50</option>
+						<option value="25:25:25:25">25:25:25:25</option>
 					</select>
-					Tablet Layout
+					Tablet Grid
 				</label>
 				<label class="app__label">	
-					<select data-type="dataset" data-key="layoutDesktop">
+					<select data-type="dataset" data-key="gridDesktop">
 						<option value="100">100</option>
 						<option value="50:50">50:50</option>
 						<option value="25:75">25:75</option>
@@ -136,12 +137,12 @@
 						<option value="33:33:33">33:33:33</option>
 						<option value="33:66">33:66</option>
 						<option value="66:33">66:33</option>
-						<option value="25:25:25:25" selected>25:25:25:25</option>
 						<option value="50:25:25">50:25:25</option>
 						<option value="25:50:25">25:50:25</option>
 						<option value="25:25:50">25:25:50</option>
+						<option value="25:25:25:25" selected>25:25:25:25</option>
 					</select>
-					Desktop Layout
+					Desktop Grid
 				</label>
 			</div>
 		</details>
@@ -261,7 +262,7 @@
 		</details>
 
 		<details>
-			<summary class="app__subheader">Animations</summary>
+			<summary class="app__subheader">Animations, Diagonal</summary>
 			<div class="app__fieldset">
 				<label class="app__label">	
 					<select data-type="dataset" data-key="animation">
@@ -287,6 +288,24 @@
 						<option value="both">both</option>
 					</select>
 					Animation Target
+				</label>
+				<label class="app__label">	
+					<select data-type="dataset" data-key="diagonal">
+						<option value="">none</option>
+						<option value="small">small</option>
+						<option value="small header">small, content only</option>
+						<option value="small content header">small, wrapper only</option>
+						<option value="small reverse">small reverse</option>
+						<option value="small header reverse">small reverse, content only</option>
+						<option value="small content header reverse">small reverse, wrapper only</option>
+						<option value="medium">medium</option>
+						<option value="medium header">medium, content only</option>
+						<option value="medium content header">medium, wrapper only</option>
+						<option value="medium reverse">medium reverse</option>
+						<option value="medium header reverse">medium reverse, content only</option>
+						<option value="medium content header reverse">medium reverse, wrapper only</option>
+					</select>
+					Diagonal Layout
 				</label>
 			</div>
 		</details>
@@ -314,7 +333,7 @@
 				<label class="app__label">	
 					<select data-type="dataset" data-key="itemType">
 						<option value="">default</option>
-						<option value="card">card</option>
+						<option value="popup">popup</option>
 					</select>
 					Item Type
 				</label>
@@ -329,10 +348,11 @@
 			data-animation="a-fade-in-bottom"
 			data-animation-target=""
 			data-collapsed-height="full"
+			data-diagonal=""
 			data-expanded="true"
-			data-layout="100"
-			data-layout-tablet="33:33:33"
-			data-layout-desktop="25:25:25:25"
+			data-grid-phone="100"
+			data-grid-tablet="33:33:33"
+			data-grid-desktop="25:25:25:25"
 			data-section-type="stack"
 			data-toggle-layout="false">
 			<header class="c-lay__header">
