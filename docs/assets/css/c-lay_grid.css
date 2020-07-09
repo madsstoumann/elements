@@ -1,6 +1,6 @@
 /**
  * c-lay_grid.css
- * @version 1.3.1
+ * @version 1.3.3
  * @summary 09-07-2020
  * @author Mads Stoumann
  * @description Stylesheet for Layout Component: Grid
@@ -236,11 +236,11 @@ GRID DESKTOP
 	}
 	[data-section-type="slider"][data-grid-desktop="25:75"] .c-lay__item:nth-of-type(2n+1),
 	[data-section-type="slider"][data-grid-desktop="75:25"] .c-lay__item:nth-of-type(2n+2) {
-		--lay-gap-num: 1;
+		--lay-gap-num: 2;
 	}
 	[data-section-type="slider"][data-grid-desktop="75:25"] .c-lay__item:nth-of-type(2n+1),
 	[data-section-type="slider"][data-grid-desktop="25:75"] .c-lay__item:nth-of-type(2n+2) {
-		--lay-gap-num: 0.5;
+		--lay-gap-num: 2;
 	}
 	/* 25% / 50% */
 	[data-grid-desktop="50:25:25"] .c-lay__item:nth-of-type(3n+1),
@@ -271,12 +271,6 @@ GRID DESKTOP
 	[data-section-type="slider"][data-grid-desktop="25:25:50"] .c-lay__item:nth-of-type(3n+2) {
 		--lay-gap-num: (3/2);
 	}
-	[data-section-type="masonry"][data-grid-desktop="50:50"] {
-		--lay-colmc: 2;
-	}
-	[data-section-type="masonry"][data-grid-desktop="50:50"] .c-lay__item {
-		--lay-w50: 100%;
-	}
 	/* 33% */
 	[data-grid-desktop="33:33:33"] .c-lay__item {
 		--lay-gap-num: (3/2);
@@ -302,21 +296,28 @@ GRID DESKTOP
 	}
 	[data-section-type="slider"][data-grid-desktop="66:33"] .c-lay__item:nth-of-type(2n+2),
 	[data-section-type="slider"][data-grid-desktop="33:66"] .c-lay__item:nth-of-type(2n+1) {
-		--lay-gap-num: 1;
+		--lay-gap-num: 2;
 	}
 	[data-section-type="slider"][data-grid-desktop="66:33"] .c-lay__item:nth-of-type(2n+1),
 	[data-section-type="slider"][data-grid-desktop="33:66"] .c-lay__item:nth-of-type(2n+2) {
-		--lay-gap-num: 0.5;
+		--lay-gap-num: 2;
 	}
 	/* 50% */
 	[data-grid-desktop="50:50"] .c-lay__item {
 		--lay-item-w: var(--lay-w50);
 	}
 	[data-section-type="slider"][data-grid-desktop="50:50"] .c-lay__item {
-		--lay-gap-num: (2/3);
+		--lay-gap-num: 2;
+	}
+	[data-section-type="masonry"][data-grid-desktop="50:50"] {
+		--lay-colmc: 2;
+	}
+	[data-section-type="masonry"][data-grid-desktop="50:50"] .c-lay__item {
+		--lay-w50: 100%;
 	}
 	/* 100% */
 	[data-section-type="slider"][data-grid-desktop="100"] .c-lay__item {
+		--lay-gap-num: 0;
 		--lay-items-per-page: 1;
 		--lay-item-w: var(--lay-w100);
 	}

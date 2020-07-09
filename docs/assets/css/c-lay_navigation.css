@@ -13,6 +13,9 @@ NAVIGATION
 	width: 100%;
 	
 }
+.c-lay__nav[hidden] {
+	display: none;
+}
 .c-lay__nav-expand {
 	display: flex;
 	justify-content: center;
@@ -70,6 +73,10 @@ NAVIGATION
 	transform: rotate(180deg);
 }
 
+[data-section-type="stack"] .c-lay__dots,
+[data-section-type="stack"] .c-lay__nav {
+	display: none;
+}
 
 
 /*
@@ -95,7 +102,7 @@ DOTS
 .c-lay__dots {
 	display: flex;
 	justify-content: center;
-	padding-bottom: var(--lay-dot-pb);
+	padding-top: var(--lay-dot-pt);
 	position: relative;
 }
 

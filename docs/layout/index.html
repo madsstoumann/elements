@@ -17,7 +17,7 @@
 		}
 		.item {
 			background-color: deepskyblue;
-			box-shadow: 0px 10px 5px -5px rgba(0, 0, 0, 0.15);
+			/* box-shadow: 0px 10px 5px -5px rgba(0, 0, 0, 0.15); */
 			border-radius: 0px;
 			color: #FFF;
 			font-family: sans-serif;
@@ -47,9 +47,11 @@
 	-->
 <main class="c-lay__wrapper">
 
-	<section class="c-lay c-lay--theme02 c-lay--full c-lay--desc-s"
-		data-auto-play=":true"
-		data-section-type="slider">
+	<section class="c-lay c-lay--full c-lay--desc-s"
+		data-align="strech"
+		data-auto-play="6000"
+		data-section-type="slider"
+		data-theme="theme02">
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
 				<div class="c-lay__item"><div class="item">full-width &mdash; slide 1</div></div>
@@ -70,6 +72,7 @@
 	</section>
 
 	<section class="c-lay c-lay--desc-m"
+		data-align="strech"
 		data-grid-phone="100"
 		data-grid-tablet="100"
 		data-grid-desktop="100"
@@ -101,6 +104,7 @@
 	</section>
 
 	<section class="c-lay c-lay--head-m c-lay--desc-s"
+		data-align="strech"
 		data-grid-phone="100"
 		data-grid-tablet="50:50"
 		data-grid-desktop="33:33:33"
@@ -123,11 +127,13 @@
 		</div>
 	</section>
 
-	<section class="c-lay c-lay--theme01 c-lay--w-xl c-lay--desc-m c-lay--head-m c-lay--mt"
+	<section class="c-lay c-lay--w-xl c-lay--desc-m c-lay--head-m c-lay--mt"
+		data-align="strech"	
 		data-grid-phone="50:50"
 		data-grid-tablet="33:66"
 		data-grid-desktop="25:25:25:25"
-		data-section-type="stack">
+		data-section-type="stack"
+		data-theme="theme01">
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline c-headline--h1">Grouped stacked sections with layout changes</h2>
 			<div class="c-lay__description">
@@ -145,25 +151,29 @@
 		</div>
 	</section>
 
-	<section class="c-lay c-lay--theme01 c-lay--w-xl"
+	<section class="c-lay c-lay--w-xl"
+		data-align="strech"
 		data-grid-phone="50:50"
 		data-grid-tablet="33:33:33"
 		data-grid-desktop="25:50:25"
-		data-section-type="stack">
+		data-section-type="stack"
+		data-theme="theme01">
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
 				<div class="c-lay__item"><div class="item">50% <br/> 33% <br/> 25%</div></div>
 				<div class="c-lay__item"><div class="item">50% <br/> 33% <br/> 50%</div></div>
-				<div class="c-lay__item"><div class="item">50% <br/> 33% <br/> 25%</div></div>
+				<div class="c-lay__item"><div class="item">50% (flex-grow) <br/> 33% <br/> 25%</div></div>
 			</div>
 		</div>
 	</section>
 
-	<section class="c-lay c-lay--theme01 c-lay--w-xl"
+	<section class="c-lay c-lay--w-xl"
+		data-align="strech"	
 		data-grid-phone="100"
 		data-grid-tablet="50:50"
 		data-grid-desktop="75:25"
-		data-section-type="stack">
+		data-section-type="stack"
+		data-theme="theme01">
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
 				<div class="c-lay__item"><div class="item">100% <br/> 50% <br/> 75%</div></div>
@@ -172,8 +182,10 @@
 		</div>
 	</section>
 
-	<section class="c-lay c-lay--theme02 c-lay--desc-s c-lay--head-m"
-		data-section-type="stack">
+	<section class="c-lay c-lay--desc-s c-lay--head-m"
+		data-align="strech"	
+		data-section-type="stack"
+		data-theme="theme02">
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline c-headline--h1">Grouped slider sections with preview</h2>
 			<div class="c-lay__description">
@@ -185,7 +197,8 @@
 		</div>
 	</section>
 
-	<section class="c-lay c-lay--theme02"
+	<section class="c-lay"
+		data-align="strech"
 		data-animation="a-fade-in-bottom"
 		data-animation-target=".c-lay__item"
 		data-grid-phone="50:50"
@@ -194,6 +207,7 @@
 		data-item-type="popup"
 		data-preview="next"
 		data-section-type="slider"
+		data-theme="theme02"
 		data-toggle-layout="true">
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline c-headline--h4">Grouped slider sections with preview</h2>
@@ -213,7 +227,8 @@
 		</div>
 	</section>
  
-	<section class="c-lay c-lay--theme02 c-lay--desc-m c-lay--head-m"
+	<section class="c-lay c-lay--desc-m c-lay--head-m"
+		data-align="strech"
 		data-animation="a-fade-in-bottom"
 		data-animation-target=".c-lay__item"
 		data-grid-phone="100"
@@ -221,6 +236,7 @@
 		data-grid-desktop="25:25:25:25"
 		data-preview="next"
 		data-section-type="slider"
+		data-theme="theme02"
 		data-toggle-layout="true">
 		<header class="c-lay__header">
 			<h3 class="c-lay__headline c-headline--h4">Family-friendly releases</h3>
@@ -240,7 +256,8 @@
 		</div>
 	</section>
 
-	<section class="c-lay c-lay--theme02 c-lay--desc-m c-lay--head-m"
+	<section class="c-lay c-lay--desc-m c-lay--head-m"
+		data-align="strech"
 		data-animation="a-fade-in-bottom"
 		data-animation-target=".c-lay__item"
 		data-grid-phone="100"
@@ -248,6 +265,7 @@
 		data-grid-desktop="33:33:33"
 		data-preview="next"
 		data-section-type="slider"
+		data-theme="theme02"
 		data-toggle-layout="true">
 		<header class="c-lay__header">
 			<h3 class="c-lay__headline c-headline--h4">Science Fiction and Fantasy releases</h3>
@@ -267,7 +285,8 @@
 		</div>
 	</section>
 
-	<section class="c-lay c-lay--theme02 c-lay--mb c-lay--pb c-lay--desc-m c-lay--head-m"
+	<section class="c-lay c-lay--mb c-lay--pb c-lay--desc-m c-lay--head-m"
+		data-align="strech"
 		data-animation="a-fade-in-bottom"
 		data-animation-target=".c-lay__item"
 		data-grid-phone="100"
@@ -275,6 +294,7 @@
 		data-grid-desktop="100"
 		data-preview="next"
 		data-section-type="slider"
+		data-theme="theme02"
 		data-toggle-layout="true">
 		<header class="c-lay__header">
 			<h3 class="c-lay__headline c-headline--h4">Star Wars releases</h3>
@@ -294,13 +314,15 @@
 		</div>
 	</section>
 
-	<section class="c-lay c-lay--theme01 c-lay--w-m c-lay--head-m c-lay--desc-m"
+	<section class="c-lay c-lay--w-m c-lay--head-m c-lay--desc-m"
+		data-align="strech"	
 		data-animation="a-fade-in-bottom"
 		data-animation-target=".c-lay__item"
 		data-grid-phone="100"
 		data-grid-tablet="50:50"
 		data-grid-desktop="25:25:25:25"
-		data-section-type="stack">
+		data-section-type="stack"
+		data-theme="theme01">
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline c-headline--h1">Breaker-section without content</h2>
 			<div class="c-lay__description">
@@ -314,6 +336,7 @@
 	</section>
 
 	<section class="c-lay c-lay--mb c-lay--head-m"
+		data-align="strech"	
 		data-animation="a-fade-in-bl"
 		data-grid-phone="100"
 		data-grid-tablet="33:33:33"
@@ -342,14 +365,16 @@
 		</div>
 	</section>
 
-	<section class="c-lay c-lay--theme03 c-lay--mb c-lay--head-m"
+	<section class="c-lay c-lay--mb c-lay--head-m"
+		data-align="strech"	
 		data-animation="a-fade-in-bottom"
 		data-collapsed-height="small"
 		data-expanded="false"
 		data-grid-phone="100"
 		data-grid-tablet="66:33"
 		data-grid-desktop="66:33"
-		data-section-type="stack">
+		data-section-type="stack"
+		data-theme="theme01">
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline c-headline--h1">Section with expand and collapse functionality</h2>
 			<div class="c-lay__description">
@@ -369,18 +394,19 @@
 			<span class="c-lay__nav-btn">
 				<i class="c-lay__nav-ico c-ico-mai c-ico--arr_dwn"></i>
 			</span>
-			<span class="c-lay__nav-txt">Show all</span>
+			<span class="c-lay__nav-txt" data-toggle-label>Show all</span>
 		</button>
 
 	</section>
 
-	<section class="c-lay"
-		
+	<section class="c-lay c-lay--pb"
+		data-align="strech"
 		data-grid-phone="100"
 		data-grid-tablet="50:50"
 		data-grid-desktop="33:33:33"
+		data-loop="true"
 		data-section-type="slider"
-		data-loop=":true">
+		data-theme="theme03">
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline c-headline--h1">Slider with continuos loop</h2>
 			<div class="c-lay__description">
@@ -403,6 +429,7 @@
 	</section>
 
 	<section class="c-lay c-lay--head-m c-lay--mb"
+		data-align="strech"
 		data-animation="a-fade-in-bl"
 		data-nogap="column"
 		data-grid-phone="100"
@@ -424,6 +451,7 @@
 	</section>
 
 	<section class="c-lay c-lay--head-m c-lay--mb"
+		data-align="strech"	
 		data-animation="a-fade-in-bl"
 		data-nogap="row"
 		data-grid-phone="100"
@@ -447,6 +475,7 @@
 	</section>
 
 	<section class="c-lay c-lay--head-m c-lay--mb"
+		data-align="strech"
 		data-animation="a-fade-in-bl"
 		data-nogap="column row"
 		data-grid-phone="100"
@@ -469,7 +498,7 @@
 		</div>
 	</section>
 
-	<section class="c-lay c-lay--mb c-lay--equal"
+	<section class="c-lay c-lay--mb"
 		data-animation="a-fade-in-bottom"
 		data-animation-target=".c-lay__item"
 		data-grid-phone="50:50"
@@ -508,128 +537,10 @@
 	</section>
 
 </main>
-
-	<!-- <script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script> -->
-	<script type="module">
-		const elements = document.querySelectorAll('[data-section-type="slider"]');
-			if (elements.length) {
-				import('../assets/js/slider.mjs')
-				.then(module => {
-					const jsClass = module.default;
-					elements.forEach(element => {
-						// new jsClass(element, element.dataset);
-					});
-				})
-			}
-
-	/* Trigger animations */
-	const io = new IntersectionObserver((entries) => {	
-	entries.forEach(entry => {
-		if (entry.isIntersecting) {
-			const section = entry.target;
-			const animation = section.dataset.animation;
-			const target = section.dataset.animationTarget;
-			if (target) {
-				const items = section.querySelectorAll(section.dataset.animationTarget);
-				items.forEach(item => {
-					item.classList.add(animation)
-				});
-				if (target === 'both') {
-					section.classList.add(animation);
-				}
-			}
-			else {
-				section.classList.add(animation);
-			}
-			io.unobserve(entry.target);
-		}
-		},
-		{
-			threshold: [0.5]
-		});
-	});
-	const sections = document.querySelectorAll('[data-animation]')
-	sections.forEach(section => {
-		io.observe(section);
-	});
-
-	/* Expand / Collapse */
-	const togglers = document.querySelectorAll(`[data-toggle-expanded]`)
-	togglers.forEach(toggle => {
-		// const section = toggle.closest('.c-lay');
-		// 	const outer = section.querySelector('.c-lay__outer');
-		// 	section.setAttribute('aria-expanded', 'false');
-		toggle.addEventListener('click', () => {
-			const section = toggle.closest('.c-lay');
-			const outer = section.querySelector('.c-lay__outer');
-			const height = outer.scrollHeight;
-			
-			if (section) {
-				const expanded = section.dataset.expanded === 'true';
-				if (expanded) {
-					outer.removeAttribute('style');
-					section.dataset.expanded = 'false';
-					section.setAttribute('aria-expanded', 'false');
-					const rect = section.getBoundingClientRect();
-					const scrollPos = (window.pageYOffset || document.documentElement.scrollTop) - (document.documentElement.clientTop || 0);
-					window.setTimeout( () => {
-						window.scrollTo({ top: parseInt(rect.top + scrollPos), behavior: 'smooth'});
-					}, 250);
-				}
-				else {
-					outer.style.height = `${height}px`;
-					section.dataset.expanded = 'true';
-					section.setAttribute('aria-expanded', 'true');
-				}
-				toggle.dataset.expanded = expanded ? 'false' : 'true';
-				/* TODO! */
-				toggle.children[1].innerText = expanded ? toggle.dataset.toggleCollapsed : toggle.dataset.toggleExpanded;
-			}
-		})
-	});
-
-	/* Toggle Layout */
-	const togglelayout = document.querySelectorAll(`[data-layout-collapsed]`)
-	togglelayout.forEach(toggle => {
-		toggle.addEventListener('click', () => {
-			const section = toggle.closest('.c-lay');
-			if (section.dataset.sectionType === 'slider') {
-				section.dataset.sectionType = 'stack';
-				toggle.innerText = toggle.dataset.layoutExpanded;
-			}
-			else if (section.dataset.sectionType === 'stack') {
-				section.dataset.sectionType = 'slider';
-				toggle.innerText = toggle.dataset.layoutCollapsed;
-			}
-		});
-	});
-
-	/* Item Popup */
-	const items = document.querySelectorAll(`[data-item-type="popup"] .c-lay__item`);
-	items.forEach(item => {
-		item.addEventListener('click', () => {
-			if (item.classList.contains('c-lay__item--popup')) {
-				const body = document.body;
-				const scrollY = body.style.top;
-				body.style.position = '';
-				body.style.top = '';
-				window.scrollTo(0, parseInt(scrollY || '0') * -1);
-				item.classList.remove('c-lay__item--popup');
-			} else {
-				const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
-				const body = document.body;
-				body.style.position = 'fixed';
-				body.style.top = `-${scrollY}`;
-				item.classList.add('c-lay__item--popup');
-			}
-		});
-	});
-
-	/* TODO: Wrap in debounce!!! */
-	window.addEventListener('scroll', () => {
-		document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`);
-	});
-
+<!-- <script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script> -->
+<script type="module">
+	import { Layout } from '../assets/js/layout.mjs';
+	new Layout();
 </script>
 </body>
 </html>
