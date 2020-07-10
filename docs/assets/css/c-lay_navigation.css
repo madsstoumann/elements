@@ -121,20 +121,25 @@
 	left: calc(var(--lay-nav-btn-ico-bdw) * -1);
 }
 
+.c-lay__nav-btn[rel="next"]:focus,
+.c-lay__nav-btn[rel="prev"]:focus,
 .c-lay__nav-btn[rel="next"]:hover,
 .c-lay__nav-btn[rel="prev"]:hover {
 	box-shadow: 0 0 0 8px var(--lay-nav-btn-bxsh);
 	opacity: 1;
 }
+.c-lay__nav-btn[rel="next"]:focus i,
 .c-lay__nav-btn[rel="next"]:hover i {
 	left: calc(var(--lay-nav-btn-ico-bdw) / 2);
 }
 
+.c-lay__nav-btn[rel="prev"]:focus i,
 .c-lay__nav-btn[rel="prev"]:hover i {
 	left: calc(var(--lay-nav-btn-ico-bdw) * -1);
 }
 
-
+.c-lay__nav-btn[rel="next"]:focus i::before,
+.c-lay__nav-btn[rel="prev"]:focus i::before,
 .c-lay__nav-btn[rel="next"]:hover i::before,
 .c-lay__nav-btn[rel="prev"]:hover i::before {
 	width: calc(var(--lay-nav-btn-ico-sz) * 1.25);
