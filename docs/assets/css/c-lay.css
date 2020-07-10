@@ -235,6 +235,7 @@ MODIFIERS
 [data-diagonal*="medium"] {
 	transform: var(--lay-diag-skew) var(--lay-diag-transY);
 	margin-bottom: calc(var(--lay-diag-p) * 2);
+	padding-bottom: calc(var(--lay-diag-p) / 2);
 }
 [data-diagonal*="content"] .c-lay__outer {
 	padding-bottom: calc(var(--lay-diag-p) * 2);

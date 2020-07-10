@@ -2,7 +2,7 @@
  * Layout module.
  * @module /assets/js/layout
  * @requires /assets/js/common
- * @version 1.1.01
+ * @version 1.1.02
  * @summary 10-07-2020
  * @description Helper-functions for Layout Block
  * @example
@@ -19,6 +19,7 @@ export class Layout {
 
 	init() {
 		this.expandCollapse(document.querySelectorAll(`[data-toggle-expanded]`));
+		this.isTouch = ('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
 		this.itemPopup(document.querySelectorAll(`[data-item-type='popup'] .c-lay__item`));
 		this.observeAnimations(document.querySelectorAll('[data-animation]'));
 		this.toggleLayout(document.querySelectorAll(`[data-layout-collapsed]`));
@@ -28,7 +29,11 @@ export class Layout {
 		}))
 
 		const sliders = document.querySelectorAll(`[data-section-type='slider']`);
-		sliders.forEach(slider => { new Slider(slider); })
+		sliders.forEach(slider => { 
+			if (!(this.isTouch && slider.dataset.preview)) {
+				new Slider(slider);
+			}
+		})
 	}
 
 	/**
@@ -157,7 +162,7 @@ export class Layout {
 /**
  * Slider
  * @requires /assets/js/common
- * @version 1.1.01
+ * @version 1.1.02
  * @summary 10-07-2020
  * @description Slider-functionality for Layout Block
  * @example
@@ -214,8 +219,8 @@ export class Slider {
 
 		if (!this.state.loop) {
 			/* Set navigation buttons to disabled, if first or last */
-			// this.elements.next.toggleAttribute('disabled', this.state.page === this.state.pages);
-			// this.elements.prev.toggleAttribute('disabled', this.state.page === 1);
+			this.elements.next.toggleAttribute('disabled', this.state.page === this.state.pages);
+			this.elements.prev.toggleAttribute('disabled', this.state.page === 1);
 		}
 		if (this.itemsPerPage === 1) {
 			this.updateDots(page);
@@ -253,15 +258,15 @@ export class Slider {
 		const resizeObserver = new ResizeObserver(() => {
 				this.refreshSlider()
 
-				if (this.isTouch) {
-					if (this.itemsPerPage > 1) {
-						this.elements.nav.hidden = true;
-					}
-					else {
-						console.log(this.slider.dataset.preview === 'next')
-						// this.elements.nav.hidden = false;	
-					}
-				}
+				// if (this.isTouch) {
+				// 	if (this.itemsPerPage > 1) {
+				// 		this.elements.nav.hidden = true;
+				// 	}
+				// 	else {
+				// 		console.log(this.slider.dataset.preview === 'next')
+				// 		// this.elements.nav.hidden = false;	
+				// 	}
+				// }
 		});
 
 		resizeObserver.observe(this.slider);
