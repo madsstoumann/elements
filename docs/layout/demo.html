@@ -161,6 +161,13 @@
 					</select>
 					Diagonal Layout
 				</label>
+				<label class="app__label">	
+					<select data-type="dataset" data-key="toggleLayout">
+						<option value="false" selected>disabled</option>
+						<option value="true">enabled</option>
+					</select>
+					Toggle Layout
+				</label>
 			</div>
 		</details>
 
@@ -232,7 +239,6 @@
 		<details>
 			<summary class="app__subheader">Header</summary>
 			<div class="app__fieldset">
-				<label class="app__label--checkline"><input type="checkbox" data-elm="">Header below content</label>
 				<label class="app__label">	
 					<select data-type="dataset" data-key="alignHeader">
 						<option value="center" selected>center</option>
@@ -240,6 +246,17 @@
 						<option value="right">right</option>
 					</select>
 					Header Align
+				</label>
+				<label class="app__label">	
+					<select data-type="css-headline-tag">
+						<option value="h1" selected>h1</option>
+						<option value="h2">h2</option>
+						<option value="h3">h3</option>
+						<option value="h4">h4</option>
+						<option value="h5">h5</option>
+						<option value="	h6">h6</option>
+					</select>
+					Headline Tag
 				</label>
 				<label class="app__label">	
 					<select data-type="css-headline" data-key="c-headline--">
@@ -268,13 +285,9 @@
 							</select>
 					Description Width
 				</label>
-				<label class="app__label">	
-					<select data-type="dataset" data-key="toggleLayout">
-						<option value="false" selected>disabled</option>
-						<option value="true">enabled</option>
-					</select>
-					Toggle Layout
-				</label>
+			</div>
+			<div class="app__fieldset">
+				<label class="app__label--checkline"><input type="checkbox" data-elm="">Header below content</label>
 			</div>
 		</details>
 
@@ -328,7 +341,6 @@
 					</select>
 					Animation Target
 				</label>
-
 			</div>
 		</details>
 
