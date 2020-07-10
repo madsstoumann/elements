@@ -135,7 +135,8 @@
 
 .c-lay__nav-btn[rel="prev"]:focus i,
 .c-lay__nav-btn[rel="prev"]:hover i {
-	left: calc(var(--lay-nav-btn-ico-bdw) * -1);
+	/* left: calc(var(--lay-nav-btn-ico-bdw) * -1); */
+	left: 0;
 }
 
 .c-lay__nav-btn[rel="next"]:focus i::before,
