@@ -78,10 +78,14 @@
 }
 .c-lay__nav-btn[rel="next"] {
 	position: absolute;
-	right: var(--lay-gap);
+	right: calc(var(--lay-gap) * 2);
 }
+/* [data-preview="next"] .c-lay__nav-btn[rel="next"] {
+	position: absolute;
+	right: var(--lay-gap);
+} */
 .c-lay__nav-btn[rel="prev"] {
-	left: var(--lay-gap);
+	left: calc(var(--lay-gap) * 2);
 	position: absolute;
 }
 [dir="rtl"] .c-lay__nav-btn[rel="next"] {
