@@ -244,9 +244,9 @@ export class Slider {
 			dots: h('nav', { class: this.settings.clsDotWrap }),
 			inner: this.slider.querySelector('[data-inner]'),
 			nav: h('nav', { class: this.settings.clsNav }, [h('div', { class: this.settings.clsNavInner })]),
-			next: h('button', { class: this.settings.clsBtnNext, rel: 'next' }, [this.settings.lblNext]),
+			next: h('button', { class: this.settings.clsBtnNext, rel: 'next' }, [h('i')]),
 			outer: this.slider.querySelector('[data-outer]'),
-			prev: h('button', { class: this.settings.clsBtnPrev, rel: 'prev' }, [this.settings.lblPrev])
+			prev: h('button', { class: this.settings.clsBtnPrev, rel: 'prev' }, [h('i')])
 		}
 
 		this.elements.nav.firstElementChild.appendChild(this.elements.prev);
@@ -257,16 +257,6 @@ export class Slider {
 		/* Detect resize: Add/remove dots and arrows */
 		const resizeObserver = new ResizeObserver(() => {
 				this.refreshSlider()
-
-				// if (this.isTouch) {
-				// 	if (this.itemsPerPage > 1) {
-				// 		this.elements.nav.hidden = true;
-				// 	}
-				// 	else {
-				// 		console.log(this.slider.dataset.preview === 'next')
-				// 		// this.elements.nav.hidden = false;	
-				// 	}
-				// }
 		});
 
 		resizeObserver.observe(this.slider);

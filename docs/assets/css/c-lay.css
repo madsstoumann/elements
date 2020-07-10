@@ -44,6 +44,8 @@
 	--lay-nav-btn-bxsh: hsla(195, 75%, 95%, 0.35);
 	--lay-nav-btn-bxsh--focus: hsla(195, 75%, 15%, 0.35);
 	--lay-nav-btn-c: hsla(195, 75%, 95%, 1);
+	--lay-nav-btn-ico-bdw: 2px;
+	--lay-nav-btn-ico-sz: 1rem;
 	--lay-nav-btn-sz: 52px;
 	--lay-nav-btn-z: 1;
 
@@ -312,6 +314,16 @@ MODIFIERS
 	justify-content: center;
 	margin-bottom: var(--lay-gap);
 }
+[data-toggle-expanded] span i {
+	bottom: var(--lay-nav-btn-ico-bdw);
+	transform: rotate(135deg);
+}
+/* TODO */
+[data-expanded="true"] [data-toggle-expanded] span i {
+	top: var(--lay-nav-btn-ico-bdw);
+	transform: rotate(-45deg);
+}
+
 [data-toggle-expanded]:focus {
 	outline: none;
 }
@@ -393,6 +405,16 @@ MODIFIERS
 }
 [data-nav*="scroll"] .c-lay__inner::-webkit-scrollbar-thumb:window-inactive {
 	background: var(--lay-scrbar-thumb-bg); 
+}
+
+/* SCROLL-SNAP: Add to `c-lay__wrapper` for vertical scroll-snap */
+.c-lay--scrollsnap {
+	max-height: 100vh; /* This line can cause scrollTop-issues with xpand/collapse */
+	overflow-y: scroll;
+	scroll-snap-type: y proximity;
+}
+.c-lay--scrollsnap .c-lay {
+	scroll-snap-align: start;
 }
 
 /* STACK */
@@ -500,16 +522,6 @@ MODIFIERS
 [data-section-type="stack"][data-toggle-layout="true"] .c-lay__header {
 	padding-inline-end: 0;
 	padding-inline-start: 0;
-}
-
-/* SCROLL-SNAP: Add to `c-lay__wrapper` for vertical scroll-snap */
-.c-lay--scrollsnap {
-	/* max-height: 100vh; */ /* This line can cause scrollTop-issues */
-	overflow-y: scroll;
-	scroll-snap-type: y proximity;
-}
-.c-lay--scrollsnap .c-lay {
-	scroll-snap-align: start;
 }
 
 /* WIDTHS */
