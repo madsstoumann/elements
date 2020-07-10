@@ -39,17 +39,12 @@
 </head>
 <body class="typo typo--dynamic">
 
-	<!--
-		stack - no gap between rows:
-		--lay-item-mb: 0px;
-		--lay-inner-pb: var(--lay-gap);
-
-	-->
 <main class="c-lay__wrapper">
 
 	<section class="c-lay c-lay--full c-lay--desc-s"
 		data-align="strech"
-		data-auto-play="6000"
+		data-auto-play="false"
+		data-nav="arrows dots inside"
 		data-section-type="slider"
 		data-theme="theme02">
 		<div class="c-lay__outer" data-outer>
@@ -76,6 +71,7 @@
 		data-grid-phone="100"
 		data-grid-tablet="100"
 		data-grid-desktop="100"
+		data-nav="arrows dots"
 		data-preview="next"
 		data-section-type="slider">
 		<header class="c-lay__header">
@@ -205,13 +201,14 @@
 		data-grid-tablet="25:25:25:25"
 		data-grid-desktop="25:25:25:25"
 		data-item-type="popup"
+		data-nav="arrows scroll"
 		data-preview="next"
 		data-section-type="slider"
 		data-theme="theme02"
 		data-toggle-layout="true">
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline c-headline--h4">Grouped slider sections with preview</h2>
-			<div data-layout-expanded="Collapse All" data-layout-collapsed="Show All">Show all</div>
+			<button type="button" data-layout-expanded="Collapse All" data-layout-collapsed="Show All">Show all</button>
 		</header>
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
@@ -234,13 +231,14 @@
 		data-grid-phone="100"
 		data-grid-tablet="33:33:33"
 		data-grid-desktop="25:25:25:25"
+		data-nav="arrows scroll"
 		data-preview="next"
 		data-section-type="slider"
 		data-theme="theme02"
 		data-toggle-layout="true">
 		<header class="c-lay__header">
 			<h3 class="c-lay__headline c-headline--h4">Family-friendly releases</h3>
-			<div data-layout-expanded="Collapse All" data-layout-collapsed="Show All">Show all</div>
+			<button type="button" data-layout-expanded="Collapse All" data-layout-collapsed="Show All">Show all</button>
 		</header>
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
@@ -263,13 +261,14 @@
 		data-grid-phone="100"
 		data-grid-tablet="50:50"
 		data-grid-desktop="33:33:33"
+		data-nav="arrows scroll"
 		data-preview="next"
 		data-section-type="slider"
 		data-theme="theme02"
 		data-toggle-layout="true">
 		<header class="c-lay__header">
 			<h3 class="c-lay__headline c-headline--h4">Science Fiction and Fantasy releases</h3>
-			<div data-layout-expanded="Collapse All" data-layout-collapsed="Show All">Show all</div>
+			<button type="button" data-layout-expanded="Collapse All" data-layout-collapsed="Show All">Show all</button>
 		</header>
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
@@ -292,13 +291,14 @@
 		data-grid-phone="100"
 		data-grid-tablet="100"
 		data-grid-desktop="100"
+		data-nav="arrows dots scroll"
 		data-preview="next"
 		data-section-type="slider"
 		data-theme="theme02"
 		data-toggle-layout="true">
 		<header class="c-lay__header">
 			<h3 class="c-lay__headline c-headline--h4">Star Wars releases</h3>
-			<div data-layout-expanded="Collapse All" data-layout-collapsed="Show All">Show all</div>
+			<button type="button" data-layout-expanded="Collapse All" data-layout-collapsed="Show All">Show all</button>
 		</header>
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
@@ -314,19 +314,20 @@
 		</div>
 	</section>
 
-	<section class="c-lay c-lay--w-m c-lay--head-m c-lay--desc-m"
+	<section class="c-lay c-lay--w-m c-lay--mt-3x c-lay--head-s c-lay--desc-s"
 		data-align="strech"	
 		data-animation="a-fade-in-bottom"
 		data-animation-target=".c-lay__item"
+		data-diagonal="small header"
 		data-grid-phone="100"
 		data-grid-tablet="50:50"
 		data-grid-desktop="25:25:25:25"
 		data-section-type="stack"
-		data-theme="theme01">
+		data-theme="theme04">
 		<header class="c-lay__header">
-			<h2 class="c-lay__headline c-headline--h1">Breaker-section without content</h2>
+			<h2 class="c-lay__headline c-headline--h1">Diagonal breaker-section without any content</h2>
 			<div class="c-lay__description">
-				A section without stacked content or slider.
+				A section without stacked content or slider, with the modifier <code>c-lay--mt-3x</code> for extra top-margin.
 			</div>
 		</header>
 		<div class="c-lay__outer" data-outer>
@@ -341,6 +342,7 @@
 		data-grid-phone="100"
 		data-grid-tablet="33:33:33"
 		data-grid-desktop="33:33:33"
+		data-nav="arrows scroll"
 		data-preview="both"
 		data-section-type="slider">
 		<header class="c-lay__header">
@@ -405,6 +407,7 @@
 		data-grid-tablet="50:50"
 		data-grid-desktop="33:33:33"
 		data-loop="true"
+		data-nav="arrows scroll"
 		data-section-type="slider"
 		data-theme="theme03">
 		<header class="c-lay__header">
@@ -435,7 +438,8 @@
 		data-grid-phone="100"
 		data-grid-tablet="50:50"
 		data-grid-desktop="50:50"
-		data-section-type="stack">
+		data-section-type="stack"
+		data-theme="theme04">
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline c-headline--h1">Stacked content with no gap between columns</h2>
 			<div class="c-lay__description">
@@ -537,7 +541,7 @@
 	</section>
 
 </main>
-<!-- <script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script> -->
+<script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script>
 <script type="module">
 	import { Layout } from '../assets/js/layout.mjs';
 	new Layout();

@@ -94,7 +94,6 @@
 		<details>
 			<summary class="app__subheader">Layout</summary>
 			<div class="app__fieldset">
-				<label class="app__label--checkline"><input type="checkbox" data-elm="">Header below content</label>
 				<label class="app__label">	
 					<select data-type="dataset" data-key="theme">
 						<option value="">default</option>
@@ -143,6 +142,24 @@
 						<option value="25:25:25:25" selected>25:25:25:25</option>
 					</select>
 					Desktop Grid
+				</label>
+				<label class="app__label">	
+					<select data-type="dataset" data-key="diagonal">
+						<option value="">none</option>
+						<option value="small">small</option>
+						<option value="small header">small, content only</option>
+						<option value="small content header">small, wrapper only</option>
+						<option value="small reverse">small reverse</option>
+						<option value="small header reverse">small reverse, content only</option>
+						<option value="small content header reverse">small reverse, wrapper only</option>
+						<option value="medium">medium</option>
+						<option value="medium header">medium, content only</option>
+						<option value="medium content header">medium, wrapper only</option>
+						<option value="medium reverse">medium reverse</option>
+						<option value="medium header reverse">medium reverse, content only</option>
+						<option value="medium content header reverse">medium reverse, wrapper only</option>
+					</select>
+					Diagonal Layout
 				</label>
 			</div>
 		</details>
@@ -215,7 +232,7 @@
 		<details>
 			<summary class="app__subheader">Header</summary>
 			<div class="app__fieldset">
-				
+				<label class="app__label--checkline"><input type="checkbox" data-elm="">Header below content</label>
 				<label class="app__label">	
 					<select data-type="dataset" data-key="alignHeader">
 						<option value="center" selected>center</option>
@@ -262,8 +279,30 @@
 		</details>
 
 		<details>
-			<summary class="app__subheader">Animations, Diagonal</summary>
+			<summary class="app__subheader">Navigation &amp; Animations</summary>
 			<div class="app__fieldset">
+				<label class="app__label">	
+					<select data-type="dataset" data-key="nav">
+						<option value="arrows dots scroll">all of them</option>
+						<option value="arrows">arrows only</option>
+						<option value="arrows scroll" selected>arrows, scrollbar</option>
+						<option value="arrows dots">arrows, dots</option>
+						<option value="arrows dots inside">arrows, dots inside</option>
+						<option value="dots">dots only</option>
+						<option value="dots inside">dots inside only</option>
+						<option value="scroll">scrollbar only</option>
+					</select>
+					Slider Navigation
+				</label>
+				<label class="app__label">	
+					<select data-type="dataset" data-key="autoPlay">
+						<option value="false" selected>don't autoplay</option>
+						<option value="3000">every 3 seconds</option>
+						<option value="5000">every 5 seconds</option>
+						<option value="8000">every 8 seconds</option>
+					</select>
+					Auto-play slides
+				</label>
 				<label class="app__label">	
 					<select data-type="dataset" data-key="animation">
 						<option value="" selected>none</option>
@@ -289,24 +328,7 @@
 					</select>
 					Animation Target
 				</label>
-				<label class="app__label">	
-					<select data-type="dataset" data-key="diagonal">
-						<option value="">none</option>
-						<option value="small">small</option>
-						<option value="small header">small, content only</option>
-						<option value="small content header">small, wrapper only</option>
-						<option value="small reverse">small reverse</option>
-						<option value="small header reverse">small reverse, content only</option>
-						<option value="small content header reverse">small reverse, wrapper only</option>
-						<option value="medium">medium</option>
-						<option value="medium header">medium, content only</option>
-						<option value="medium content header">medium, wrapper only</option>
-						<option value="medium reverse">medium reverse</option>
-						<option value="medium header reverse">medium reverse, content only</option>
-						<option value="medium content header reverse">medium reverse, wrapper only</option>
-					</select>
-					Diagonal Layout
-				</label>
+
 			</div>
 		</details>
 
@@ -347,12 +369,14 @@
 			data-align-headline="center"
 			data-animation="a-fade-in-bottom"
 			data-animation-target=""
+			data-auto-play="false"
 			data-collapsed-height="full"
 			data-diagonal=""
 			data-expanded="true"
 			data-grid-phone="100"
 			data-grid-tablet="33:33:33"
 			data-grid-desktop="25:25:25:25"
+			data-nav="arrows scroll"
 			data-section-type="stack"
 			data-theme=""
 			data-toggle-layout="false">

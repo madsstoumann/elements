@@ -2,8 +2,8 @@
  * Layout module.
  * @module /assets/js/layout
  * @requires /assets/js/common
- * @version 1.1.00
- * @summary 09-07-2020
+ * @version 1.1.01
+ * @summary 10-07-2020
  * @description Helper-functions for Layout Block
  * @example
  * <section data-section-type>
@@ -154,6 +154,15 @@ export class Layout {
 	}
 }
 
+/**
+ * Slider
+ * @requires /assets/js/common
+ * @version 1.1.01
+ * @summary 10-07-2020
+ * @description Slider-functionality for Layout Block
+ * @example
+ * <section data-section-type="slider">
+ */
 export class Slider {
 	constructor(element, settings) {
 		this.settings = Object.assign({
@@ -274,7 +283,15 @@ export class Slider {
 			this.scrollToPage();
 		});
 
-		this.elements.inner.addEventListener('scroll', debounced(200, () => { this.handleScroll()}));
+		let timeout = '';
+		this.elements.inner.addEventListener('scroll', () => {
+			if (timeout) {
+				window.cancelAnimationFrame(timeout);
+			}
+			timeout = window.requestAnimationFrame(() => {
+				this.handleScroll();
+			});
+		});
 		this.slider.__refreshSlider = this.refreshSlider.bind(this);
 		this.refreshSlider();
 
@@ -330,13 +347,14 @@ export class Slider {
 			this.elements.dots.appendChild(dot);
 		}
 	}
+
 	/**
 	 * @function scrollToPage
 	 * @description Scrolls to `this.state.page`
 	 */
 	scrollToPage() {
 		let xPos;
-/* TODO: TEST Firefox, Edge, SAFARI */
+/* TODO: TEST SAFARI */
 		/* Scroll to center of page, calculate scroll using itemWidth */
 		if (this.slider.dataset.preview === 'both') {
 			if (this.dir === 'ltr') {
@@ -364,10 +382,8 @@ export class Slider {
 			if (this.dir === 'ltr') {
 				const gap = this.slider.dataset.preview === 'next' ? this.state.gap : 0;
 				xPos = (this.state.page - 1) * (this.itemsPerPage * (this.state.itemWidth + gap));
-				
-
 			} else {
-				/* dir rtl */
+				/* this.dir='rtl' */
 				if (this.isChrome) {
 					xPos = this.elements.inner.scrollWidth - (this.state.page) * this.elements.inner.offsetWidth;
 					console.log('chrome rtl');
