@@ -272,7 +272,7 @@ MODIFIERS
 
 /* EXPAND/COLLAPSE */
 [data-expanded="false"] .c-lay__outer::after {
-	background-image: linear-gradient(to bottom, transparent, var(--lay-bg) 80%);
+	background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--lay-bg) 80%);
 	bottom: 0;
 	content: '';
 	display: block;
