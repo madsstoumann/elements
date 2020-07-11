@@ -9,8 +9,10 @@ body {
 	/* min-height: -webkit-fill-available; */
 }
 code {
-	background-color: #37B2AD;
-	color: #FEFEFE;
+	/* background-color: #37B2AD;
+	color: #FEFEFE; */
+	background-color: hsla(178, 53%, 65%, 1);
+  color: hsla(0, 0%, 25%, 1);
 	padding: 0 0.25em;
 	white-space: nowrap;
 }

@@ -3,7 +3,8 @@
  * @version 1.0.3
  * @summary 10-07-2020
  * @author Mads Stoumann
- * @description Stylesheet for Layout Component: Grid
+ * @description Stylesheet for Layout Component: Navigation
+ TODO TODO
 */
 .c-lay__nav {
 	display: block;
@@ -93,7 +94,7 @@
 	height: var(--lay-nav-btn-ico-sz);
 	position: relative;
 	transform: rotate(45deg);
-	transition: left .3s; ease-in;
+	transition: left .3s ease-in;
 	width: calc(var(--lay-nav-btn-ico-sz) * 1);
 }
 

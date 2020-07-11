@@ -2,8 +2,8 @@
  * Layout module.
  * @module /assets/js/layout
  * @requires /assets/js/common
- * @version 1.1.02
- * @summary 10-07-2020
+ * @version 1.1.03
+ * @summary 11-07-2020
  * @description Helper-functions for Layout Block
  * @example
  * <section data-section-type>
@@ -18,6 +18,7 @@ export class Layout {
 	}
 
 	init() {
+		this.backToTop = document.querySelector(`[data-back-to-top]`);
 		this.expandCollapse(document.querySelectorAll(`[data-toggle-expanded]`));
 		this.isTouch = ('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
 		this.itemPopup(document.querySelectorAll(`[data-item-type='popup'] .c-lay__item`));
@@ -25,7 +26,11 @@ export class Layout {
 		this.toggleLayout(document.querySelectorAll(`[data-layout-collapsed]`));
 
 		window.addEventListener('scroll', debounced(200, () => {
-			document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`);
+			document.documentElement.style.setProperty('--scroll-y', window.scrollY);
+			/* Show `back-to-top` if scrolled more than 4 screens: https://www.nngroup.com/articles/back-to-top/ */
+			if (this.backToTop) {
+				this.backToTop.style.opacity = window.scrollY > window.screen.height * 4 ? 1 : 0;
+			}
 		}))
 
 		const sliders = document.querySelectorAll(`[data-section-type='slider']`);
@@ -43,20 +48,25 @@ export class Layout {
 	*/
 	itemPopup(selector, popupClass = 'c-lay__item--popup') {
 		selector.forEach(item => {
-			item.addEventListener('click', () => {
+			item.addEventListener('click', (event) => {
 				if (item.classList.contains(popupClass)) {
-					const body = document.body;
-					const scrollY = body.style.top;
-					body.style.position = '';
-					body.style.top = '';
-					window.scrollTo(0, parseInt(scrollY || '0') * -1);
-					item.classList.remove(popupClass);
+					if (event.target === item) {
+						const body = document.body;
+						const scrollY = body.style.top;
+						body.style.position = '';
+						body.style.top = '';
+						window.scrollTo(0, parseInt(scrollY || '0') * -1);
+						item.classList.remove(popupClass);
+						document.documentElement.style.scrollBehavior = 'smooth';
+					}
 				} else {
+					document.documentElement.style.scrollBehavior = 'auto';
 					const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
 					const body = document.body;
 					body.style.position = 'fixed';
-					body.style.top = `-${scrollY}`;
+					body.style.top = `-${scrollY}px`;
 					item.classList.add(popupClass);
+
 				}
 			});
 		});
@@ -179,6 +189,7 @@ export class Slider {
 			clsNav: 'c-lay__nav',
 			clsNavInner: 'c-lay__nav-inner',
 			clsOverflow: 'c-lay__inner--overflow',
+			lblGoToPage: 'Go to page',
 			lblItemRole: 'slide',
 			lblNext: 'Next',
 			lblPrev: 'Prev',
@@ -244,9 +255,9 @@ export class Slider {
 			dots: h('nav', { class: this.settings.clsDotWrap }),
 			inner: this.slider.querySelector('[data-inner]'),
 			nav: h('nav', { class: this.settings.clsNav }, [h('div', { class: this.settings.clsNavInner })]),
-			next: h('button', { class: this.settings.clsBtnNext, rel: 'next' }, [h('i')]),
+			next: h('button', { class: this.settings.clsBtnNext, rel: 'next', 'aria-label': this.settings.lblNext }, [h('i')]),
 			outer: this.slider.querySelector('[data-outer]'),
-			prev: h('button', { class: this.settings.clsBtnPrev, rel: 'prev' }, [h('i')])
+			prev: h('button', { class: this.settings.clsBtnPrev, rel: 'prev', 'aria-label': this.settings.lblPrev }, [h('i')])
 		}
 
 		this.elements.nav.firstElementChild.appendChild(this.elements.prev);
@@ -292,11 +303,11 @@ export class Slider {
 
 		/* Set aria-attributes */
 		this.elements.inner.setAttribute('aria-live', 'polite');
-		this.slider.setAttribute('aria-roledescription', this.settings.lblRole);
+		// this.slider.setAttribute('aria-roledescription', this.settings.lblRole);
 		this.state.items.forEach((slide, index) => {
-			slide.setAttribute('aria-label', `${index+1}/${this.state.pages}`);
-			slide.setAttribute('aria-roledescription', this.settings.lblItemRole);
-			slide.setAttribute('role', 'group');
+			slide.setAttribute('aria-label', `${this.settings.lblGoToPage} ${index+1}/${this.state.pages}`);
+			// slide.setAttribute('aria-roledescription', this.settings.lblItemRole);
+			// slide.setAttribute('role', 'group');
 		});
 
 		/* Autoplay */
@@ -333,7 +344,7 @@ export class Slider {
 		this.dots = [];
 		this.elements.dots.innerHTML = '';
 		for (let page = 1; page <= this.state.pages; page++) { 
-			const dot = h('button', { class: this.settings.clsDot, type: 'button', 'data-page': page});
+			const dot = h('button', { class: this.settings.clsDot, type: 'button', 'aria-label': `${this.settings.lblGoToPage} ${page}`, 'data-page': page});
 			dot.addEventListener('click', () => {
 				this.state.page = parseInt(dot.dataset.page, 10);
 				this.scrollToPage();
