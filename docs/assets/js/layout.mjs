@@ -57,7 +57,9 @@ export class Layout {
 						body.style.top = '';
 						window.scrollTo(0, parseInt(scrollY || '0') * -1);
 						item.classList.remove(popupClass);
-						item.parentNode.classList.remove(popupWrapper);
+						if (this.isTouch) {
+							item.parentNode.classList.remove(popupWrapper);
+						}
 						document.documentElement.style.scrollBehavior = 'smooth';
 					}
 				} else {
@@ -67,7 +69,9 @@ export class Layout {
 					body.style.position = 'fixed';
 					body.style.top = `-${scrollY}px`;
 					item.classList.add(popupClass);
-					item.parentNode.classList.add(popupWrapper);
+					if (this.isTouch) {
+						item.parentNode.classList.add(popupWrapper);
+					}
 				}
 			});
 		});

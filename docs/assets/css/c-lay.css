@@ -653,19 +653,21 @@ TODO!
 	width: 100vw !important;
 	z-index: 10;
 }
-.c-lay__item--popup::after {
+.c-lay__item--popup::before {
 	align-items: center;
 	background-color: hsl(217, 16%, 35%);
 	border-radius: 50%;
 	content: '\2715';
 	cursor: pointer;
 	display: inline-flex;
+	font-size: 2rem;
 	justify-content: center;
 	position: absolute;
 	right: var(--lay-gap);
 	top: var(--lay-gap);
 	width: 3rem;
 	height: 3rem;
+	z-index: 10;
 }
 .c-lay__item--popup > * {
 	height: 100vh !important;
