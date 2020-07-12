@@ -4,7 +4,7 @@
  * @summary 10-07-2020
  * @author Mads Stoumann
  * @description Stylesheet for Layout Component: Navigation
- TODO TODO
+ TODO 
 */
 .c-lay__nav {
 	display: block;
@@ -98,7 +98,7 @@
 	width: calc(var(--lay-nav-btn-ico-sz) * 1);
 }
 
-.c-lay__nav-btn i:before{
+.c-lay__nav-btn i:before {
     box-shadow: inset 0 0 0 32px;
 		content: '';
     height: var(--lay-nav-btn-ico-bdw);
@@ -140,6 +140,8 @@
 	left: 0;
 }
 
+[data-toggle-expanded]:focus .c-lay__nav-btn i::before,
+[data-toggle-expanded]:hover .c-lay__nav-btn i::before,
 .c-lay__nav-btn[rel="next"]:focus i::before,
 .c-lay__nav-btn[rel="prev"]:focus i::before,
 .c-lay__nav-btn[rel="next"]:hover i::before,

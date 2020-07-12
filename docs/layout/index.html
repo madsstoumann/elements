@@ -55,8 +55,9 @@
 		.item--8 { background-color: aquamarine; min-height: 150px; }
 		.item--9 { background-color: #d4ddf9; min-height: 200px;; min-height: 200px; }
 
+
 		[data-back-to-top] {
-			background: #ccd6e0;
+			background-color: #ccd6e0;
 			bottom: 0px;
 			color: #2f3e4c;
 			font-size: x-small;
@@ -70,9 +71,51 @@
 			text-decoration: none;
 			z-index: 100;
 		}
+
+		@media (prefers-color-scheme: dark) {
+			.item {
+				background-color: #a4b1c1;
+			}
+			[data-back-to-top] {
+				background-color: #81E5d9;
+			}
+		}
+
+		.c-mnu {
+			align-items: center;
+			background-color: hsl(195, 20%, 95%);
+			border-color: hsl(195, 20%, 55%);
+			border-style: solid;
+			border-width: 1px 0 0 0;
+
+			color: hsl(195, 20%, 16%);
+			display: flex;
+			font-size: small;
+			bottom: 0;
+			height: 3rem;
+			justify-content: space-evenly;
+			padding-inline-end: 1rem;
+			padding-inline-start: 1rem;
+			position: fixed;
+			width: 100%;
+			z-index: 100;
+		}
 	</style>
 </head>
 <body class="typo typo--dynamic">
+
+<!-- <header>
+	<div class="c-mnu__outer">
+		<div class="c-mnu__inner">
+			<div class="c-mnu">
+				<a href="#" class="c-mnu__item">Menu</a>
+				<a href="#" class="c-mnu__item">Settings</a>
+				<a href="#" class="c-mnu__item">Account</a>
+				<a href="#" class="c-mnu__item">LNK 4</a>
+			</div>
+		</div>
+	</div>
+</header> -->
 
 	<!-- add class `c-lay--scrollsnap` for vertical scroll-snapping -->
 <main class="c-lay__wrapper" id="top">

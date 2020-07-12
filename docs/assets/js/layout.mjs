@@ -46,7 +46,7 @@ export class Layout {
 	 * @param {NodeList} selector
 	 * @description Adds listener to opup-items (open items in full screen)
 	*/
-	itemPopup(selector, popupClass = 'c-lay__item--popup') {
+	itemPopup(selector, popupClass = 'c-lay__item--popup', popupWrapper = 'c-lay__inner--popup') {
 		selector.forEach(item => {
 			item.addEventListener('click', (event) => {
 				if (item.classList.contains(popupClass)) {
@@ -57,6 +57,7 @@ export class Layout {
 						body.style.top = '';
 						window.scrollTo(0, parseInt(scrollY || '0') * -1);
 						item.classList.remove(popupClass);
+						item.parentNode.classList.remove(popupWrapper);
 						document.documentElement.style.scrollBehavior = 'smooth';
 					}
 				} else {
@@ -66,7 +67,7 @@ export class Layout {
 					body.style.position = 'fixed';
 					body.style.top = `-${scrollY}px`;
 					item.classList.add(popupClass);
-
+					item.parentNode.classList.add(popupWrapper);
 				}
 			});
 		});

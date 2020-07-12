@@ -473,18 +473,31 @@ MODIFIERS
 }
 @media (prefers-color-scheme: dark) {
 	.c-lay {
-		--lay-bg: #1A202C;
+		--lay-bg: hsl(220, 26%, 14%);
 		--lay-c: #FDFDFD;
+		--lay-dot-bgc: hsl(220, 26%, 34%);
+		--lay-dot-bgc--cur: hsl(220, 26%, 84%);
+		--lay-dot-bgc--cur-focus: hsl(220, 26%, 34%);
+		--lay-dot-bxsh: hsl(195, 100%, 99%);
+		--lay-scrbar-bg: hsl(220, 26%, 38%);
+		--lay-scrbar-thumb-bg: hsl(220, 26%, 68%);
 	}
 	[data-theme="theme01"] {
 		--lay-bg:#2d3949;
 		--lay-c: #FEFEFE;
 	}
 	[data-theme="theme02"] {
-		--lay-bg: #3a4656;
+		--lay-bg: hsl(214, 19%, 28%);
 		--lay-c: #FEFEFE;
+		--lay-dot-bgc: hsl(214, 19%, 48%);
+		--lay-dot-bgc--cur: hsl(214, 19%, 78%);
+		--lay-dot-bgc--cur-focus: hsl(195, 100%, 95%);
+		--lay-scrbar-bg: hsl(214, 19%, 38%);
+		--lay-scrbar-thumb-bg: hsl(214, 19%, 68%);
+
 	}
 	[data-theme="theme03"] {
+		/* TODO ! */
 		--lay-bg: #4A5567;
 		--lay-c: #FEFEFE;
 	}
@@ -617,6 +630,11 @@ Popup
 ======
 TODO!
 */
+
+.c-lay__inner--popup {
+	overflow-x: initial;
+	overflow-y: initial;
+}
 
 .c-lay__item--popup {
 	--lay-item-mis: 0px;
