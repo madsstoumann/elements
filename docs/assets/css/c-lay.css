@@ -521,6 +521,7 @@ MODIFIERS
 	margin-inline-start: 0.15em;
 	position: relative;
 	transform: var(--lay-head-arr);
+	transition: transform .16s ease-in;
 	width: 0.5em;
 }
 
