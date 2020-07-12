@@ -66,10 +66,11 @@ export class Layout {
 					document.documentElement.style.scrollBehavior = 'auto';
 					const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
 					const body = document.body;
+					const section = item.closest('.c-lay');
 					body.style.position = 'fixed';
 					body.style.top = `-${scrollY}px`;
 					item.classList.add(popupClass);
-					if (this.isTouch && item.dataset.sectionType === 'slider') {
+					if (this.isTouch && section.dataset.sectionType === 'slider') {
 						item.parentNode.classList.add(popupWrapper);
 					}
 				}
