@@ -69,7 +69,7 @@ export class Layout {
 					body.style.position = 'fixed';
 					body.style.top = `-${scrollY}px`;
 					item.classList.add(popupClass);
-					if (this.isTouch) {
+					if (this.isTouch && item.dataset.sectionType === 'slider') {
 						item.parentNode.classList.add(popupWrapper);
 					}
 				}
