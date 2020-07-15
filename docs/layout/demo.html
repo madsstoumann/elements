@@ -359,27 +359,50 @@
 				<label class="app__label">	
 					<select data-type="dataset" data-key="animation">
 						<option value="" selected>none</option>
-						<option value="a-fade-in-top">fade-in-top</option>
-						<option value="a-fade-in-right">fade-in-right</option>
-						<option value="a-fade-in-bottom">fade-in-bottom</option>
-						<option value="a-fade-in-bl">fade-in-bottom-left</option>
-						<option value="a-fade-in-br">fade-in-bottom-right</option>
-						<option value="a-fade-in-left">fade-in-left</option>
-						<option value="a-bounce-in-top">bounce-in-top</option>
-						<option value="a-bounce-in-right">bounce-in-right</option>
 						<option value="a-bounce-in-bottom">bounce-in-bottom</option>
 						<option value="a-bounce-in-left">bounce-in-left</option>
-						<option value="a-scale-up-center">scale-up-center</option>
+						<option value="a-bounce-in-right">bounce-in-right</option>
+						<option value="a-bounce-in-top">bounce-in-top</option>
+						<option value="a-fade-in-bl">fade-in-bottom-left</option>
+						<option value="a-fade-in-br">fade-in-bottom-right</option>
+						<option value="a-fade-in-bottom">fade-in-bottom</option>
+						<option value="a-fade-in-left">fade-in-left</option>
+						<option value="a-fade-in-right">fade-in-right</option>
+						<option value="a-fade-in-top">fade-in-top</option>
+						<option value="a-scale-in-bottom">scale-in-bottom</option>
+						<option value="a-scale-in-center">scale-in-center</option>
+						<option value="a-slide-in-blurred-bottom">slide-in-blurred-bottom</option>
+						<option value="a-slide-in-blurred-top">slide-in-blurred-top</option>
 					</select>
 					Animation
 				</label>
 				<label class="app__label">	
 					<select data-type="dataset" data-key="animationTarget">
-						<option value="">section (default)</option>
+						<option value="" selected>section</option>
 						<option value=".c-lay__item">items</option>
 						<option value="both">both</option>
 					</select>
 					Animation Target
+				</label>
+				<label class="app__label" style="background:darkseagreen;">	
+					<select data-type="css" data-key="a-">
+						<option value="" selected>none</option>
+						<option value="a-bounce-in-bottom">bounce-in-bottom</option>
+						<option value="a-bounce-in-left">bounce-in-left</option>
+						<option value="a-bounce-in-right">bounce-in-right</option>
+						<option value="a-bounce-in-top">bounce-in-top</option>
+						<option value="a-fade-in-bl">fade-in-bottom-left</option>
+						<option value="a-fade-in-br">fade-in-bottom-right</option>
+						<option value="a-fade-in-bottom">fade-in-bottom</option>
+						<option value="a-fade-in-left">fade-in-left</option>
+						<option value="a-fade-in-right">fade-in-right</option>
+						<option value="a-fade-in-top">fade-in-top</option>
+						<option value="a-scale-in-bottom">scale-in-bottom</option>
+						<option value="a-scale-in-center">scale-in-center</option>
+						<option value="a-slide-in-blurred-bottom">slide-in-blurred-bottom</option>
+						<option value="a-slide-in-blurred-top">slide-in-blurred-top</option>
+					</select>
+					Test Animation
 				</label>
 			</div>
 		</details>
@@ -417,21 +440,27 @@
 		</details>
 	</form>
 
-	<main class="c-lay__wrapper">
+	<main>
 		<section class="c-lay"
 			data-align="stretch"
-			data-align-headline="center"
-			data-animation="a-fade-in-bottom"
+			data-align-header=""
+			data-animation=""
 			data-animation-target=""
 			data-auto-play="false"
 			data-collapsed-height="full"
 			data-diagonal=""
 			data-expanded="true"
+			data-gap-phone=""
+			data-gap-tablet=""
+			data-gap-desktop=""
 			data-grid-phone="100"
 			data-grid-tablet="33:33:33"
 			data-grid-desktop="25:25:25:25"
+			data-item-type=""
 			data-nav="arrows scroll"
+			data-preview=""
 			data-section-type="stack"
+			data-snap=""
 			data-theme=""
 			data-toggle-layout="false">
 			<header class="c-lay__header">
@@ -442,13 +471,16 @@
 				</div>
 				<div data-layout-expanded="Collapse All" data-layout-collapsed="Show All">Show all</div>
 			</header>
+
 			<div class="c-lay__outer" data-outer>
+				<!-- ADDED WITH JS -->
 				<nav class="c-lay__nav">
 					<div class="c-lay__nav-inner">
 						<button class="c-lay__nav-btn" rel="prev" aria-label="Prev"><i></i></button>
 						<button class="c-lay__nav-btn" rel="next" aria-label="Next"><i></i></button>
 					</div>
 				</nav>
+				<!-- / END -->
 				<div class="c-lay__inner" data-inner>
 					<div class="c-lay__item"><div class="item--1">1</div></div>
 					<div class="c-lay__item"><div class="item--2">2</div></div>
@@ -469,6 +501,8 @@
 					<div class="c-lay__item"><div class="item--8">17</div></div>
 					<div class="c-lay__item"><div class="item--9">18</div></div>
 				</div>
+
+				<!-- ADDED WITH JS -->
 				<nav class="c-lay__dots">
 					<button class="c-lay__dot c-lay__dot--current" type="button"></button>
 					<button class="c-lay__dot" type="button"></button>
@@ -476,13 +510,14 @@
 					<button class="c-lay__dot" type="button"></button>
 					<button class="c-lay__dot" type="button"></button>
 				</nav>
+				<!-- / END -->
 			</div>
 
 			<button type="button" data-toggle-expanded="Collapse All" data-toggle-collapsed="Show All">
 				<span class="c-lay__nav-btn">
-					<i class="c-ico-mai c-ico--arr_dwn"></i>
+					<i></i>
 				</span>
-				<span class="">Show all</span>
+				<span class="c-lay__nav-txt" data-toggle-label="">Show all</span>
 			</button>
 
 		</section>
