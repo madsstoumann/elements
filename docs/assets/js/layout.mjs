@@ -34,9 +34,9 @@ export class Layout {
 		}))
 
 		const sliders = document.querySelectorAll(`[data-section-type='slider']`);
-		sliders.forEach(slider => { 
+		sliders.forEach(slider => {
 			if (!(this.isTouch && slider.dataset.preview)) {
-				new Slider(slider);
+				new Slider(slider, slider.dataset);
 			}
 		})
 	}
@@ -178,8 +178,8 @@ export class Layout {
 /**
  * Slider
  * @requires /assets/js/common
- * @version 1.1.02
- * @summary 10-07-2020
+ * @version 1.1.05
+ * @summary 15-07-2020
  * @description Slider-functionality for Layout Block
  * @example
  * <section data-section-type="slider">
@@ -187,6 +187,7 @@ export class Layout {
 export class Slider {
 	constructor(element, settings) {
 		this.settings = Object.assign({
+			autoPlay: 'false',
 			clsBtnNext: 'c-lay__nav-btn',
 			clsBtnPrev: 'c-lay__nav-btn',
 			clsDot: 'c-lay__dot',
@@ -200,6 +201,7 @@ export class Slider {
 			lblNext: 'Next',
 			lblPrev: 'Prev',
 			lblRole: 'carousel',
+			nav: '',
 			scrollBehavior: 'smooth',
 			varGap: '--lay-gap',
 			varItemsPerPage: '--lay-items-per-page'
@@ -252,49 +254,59 @@ export class Slider {
 		/* Get text-direction */
 		this.dir = this.slider.dir || document.dir || 'ltr';
 		this.isChrome = window.navigator.userAgent.indexOf("Chrome") > -1;
-		this.isTouch = ('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
 		
-		/* TODO: Settings dots / scrollbar */
-		
+		this.hasArrows = this.settings.nav.includes('arrows');
+		this.hasDots = this.settings.nav.includes('dots');
+		this.hasScroll = this.settings.nav.includes('scroll');
+
 		/* Create elements */
 		this.elements = {
-			dots: h('nav', { class: this.settings.clsDotWrap }),
 			inner: this.slider.querySelector('[data-inner]'),
 			nav: h('nav', { class: this.settings.clsNav }, [h('div', { class: this.settings.clsNavInner })]),
-			next: h('button', { class: this.settings.clsBtnNext, rel: 'next', 'aria-label': this.settings.lblNext }, [h('i')]),
-			outer: this.slider.querySelector('[data-outer]'),
-			prev: h('button', { class: this.settings.clsBtnPrev, rel: 'prev', 'aria-label': this.settings.lblPrev }, [h('i')])
+			outer: this.slider.querySelector('[data-outer]')
 		}
 
-		this.elements.nav.firstElementChild.appendChild(this.elements.prev);
-		this.elements.nav.firstElementChild.appendChild(this.elements.next);
 		this.elements.outer.insertBefore(this.elements.nav, this.elements.inner);
-		this.elements.outer.appendChild(this.elements.dots);
+
+		/* Add navigation arrows */
+		if (this.hasArrows) {
+			this.elements.next = h('button', { class: this.settings.clsBtnNext, rel: 'next', 'aria-label': this.settings.lblNext }, [h('i')]);
+			this.elements.prev = h('button', { class: this.settings.clsBtnPrev, rel: 'prev', 'aria-label': this.settings.lblPrev }, [h('i')]);
+
+			this.elements.nav.firstElementChild.appendChild(this.elements.prev);
+			this.elements.nav.firstElementChild.appendChild(this.elements.next);
+
+			this.elements.next.addEventListener('click', () => {
+				this.state.page++;
+				if (this.state.page > this.state.pages) { 
+					this.state.page = this.state.loop ? 1 : this.state.pages;
+				}
+				this.scrollToPage();
+			});
+	
+			this.elements.prev.addEventListener('click', () => {
+				this.state.page--;
+				if (this.state.page < 1) { 
+					this.state.page = this.state.loop ? this.state.pages : 1;				
+				}
+				this.scrollToPage();
+			});
+		}
+		
+		/* Add navigation dots */
+		if (this.hasDots) {
+			this.elements.dots = h('nav', { class: this.settings.clsDotWrap });
+			this.elements.outer.appendChild(this.elements.dots);
+		}
 
 		/* Detect resize: Add/remove dots and arrows */
 		const resizeObserver = new ResizeObserver(() => {
-				this.refreshSlider()
+			this.refreshSlider()
 		});
 
 		resizeObserver.observe(this.slider);
 
 		/* Add eventListeners */
-		this.elements.next.addEventListener('click', () => {
-			this.state.page++;
-			if (this.state.page > this.state.pages) { 
-				this.state.page = this.state.loop ? 1 : this.state.pages;
-			}
-			this.scrollToPage();
-		});
-
-		this.elements.prev.addEventListener('click', () => {
-			this.state.page--;
-			if (this.state.page < 1) { 
-				this.state.page = this.state.loop ? this.state.pages : 1;				
-			}
-			this.scrollToPage();
-		});
-
 		let timeout = '';
 		this.elements.inner.addEventListener('scroll', () => {
 			if (timeout) {
@@ -317,14 +329,14 @@ export class Slider {
 		});
 
 		/* Autoplay */
-		if (this.slider.dataset.autoPlay && this.slider.dataset.autoPlay !== 'false' ) {
+		if (this.settings.autoPlay && this.settings.autoPlay !== 'false' ) {
 			window.setInterval( () => {
 				this.state.page++;
 				if (this.state.page > this.state.pages) { 
 					this.state.page = 1;
 				}
 				this.scrollToPage();
-			}, parseInt(this.slider.dataset.autoPlay, 10) || 3000);
+			}, parseInt(this.settings.autoPlay, 10) || 3000);
 		}
 	}
 
@@ -335,10 +347,12 @@ export class Slider {
 	refreshSlider() {
 		this.itemsPerPage = this.getItemsPerPage();
 		this.setState();
-		if (this.itemsPerPage === 1) {
-			this.renderNavigationDots();
+		if (this.hasDots) {
+			if (this.itemsPerPage === 1) {
+				this.renderNavigationDots();
+			}
+			this.updateDots(this.state.page-1);
 		}
-		this.updateDots(this.state.page-1);
 		this.scrollToPage();
 	}
 
@@ -366,47 +380,20 @@ export class Slider {
 	 */
 	scrollToPage() {
 		let xPos;
-/* TODO: TEST SAFARI */
 		/* Scroll to center of page, calculate scroll using itemWidth */
 		if (this.slider.dataset.preview === 'both') {
-			if (this.dir === 'ltr') {
-				if (this.itemsPerPage === 1) {
-					xPos = (this.state.page - 1) * (this.state.itemWidth * this.itemsPerPage);
-					console.log('fix in safari');
-				}
-				else {
-					xPos = (this.state.page - 1) * (this.state.itemWidth * this.itemsPerPage) - (this.state.gap * this.itemsPerPage);
-				}
+			if (this.itemsPerPage === 1) {
+				// xPos = (this.state.page - 1) * (this.state.itemWidth * this.itemsPerPage);
+				xPos = (this.state.page - 1) * ((this.state.itemWidth - this.state.gap) * this.itemsPerPage);
 			}
 			else {
-				/* Firefox and Safari handles scrollLeft with negative values, when using `dir="rtl"` */
-				if (this.isChrome) {
-					xPos = this.elements.inner.scrollWidth - (this.state.page * (this.state.itemWidth * this.itemsPerPage));
-				}
-				else {
-					xPos = 0 - (this.state.page - 1) * (this.state.itemWidth * this.itemsPerPage);
-				} 
+				xPos = (this.state.page - 1) * ((this.state.itemWidth - this.state.gap) * this.itemsPerPage);
 			}
 		}
-
 		/* Scroll to page, use page-based widths */
 		else {
-			if (this.dir === 'ltr') {
-				const gap = this.slider.dataset.preview === 'next' ? this.state.gap : 0;
-				xPos = (this.state.page - 1) * (this.itemsPerPage * (this.state.itemWidth + gap));
-			} else {
-				/* this.dir='rtl' */
-				if (this.isChrome) {
-					xPos = this.elements.inner.scrollWidth - (this.state.page) * this.elements.inner.offsetWidth;
-					console.log('chrome rtl');
-				}
-				else {
-					xPos = 0 - (this.state.page - 1) * this.elements.inner.offsetWidth;
-
-				}
-			}
+			xPos = (this.state.page - 1) * (this.itemsPerPage * (this.state.itemWidth + this.state.gap));
 		}
-
 		this.elements.inner.scrollTo({ left: xPos, behavior: this.settings.scrollBehavior });
 	}
 

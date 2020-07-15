@@ -53,6 +53,13 @@
 					Section Type
 				</label>
 				<label class="app__label">	
+					<select data-type="dataset" data-key="snap">
+						<option value="" selected>none</option>
+						<option value="true">snap</option>
+					</select>
+					Section Snap
+				</label>
+				<label class="app__label">	
 					<select data-type="css" data-key="c-lay--w-inner">
 						<option value="c-lay--w-inner-xs">x-small</option>
 						<option value="c-lay--w-inner-s">small</option>
@@ -224,14 +231,47 @@
 					</select>
 					Inner Padding Bottom
 				</label>
+				
+			</div>
+			<div class="app__fieldset">
 				<label class="app__label">	
-					<select data-type="dataset" data-key="nogap">
+					<select data-type="dataset" data-key="gapPhone">
 						<option value="">default</option>
 						<option value="column">columns</option>
-						<option value="column row">columns and rows</option>
+						<option value="column edge">columns, edges</option>
+						<option value="edge">edges</option>
+						<option value="column row">columns, rows</option>
+						<option value="column edge row">columns, edges, rows</option>
 						<option value="row">rows</option>
+						<option value="row edge">rows, edges</option>
 					</select>
-					No Gap Between
+					Phone: No gap between
+				</label>
+				<label class="app__label">	
+					<select data-type="dataset" data-key="gapTablet">
+						<option value="">default</option>
+						<option value="column">columns</option>
+						<option value="column edge">columns, edges</option>
+						<option value="edge">edges</option>
+						<option value="column row">columns, rows</option>
+						<option value="column edge row">columns, edges, rows</option>
+						<option value="row">rows</option>
+						<option value="row edge">rows, edges</option>
+					</select>
+					Tablet: No gap between
+				</label>
+				<label class="app__label">	
+					<select data-type="dataset" data-key="gapDesktop">
+						<option value="">default</option>
+						<option value="column">columns</option>
+						<option value="column edge">columns, edges</option>
+						<option value="edge">edges</option>
+						<option value="column row">columns, rows</option>
+						<option value="column edge row">columns, edges, rows</option>
+						<option value="row">rows</option>
+						<option value="row edge">rows, edges</option>
+					</select>
+					Desktop: No gap between
 				</label>
 			</div>
 		</details>
@@ -360,7 +400,9 @@
 					<select data-type="dataset" data-key="preview">
 						<option value="">none</option>
 						<option value="next">next item</option>
+						<option value="next-phone">next item, phone only</option>
 						<option value="both">previous and next item</option>
+						<option value="both-phone">previous and next item, phone only</option>
 					</select>
 					Show Preview (slider)
 				</label>

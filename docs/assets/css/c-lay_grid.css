@@ -37,6 +37,35 @@ GRID PHONE
 		--lay-item-w: 100%;
 	}
 
+	/* GAPS */
+	.c-lay[data-gap-phone*="column"] {
+		--lay-item-gap: 0px;
+		--lay-item-mis: 0px;
+	}
+	.c-lay[data-gap-phone*="edge"] {
+		--lay-item-smis: 0px;
+		--lay-pl: 0px;
+		--lay-pr: 0px;
+	}
+	.c-lay[data-gap-phone*="row"] {
+		--lay-item-mb: 0px;
+	}
+
+	/* PREVIEW NEXT/PREV ITEM: This only works with odd numbers, 1 and 3. */
+	[data-section-type="slider"][data-preview="next-phone"] .c-lay__item {
+		--lay-w25: calc(25% - (var(--lay-item-preview) / 4) - (var(--lay-item-gap) / (5/4)));
+		--lay-w33: calc((100% / 3) - (var(--lay-item-preview) / 3) - (var(--lay-item-gap) / (4/3)));
+		--lay-w50: calc(50% - (var(--lay-item-preview) / 2) - (var(--lay-item-gap) / 2));
+		--lay-w100: calc(100% - var(--lay-item-preview));
+	}
+	
+	[data-section-type="slider"][data-preview="both"] .c-lay__item,
+	[data-section-type="slider"][data-preview="both-phone"] .c-lay__item {
+		--lay-item-w: calc(100% - (var(--lay-item-preview) * 2));
+		--lay-item-smis: 0;
+		scroll-snap-align: center;
+	}
+
 	/* ITEMS PER PAGE */
 	.c-lay[data-grid-phone="50:50"] {
 		--lay-items-per-page: 2;
@@ -179,6 +208,20 @@ GRID TABLET
 	[data-section-type="stack"][data-grid-tablet="66:33"] .c-lay__item:nth-of-type(2n+1),
 	[data-section-type="stack"][data-grid-tablet="50:50"] .c-lay__item:nth-of-type(2n+1) {
 		--lay-item-mis: 0;
+	}
+
+	/* GAPS */
+	.c-lay[data-gap-tablet*="column"] {
+		--lay-item-gap: 0px;
+		--lay-item-mis: 0px;
+	}
+	.c-lay[data-gap-tablet*="edge"] {
+		--lay-item-smis: 0px;
+		--lay-pl: 0px;
+		--lay-pr: 0px;
+	}
+	.c-lay[data-gap-tablet*="row"] {
+		--lay-item-mb: 0px;
 	}
 
 	/* ITEMS PER PAGE */
@@ -337,6 +380,20 @@ GRID DESKTOP
 	[data-section-type="stack"][data-grid-desktop="66:33"] .c-lay__item:nth-of-type(2n+1),
 	[data-section-type="stack"][data-grid-desktop="50:50"] .c-lay__item:nth-of-type(2n+1) {
 		--lay-item-mis: 0;
+	}
+
+	/* GAPS */
+	.c-lay[data-gap-desktop*="column"] {
+		--lay-item-gap: 0px;
+		--lay-item-mis: 0px;
+	}
+	.c-lay[data-gap-desktop*="edge"] {
+		--lay-item-smis: 0px;
+		--lay-pl: 0px;
+		--lay-pr: 0px;
+	}
+	.c-lay[data-gap-desktop*="row"] {
+		--lay-item-mb: 0px;
 	}
 
 	/* ITEMS PER PAGE */

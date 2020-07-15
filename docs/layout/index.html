@@ -22,6 +22,7 @@
 			/* background-color: hsla(195, 20%, 55%, 1); */
 			/* box-shadow: 0px 10px 5px -5px rgba(0, 0, 0, 0.15); */
 			border-radius: 0px;
+			box-sizing: border-box;
 			/* color: hsla(195, 20%, 99%, 1); */
 			color: #FFF;
 			font-family: sans-serif;
@@ -120,9 +121,15 @@
 	<!-- add class `c-lay--scrollsnap` for vertical scroll-snapping -->
 <main class="c-lay__wrapper" id="top">
 
-	<section class="c-lay c-lay--full c-lay--desc-s"
-		data-align="strech"
+	<section class="c-lay c-lay--desc-s"
+		data-align="stretch"
 		data-auto-play="false"
+		data-gap-phone="column edge"
+		data-gap-tablet="column edge"
+		data-gap-desktop="column edge"
+		data-grid-phone="100"
+		data-grid-tablet="100"
+		data-grid-desktop="100"
 		data-nav="arrows dots inside"
 		data-preview=""
 		data-section-type="slider"
@@ -130,7 +137,7 @@
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
 				<div class="c-lay__item"><div class="item">full-width &mdash; slide 1</div></div>
-				<div class="c-lay__item"><div class="item">full-width &mdash; slide 2</div></div>
+				<div class="c-lay__item"><div class="item--1">full-width &mdash; slide 2</div></div>
 				<div class="c-lay__item"><div class="item">full-width &mdash; slide 3</div></div>
 				<div class="c-lay__item"><div class="item">full-width &mdash; slide 4</div></div>
 				<div class="c-lay__item"><div class="item">full-width &mdash; slide 5</div></div>
@@ -180,12 +187,15 @@
 	</section>
 
 	<section class="c-lay c-lay--head-m c-lay--desc-s"
-		data-align="strech"
+		data-align="stretch"
+		data-gap-phone="edge"
 		data-grid-phone="100"
 		data-grid-tablet="50:50"
 		data-grid-desktop="33:33:33"
 		data-nav="arrows scroll"
-		data-section-type="slider">
+		data-preview="next-phone"
+		data-section-type="slider"
+		data-snap="true">
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline c-headline--h1">Slider with no preview and multiple items per “page”</h2>
 			<div class="c-lay__description">
@@ -195,7 +205,7 @@
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
 				<div class="c-lay__item"><div class="item">1</div></div>
-				<div class="c-lay__item"><div class="item">2</div></div>
+				<div class="c-lay__item"><div class="item--2">2</div></div>
 				<div class="c-lay__item"><div class="item">3</div></div>
 				<div class="c-lay__item"><div class="item">4</div></div>
 				<div class="c-lay__item"><div class="item">5</div></div>
@@ -210,6 +220,7 @@
 		data-grid-tablet="33:66"
 		data-grid-desktop="25:25:25:25"
 		data-section-type="stack"
+		data-snap="true"
 		data-theme="theme01">
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline c-headline--h1">Grouped stacked sections with layout changes</h2>
@@ -262,6 +273,7 @@
 	<section class="c-lay c-lay--desc-s c-lay--head-m"
 		data-align="strech"	
 		data-section-type="stack"
+		data-snap="true"
 		data-theme="theme02">
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline c-headline--h1">Grouped slider sections with preview</h2>
@@ -285,6 +297,7 @@
 		data-nav="arrows scroll"
 		data-preview="next"
 		data-section-type="slider"
+		data-snap="true"
 		data-theme="theme02"
 		data-toggle-layout="true">
 		<header class="c-lay__header">
@@ -319,6 +332,7 @@
 		data-nav="arrows scroll"
 		data-preview="next"
 		data-section-type="slider"
+		data-snap="true"
 		data-theme="theme02"
 		data-toggle-layout="true">
 		<header class="c-lay__header">
@@ -349,6 +363,7 @@
 		data-nav="arrows scroll"
 		data-preview="next"
 		data-section-type="slider"
+		data-snap="true"
 		data-theme="theme02"
 		data-toggle-layout="true">
 		<header class="c-lay__header">
@@ -379,6 +394,7 @@
 		data-nav="arrows dots scroll"
 		data-preview="next"
 		data-section-type="slider"
+		data-snap="true"
 		data-theme="theme02"
 		data-toggle-layout="true">
 		<header class="c-lay__header">
@@ -544,7 +560,9 @@
 	<section class="c-lay c-lay--head-m c-lay--mb"
 		data-align="strech"
 		data-animation="a-fade-in-bl"
-		data-nogap="column"
+		data-gap-phone="column"
+		data-gap-tablet="column"
+		data-gap-desktop="column"
 		data-grid-phone="100"
 		data-grid-tablet="50:50"
 		data-grid-desktop="50:50"
@@ -567,7 +585,9 @@
 	<section class="c-lay c-lay--head-m c-lay--mb"
 		data-align="strech"	
 		data-animation="a-fade-in-bl"
-		data-nogap="row"
+		data-gap-phone="row"
+		data-gap-tablet="row"
+		data-gap-desktop="row"
 		data-grid-phone="100"
 		data-grid-tablet="50:50"
 		data-grid-desktop="50:50"
@@ -591,7 +611,9 @@
 	<section class="c-lay c-lay--head-m c-lay--mb"
 		data-align="strech"
 		data-animation="a-fade-in-bl"
-		data-nogap="column row"
+		data-gap-phone="column row"
+		data-gap-tablet="column row"
+		data-gap-desktop="column row"
 		data-grid-phone="100"
 		data-grid-tablet="50:50"
 		data-grid-desktop="50:50"

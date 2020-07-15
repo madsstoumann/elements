@@ -197,9 +197,12 @@
 	position: relative;
 }
 .c-lay__wrapper {
-	height: 100%;
-  max-width: 100vw;
 	-webkit-overflow-scrolling: touch;
+	height: 100%;
+	max-height: 100vh; /* This line can cause scrollTop-issues with xpand/collapse */
+	max-width: 100vw;
+	overflow-y: scroll;
+	scroll-snap-type: y proximity;
 }
 
 /* 
@@ -359,13 +362,6 @@ MODIFIERS
 .c-lay--inner-pb-2x { --lay-inner-pb: calc(var(--lay-gap) * 2); }
 .c-lay--inner-pb-3x {	--lay-inner-pb: calc(var(--lay-gap) * 3); }
 .c-lay--inner-pb-4x {	--lay-inner-pb: calc(var(--lay-gap) * 4); }
-[data-nogap*="column"] {
-	--lay-item-gap: 0px;
-	--lay-item-mis: 0px;
-}
-[data-nogap*="row"] {
-	--lay-item-mb: 0px;
-}
 
 /* MASONRY */
 [data-section-type="masonry"] .c-lay__inner {
@@ -381,13 +377,11 @@ MODIFIERS
 	page-break-inside: avoid;
 }
 
-/* PREVIEW NEXT/PREV ITEM: This only works with odd numbers, 1 and 3. */
+/* PREVIEW NEXT/PREV ITEM: This only works with odd numbers, 1 and 3. 
+Phone-specific styles in `c-lay_grid.css`
+*/
 [data-section-type="slider"][data-preview="both"] .c-lay__item {
 	scroll-snap-align: center;
-}
-[data-section-type="slider"][data-preview="both"][data-grid-phone="100"] .c-lay__item {
-	--lay-item-w: calc(100% - (var(--lay-item-preview) * 2));
-	--lay-item-smis: 0;
 }
 
 /* SCROLLBAR */
@@ -408,13 +402,8 @@ MODIFIERS
 	background: var(--lay-scrbar-thumb-bg); 
 }
 
-/* SCROLL-SNAP: Add to `c-lay__wrapper` for vertical scroll-snap */
-.c-lay--scrollsnap {
-	max-height: 100vh; /* This line can cause scrollTop-issues with xpand/collapse */
-	overflow-y: scroll;
-	scroll-snap-type: y proximity;
-}
-.c-lay--scrollsnap .c-lay {
+/* SCROLL-SNAP: Add vertical scroll-snap */
+[data-snap="true"] {
 	scroll-snap-align: start;
 }
 
@@ -586,6 +575,11 @@ RWD
 		--lay-item-w: calc(((100% - (var(--lay-item-preview) * 2)) / 3));
 		--lay-item-smis: 0;
 	}
+	[data-section-type="slider"][data-preview="both"][data-grid-tablet="100"] .c-lay__item,
+	[data-section-type="slider"][data-preview="both"][data-grid-desktop="100"] .c-lay__item {
+		--lay-item-w: calc(((100% - (var(--lay-item-preview) * 2))));
+		--lay-item-smis: 0;
+	}
 }
 @media screen and (min-width: 1024px) {
 	/*
@@ -683,19 +677,6 @@ TODO!
 		transform: translateX(-50%);
 		width: 768px;
 	}
-}
-
-
-
-/* TODO FULL-WIDTH */
-.c-lay--full {
-	--lay-inner-w: 100%;
-	--lay-item-mis: 0px;
-	--lay-item-smis: 0px;
-	--lay-item-w: 100%;
-	--lay-pl: 0px;
-	--lay-pr: 0px;
-	--lay-maw: 100%;
 }
 
 
