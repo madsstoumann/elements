@@ -35,7 +35,8 @@ export class Layout {
 
 		const sliders = document.querySelectorAll(`[data-section-type='slider']`);
 		sliders.forEach(slider => {
-			if (!(this.isTouch && slider.dataset.preview)) {
+			const preview = slider.dataset.preview;
+			if (!(this.isTouch && (preview === 'both' || preview === 'next'))) {
 				new Slider(slider, slider.dataset);
 			}
 		})
@@ -203,7 +204,7 @@ export class Slider {
 			lblRole: 'carousel',
 			nav: '',
 			scrollBehavior: 'smooth',
-			varGap: '--lay-gap',
+			varGap: '--lay-item-gap',
 			varItemsPerPage: '--lay-items-per-page'
 		}, stringToType(settings));
 
@@ -383,7 +384,6 @@ export class Slider {
 		/* Scroll to center of page, calculate scroll using itemWidth */
 		if (this.slider.dataset.preview === 'both') {
 			if (this.itemsPerPage === 1) {
-				// xPos = (this.state.page - 1) * (this.state.itemWidth * this.itemsPerPage);
 				xPos = (this.state.page - 1) * ((this.state.itemWidth - this.state.gap) * this.itemsPerPage);
 			}
 			else {
@@ -392,6 +392,7 @@ export class Slider {
 		}
 		/* Scroll to page, use page-based widths */
 		else {
+			console.log(this.state.gap);
 			xPos = (this.state.page - 1) * (this.itemsPerPage * (this.state.itemWidth + this.state.gap));
 		}
 		this.elements.inner.scrollTo({ left: xPos, behavior: this.settings.scrollBehavior });

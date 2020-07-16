@@ -47,6 +47,9 @@ GRID PHONE
 		--lay-pl: 0px;
 		--lay-pr: 0px;
 	}
+	.c-lay[data-section-type="slider"][data-gap-phone*="edge"] .c-lay__item:first-of-type {
+		--lay-item-mis: 0px;
+	}
 	.c-lay[data-gap-phone*="row"] {
 		--lay-item-mb: 0px;
 	}
@@ -219,6 +222,9 @@ GRID TABLET
 		--lay-item-smis: 0px;
 		--lay-pl: 0px;
 		--lay-pr: 0px;
+	}
+	.c-lay[data-section-type="slider"][data-gap-tablet*="edge"] .c-lay__item:first-of-type {
+		--lay-item-mis: 0px;
 	}
 	.c-lay[data-gap-tablet*="row"] {
 		--lay-item-mb: 0px;
