@@ -1,7 +1,7 @@
 /**
  * c-typ.css
- * @version 1.0.1
- * @summary 30-06-2020
+ * @version 1.0.2
+ * @summary 21-07-2020
  * @author Mads Stoumann
  * @description Stylesheet for Typography
 	Variables are concatinated from: 
@@ -34,8 +34,7 @@
   --max-screen: 100;  /* 1600px and greater */
   --base-grid: calc((var(--base-min) * 1rem) + (var(--base-max) - var(--base-min)) * ((100vw - (var(--min-screen) * 1rem)) / (var(--max-screen) - var(--min-screen))));
 
-  font-size: var(--font-size);
-  line-height: var(--line-height);
+
 }
 
 .typo--dynamic,
@@ -56,6 +55,9 @@
   --space-right: calc((var(--spacer-right, 0) * var(--base-grid)));
   --space-bottom: calc((var(--spacer-bottom, 1) * var(--base-grid)));
   --space-left: calc((var(--spacer-top, 0) * var(--base-grid)));
+
+  font-size: var(--font-size);
+  line-height: var(--line-height);
 }
 
 @media screen and (min-width: 100rem) {
@@ -76,8 +78,8 @@
   --font-size: calc(var(--font-min) * 1rem);
   --line-height: calc(var(--line-min) * var(--base-grid));
 
-  font-size: var(--font-size);
-  line-height: var(--line-height);
+  /* font-size: var(--font-size);
+  line-height: var(--line-height); */
 }
 
 .typo--static-grid {
@@ -114,6 +116,16 @@
   --line-max: 3;
   --spacer-top: 2;
   --spacer-bottom: 1;
+}
+
+.c-headline--h3 {
+  --font-min: 1.17;
+  --font-max: 2.34;
+  --line-min: 1;
+  --line-max: 3;
+  --spacer-top: 0;
+  --spacer-bottom: 1;
+  /* margin-top: calc(0px - var(--line-space)); */
 }
 
 .c-headline--h1,

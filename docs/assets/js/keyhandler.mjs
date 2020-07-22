@@ -3,8 +3,8 @@
 /**
  * Key Handler
  * @module keyHandler.mjs
- * @version 0.4.12
- * @summary 27-11-2019
+ * @version 0.4.13
+ * @summary 17-07-2020
  * @author Mads Stoumann
  * @description Navigate list/table with keyboard. Returns an object with: { col, row, end (first or last row), open (parentOpenState) }. If editCallBack-function exists, this is returned with active (element), editMode state, optional undoMode state.
  */
@@ -17,7 +17,7 @@ export default class KeyHandler {
 				callBackScope: undefined,
 				editAllowedTags: '',
 				editCallBack: null,
-				preventDefaultKeys: '',
+				preventDefaultKeys: 'ArrowDown, ArrowUp, PageDown, PageUp',
 				useArrowNav: false
 			},
 			settings
@@ -105,7 +105,7 @@ export default class KeyHandler {
 		} else {
 			switch (event.key) {
 				case 'ArrowDown':
-					event.preventDefault();
+					// event.preventDefault();
 					this.row++;
 					if (this.row >= this.rows.length) {
 						this.row = this.rows.length - 1;
@@ -141,7 +141,7 @@ export default class KeyHandler {
 					}
 					break;
 				case 'ArrowUp':
-					event.preventDefault();
+					// event.preventDefault();
 					this.row--;
 					if (this.row <= 0) {
 						this.row = 0;
@@ -183,10 +183,10 @@ export default class KeyHandler {
 					}
 					break;
 				case 'PageDown':
-					event.preventDefault();
+					// event.preventDefault();
 					break;
 				case 'PageUp':
-					event.preventDefault();
+					// event.preventDefault();
 					break;
 				case ' ':
 				case 'Space':

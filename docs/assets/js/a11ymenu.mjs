@@ -8,7 +8,7 @@
  * @description a11y Menu. 
  */
 import { stringToType } from './common.mjs';
- import KeyHandler from './keyhandler.mjs';
+import KeyHandler from './keyhandler.mjs';
 export class a11yMenu {
 	constructor(wrapper, settings) {
 		this.settings = Object.assign(

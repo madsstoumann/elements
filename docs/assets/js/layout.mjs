@@ -10,6 +10,7 @@
  */
 
 import { debounced, h, stringToType } from './common.mjs';
+import KeyHandler from './keyhandler.mjs';
 export class Layout {
 	constructor(settings) {
 		this.settings = Object.assign({
@@ -21,7 +22,7 @@ export class Layout {
 		this.backToTop = document.querySelector(`[data-back-to-top]`);
 		this.expandCollapse(document.querySelectorAll(`[data-toggle-expanded]`));
 		this.isTouch = ('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
-		this.itemPopup(document.querySelectorAll(`[data-item-type='popup'] .c-lay__item`));
+		this.itemPopup(document.querySelectorAll(`[data-item-type='page'] .c-lay__item`));
 		this.observeAnimations(document.querySelectorAll('[data-animation]'));
 		this.toggleLayout(document.querySelectorAll(`[data-layout-collapsed]`));
 
@@ -39,7 +40,60 @@ export class Layout {
 			if (!(this.isTouch && (preview === 'both' || preview === 'next'))) {
 				new Slider(slider, slider.dataset);
 			}
+		});
+
+		this.loadPopupPage();
+
+		window.addEventListener('popstate', () => {
+			this.loadPopupPage();
 		})
+	}
+
+	loadPopupPage() {
+		/* If URL contains `pageid`, show that `page` (popup) */
+		const params = new URLSearchParams(document.location.search);
+		if (params.has('pageid')) {
+			const page = document.querySelector(`[data-page-id="${params.get('pageid')}"]`);
+			if (page) {
+				page.parentNode.classList.add('c-lay__item--page');
+			}
+		}
+		else {
+			const page = document.querySelector(`.c-lay__item--page`);
+			if(page) {
+				page.classList.remove('c-lay__item--page');
+			}
+		}
+	}
+
+	/**
+	 * @function itemHandleKeys
+	 * @param {Object} obj
+	 * @description Key-handler for item-popup	
+	*/
+	itemHandleKeys(obj) {
+		const popupClass = 'c-lay__item--page';
+		const hasPopup = obj.element.classList.contains(popupClass);
+
+		if (obj.event.code === 'Space') {
+			if (!hasPopup) {
+				obj.event.preventDefault();
+				this.setModal(true);
+				obj.element.classList.add(popupClass);
+			}
+		}
+		if (obj.key === 'Escape') {
+			this.setModal(false);
+			obj.element.focus();
+			obj.element.classList.remove(popupClass);
+		}
+		if (obj.key === 'Tab') {
+			if (hasPopup && obj.rows) {
+				// console.log(document.activeElement === obj.rows[obj.rows.length - 1])
+				// obj.event.preventDefault();
+				
+			}
+		}
 	}
 
 	/**
@@ -47,33 +101,28 @@ export class Layout {
 	 * @param {NodeList} selector
 	 * @description Adds listener to opup-items (open items in full screen)
 	*/
-	itemPopup(selector, popupClass = 'c-lay__item--popup', popupWrapper = 'c-lay__inner--popup') {
+	itemPopup(selector, popupClass = 'c-lay__item--page', popupWrapper = 'c-lay__inner--page') {
 		selector.forEach(item => {
+			item.keyHandler = new KeyHandler(item, { callBack: this.itemHandleKeys, callBackScope: this, preventDefaultKeys: '' });
+			item.setAttribute('aria-modal', true);
+			item.setAttribute('role', 'dialog');
+			item.setAttribute('tabindex', 0);
 			item.addEventListener('click', (event) => {
 				if (item.classList.contains(popupClass)) {
 					if (event.target === item) {
-						const body = document.body;
-						const scrollY = body.style.top;
-						body.style.position = '';
-						body.style.top = '';
-						window.scrollTo(0, parseInt(scrollY || '0') * -1);
+						this.setModal(false);
 						item.classList.remove(popupClass);
-						if (this.isTouch) {
-							item.parentNode.classList.remove(popupWrapper);
-						}
-						document.documentElement.style.scrollBehavior = 'smooth';
+						if (this.isTouch) { item.parentNode.classList.remove(popupWrapper); }
+						this.setPage('pageid');
 					}
 				} else {
-					document.documentElement.style.scrollBehavior = 'auto';
-					const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
-					const body = document.body;
-					const section = item.closest('.c-lay');
-					body.style.position = 'fixed';
-					body.style.top = `-${scrollY}px`;
+					this.setModal(true);
 					item.classList.add(popupClass);
 					if (this.isTouch && section.dataset.sectionType === 'slider') {
 						item.parentNode.classList.add(popupWrapper);
 					}
+					const data = item.firstElementChild.dataset;
+					this.setPage('pageid', data.pageId, data.title);
 				}
 			});
 		});
@@ -155,6 +204,47 @@ export class Layout {
 	}
 
 	/**
+	 * @function setModal
+	 * @param {Boolean} open
+	 * @description Prevents overflow/bounce on iOS devices when opening a modal. Needs custom prop `--scroll-y`
+	*/
+	setModal(open) {
+		const body = document.body;
+		const root = document.documentElement;
+		const scrollY = open ? root.style.getPropertyValue('--scroll-y') : body.style.top;
+		if (open) { root.style.scrollBehavior = 'auto'; }
+		body.style.position = open ? 'fixed' : '';
+		body.style.top = open ? `-${scrollY}px` : '';
+		if (!open) {	
+			window.scrollTo(0, parseInt(scrollY || '0') * -1);
+			root.style.scrollBehavior = 'smooth';
+		}
+	}
+
+	/**
+	 * @function setPage
+	 * @param {String} key
+	 * @param {String} value
+	 * @param {String} title
+	 * @description Upadtes search-params in a url - Sets a `virtual page`.
+	*/
+	setPage(key, value = '', title = document.title) {
+		const params = new URLSearchParams(location.search);
+		const url = new URL(location.href);
+
+		if (value) {
+			params.append(key, value);
+			url.search = params.toString();
+			history.pushState({page: value-0}, title, url);
+		}
+		else {
+			params.delete(key);
+			url.search = params.toString();
+			history.replaceState({page: 0}, title, url);
+		}
+	}
+
+	/**
 	 * @function toggleLayout
 	 * @param {NodeList} selector
 	 * @description Toggles between `stack` and `slider`
@@ -179,8 +269,8 @@ export class Layout {
 /**
  * Slider
  * @requires /assets/js/common
- * @version 1.1.05
- * @summary 15-07-2020
+ * @version 1.1.06
+ * @summary 16-07-2020
  * @description Slider-functionality for Layout Block
  * @example
  * <section data-section-type="slider">
@@ -324,7 +414,7 @@ export class Slider {
 		this.elements.inner.setAttribute('aria-live', 'polite');
 		// this.slider.setAttribute('aria-roledescription', this.settings.lblRole);
 		this.state.items.forEach((slide, index) => {
-			slide.setAttribute('aria-label', `${this.settings.lblGoToPage} ${index+1}/${this.state.pages}`);
+			// slide.setAttribute('aria-label', `${this.settings.lblGoToPage} ${index+1}/${this.state.pages}`);
 			// slide.setAttribute('aria-roledescription', this.settings.lblItemRole);
 			// slide.setAttribute('role', 'group');
 		});
@@ -392,7 +482,6 @@ export class Slider {
 		}
 		/* Scroll to page, use page-based widths */
 		else {
-			console.log(this.state.gap);
 			xPos = (this.state.page - 1) * (this.itemsPerPage * (this.state.itemWidth + this.state.gap));
 		}
 		this.elements.inner.scrollTo({ left: xPos, behavior: this.settings.scrollBehavior });

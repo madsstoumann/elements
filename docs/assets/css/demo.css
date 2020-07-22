@@ -5,10 +5,13 @@ body {
 	background-color: var(--c-bg);
 	color: var(--c-txt);
 	font-family: var(--f-body);
+	width: 100%;
 	/* min-height: 100vh; */
 	/* min-height: -webkit-fill-available; */
 }
 code {
+	--spacer-bottom: 0;
+	--spacer-top: 0;
 	/* background-color: #37B2AD;
 	color: #FEFEFE; */
 	background-color: hsla(178, 53%, 65%, 1);

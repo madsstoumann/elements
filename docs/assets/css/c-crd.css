@@ -1,0 +1,95 @@
+/**
+ * c-crd.css
+ * @version 1.0.0
+ * @summary 21-07-2020
+ * @author Mads Stoumann
+ * @description Stylesheet for Card Component
+	Variables are concatinated from: 
+	- element-prefix + 
+	- emmet-css-abbreviation + 
+	- modifier (:active, :disabled, :focus, :hover)
+	More on emmett: https://docs.emmet.io/cheat-sheet/
+*/
+
+.c-crd {
+
+	background: #FFF;
+	/* border-radius: 1em; */
+	box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+	color: #222;
+	cursor: pointer;
+
+}
+.c-crd__bg {
+	/* border-radius: 1em 1em 0 0; */
+	height: 100%;
+	left: 0;
+	max-width: 100%;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+.c-crd__bg-wrapper {
+	border-radius: 1em 1em 0 0;
+	margin: 0;
+	position: relative;
+}
+.c-crd__bg-wrapper::after {
+	content: "";
+	display: block;
+	padding-bottom: 56.25%;
+}
+
+.c-crd__content {
+	padding-left: var(--lay-gap);
+	padding-right: var(--lay-gap);
+}
+.c-crd__headline {
+	/* background-color: #fff; */
+	/* margin: .25em 0; */
+}
+.c-crd__intro {
+	--font-min: 0.875;
+	--font-max: 1;
+	--line-min: 1.5;
+	--line-max: 1.5;
+  --spacer-top: 0;
+	--spacer-bottom: 3;
+	padding-bottom: var(--space-bottom);
+  padding-top: var(--space-top);
+}
+.c-crd__tagline {
+/* background-color: blanchedalmond; */
+	color: darkgray;
+	
+	text-transform: uppercase;
+
+	--font-min: 0.75;
+  --font-max: 0.875;
+  --line-min: 1;
+  --line-max: 1;
+  --spacer-top: 1;
+	--spacer-bottom: 1;
+
+	padding-bottom: var(--space-bottom);
+  padding-top: var(--space-top);
+	
+}
+.c-crd__text {
+	
+  /* --line-min: 1;
+  --line-max: 3; */
+  --spacer-top: 2;
+  --spacer-bottom: 4;
+	display: none;
+	padding-bottom: var(--space-bottom);
+	/* line-height: 1.4; */
+	/* padding: 0 0 4em 0; */
+}
+
+.c-lay__item--page .c-crd__text {
+	display: block;
+}
+.c-lay__item--page .c-crd__intro {
+	display: none;
+}
