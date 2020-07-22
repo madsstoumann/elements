@@ -465,11 +465,14 @@ GRID DESKTOP
 }
 [data-section-type="grid-gallery"] .c-lay__item > * {
 	bottom: 0;
+	height: 100%;
 	left: 0;
 	min-height: initial;
+	object-fit: cover;
 	position: absolute;
 	right: 0;
 	top: 0;
+	width: 100%;
 }
 @media screen and (max-width: 768px) {
 	[data-section-type="grid-gallery"] .c-lay__item:nth-of-type(4n+1) {
