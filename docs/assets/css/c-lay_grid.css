@@ -448,7 +448,7 @@ GRID DESKTOP
 	display: grid;
 	gap: var(--lay-gap-grid);
 	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: repeat(10, 1fr);
+	/* grid-template-rows: repeat(10, 1fr); */
 	padding-left: var(--lay-pl);
 	padding-right: var(--lay-pr);
 
@@ -471,7 +471,11 @@ GRID DESKTOP
 	right: 0;
 	top: 0;
 }
-
+@media screen and (max-width: 768px) {
+	[data-section-type="grid-gallery"] .c-lay__item:nth-of-type(4n+1) {
+		grid-column: span 3;
+	}
+}
 @media screen and (min-width: 768px) {
 	[data-section-type="grid-gallery"] .c-lay__inner {
 		grid-template-columns: repeat(6, 1fr);

@@ -98,7 +98,10 @@
 	scroll-behavior: smooth;
 }
 .c-lay__description {
+	/* TODO */
 	--spacer-bottom: 3; /* from `c-typ.css` */
+	font-size: var(--font-size);
+  line-height: var(--line-height);
 	max-width: var(--lay-desc-maw);
 	padding-bottom: var(--space-bottom);
 }
@@ -688,7 +691,7 @@ TODO !
 	.c-lay__item--page > [data-page-id] {
 		height: 100vh;
 		max-height: 100vh;
-		top: calc(var(--lay-gap) * 2);
+		/* top: calc(var(--lay-gap) * 2); */
 		width: 768px;
 	}
 }

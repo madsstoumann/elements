@@ -56,8 +56,8 @@
   --space-bottom: calc((var(--spacer-bottom, 1) * var(--base-grid)));
   --space-left: calc((var(--spacer-top, 0) * var(--base-grid)));
 
-  font-size: var(--font-size);
-  line-height: var(--line-height);
+  /* font-size: var(--font-size);
+  line-height: var(--line-height); */
 }
 
 @media screen and (min-width: 100rem) {
@@ -121,7 +121,7 @@
 .c-headline--h3 {
   --font-min: 1.17;
   --font-max: 2.34;
-  --line-min: 1;
+  --line-min: 1.5;
   --line-max: 3;
   --spacer-top: 0;
   --spacer-bottom: 1;

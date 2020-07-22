@@ -2,8 +2,8 @@
  * Layout module.
  * @module /assets/js/layout
  * @requires /assets/js/common
- * @version 1.1.03
- * @summary 11-07-2020
+ * @version 1.1.04
+ * @summary 22-07-2020
  * @description Helper-functions for Layout Block
  * @example
  * <section data-section-type>
@@ -14,118 +14,10 @@ import KeyHandler from './keyhandler.mjs';
 export class Layout {
 	constructor(settings) {
 		this.settings = Object.assign({
+			clsInnerPage: 'c-lay__inner--page',
+			clsItemPage: 'c-lay__item--page'
 		}, stringToType(settings));
 		this.init();
-	}
-
-	init() {
-		this.backToTop = document.querySelector(`[data-back-to-top]`);
-		this.expandCollapse(document.querySelectorAll(`[data-toggle-expanded]`));
-		this.isTouch = ('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
-		this.itemPopup(document.querySelectorAll(`[data-item-type='page'] .c-lay__item`));
-		this.observeAnimations(document.querySelectorAll('[data-animation]'));
-		this.toggleLayout(document.querySelectorAll(`[data-layout-collapsed]`));
-
-		window.addEventListener('scroll', debounced(200, () => {
-			document.documentElement.style.setProperty('--scroll-y', window.scrollY);
-			/* Show `back-to-top` if scrolled more than 4 screens: https://www.nngroup.com/articles/back-to-top/ */
-			if (this.backToTop) {
-				this.backToTop.style.opacity = window.scrollY > window.screen.height * 4 ? 1 : 0;
-			}
-		}))
-
-		const sliders = document.querySelectorAll(`[data-section-type='slider']`);
-		sliders.forEach(slider => {
-			const preview = slider.dataset.preview;
-			if (!(this.isTouch && (preview === 'both' || preview === 'next'))) {
-				new Slider(slider, slider.dataset);
-			}
-		});
-
-		this.loadPopupPage();
-
-		window.addEventListener('popstate', () => {
-			this.loadPopupPage();
-		})
-	}
-
-	loadPopupPage() {
-		/* If URL contains `pageid`, show that `page` (popup) */
-		const params = new URLSearchParams(document.location.search);
-		if (params.has('pageid')) {
-			const page = document.querySelector(`[data-page-id="${params.get('pageid')}"]`);
-			if (page) {
-				page.parentNode.classList.add('c-lay__item--page');
-			}
-		}
-		else {
-			const page = document.querySelector(`.c-lay__item--page`);
-			if(page) {
-				page.classList.remove('c-lay__item--page');
-			}
-		}
-	}
-
-	/**
-	 * @function itemHandleKeys
-	 * @param {Object} obj
-	 * @description Key-handler for item-popup	
-	*/
-	itemHandleKeys(obj) {
-		const popupClass = 'c-lay__item--page';
-		const hasPopup = obj.element.classList.contains(popupClass);
-
-		if (obj.event.code === 'Space') {
-			if (!hasPopup) {
-				obj.event.preventDefault();
-				this.setModal(true);
-				obj.element.classList.add(popupClass);
-			}
-		}
-		if (obj.key === 'Escape') {
-			this.setModal(false);
-			obj.element.focus();
-			obj.element.classList.remove(popupClass);
-		}
-		if (obj.key === 'Tab') {
-			if (hasPopup && obj.rows) {
-				// console.log(document.activeElement === obj.rows[obj.rows.length - 1])
-				// obj.event.preventDefault();
-				
-			}
-		}
-	}
-
-	/**
-	 * @function itemPopup
-	 * @param {NodeList} selector
-	 * @description Adds listener to opup-items (open items in full screen)
-	*/
-	itemPopup(selector, popupClass = 'c-lay__item--page', popupWrapper = 'c-lay__inner--page') {
-		selector.forEach(item => {
-			item.keyHandler = new KeyHandler(item, { callBack: this.itemHandleKeys, callBackScope: this, preventDefaultKeys: '' });
-			item.setAttribute('aria-modal', true);
-			item.setAttribute('role', 'dialog');
-			item.setAttribute('tabindex', 0);
-			item.addEventListener('click', (event) => {
-				if (item.classList.contains(popupClass)) {
-					if (event.target === item) {
-						this.setModal(false);
-						item.classList.remove(popupClass);
-						if (this.isTouch) { item.parentNode.classList.remove(popupWrapper); }
-						this.setPage('pageid');
-					}
-				} else {
-					this.setModal(true);
-					item.classList.add(popupClass);
-					if (this.isTouch && section.dataset.sectionType === 'slider') {
-						item.parentNode.classList.add(popupWrapper);
-					}
-					const data = item.firstElementChild.dataset;
-					this.setPage('pageid', data.pageId, data.title);
-				}
-			});
-		});
 	}
 
 	/**
@@ -164,6 +56,130 @@ export class Layout {
 				toggleFunc(toggle, section, outer, label);
 			})
 		});
+	}
+
+	/**
+	 * @function init
+	 * @description Init Layout Block
+	*/
+	init() {
+		this.backToTop = document.querySelector(`[data-back-to-top]`);
+		this.expandCollapse(document.querySelectorAll(`[data-toggle-expanded]`));
+		this.isTouch = ('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+		this.itemPopup(document.querySelectorAll(`[data-item-type='page'] .c-lay__item`));
+		this.observeAnimations(document.querySelectorAll('[data-animation]'));
+		this.toggleLayout(document.querySelectorAll(`[data-layout-collapsed]`));
+
+		window.addEventListener('scroll', debounced(200, () => {
+			document.documentElement.style.setProperty('--scroll-y', window.scrollY);
+			/* Show `back-to-top` if scrolled more than 4 screens: https://www.nngroup.com/articles/back-to-top/ */
+			if (this.backToTop) {
+				this.backToTop.style.opacity = window.scrollY > window.screen.height * 4 ? 1 : 0;
+			}
+		}))
+
+		const sliders = document.querySelectorAll(`[data-section-type='slider']`);
+		sliders.forEach(slider => {
+			const preview = slider.dataset.preview;
+			if (!(this.isTouch && (preview === 'both' || preview === 'next'))) {
+				new Slider(slider, slider.dataset);
+			}
+		});
+
+		this.loadPopupPage();
+		window.addEventListener('popstate', () => {
+			this.loadPopupPage();
+		})
+	}
+
+	/**
+	 * @function itemHandleKeys
+	 * @param {Object} obj
+	 * @description Key-handler for item-popup	
+	*/
+	itemHandleKeys(obj) {
+		/* TODO */
+		const hasPopup = obj.element.classList.contains(this.settings.clsItemPage);
+
+		if (obj.event.code === 'Space') {
+			if (!hasPopup) {
+				obj.event.preventDefault();
+				this.setModal(true);
+				obj.element.classList.add(this.settings.clsItemPage);
+			}
+		}
+		if (obj.key === 'Escape') {
+			this.setModal(false);
+			obj.element.focus();
+			obj.element.classList.remove(this.settings.clsItemPage);
+		}
+		if (obj.key === 'Tab') {
+			if (hasPopup && obj.rows) {
+				// console.log(document.activeElement === obj.rows[obj.rows.length - 1])
+				// obj.event.preventDefault();
+				
+			}
+		}
+	}
+
+	/**
+	 * @function itemPopup
+	 * @param {NodeList} selector
+	 * @description Adds listener to opup-items (open items in full screen)
+	*/
+	itemPopup(selector) {
+		selector.forEach(item => {
+			item.keyHandler = new KeyHandler(item, { callBack: this.itemHandleKeys, callBackScope: this, preventDefaultKeys: '' });
+			item.setAttribute('aria-modal', true);
+			item.setAttribute('role', 'dialog');
+			item.setAttribute('tabindex', 0);
+			item.addEventListener('click', (event) => {
+				if (item.classList.contains(this.settings.clsItemPage)) {
+					if (event.target === item) {
+						this.setModal(false);
+						item.classList.remove(this.settings.clsItemPage);
+						if (this.isTouch) { item.parentNode.classList.remove(this.settings.clsInnerPage); }
+						this.setPage('pageid');
+					}
+				} else {
+					this.setModal(true);
+					item.classList.add(this.settings.clsItemPage);
+					const section = item.closest('[data-section-type]')
+					if (this.isTouch && section.dataset.sectionType === 'slider') {
+						item.parentNode.classList.add(this.settings.clsInnerPage);
+					}
+					const data = item.firstElementChild.dataset;
+					this.setPage('pageid', data.pageId, data.title);
+				}
+			});
+		});
+	}
+
+	/**
+	 * @function loadPopupPage
+	 * @description If URL contains `pageid`, show that `page` (popup) 
+	*/
+	loadPopupPage() {
+		const params = new URLSearchParams(document.location.search);
+		if (params.has('pageid')) {
+			const page = document.querySelector(`[data-page-id="${params.get('pageid')}"]`);
+			if (page) {
+				page.parentNode.classList.add(this.settings.clsItemPage);
+				const section = page.closest('[data-section-type]')
+				if (this.isTouch && section.dataset.sectionType === 'slider') {
+					page.closest('[data-inner]').classList.add(this.settings.clsInnerPage);
+				}
+				this.setModal(true);
+			}
+		}
+		else {
+			const page = document.querySelector(`.${this.settings.clsItemPage}`);
+			if (page) {
+				page.classList.remove(this.settings.clsItemPage);
+				page.closest('[data-inner]').classList.remove(this.settings.clsInnerPage);
+				this.setModal(false);
+			}
+		}
 	}
 
 	/**
@@ -269,8 +285,8 @@ export class Layout {
 /**
  * Slider
  * @requires /assets/js/common
- * @version 1.1.06
- * @summary 16-07-2020
+ * @version 1.1.07
+ * @summary 22-07-2020
  * @description Slider-functionality for Layout Block
  * @example
  * <section data-section-type="slider">
@@ -362,7 +378,7 @@ export class Slider {
 		/* Add navigation arrows */
 		if (this.hasArrows) {
 			this.elements.next = h('button', { class: this.settings.clsBtnNext, rel: 'next', 'aria-label': this.settings.lblNext }, [h('i')]);
-			this.elements.prev = h('button', { class: this.settings.clsBtnPrev, rel: 'prev', 'aria-label': this.settings.lblPrev }, [h('i')]);
+			this.elements.prev = h('button', { class: this.settings.clsBtnPrev, rel: 'prev', 'aria-label': this.settings.lblPrev, disabled: 'disabled' }, [h('i')]);
 
 			this.elements.nav.firstElementChild.appendChild(this.elements.prev);
 			this.elements.nav.firstElementChild.appendChild(this.elements.next);
