@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<link href="../assets/css/demo.css" rel="stylesheet">
-	<link href="../assets/css/c-typ.css" rel="stylesheet">
+	<link href="../assets/css/g-typ.css" rel="stylesheet">
 	<link href="../assets/css/animations.css" rel="stylesheet">
 	<link href="../assets/css/c-lay.css" rel="stylesheet">
 	
@@ -105,7 +105,7 @@
 		
 	</style>
 </head>
-<body class="typo typo--dynamic">
+<body class="g-typ g-typ__dynamic">
 
 <!-- <header>
 	<div class="c-mnu__outer">
@@ -139,15 +139,15 @@
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
 				<div class="c-lay__item"><div class="item">full-width &mdash; slide 1</div></div>
-				<div class="c-lay__item"><div class="item--1">full-width &mdash; slide 2</div></div>
+				<div class="c-lay__item"><div class="item item--1">full-width &mdash; slide 2</div></div>
 				<div class="c-lay__item"><div class="item">full-width &mdash; slide 3</div></div>
-				<div class="c-lay__item"><div class="item--3">full-width &mdash; slide 4</div></div>
+				<div class="c-lay__item"><div class="item item--4">full-width &mdash; slide 4</div></div>
 				<div class="c-lay__item"><div class="item">full-width &mdash; slide 5</div></div>
 			</div>
 		</div>
 		<header class="c-lay__header">
-			<h2 class="c-lay__headline c-headline--h1">Above: Full-width hero</h2>
-			<div class="c-lay__description">
+			<h2 class="c-lay__headline g-typ--h1">Above: Full-width hero</h2>
+			<div class="c-lay__description g-typ--m">
 				<p>
 					The slider above will change slide automatically if JavaScript is loaded, as the <code>data-auto-play</code>-attribute is set to <code>:true</code>.
 				</p>
@@ -164,8 +164,8 @@
 		data-preview="next"
 		data-section-type="slider">
 		<header class="c-lay__header">
-			<h2 class="c-lay__headline c-headline--h1">Slider with preview of next item and a headline, that spans multiple lines.</h2>
-			<div class="c-lay__description">
+			<h2 class="c-lay__headline g-typ--h1">Slider with preview of next item and a headline, that spans multiple lines.</h2>
+			<div class="c-lay__description g-typ--m">
 				<p>
 					Shows a preview of the next item in the section. A scrollbar will ber shown on desktop devices, if JavaScript somehow fails.
 					This descriptive text has the modifier <code>c-lay__desc--m</code>, setting the max-width to 75%.
@@ -200,15 +200,15 @@
 		data-snap="true"
 		data-theme="theme01">
 		<header class="c-lay__header">
-			<h2 class="c-lay__headline c-headline--h1">Slider with no preview and multiple items per “page”</h2>
-			<div class="c-lay__description">
+			<h2 class="c-lay__headline g-typ--h1">Slider with no preview and multiple items per “page”</h2>
+			<div class="c-lay__description g-typ--m">
 				The headline use the <code>c-lay__head--m</code>-modidier to set max-width to 75%. Visible navigation arrows will be shown on all screensizes, since no preview indicates swipeability.
 			</div>
 		</header>
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
 				<div class="c-lay__item"><div class="item">1</div></div>
-				<div class="c-lay__item"><div class="item--2">2</div></div>
+				<div class="c-lay__item"><div class="item item--2">2</div></div>
 				<div class="c-lay__item"><div class="item">3</div></div>
 				<div class="c-lay__item"><div class="item">4</div></div>
 				<div class="c-lay__item"><div class="item">5</div></div>
@@ -226,8 +226,8 @@
 		data-snap="true"
 		data-theme="theme00">
 		<header class="c-lay__header">
-			<h2 class="c-lay__headline c-headline--h1">Grouped stacked sections with layout changes</h2>
-			<div class="c-lay__description">
+			<h2 class="c-lay__headline g-typ--h1">Grouped stacked sections with layout changes</h2>
+			<div class="c-lay__description g-typ--m">
 				The content in the top section is stacked, and will will change from <code>50:50</code> to <code>33:66</code> to <code>25:25:25:25</code>.
 				As the section has a custom background-color, the modifier <code>c-lay-pt</code> has been added, to add padding to the top.
 			</div>
@@ -279,8 +279,8 @@
 		data-snap="true"
 		data-theme="theme02">
 		<header class="c-lay__header">
-			<h2 class="c-lay__headline c-headline--h1">Grouped slider sections with preview</h2>
-			<div class="c-lay__description">
+			<h2 class="c-lay__headline g-typ--h1">Grouped slider sections with preview</h2>
+			<div class="c-lay__description g-typ--m">
 				These sliders will show a preview of the next item. preview width is specified in the CSS Custom prop <em>--lay-item-preview</em>
 			</div>
 		</header>
@@ -289,12 +289,12 @@
 		</div>
 	</section>
 
-	<section class="c-lay"
+	<section class="c-lay c-lay--pb"
 		data-align="stretch"
 		data-animation="a-fade-in-bottom"
 		data-animation-target=".c-lay__item"
 		data-grid-phone="50:50"
-		data-grid-tablet="25:25:25:25"
+		data-grid-tablet="33:33:33"
 		data-grid-desktop="25:25:25:25"
 		data-item-type="page"
 		data-nav="arrows scroll"
@@ -304,7 +304,7 @@
 		data-theme="theme02"
 		data-toggle-layout="true">
 		<header class="c-lay__header">
-			<h2 class="c-lay__headline c-headline--h4">Click on the items for full-screen</h2>
+			<h2 class="c-lay__headline g-typ--h4">Click on the items for full-screen</h2>
 			<button type="button" data-layout-expanded="Collapse All" data-layout-collapsed="Show All">Show all</button>
 		</header>
 		<div class="c-lay__outer" data-outer>
@@ -316,10 +316,51 @@
 							<img class="c-crd__bg" itemprop="image" src="../assets/img/clippath-demo.jpg" loading="lazy" />
 						</figure>
 						<section class="c-crd__content">
-							<div class="c-crd__tagline">Exclusive app</div>
-							<h2 class="c-crd__headline c-headline--h3" itemprop="headline">Read more about this great app</h2>
-							<div class="c-crd__intro" itemprop="description">Some introduction about the awesome stuff.</div>
-							<div class="c-crd__text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci reiciendis tempora, officiis enim hic ullam nisi maiores distinctio quam, expedita nesciunt in excepturi. Reprehenderit doloremque, quisquam nostrum neque nulla placeat officiis nam, alias, ab minima facilis sunt! Maxime temporibus id tempora. Sed, corporis. Ratione nesciunt debitis vitae officia! Architecto ducimus quisquam quos quas! Illum cumque accusamus veritatis id molestias. Illo, dolorem numquam nulla enim dolore deserunt, aut voluptates dolorum voluptatum aliquid deleniti aperiam doloremque nisi quisquam repellendus non eum omnis pariatur inventore et delectus earum reprehenderit? Quo, neque. Perspiciatis fugit amet odio odit vero repellat, mollitia minima maiores expedita quod ratione tempore voluptas repellendus, corporis fuga accusantium ut dicta sit! Veniam, modi aspernatur distinctio beatae fugit dignissimos maiores, earum inventore, est officia rerum illo neque? Doloremque alias, aspernatur reiciendis perferendis et omnis repellat, iusto aperiam laudantium dolor fuga nemo voluptate sed vero ipsam. Ipsa cumque doloremque magnam odio excepturi velit labore, sequi, laborum in maiores totam nulla nobis architecto id, iusto explicabo aliquam. Eius tenetur aliquid, doloribus maxime illo sapiente assumenda repellendus itaque aperiam ea enim quasi unde vero quis velit, eligendi repudiandae neque quos. Veritatis, perferendis ea neque, id exercitationem dolorem tempora amet sapiente tenetur asperiores officiis harum obcaecati est ut eos nihil mollitia officia iste possimus, et esse explicabo! Modi quod minus officia, temporibus similique necessitatibus perferendis hic veniam dolorum dolore ratione iste enim esse cumque omnis accusantium! At assumenda quasi totam quo aliquam, earum provident reiciendis voluptatum perferendis veniam facilis cupiditate necessitatibus doloremque molestias, magnam vel quisquam qui ducimus ab nisi, quia animi. Nobis ducimus aperiam placeat quam, autem id sit quod dolore soluta incidunt vitae minima aspernatur cupiditate et nisi quia pariatur, ad dolorum at nam enim! Optio, nulla consectetur! Eveniet minus nemo quaerat dolores. Excepturi illo corporis praesentium. Expedita eum ratione omnis laboriosam aperiam natus sint distinctio commodi vel, impedit accusantium explicabo aut odio minus debitis et fugit. Debitis libero aperiam dolorum placeat amet ad error, exercitationem dicta non pariatur commodi voluptates consequuntur eveniet suscipit, beatae laudantium repellat nihil minus architecto doloribus ipsam ipsum aliquam deleniti. Necessitatibus dignissimos, quo id voluptatibus minima natus asperiores voluptate molestias molestiae magni corrupti laudantium et fugiat, blanditiis, consequuntur odio soluta eos. Veniam, officiis. Dolor id cumque repudiandae, nemo, recusandae dignissimos ipsa accusamus sed odio iusto officiis ipsam esse consequatur enim reprehenderit commodi quod, temporibus eveniet beatae labore ad amet sequi. Eligendi, modi? Delectus, libero incidunt quia consequuntur a maiores veniam eos, facilis voluptates adipisci, non veritatis cum ipsam ea minima repellat at nihil deleniti numquam aspernatur ullam? Necessitatibus eos provident, nobis deleniti beatae quis nisi deserunt enim dicta, quidem cum. Eaque, facere. Velit ducimus nam, deleniti voluptas quae officia officiis tempore accusamus! Rem obcaecati adipisci vel, amet quam pariatur necessitatibus molestias iusto ea incidunt ad repellat in atque error, totam fugiat, neque enim aliquam. Officiis totam numquam quibusdam exercitationem tempora eveniet aliquam consectetur nihil harum voluptate inventore veritatis, dolore sint architecto. Autem, corrupti architecto incidunt nemo nesciunt illo illum? Ipsum, rerum laboriosam. Laudantium necessitatibus velit provident. Nostrum, deleniti delectus.</div>
+							<div class="c-crd__tagline g-typ--xxs">Exclusive app</div>
+							<h2 class="c-crd__headline g-typ--h3" itemprop="headline">Read more about this great app</h2>
+							<div class="c-crd__intro g-typ--s" itemprop="description">Some introduction about the awesome stuff.</div>
+							<div class="c-crd__text g-typ--m">
+								<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+								<p>Adipisci reiciendis tempora, officiis enim hic ullam nisi maiores distinctio quam, expedita nesciunt in excepturi.</p>
+								<p>Reprehenderit doloremque, quisquam nostrum neque nulla placeat officiis nam, alias, ab minima facilis sunt! Maxime temporibus id <a href="#link1">tempora</a>.<br />Sed, corporis. Ratione nesciunt debitis vitae officia! Architecto ducimus quisquam quos quas! Illum cumque accusamus veritatis id molestias. </p>
+								
+								<figure class="c-imb">
+									<img class="c-imb__image" src="../assets/img/gallery05.jpg" loading="lazy" alt="description" />
+									<img class="c-imb__image" src="../assets/img/gallery07.jpg" loading="lazy" alt="description" />
+									<figcaption class="c-imb__text g-typ--s">
+										Eveniet minus nemo quaerat dolores. Excepturi illo corporis praesentium.
+									</figcaption>
+								</figure>
+								
+								<p>Illo, dolorem numquam nulla enim dolore deserunt, aut voluptates dolorum voluptatum aliquid deleniti aperiam doloremque nisi quisquam repellendus non eum omnis pariatur inventore et delectus earum reprehenderit? </p>
+								<p>Quo, neque. Perspiciatis fugit amet odio odit vero repellat, mollitia minima maiores expedita quod ratione tempore voluptas repellendus, corporis fuga accusantium ut dicta sit! </p>
+								
+								<blockquote class="c-qte" itemscope="" itemtype="http://schema.org/Quotation">
+									<span class="c-qte__quote g-typ--xxxl" itemprop="text">To do is to be</span>
+									<cite class="c-qte__cite g-typ--xl" itemprop="name">— Karl Marx</cite>
+								</blockquote>
+
+								<p>Ipsa cumque doloremque magnam odio excepturi velit labore, sequi, laborum in maiores totam nulla <a href="#link1">nobis architecto id</a>, iusto explicabo aliquam. Eius tenetur aliquid, doloribus maxime illo sapiente assumenda repellendus itaque aperiam ea enim quasi unde vero quis velit, eligendi repudiandae neque quos. Veritatis, perferendis ea neque, id exercitationem dolorem tempora amet sapiente tenetur asperiores officiis harum obcaecati est ut eos nihil mollitia officia iste possimus, et esse explicabo! Modi quod minus officia, temporibus similique necessitatibus perferendis hic veniam dolorum dolore ratione iste enim esse cumque omnis accusantium! At assumenda quasi totam quo aliquam, earum provident reiciendis voluptatum perferendis veniam facilis cupiditate necessitatibus doloremque molestias, magnam vel quisquam qui ducimus ab nisi, quia animi. </p>
+
+								<figure class="c-imb c-imb--right">
+									<img class="c-imb__image" src="../assets/img/gallery08.jpg" loading="lazy" alt="description" />
+									<img class="c-imb__image" src="../assets/img/gallery09.jpg" loading="lazy" alt="description" />
+									<figcaption class="c-imb__text g-typ--s">
+										Eveniet minus nemo quaerat dolores. Excepturi illo corporis praesentium.
+									</figcaption>
+								</figure>
+
+								<p>Nobis ducimus aperiam placeat quam, autem id sit quod dolore soluta incidunt vitae minima aspernatur cupiditate et nisi quia pariatur, ad dolorum at nam enim! Optio, nulla consectetur! Eveniet minus nemo quaerat dolores. Excepturi illo corporis praesentium. </p>
+								<blockquote class="c-qte" itemscope="" itemtype="http://schema.org/Quotation">
+									<span class="c-qte__quote g-typ--xxxl" itemprop="text">To be is to do</span>
+									<cite class="c-qte__cite g-typ--xl" itemprop="name">— Albert Camus</cite>
+								</blockquote>
+								<p>Expedita eum ratione omnis laboriosam aperiam natus sint distinctio commodi vel, impedit accusantium explicabo aut odio minus debitis et fugit. Debitis libero aperiam dolorum placeat amet ad error, exercitationem dicta non pariatur commodi voluptates consequuntur eveniet suscipit, beatae laudantium repellat nihil minus architecto doloribus ipsam ipsum aliquam deleniti. Necessitatibus dignissimos, quo id voluptatibus minima natus asperiores voluptate molestias molestiae magni corrupti laudantium et fugiat, blanditiis, consequuntur odio soluta eos. </p>
+								<blockquote class="c-qte" itemscope="" itemtype="http://schema.org/Quotation">
+									<span class="c-qte__quote g-typ--xxxl" itemprop="text">Do be do be do</span>
+									<cite class="c-qte__cite g-typ--xl" itemprop="name">— Frank Sinatra</cite>
+								</blockquote>
+								<p>Officiis totam numquam quibusdam exercitationem tempora eveniet aliquam consectetur nihil harum voluptate inventore veritatis, dolore sint architecto. Autem, corrupti architecto incidunt nemo nesciunt illo illum? Ipsum, rerum laboriosam. Laudantium necessitatibus velit provident. Nostrum, deleniti delectus.</p></div>
 						</section>
 					</div>
 
@@ -331,10 +372,10 @@
 							<img class="c-crd__bg" itemprop="image" src="../assets/img/filter-demo.jpg" loading="lazy" />
 						</figure>
 						<section class="c-crd__content">
-							<div class="c-crd__tagline">Exclusive app</div>
-							<h2 class="c-crd__headline c-headline--h3" itemprop="headline">Awesome news</h2>
-							<div class="c-crd__intro" itemprop="description">Some introduction about the awesome stuff, but with more text, that spans multiple lines.</div>
-							<div class="c-crd__text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci reiciendis tempora, officiis enim hic ullam nisi maiores distinctio quam, expedita nesciunt in excepturi. Reprehenderit doloremque, quisquam nostrum neque nulla placeat officiis nam, alias, ab minima facilis sunt! Maxime temporibus id tempora. Sed, corporis. Ratione nesciunt debitis vitae officia! Architecto ducimus quisquam quos quas! Illum cumque accusamus veritatis id molestias. Illo, dolorem numquam nulla enim dolore deserunt, aut voluptates dolorum voluptatum aliquid deleniti aperiam doloremque nisi quisquam repellendus non eum omnis pariatur inventore et delectus earum reprehenderit? Quo, neque. Perspiciatis fugit amet odio odit vero repellat, mollitia minima maiores expedita quod ratione tempore voluptas repellendus, corporis fuga accusantium ut dicta sit! Veniam, modi aspernatur distinctio beatae fugit dignissimos maiores, earum inventore, est officia rerum illo neque? Doloremque alias, aspernatur reiciendis perferendis et omnis repellat, iusto aperiam laudantium dolor fuga nemo voluptate sed vero ipsam. Ipsa cumque doloremque magnam odio excepturi velit labore, sequi, laborum in maiores totam nulla nobis architecto id, iusto explicabo aliquam. Eius tenetur aliquid, doloribus maxime illo sapiente assumenda repellendus itaque aperiam ea enim quasi unde vero quis velit, eligendi repudiandae neque quos. Veritatis, perferendis ea neque, id exercitationem dolorem tempora amet sapiente tenetur asperiores officiis harum obcaecati est ut eos nihil mollitia officia iste possimus, et esse explicabo! Modi quod minus officia, temporibus similique necessitatibus perferendis hic veniam dolorum dolore ratione iste enim esse cumque omnis accusantium! At assumenda quasi totam quo aliquam, earum provident reiciendis voluptatum perferendis veniam facilis cupiditate necessitatibus doloremque molestias, magnam vel quisquam qui ducimus ab nisi, quia animi. Nobis ducimus aperiam placeat quam, autem id sit quod dolore soluta incidunt vitae minima aspernatur cupiditate et nisi quia pariatur, ad dolorum at nam enim! Optio, nulla consectetur! Eveniet minus nemo quaerat dolores. Excepturi illo corporis praesentium. Expedita eum ratione omnis laboriosam aperiam natus sint distinctio commodi vel, impedit accusantium explicabo aut odio minus debitis et fugit. Debitis libero aperiam dolorum placeat amet ad error, exercitationem dicta non pariatur commodi voluptates consequuntur eveniet suscipit, beatae laudantium repellat nihil minus architecto doloribus ipsam ipsum aliquam deleniti. Necessitatibus dignissimos, quo id voluptatibus minima natus asperiores voluptate molestias molestiae magni corrupti laudantium et fugiat, blanditiis, consequuntur odio soluta eos. Veniam, officiis. Dolor id cumque repudiandae, nemo, recusandae dignissimos ipsa accusamus sed odio iusto officiis ipsam esse consequatur enim reprehenderit commodi quod, temporibus eveniet beatae labore ad amet sequi. Eligendi, modi? Delectus, libero incidunt quia consequuntur a maiores veniam eos, facilis voluptates adipisci, non veritatis cum ipsam ea minima repellat at nihil deleniti numquam aspernatur ullam? Necessitatibus eos provident, nobis deleniti beatae quis nisi deserunt enim dicta, quidem cum. Eaque, facere. Velit ducimus nam, deleniti voluptas quae officia officiis tempore accusamus! Rem obcaecati adipisci vel, amet quam pariatur necessitatibus molestias iusto ea incidunt ad repellat in atque error, totam fugiat, neque enim aliquam. Officiis totam numquam quibusdam exercitationem tempora eveniet aliquam consectetur nihil harum voluptate inventore veritatis, dolore sint architecto. Autem, corrupti architecto incidunt nemo nesciunt illo illum? Ipsum, rerum laboriosam. Laudantium necessitatibus velit provident. Nostrum, deleniti delectus.</div>
+							<div class="c-crd__tagline g-typ--xxs">Exclusive app</div>
+							<h2 class="c-crd__headline g-typ--h3" itemprop="headline">Awesome news</h2>
+							<div class="c-crd__intro g-typ--s" itemprop="description">Some introduction about the awesome stuff, but with more text, that spans multiple lines.</div>
+							<div class="c-crd__text g-typ--m">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci reiciendis tempora, officiis enim hic ullam nisi maiores distinctio quam, expedita nesciunt in excepturi. Reprehenderit doloremque, quisquam nostrum neque nulla placeat officiis nam, alias, ab minima facilis sunt! Maxime temporibus id tempora. Sed, corporis. Ratione nesciunt debitis vitae officia! Architecto ducimus quisquam quos quas! Illum cumque accusamus veritatis id molestias. Illo, dolorem numquam nulla enim dolore deserunt, aut voluptates dolorum voluptatum aliquid deleniti aperiam doloremque nisi quisquam repellendus non eum omnis pariatur inventore et delectus earum reprehenderit? Quo, neque. Perspiciatis fugit amet odio odit vero repellat, mollitia minima maiores expedita quod ratione tempore voluptas repellendus, corporis fuga accusantium ut dicta sit! Veniam, modi aspernatur distinctio beatae fugit dignissimos maiores, earum inventore, est officia rerum illo neque? Doloremque alias, aspernatur reiciendis perferendis et omnis repellat, iusto aperiam laudantium dolor fuga nemo voluptate sed vero ipsam. Ipsa cumque doloremque magnam odio excepturi velit labore, sequi, laborum in maiores totam nulla nobis architecto id, iusto explicabo aliquam. Eius tenetur aliquid, doloribus maxime illo sapiente assumenda repellendus itaque aperiam ea enim quasi unde vero quis velit, eligendi repudiandae neque quos. Veritatis, perferendis ea neque, id exercitationem dolorem tempora amet sapiente tenetur asperiores officiis harum obcaecati est ut eos nihil mollitia officia iste possimus, et esse explicabo! Modi quod minus officia, temporibus similique necessitatibus perferendis hic veniam dolorum dolore ratione iste enim esse cumque omnis accusantium! At assumenda quasi totam quo aliquam, earum provident reiciendis voluptatum perferendis veniam facilis cupiditate necessitatibus doloremque molestias, magnam vel quisquam qui ducimus ab nisi, quia animi. Nobis ducimus aperiam placeat quam, autem id sit quod dolore soluta incidunt vitae minima aspernatur cupiditate et nisi quia pariatur, ad dolorum at nam enim! Optio, nulla consectetur! Eveniet minus nemo quaerat dolores. Excepturi illo corporis praesentium. Expedita eum ratione omnis laboriosam aperiam natus sint distinctio commodi vel, impedit accusantium explicabo aut odio minus debitis et fugit. Debitis libero aperiam dolorum placeat amet ad error, exercitationem dicta non pariatur commodi voluptates consequuntur eveniet suscipit, beatae laudantium repellat nihil minus architecto doloribus ipsam ipsum aliquam deleniti. Necessitatibus dignissimos, quo id voluptatibus minima natus asperiores voluptate molestias molestiae magni corrupti laudantium et fugiat, blanditiis, consequuntur odio soluta eos. Veniam, officiis. Dolor id cumque repudiandae, nemo, recusandae dignissimos ipsa accusamus sed odio iusto officiis ipsam esse consequatur enim reprehenderit commodi quod, temporibus eveniet beatae labore ad amet sequi. Eligendi, modi? Delectus, libero incidunt quia consequuntur a maiores veniam eos, facilis voluptates adipisci, non veritatis cum ipsam ea minima repellat at nihil deleniti numquam aspernatur ullam? Necessitatibus eos provident, nobis deleniti beatae quis nisi deserunt enim dicta, quidem cum. Eaque, facere. Velit ducimus nam, deleniti voluptas quae officia officiis tempore accusamus! Rem obcaecati adipisci vel, amet quam pariatur necessitatibus molestias iusto ea incidunt ad repellat in atque error, totam fugiat, neque enim aliquam. Officiis totam numquam quibusdam exercitationem tempora eveniet aliquam consectetur nihil harum voluptate inventore veritatis, dolore sint architecto. Autem, corrupti architecto incidunt nemo nesciunt illo illum? Ipsum, rerum laboriosam. Laudantium necessitatibus velit provident. Nostrum, deleniti delectus.</div>
 						</section>
 					</div>
 
@@ -346,10 +387,10 @@
 							<img class="c-crd__bg" itemprop="image" src="../assets/img/clippath-demo.jpg" loading="lazy" />
 						</figure>
 						<section class="c-crd__content">
-							<div class="c-crd__tagline">Local news</div>
-							<h2 class="c-crd__headline c-headline--h3" itemprop="headline">We did it!</h2>
-							<div class="c-crd__intro" itemprop="description">Some introduction about the awesome stuff, click to read more.</div>
-							<div class="c-crd__text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci reiciendis tempora, officiis enim hic ullam nisi maiores distinctio quam, expedita nesciunt in excepturi. Reprehenderit doloremque, quisquam nostrum neque nulla placeat officiis nam, alias, ab minima facilis sunt! Maxime temporibus id tempora. Sed, corporis. Ratione nesciunt debitis vitae officia! Architecto ducimus quisquam quos quas! Illum cumque accusamus veritatis id molestias. Illo, dolorem numquam nulla enim dolore deserunt, aut voluptates dolorum voluptatum aliquid deleniti aperiam doloremque nisi quisquam repellendus non eum omnis pariatur inventore et delectus earum reprehenderit? Quo, neque. Perspiciatis fugit amet odio odit vero repellat, mollitia minima maiores expedita quod ratione tempore voluptas repellendus, corporis fuga accusantium ut dicta sit! Veniam, modi aspernatur distinctio beatae fugit dignissimos maiores, earum inventore, est officia rerum illo neque? Doloremque alias, aspernatur reiciendis perferendis et omnis repellat, iusto aperiam laudantium dolor fuga nemo voluptate sed vero ipsam. Ipsa cumque doloremque magnam odio excepturi velit labore, sequi, laborum in maiores totam nulla nobis architecto id, iusto explicabo aliquam. Eius tenetur aliquid, doloribus maxime illo sapiente assumenda repellendus itaque aperiam ea enim quasi unde vero quis velit, eligendi repudiandae neque quos. Veritatis, perferendis ea neque, id exercitationem dolorem tempora amet sapiente tenetur asperiores officiis harum obcaecati est ut eos nihil mollitia officia iste possimus, et esse explicabo! Modi quod minus officia, temporibus similique necessitatibus perferendis hic veniam dolorum dolore ratione iste enim esse cumque omnis accusantium! At assumenda quasi totam quo aliquam, earum provident reiciendis voluptatum perferendis veniam facilis cupiditate necessitatibus doloremque molestias, magnam vel quisquam qui ducimus ab nisi, quia animi. Nobis ducimus aperiam placeat quam, autem id sit quod dolore soluta incidunt vitae minima aspernatur cupiditate et nisi quia pariatur, ad dolorum at nam enim! Optio, nulla consectetur! Eveniet minus nemo quaerat dolores. Excepturi illo corporis praesentium. Expedita eum ratione omnis laboriosam aperiam natus sint distinctio commodi vel, impedit accusantium explicabo aut odio minus debitis et fugit. Debitis libero aperiam dolorum placeat amet ad error, exercitationem dicta non pariatur commodi voluptates consequuntur eveniet suscipit, beatae laudantium repellat nihil minus architecto doloribus ipsam ipsum aliquam deleniti. Necessitatibus dignissimos, quo id voluptatibus minima natus asperiores voluptate molestias molestiae magni corrupti laudantium et fugiat, blanditiis, consequuntur odio soluta eos. Veniam, officiis. Dolor id cumque repudiandae, nemo, recusandae dignissimos ipsa accusamus sed odio iusto officiis ipsam esse consequatur enim reprehenderit commodi quod, temporibus eveniet beatae labore ad amet sequi. Eligendi, modi? Delectus, libero incidunt quia consequuntur a maiores veniam eos, facilis voluptates adipisci, non veritatis cum ipsam ea minima repellat at nihil deleniti numquam aspernatur ullam? Necessitatibus eos provident, nobis deleniti beatae quis nisi deserunt enim dicta, quidem cum. Eaque, facere. Velit ducimus nam, deleniti voluptas quae officia officiis tempore accusamus! Rem obcaecati adipisci vel, amet quam pariatur necessitatibus molestias iusto ea incidunt ad repellat in atque error, totam fugiat, neque enim aliquam. Officiis totam numquam quibusdam exercitationem tempora eveniet aliquam consectetur nihil harum voluptate inventore veritatis, dolore sint architecto. Autem, corrupti architecto incidunt nemo nesciunt illo illum? Ipsum, rerum laboriosam. Laudantium necessitatibus velit provident. Nostrum, deleniti delectus.</div>
+							<div class="c-crd__tagline g-typ--xxs">Local news</div>
+							<h2 class="c-crd__headline g-typ--h3" itemprop="headline">We did it!</h2>
+							<div class="c-crd__intro g-typ--s" itemprop="description">Some introduction about the awesome stuff, click to read more.</div>
+							<div class="c-crd__text g-typ--m">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci reiciendis tempora, officiis enim hic ullam nisi maiores distinctio quam, expedita nesciunt in excepturi. Reprehenderit doloremque, quisquam nostrum neque nulla placeat officiis nam, alias, ab minima facilis sunt! Maxime temporibus id tempora. Sed, corporis. Ratione nesciunt debitis vitae officia! Architecto ducimus quisquam quos quas! Illum cumque accusamus veritatis id molestias. Illo, dolorem numquam nulla enim dolore deserunt, aut voluptates dolorum voluptatum aliquid deleniti aperiam doloremque nisi quisquam repellendus non eum omnis pariatur inventore et delectus earum reprehenderit? Quo, neque. Perspiciatis fugit amet odio odit vero repellat, mollitia minima maiores expedita quod ratione tempore voluptas repellendus, corporis fuga accusantium ut dicta sit! Veniam, modi aspernatur distinctio beatae fugit dignissimos maiores, earum inventore, est officia rerum illo neque? Doloremque alias, aspernatur reiciendis perferendis et omnis repellat, iusto aperiam laudantium dolor fuga nemo voluptate sed vero ipsam. Ipsa cumque doloremque magnam odio excepturi velit labore, sequi, laborum in maiores totam nulla nobis architecto id, iusto explicabo aliquam. Eius tenetur aliquid, doloribus maxime illo sapiente assumenda repellendus itaque aperiam ea enim quasi unde vero quis velit, eligendi repudiandae neque quos. Veritatis, perferendis ea neque, id exercitationem dolorem tempora amet sapiente tenetur asperiores officiis harum obcaecati est ut eos nihil mollitia officia iste possimus, et esse explicabo! Modi quod minus officia, temporibus similique necessitatibus perferendis hic veniam dolorum dolore ratione iste enim esse cumque omnis accusantium! At assumenda quasi totam quo aliquam, earum provident reiciendis voluptatum perferendis veniam facilis cupiditate necessitatibus doloremque molestias, magnam vel quisquam qui ducimus ab nisi, quia animi. Nobis ducimus aperiam placeat quam, autem id sit quod dolore soluta incidunt vitae minima aspernatur cupiditate et nisi quia pariatur, ad dolorum at nam enim! Optio, nulla consectetur! Eveniet minus nemo quaerat dolores. Excepturi illo corporis praesentium. Expedita eum ratione omnis laboriosam aperiam natus sint distinctio commodi vel, impedit accusantium explicabo aut odio minus debitis et fugit. Debitis libero aperiam dolorum placeat amet ad error, exercitationem dicta non pariatur commodi voluptates consequuntur eveniet suscipit, beatae laudantium repellat nihil minus architecto doloribus ipsam ipsum aliquam deleniti. Necessitatibus dignissimos, quo id voluptatibus minima natus asperiores voluptate molestias molestiae magni corrupti laudantium et fugiat, blanditiis, consequuntur odio soluta eos. Veniam, officiis. Dolor id cumque repudiandae, nemo, recusandae dignissimos ipsa accusamus sed odio iusto officiis ipsam esse consequatur enim reprehenderit commodi quod, temporibus eveniet beatae labore ad amet sequi. Eligendi, modi? Delectus, libero incidunt quia consequuntur a maiores veniam eos, facilis voluptates adipisci, non veritatis cum ipsam ea minima repellat at nihil deleniti numquam aspernatur ullam? Necessitatibus eos provident, nobis deleniti beatae quis nisi deserunt enim dicta, quidem cum. Eaque, facere. Velit ducimus nam, deleniti voluptas quae officia officiis tempore accusamus! Rem obcaecati adipisci vel, amet quam pariatur necessitatibus molestias iusto ea incidunt ad repellat in atque error, totam fugiat, neque enim aliquam. Officiis totam numquam quibusdam exercitationem tempora eveniet aliquam consectetur nihil harum voluptate inventore veritatis, dolore sint architecto. Autem, corrupti architecto incidunt nemo nesciunt illo illum? Ipsum, rerum laboriosam. Laudantium necessitatibus velit provident. Nostrum, deleniti delectus.</div>
 						</section>
 					</div>
 
@@ -363,12 +404,12 @@
 		</div>
 	</section>
  
-	<section class="c-lay c-lay--desc-m c-lay--head-m"
+	<section class="c-lay c-lay--desc-m c-lay--head-m c-lay--pb"
 		data-align="strech"
 		data-animation="a-fade-in-bottom"
 		data-animation-target=".c-lay__item"
 		data-grid-phone="100"
-		data-grid-tablet="33:33:33"
+		data-grid-tablet="25:25:25:25"
 		data-grid-desktop="25:25:25:25"
 		data-nav="arrows scroll"
 		data-preview="next"
@@ -377,7 +418,7 @@
 		data-theme="theme02"
 		data-toggle-layout="true">
 		<header class="c-lay__header">
-			<h3 class="c-lay__headline c-headline--h4">Family-friendly releases</h3>
+			<h3 class="c-lay__headline g-typ--h4">Family-friendly releases</h3>
 			<button type="button" data-layout-expanded="Collapse All" data-layout-collapsed="Show All">Show all</button>
 		</header>
 		<div class="c-lay__outer" data-outer>
@@ -394,7 +435,7 @@
 		</div>
 	</section>
 
-	<section class="c-lay c-lay--desc-m c-lay--head-m"
+	<section class="c-lay c-lay--desc-m c-lay--head-m c-lay--pb"
 		data-align="strech"
 		data-animation="a-fade-in-bottom"
 		data-animation-target=".c-lay__item"
@@ -408,7 +449,7 @@
 		data-theme="theme02"
 		data-toggle-layout="true">
 		<header class="c-lay__header">
-			<h3 class="c-lay__headline c-headline--h4">Science Fiction and Fantasy releases</h3>
+			<h3 class="c-lay__headline g-typ--h4">Science Fiction and Fantasy releases</h3>
 			<button type="button" data-layout-expanded="Collapse All" data-layout-collapsed="Show All">Show all</button>
 		</header>
 		<div class="c-lay__outer" data-outer>
@@ -439,7 +480,7 @@
 		data-theme="theme02"
 		data-toggle-layout="true">
 		<header class="c-lay__header">
-			<h3 class="c-lay__headline c-headline--h4">Star Wars releases</h3>
+			<h3 class="c-lay__headline g-typ--h4">Star Wars releases</h3>
 			<button type="button" data-layout-expanded="Collapse All" data-layout-collapsed="Show All">Show all</button>
 		</header>
 		<div class="c-lay__outer" data-outer>
@@ -467,8 +508,8 @@
 		data-section-type="stack"
 		data-theme="theme04">
 		<header class="c-lay__header">
-			<h2 class="c-lay__headline c-headline--h1">Diagonal breaker-section without any content</h2>
-			<div class="c-lay__description">
+			<h2 class="c-lay__headline g-typ--h1">Diagonal breaker-section without any content</h2>
+			<div class="c-lay__description g-typ--m">
 				A section without stacked content or slider, with the modifier <code>c-lay--mt-3x</code> for extra top-margin.
 			</div>
 		</header>
@@ -487,8 +528,8 @@
 	data-section-type="stack"
 	data-theme="theme03">
 	<header class="c-lay__header">
-		<h2 class="c-lay__headline c-headline--h1">Diagonal section with content</h2>
-		<div class="c-lay__description">
+		<h2 class="c-lay__headline g-typ--h1">Diagonal section with content</h2>
+		<div class="c-lay__description g-typ--m">
 			In a diagonal section, you can chose if everything — or only the wrapper or section should be swewed. 
 			In this example, the wrapper and content are skewed, but not the header.
 		</div>
@@ -513,8 +554,8 @@
 		data-preview="both"
 		data-section-type="slider">
 		<header class="c-lay__header">
-			<h2 class="c-lay__headline c-headline--h1">Slider with preview of both previous and next items</h2>
-			<div class="c-lay__description">
+			<h2 class="c-lay__headline g-typ--h1">Slider with preview of both previous and next items</h2>
+			<div class="c-lay__description g-typ--m">
 				The section slides in from the bottom, using the animation <code>a-fade-in-bl</code>
 			</div>
 		</header>
@@ -545,8 +586,8 @@
 		data-section-type="stack"
 		data-theme="theme01">
 		<header class="c-lay__header">
-			<h2 class="c-lay__headline c-headline--h1">Section with expand and collapse functionality</h2>
-			<div class="c-lay__description">
+			<h2 class="c-lay__headline g-typ--h1">Section with expand and collapse functionality</h2>
+			<div class="c-lay__description g-typ--m">
 				This section will expand to reveal hidden content. The initial height is specified in modifiers <code>c-lay--exp-s</code>, <code>c-lay--exp-m</code> and <code>c-lay--exp-l</code>
 			</div>
 		</header>
@@ -578,8 +619,8 @@
 		data-section-type="slider"
 		data-theme="theme03">
 		<header class="c-lay__header">
-			<h2 class="c-lay__headline c-headline--h1">Slider with continuos loop</h2>
-			<div class="c-lay__description">
+			<h2 class="c-lay__headline g-typ--h1">Slider with continuos loop</h2>
+			<div class="c-lay__description g-typ--m">
 				This slider will "start over", becuase the <code>data-loop</code>-attribute is set to <code>:true</code>
 			</div>
 		</header>
@@ -610,8 +651,8 @@
 		data-section-type="stack"
 		data-theme="theme04">
 		<header class="c-lay__header">
-			<h2 class="c-lay__headline c-headline--h1">Stacked content with no gap between columns</h2>
-			<div class="c-lay__description">
+			<h2 class="c-lay__headline g-typ--h1">Stacked content with no gap between columns</h2>
+			<div class="c-lay__description g-typ--m">
 				The default gap between columns have been removed using <code>data-nogap="column"</code>.
 			</div>
 		</header>
@@ -634,8 +675,8 @@
 		data-grid-desktop="50:50"
 		data-section-type="stack">
 		<header class="c-lay__header">
-			<h2 class="c-lay__headline c-headline--h1">Stacked content with no gap between rows</h2>
-			<div class="c-lay__description">
+			<h2 class="c-lay__headline g-typ--h1">Stacked content with no gap between rows</h2>
+			<div class="c-lay__description g-typ--m">
 				The default gap between rows have been removed using <code>data-nogap="row"</code>.
 			</div>
 		</header>
@@ -660,8 +701,8 @@
 		data-grid-desktop="50:50"
 		data-section-type="stack">
 		<header class="c-lay__header">
-			<h2 class="c-lay__headline c-headline--h1">Stacked content with no gap between columns and rows</h2>
-			<div class="c-lay__description">
+			<h2 class="c-lay__headline g-typ--h1">Stacked content with no gap between columns and rows</h2>
+			<div class="c-lay__description g-typ--m">
 				The default gap between columns and rows have been removed using <code>data-nogap="column row"</code>.
 			</div>
 		</header>
@@ -683,53 +724,55 @@
 		data-grid-desktop="25:25:25:25"
 		data-section-type="masonry">
 		<header class="c-lay__header">
-			<h2 class="c-lay__headline c-headline--h1">Masonry</h2>
-			<div class="c-lay__description">
+			<h2 class="c-lay__headline g-typ--h1">Masonry</h2>
+			<div class="c-lay__description g-typ--m">
 				A masonry-simulation using CSS <code>column-count</code>.<br />
 				Columns change from 1 to 4, depending on device-width.
 			</div>
 		</header>
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
-				<div class="c-lay__item"><div class="item--1">1</div></div>
-				<div class="c-lay__item"><div class="item--2">2</div></div>
-				<div class="c-lay__item"><div class="item--3">3</div></div>
-				<div class="c-lay__item"><div class="item--4">4</div></div>
-				<div class="c-lay__item"><div class="item--5">5</div></div>
-				<div class="c-lay__item"><div class="item--6">6</div></div>
-				<div class="c-lay__item"><div class="item--7">7</div></div>
-				<div class="c-lay__item"><div class="item--8">8</div></div>
-				<div class="c-lay__item"><div class="item--9">9</div></div>
-				<div class="c-lay__item"><div class="item--1">10</div></div>
-				<div class="c-lay__item"><div class="item--2">11</div></div>
-				<div class="c-lay__item"><div class="item--3">12</div></div>
-				<div class="c-lay__item"><div class="item--4">13</div></div>
-				<div class="c-lay__item"><div class="item--5">14</div></div>
-				<div class="c-lay__item"><div class="item--6">15</div></div>
-				<div class="c-lay__item"><div class="item--7">16</div></div>
-				<div class="c-lay__item"><div class="item--8">17</div></div>
-				<div class="c-lay__item"><div class="item--9">18</div></div>
+				<div class="c-lay__item"><div class="item item--1">1</div></div>
+				<div class="c-lay__item"><div class="item item--2">2</div></div>
+				<div class="c-lay__item"><div class="item item--3">3</div></div>
+				<div class="c-lay__item"><div class="item item--4">4</div></div>
+				<div class="c-lay__item"><div class="item item--5">5</div></div>
+				<div class="c-lay__item"><div class="item item--6">6</div></div>
+				<div class="c-lay__item"><div class="item item--7">7</div></div>
+				<div class="c-lay__item"><div class="item item--8">8</div></div>
+				<div class="c-lay__item"><div class="item item--9">9</div></div>
+				<div class="c-lay__item"><div class="item item--1">10</div></div>
+				<div class="c-lay__item"><div class="item item--2">11</div></div>
+				<div class="c-lay__item"><div class="item item--3">12</div></div>
+				<div class="c-lay__item"><div class="item item--4">13</div></div>
+				<div class="c-lay__item"><div class="item item--5">14</div></div>
+				<div class="c-lay__item"><div class="item item--6">15</div></div>
+				<div class="c-lay__item"><div class="item item--7">16</div></div>
+				<div class="c-lay__item"><div class="item item--8">17</div></div>
+				<div class="c-lay__item"><div class="item item--9">18</div></div>
 			</div>
 		</div>
 	</section>
 	<section class="c-lay c-lay--inner-pb-0x"
 	data-animation="a-fade-in-bottom"
 	data-animation-target=".c-lay__item"
-	data-gap-phone="edge grid"
+	data-gap-phone="edge small"
 	data-gap-tablet="edge small"
 	data-gap-desktop="small"
+	data-item-type="page"
 	data-section-type="grid-gallery"
 	data-theme="theme00">
 	<header class="c-lay__header">
-		<h2 class="c-lay__headline c-headline--h1">CSS Grid Gallery</h2>
-		<div class="c-lay__description">
+		<h2 class="c-lay__headline g-typ--h1">CSS Grid Gallery</h2>
+		<div class="c-lay__description g-typ--m">
 			A CSS Grid Gallery, similar to Apple Photos.<br />
-			Most images have aspect-ratio 1:1, larger ones 4:3, and others 3:1 or 2:1.
+			Most images have aspect-ratio 1:1, larger ones 4:3, and others 3:1 or 2:1.<br />
+			Images from pexels.com.
 		</div>
 	</header>
 	<div class="c-lay__outer" data-outer>
 		<div class="c-lay__inner" data-inner>
-			<div class="c-lay__item"><img src="../assets/img/gallery01.jpg" loading="lazy" alt="description" /></div>
+			<div class="c-lay__item"><img data-page-id="101" src="../assets/img/gallery01.jpg" loading="lazy" alt="description" /></div>
 			<div class="c-lay__item"><img src="../assets/img/gallery02.jpg" loading="lazy" alt="description" /></div>
 			<div class="c-lay__item"><img src="../assets/img/gallery03.jpg" loading="lazy" alt="description" /></div>
 			<div class="c-lay__item"><img src="../assets/img/gallery04.jpg" loading="lazy" alt="description" /></div>

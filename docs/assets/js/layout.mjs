@@ -2,8 +2,8 @@
  * Layout module.
  * @module /assets/js/layout
  * @requires /assets/js/common
- * @version 1.1.04
- * @summary 22-07-2020
+ * @version 1.1.05
+ * @summary 24-07-2020
  * @description Helper-functions for Layout Block
  * @example
  * <section data-section-type>
@@ -98,26 +98,33 @@ export class Layout {
 	 * @description Key-handler for item-popup	
 	*/
 	itemHandleKeys(obj) {
-		/* TODO */
-		const hasPopup = obj.element.classList.contains(this.settings.clsItemPage);
+		const data = obj.element.firstElementChild.dataset;
+		const hasPopup = obj.element.dataset.pageOpen
 
 		if (obj.event.code === 'Space') {
 			if (!hasPopup) {
 				obj.event.preventDefault();
 				this.setModal(true);
-				obj.element.classList.add(this.settings.clsItemPage);
+				this.setPage('pageid', data.pageId, data.title);
+				obj.element.dataset.pageOpen = 'true';
 			}
 		}
 		if (obj.key === 'Escape') {
 			this.setModal(false);
+			this.setPage('pageid');
 			obj.element.focus();
-			obj.element.classList.remove(this.settings.clsItemPage);
+			obj.element.removeAttribute('data-page-open');
 		}
 		if (obj.key === 'Tab') {
-			if (hasPopup && obj.rows) {
-				// console.log(document.activeElement === obj.rows[obj.rows.length - 1])
-				// obj.event.preventDefault();
-				
+			if (hasPopup) {
+				obj.event.preventDefault()
+				if (obj.rows.length) {
+					let row = obj.row;
+					obj.rows[row].focus();
+					row++;
+					if (row >= obj.rows.length) { row = 0; }
+					obj.element.keyHandler.row = row;
+				}
 			}
 		}
 	}
@@ -134,16 +141,16 @@ export class Layout {
 			item.setAttribute('role', 'dialog');
 			item.setAttribute('tabindex', 0);
 			item.addEventListener('click', (event) => {
-				if (item.classList.contains(this.settings.clsItemPage)) {
+				if (item.dataset.pageOpen) {
 					if (event.target === item) {
 						this.setModal(false);
-						item.classList.remove(this.settings.clsItemPage);
+						item.removeAttribute('data-page-open');
 						if (this.isTouch) { item.parentNode.classList.remove(this.settings.clsInnerPage); }
 						this.setPage('pageid');
 					}
 				} else {
 					this.setModal(true);
-					item.classList.add(this.settings.clsItemPage);
+					item.dataset.pageOpen = 'true';
 					const section = item.closest('[data-section-type]')
 					if (this.isTouch && section.dataset.sectionType === 'slider') {
 						item.parentNode.classList.add(this.settings.clsInnerPage);
@@ -164,7 +171,7 @@ export class Layout {
 		if (params.has('pageid')) {
 			const page = document.querySelector(`[data-page-id="${params.get('pageid')}"]`);
 			if (page) {
-				page.parentNode.classList.add(this.settings.clsItemPage);
+				page.parentNode.dataset.pageOpen = 'true';
 				const section = page.closest('[data-section-type]')
 				if (this.isTouch && section.dataset.sectionType === 'slider') {
 					page.closest('[data-inner]').classList.add(this.settings.clsInnerPage);
@@ -173,9 +180,9 @@ export class Layout {
 			}
 		}
 		else {
-			const page = document.querySelector(`.${this.settings.clsItemPage}`);
+			const page = document.querySelector('[data-page-open]');
 			if (page) {
-				page.classList.remove(this.settings.clsItemPage);
+				page.removeAttribute('data-page-open');
 				page.closest('[data-inner]').classList.remove(this.settings.clsInnerPage);
 				this.setModal(false);
 			}
