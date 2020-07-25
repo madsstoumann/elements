@@ -368,7 +368,7 @@ MODIFIERS
 .c-lay--pt-2x { --lay-pt: calc(var(--lay-gap) * 2); }
 .c-lay--pt-3x { --lay-pt: calc(var(--lay-gap) * 3); }
 .c-lay--pt-4x { --lay-pt: calc(var(--lay-gap) * 4); }
-.c-lay--inner-pb-0x { --lay-inner-pb: 0; }
+.c-lay--inner-pb-0x { --lay-inner-pb: 0px; }
 .c-lay--inner-pb-2x { --lay-inner-pb: calc(var(--lay-gap) * 2); }
 .c-lay--inner-pb-3x {	--lay-inner-pb: calc(var(--lay-gap) * 3); }
 .c-lay--inner-pb-4x {	--lay-inner-pb: calc(var(--lay-gap) * 4); }
@@ -428,7 +428,7 @@ Phone-specific styles in `c-lay_grid.css`
 [data-section-type="stack"] .c-lay__inner {
 	flex-wrap: wrap;
 	overflow-x: hidden;
-	--lay-inner-pb: 0; /* Remove parent padding, add to individual items instead */
+	--lay-inner-pb: 0px; /* Remove parent padding, add to individual items instead */
 }
 [data-section-type="stack"] .c-lay__item {
 	/* Add vertical gap between items */

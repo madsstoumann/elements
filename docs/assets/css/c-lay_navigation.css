@@ -26,7 +26,7 @@
 .c-lay__nav-inner {
 	align-items: center;
 	display: flex;
-	height: calc(100% - (var(--lay-gap) * 3));
+	height: calc(100% - var(--lay-inner-pb));
 	margin: 0 auto;
 	max-width: var(--lay-inner-w);
 	position: relative;
@@ -38,6 +38,18 @@
 [data-nav*="dots"] .c-lay__dots {
 	display: flex;
 }
+
+[data-nav*="dots"] .c-lay__nav-inner {
+	height: calc(100% - var(--lay-inner-pb) - (var(--lay-gap) * 2));
+}
+[data-nav*="dots inside"] .c-lay__nav-inner {
+	height: calc(100% - var(--lay-inner-pb));
+}
+[data-nav*="dots scroll"] .c-lay__nav-inner {
+	height: calc(100% - var(--lay-inner-pb) - (var(--lay-gap) * 3));
+}
+
+
 [data-nav*="inside"] .c-lay__dots {
 	bottom: var(--lay-gap);
 	left: 50%;
