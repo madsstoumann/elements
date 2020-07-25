@@ -150,15 +150,18 @@
 
 [data-page-open="true"] > .c-crd {
 	animation: scale-in-bottom .5s cubic-bezier(.25,.46,.45,.94) both;
-	height: 100vh !important;
+	min-height: 100vh !important;
 	overflow-y: auto; 
 	position: relative;
 	width: 100%;
 }
 @supports (-webkit-overflow-scrolling: touch) {
 	/* CSS specific to iOS devices */ 
-	[data-page-open="true"] > .c-crd {
-		min-height: -webkit-fill-available;
+	[data-page-open="true"] > .c-crd::after {
+		content: "";
+		display: block;
+		height: 4rem;
+		/* min-height: -webkit-fill-available; */
 	}
 }
 
