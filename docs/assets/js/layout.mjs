@@ -326,6 +326,20 @@ export class Slider {
 	}
 
 	/**
+	 * @function addClsRemDelay
+	 * @param {String} element
+	 * @param {String} cls
+	 * @param {Number} delay in milliseconds
+	 * @description Adds a class to an element, removes it after a delay.
+	 */
+	addClsRemDelay(element, cls, delay) {
+		element.classList.add(cls);
+		window.setTimeout( () => {
+			element.classList.remove(cls);
+		}, delay);
+	}
+
+	/**
 	 * @function getGap
 	 * @description Return current gap-value
 	 */
@@ -392,18 +406,28 @@ export class Slider {
 
 			this.elements.next.addEventListener('click', () => {
 				this.state.page++;
+				let scrollBehavior = 'smooth';
 				if (this.state.page > this.state.pages) { 
 					this.state.page = this.state.loop ? 1 : this.state.pages;
+					if (this.state.loop) {
+						scrollBehavior = 'auto';
+						this.addClsRemDelay(this.elements.inner, 'a-fade-in-right', 500);
+					}
 				}
-				this.scrollToPage();
+				this.scrollToPage(scrollBehavior);
 			});
 	
 			this.elements.prev.addEventListener('click', () => {
 				this.state.page--;
+				let scrollBehavior = 'smooth';
 				if (this.state.page < 1) { 
-					this.state.page = this.state.loop ? this.state.pages : 1;				
+					this.state.page = this.state.loop ? this.state.pages : 1;
+					if (this.state.loop) {
+						scrollBehavior = 'auto';
+						this.addClsRemDelay(this.elements.inner, 'a-fade-in-left', 500);
+					}
 				}
-				this.scrollToPage();
+				this.scrollToPage(scrollBehavior);
 			});
 		}
 		
@@ -467,6 +491,9 @@ export class Slider {
 			}
 			this.updateDots(this.state.page-1);
 		}
+		if (this.state.loop) {
+			this.elements.prev.removeAttribute('disabled');
+		}
 		this.scrollToPage();
 	}
 
@@ -492,7 +519,7 @@ export class Slider {
 	 * @function scrollToPage
 	 * @description Scrolls to `this.state.page`
 	 */
-	scrollToPage() {
+	scrollToPage(scrollBehavior = this.settings.scrollBehavior) {
 		let xPos;
 		/* Scroll to center of page, calculate scroll using itemWidth */
 		if (this.slider.dataset.preview === 'both') {
@@ -507,7 +534,7 @@ export class Slider {
 		else {
 			xPos = (this.state.page - 1) * (this.itemsPerPage * (this.state.itemWidth + this.state.gap));
 		}
-		this.elements.inner.scrollTo({ left: xPos, behavior: this.settings.scrollBehavior });
+		this.elements.inner.scrollTo({ left: xPos, behavior: scrollBehavior });
 	}
 
 	/**
