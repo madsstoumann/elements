@@ -107,6 +107,7 @@ export class Layout {
 				this.setModal(true);
 				this.setPage('pageid', data.pageId, data.title);
 				obj.element.dataset.pageOpen = 'true';
+				obj.element.__scroll = obj.element.parentNode.scrollLeft;
 			}
 		}
 		if (obj.key === 'Escape') {
@@ -114,6 +115,7 @@ export class Layout {
 			this.setPage('pageid');
 			obj.element.focus();
 			obj.element.removeAttribute('data-page-open');
+			obj.element.parentNode.scrollTo({ left: obj.element.__scroll, behavior: 'auto' });
 		}
 		if (obj.key === 'Tab') {
 			if (hasPopup) {
@@ -145,12 +147,14 @@ export class Layout {
 					if (event.target === item) {
 						this.setModal(false);
 						item.removeAttribute('data-page-open');
+						item.parentNode.scrollTo({ left: item.__scroll, behavior: 'auto' });
 						if (this.isTouch) { item.parentNode.classList.remove(this.settings.clsInnerPage); }
 						this.setPage('pageid');
 					}
 				} else {
 					this.setModal(true);
 					item.dataset.pageOpen = 'true';
+					item.__scroll = item.parentNode.scrollLeft;
 					const section = item.closest('[data-section-type]')
 					if (this.isTouch && section.dataset.sectionType === 'slider') {
 						item.parentNode.classList.add(this.settings.clsInnerPage);
@@ -183,7 +187,8 @@ export class Layout {
 			const page = document.querySelector('[data-page-open]');
 			if (page) {
 				page.removeAttribute('data-page-open');
-				page.closest('[data-inner]').classList.remove(this.settings.clsInnerPage);
+				const inner = page.closest('[data-inner]');
+				inner.classList.remove(this.settings.clsInnerPage);
 				this.setModal(false);
 			}
 		}
@@ -292,8 +297,8 @@ export class Layout {
 /**
  * Slider
  * @requires /assets/js/common
- * @version 1.1.07
- * @summary 22-07-2020
+ * @version 1.1.08
+ * @summary 25-07-2020
  * @description Slider-functionality for Layout Block
  * @example
  * <section data-section-type="slider">

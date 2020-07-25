@@ -665,9 +665,11 @@ TODO !
 	width: 100vw !important;
 	z-index: 10;
 }
-[data-page-open="true"]::after {
+[data-page-open="true"]::after,
+[data-page-open="true"]:last-of-type::after {
 	align-items: center;
 	background-color: hsl(217, 16%, 35%);
+	border-inline-end: none;
 	border-radius: 50%;
 	box-shadow: 0 0 0 2px #FFF;
 	color: #FFF;
