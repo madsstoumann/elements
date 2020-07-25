@@ -160,7 +160,7 @@
 	[data-page-open="true"] > .c-crd::after {
 		content: "";
 		display: block;
-		height: 4rem;
+		height: 6rem;
 		/* min-height: -webkit-fill-available; */
 	}
 }

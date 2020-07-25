@@ -13,6 +13,13 @@
 
 	<style>
 		/* Demo Styles */
+		/* *:focus:not(:focus-visible) {
+ 			outline: none;
+		}
+		*:focus-visible {
+			outline: lightgreen solid 2px;
+		} */
+
 		html {
 			scroll-behavior: smooth;
 		}
@@ -32,6 +39,12 @@
 			--spacer-top: 1;
 			padding-left: var(--lay-gap);
 			padding-top: var(--space-top);
+		}
+		.c-lay__item:focus {
+			outline: none;
+		}
+		.c-lay__item:focus > * {
+			box-shadow: 0px 6px 1px#ff5722;
 		}
 
 		.item--1 { background-color: hotpink; min-height: 200px; }
