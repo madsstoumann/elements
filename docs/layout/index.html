@@ -149,7 +149,7 @@
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline g-typ--h1">Above: Full-width hero</h2>
 			<div class="c-lay__description g-typ--m">
-					The slider above will change slide automatically if JavaScript is loaded, as the <code>data-auto-play</code>-attribute is set to <code>:true</code>.
+					The slider above will change slide automatically if JavaScript is loaded, as the <code>data-auto-play</code>-attribute is set to <code>true</code>.
 			</div>
 		</header>
 	</section>
@@ -226,7 +226,6 @@
 			<h2 class="c-lay__headline g-typ--h1">Grouped stacked sections with layout changes</h2>
 			<div class="c-lay__description g-typ--m">
 				The content in the top section is stacked, and will will change from <code>50:50</code> to <code>33:66</code> to <code>25:25:25:25</code>.
-				As the section has a custom background-color, the modifier <code>c-lay-pt</code> has been added, to add padding to the top.
 			</div>
 		</header>
 		<div class="c-lay__outer" data-outer>
@@ -278,7 +277,7 @@
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline g-typ--h1">Grouped slider sections with preview</h2>
 			<div class="c-lay__description g-typ--m">
-				These sliders will show a preview of the next item. preview width is specified in the CSS Custom prop <em>--lay-item-preview</em>
+				These sliders will show a preview of the next item, as <code>data-preview="next"</code>. Because of <code>data-toggle-layout="true"</code>, it allows toggling of layout between <em>slider</em> and </em> <em>stack</em>
 			</div>
 		</header>
 		<div class="c-lay__outer" data-outer>
@@ -507,7 +506,7 @@
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline g-typ--h1">Diagonal breaker-section without any content</h2>
 			<div class="c-lay__description g-typ--m">
-				A section without stacked content or slider, with the modifier <code>c-lay--mt-3x</code> for extra top-margin.
+				A diagonal section without stacked content or slider, with the modifier <code>c-lay--mt-3x</code> for extra top-margin.
 			</div>
 		</header>
 		<div class="c-lay__outer" data-outer>
@@ -585,7 +584,7 @@
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline g-typ--h1">Section with expand and collapse functionality</h2>
 			<div class="c-lay__description g-typ--m">
-				This section will expand to reveal hidden content. The initial height is specified in modifiers <code>c-lay--exp-s</code>, <code>c-lay--exp-m</code> and <code>c-lay--exp-l</code>
+				This section will expand to reveal hidden content. The initial height is specified in attribute <code>data-collapsed-height</code>, which can be set to <code>small|medium|large</code>.
 			</div>
 		</header>
 		<div class="c-lay__outer" data-outer>
@@ -618,7 +617,7 @@
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline g-typ--h1">Slider with continuos loop</h2>
 			<div class="c-lay__description g-typ--m">
-				This slider will "start over", becuase the <code>data-loop</code>-attribute is set to <code>:true</code>
+				This slider will "start over", becuase the <code>data-loop</code>-attribute is set to <code>true</code>
 			</div>
 		</header>
 		<div class="c-lay__outer" data-outer>
@@ -650,7 +649,7 @@
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline g-typ--h1">Stacked content with no gap between columns</h2>
 			<div class="c-lay__description g-typ--m">
-				The default gap between columns have been removed using <code>data-nogap="column"</code>.
+				The default gap between columns have been removed using <code>data-gap-phone="column"</code>, <code>data-gap-tablet="column"</code> and <code>data-gap-desktop="column"</code>.
 			</div>
 		</header>
 		<div class="c-lay__outer" data-outer>
@@ -674,7 +673,7 @@
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline g-typ--h1">Stacked content with no gap between rows</h2>
 			<div class="c-lay__description g-typ--m">
-				The default gap between rows have been removed using <code>data-nogap="row"</code>.
+				The default gap between rows have been removed using <code>data-gap-phone="row"</code>, <code>data-gap-tablet="row"</code> and <code>data-gap-desktop="row"</code>.
 			</div>
 		</header>
 		<div class="c-lay__outer" data-outer>
@@ -700,7 +699,7 @@
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline g-typ--h1">Stacked content with no gap between columns and rows</h2>
 			<div class="c-lay__description g-typ--m">
-				The default gap between columns and rows have been removed using <code>data-nogap="column row"</code>.
+				The default gap between columns and rows have been removed using <code>data-gap-phone="column row"</code>, <code>data-gap-tablet="column row"</code> and <code>data-gap-desktop="column row"</code>.
 			</div>
 		</header>
 		<div class="c-lay__outer" data-outer>
