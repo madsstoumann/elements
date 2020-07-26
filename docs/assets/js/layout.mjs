@@ -139,8 +139,9 @@ export class Layout {
 	itemPopup(selector) {
 		selector.forEach(item => {
 			item.keyHandler = new KeyHandler(item, { callBack: this.itemHandleKeys, callBackScope: this, preventDefaultKeys: '' });
-			item.setAttribute('aria-modal', true);
-			item.setAttribute('role', 'dialog');
+			/* TODO: aria-modal */
+			item.firstElementChild.setAttribute('aria-modal', true);
+			item.firstElementChild.setAttribute('role', 'dialog');
 			item.setAttribute('tabindex', 0);
 			item.addEventListener('click', (event) => {
 				if (item.dataset.pageOpen) {
@@ -315,11 +316,10 @@ export class Slider {
 			clsNav: 'c-lay__nav',
 			clsNavInner: 'c-lay__nav-inner',
 			clsOverflow: 'c-lay__inner--overflow',
-			lblGoToPage: 'Go to page',
+			lblGoToSlide: 'Go to slide',
 			lblItemRole: 'slide',
 			lblNext: 'Next',
 			lblPrev: 'Prev',
-			lblRole: 'carousel',
 			nav: '',
 			scrollBehavior: 'smooth',
 			varGap: '--lay-item-gap',
@@ -463,16 +463,16 @@ export class Slider {
 		this.refreshSlider();
 
 		/* Set aria-attributes */
-		this.elements.inner.setAttribute('aria-live', 'polite');
-		// this.slider.setAttribute('aria-roledescription', this.settings.lblRole);
+		this.slider.setAttribute('aria-roledescription', 'carousel');
 		this.state.items.forEach((slide, index) => {
-			// slide.setAttribute('aria-label', `${this.settings.lblGoToPage} ${index+1}/${this.state.pages}`);
-			// slide.setAttribute('aria-roledescription', this.settings.lblItemRole);
-			// slide.setAttribute('role', 'group');
+			slide.setAttribute('aria-label', `${this.settings.lblGoToSlide} ${index+1} / ${this.state.items.length}`);
+			slide.setAttribute('aria-roledescription', this.settings.lblItemRole);
+			slide.setAttribute('role', 'group');
 		});
 
 		/* Autoplay */
 		if (this.settings.autoPlay && this.settings.autoPlay !== 'false' ) {
+			this.elements.inner.setAttribute('aria-live', 'polite');
 			window.setInterval( () => {
 				this.state.page++;
 				if (this.state.page > this.state.pages) { 
@@ -510,7 +510,7 @@ export class Slider {
 		this.dots = [];
 		this.elements.dots.innerHTML = '';
 		for (let page = 1; page <= this.state.pages; page++) { 
-			const dot = h('button', { class: this.settings.clsDot, type: 'button', 'aria-label': `${this.settings.lblGoToPage} ${page}`, 'data-page': page});
+			const dot = h('button', { class: this.settings.clsDot, type: 'button', 'aria-label': `${this.settings.lblGoToSlide} ${page}`, 'data-page': page});
 			dot.addEventListener('click', () => {
 				this.state.page = parseInt(dot.dataset.page, 10);
 				this.scrollToPage();
