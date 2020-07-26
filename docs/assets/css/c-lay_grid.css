@@ -475,6 +475,9 @@ GRID DESKTOP
 	top: 0;
 	width: 100%;
 }
+[data-section-type="grid-gallery"] .c-lay__item[data-page-open="true"] > * {
+	object-fit: contain;
+}
 @media screen and (max-width: 768px) {
 	[data-section-type="grid-gallery"] .c-lay__item:nth-of-type(4n+1) {
 		grid-column: span 3;

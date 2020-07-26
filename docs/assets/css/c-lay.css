@@ -20,7 +20,7 @@
 	--lay-dot-bgc--cur: hsl(210, 24%, 30%);
 	--lay-dot-bgc--cur-focus: hsla(210, 24%, 90%, 0.65);
 	--lay-dot-bxsh: hsla(210, 24%, 15%, 0.65);
-	--lay-dot-m: 0 0.25rem;
+	--lay-dot-m: 0 10px; /*0 0.25rem;*/
 	--lay-dot-h: 0.5rem;
 	--lay-dots-m: 1rem 0 0 0;
 	--lay-dot-p: var(--lay-gap) 0;

@@ -53,7 +53,7 @@
 	--spacer-left: 1;
 	--spacer-top: 1;
 	
-	color: darkgray;
+	color: hsl(0,0%,30%);
 	text-transform: uppercase;
 }
 .c-crd__text {
