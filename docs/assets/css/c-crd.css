@@ -13,14 +13,10 @@
 
 .c-crd {
 	background: #FFF;
-	/* border-radius: 1em; */
-	box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
 	color: #222;
 	cursor: pointer;
-
 }
 .c-crd__bg {
-	/* border-radius: 1em 1em 0 0; */
 	height: 100%;
 	left: 0;
 	max-width: 100%;
@@ -37,12 +33,10 @@
 	display: block;
 	padding-bottom: 56.25%;
 }
-
 .c-crd__headline {
 	--spacer-left: 1;
 	--spacer-right: 1;
 }
-
 .c-crd__intro {
 	--spacer-bottom: 3;
 	--spacer-left: 1;
@@ -52,26 +46,33 @@
 	--spacer-bottom: 1;
 	--spacer-left: 1;
 	--spacer-top: 1;
-	
-	color: hsl(0,0%,30%);
+	color: hsl(0, 0%, 30%);
 	text-transform: uppercase;
 }
 .c-crd__text {
-  /* --spacer-bottom: 4; */
 	display: none;
 }
 
 @media (prefers-color-scheme: dark) {
+	a {
+		color: #81E5d9;
+	}
 	.c-crd {
-		background-color: hsl(220, 26%, 0%);
+		background-color: hsl(215deg 27% 14%);
     color: #FDFDFD;
 	}
+	.c-crd__tagline {
+		color: inherit;
+	}
 }
-[data-page-open] .c-crd__content {
-	/* padding-left: calc(var(--lay-gap) * 2);
-	padding-right: calc(var(--lay-gap) * 2); */
+/* State */
+[data-page-open="true"] > .c-crd {
+	animation: scale-in-bottom .5s cubic-bezier(.25,.46,.45,.94) both;
+	min-height: 100vh !important;
+	overflow-y: auto; 
+	position: relative;
+	width: 100%;
 }
-
 [data-page-open] .c-crd__headline {
 	--font-min: 2;
   --font-max: 4;
@@ -95,9 +96,31 @@
 [data-page-open] .c-crd__intro {
 	display: none;
 }
+@supports (-webkit-overflow-scrolling: touch) {
+	/* CSS specific to iOS devices */ 
+	[data-page-open="true"] > .c-crd::after {
+		content: "";
+		display: block;
+		height: 6rem;
+	}
+}
 
+@media screen and (min-width: 768px) {
+	[data-page-open="true"] > .c-crd {
+		height: 100vh;
+		max-height: 100vh;
+		width: 768px;
+	}
+}
+@media screen and (min-width: 1200px) {
+	[data-page-open="true"] > .c-crd {
+		height: 100vh;
+		max-height: 100vh;
+		width: 1024px;
+	}
+}
 
-/* TODO */
+/* Quote */
 .c-qte {
 	text-align: center;
 }
@@ -119,8 +142,7 @@
 	vertical-align: -0.4em;
 }
 
-
-/* TODO */
+/* Image Block */
 .c-imb {
 	display: flex;
 	flex-direction: column;
@@ -146,49 +168,4 @@
 	--spacer-top: 1;
 	color: darkgray;
 	text-align: center;
-}
-
-[data-page-open="true"] > .c-crd {
-	animation: scale-in-bottom .5s cubic-bezier(.25,.46,.45,.94) both;
-	min-height: 100vh !important;
-	overflow-y: auto; 
-	position: relative;
-	width: 100%;
-}
-@supports (-webkit-overflow-scrolling: touch) {
-	/* CSS specific to iOS devices */ 
-	[data-page-open="true"] > .c-crd::after {
-		content: "";
-		display: block;
-		height: 6rem;
-		/* min-height: -webkit-fill-available; */
-	}
-}
-
-@media screen and (min-width: 768px) {
-	[data-page-open="true"] > .c-crd {
-		height: 100vh;
-		max-height: 100vh;
-		width: 768px;
-	}
-}
-@media screen and (min-width: 1200px) {
-	[data-page-open="true"] > .c-crd {
-		height: 100vh;
-		max-height: 100vh;
-		width: 1024px;
-	}
-}
-
-@keyframes scale-in-bottom {
-	0% {
-		transform: scale(0);
-		transform-origin: 50% 100%;
-		opacity:0.5
-	}
-	100% { 
-		transform: scale(1);
-		transform-origin: 50% 100%;
-		opacity:1
-	}
 }

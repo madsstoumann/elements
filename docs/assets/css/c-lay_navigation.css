@@ -1,10 +1,9 @@
 /**
  * c-lay_navigation.css
- * @version 1.0.3
- * @summary 10-07-2020
+ * @version 1.0.5
+ * @summary 26-07-2020
  * @author Mads Stoumann
  * @description Stylesheet for Layout Component: Navigation
- TODO 
 */
 .c-lay__nav {
 	display: block;
@@ -17,71 +16,19 @@
 .c-lay__nav[hidden] {
 	display: none;
 }
-.c-lay__nav-expand {
-	display: flex;
-	justify-content: center;
-	padding-bottom: var(--lay-gap);
-	position: relative;
-}
-.c-lay__nav-inner {
-	align-items: center;
-	display: flex;
-	height: calc(100% - var(--lay-inner-pb));
-	margin: 0 auto;
-	max-width: var(--lay-inner-w);
-	position: relative;
-	width: 100%;
-}
-[data-nav*="arrows"] .c-lay__nav-btn {
-	display: inline-flex;
-}
-[data-nav*="dots"] .c-lay__dots {
-	display: flex;
-}
-
-[data-nav*="dots"] .c-lay__nav-inner {
-	height: calc(100% - var(--lay-inner-pb) - (var(--lay-gap) * 2));
-}
-[data-nav*="dots inside"] .c-lay__nav-inner {
-	height: calc(100% - var(--lay-inner-pb));
-}
-[data-nav*="dots scroll"] .c-lay__nav-inner {
-	height: calc(100% - var(--lay-inner-pb) - (var(--lay-gap) * 3));
-}
-
-
-[data-nav*="inside"] .c-lay__dots {
-	bottom: var(--lay-gap);
-	left: 50%;
-	position: absolute;
-	transform: translateX(-50%);
-}
-/* [data-nav*="scroll inside"] .c-lay__dots {
-	bottom: var(--lay-gap);
-} */
-
-.c-lay[data-nav*="inside"] {
-	/* TODO */
-	--lay-dot-bgc: rgba(0,0,0,.25);
-	--lay-dot-bgc--cur: rgba(255,255,255,.95);
-}
-
-/* TODO: Create variables, control placement */
 .c-lay__nav-btn {
 	align-items: center;
 	background-color: var(--lay-nav-btn-bg);
 	border: 0;
 	border-radius: var(--lay-nav-btn-sz);
-	color: #FFF;
+	color: var(--lay-nav-btn-c);
 	cursor: pointer;
 	display: none;
-	justify-content: center;
 	-webkit-font-smoothing: antialiased;
 	height: var(--lay-nav-btn-sz);
-	/* opacity: 0.15; */
+	justify-content: center;
 	opacity: .65;
 	text-align: center;
-	/* transition: .25s background-color linear,.25s color linear,.25s opacity linear; */
 	transition: opacity .3s ease-in;
 	width: var(--lay-nav-btn-sz);
 	z-index: var(--lay-nav-btn-z);
@@ -93,11 +40,6 @@
 .c-lay__nav-btn:disabled {
 	opacity: 0;;
 }
-.c-lay__nav-btn[rel="next"] {
-	position: absolute;
-	right: calc(var(--lay-gap) * 2);
-}
-
 .c-lay__nav-btn i {
 	border-style: solid;
 	border-width: var(--lay-nav-btn-ico-bdw) var(--lay-nav-btn-ico-bdw) 0 0;
@@ -109,31 +51,34 @@
 	transition: left .3s ease-in;
 	width: calc(var(--lay-nav-btn-ico-sz) * 1);
 }
-
 .c-lay__nav-btn i:before {
-    box-shadow: inset 0 0 0 32px;
-		content: '';
-    height: var(--lay-nav-btn-ico-bdw);
-    position: absolute;
-		right: 0;
-    top: calc(var(--lay-nav-btn-ico-bdw) / -2);
-    transform: rotate(-45deg);
-    -webkit-transform-origin: right top;
-		transform-origin: right top;
-		transition: width .3s ease-in;
-    width: 0;
+	box-shadow: inset 0 0 0 32px;
+	content: '';
+	height: var(--lay-nav-btn-ico-bdw);
+	position: absolute;
+	right: 0;
+	top: calc(var(--lay-nav-btn-ico-bdw) / -2);
+	transform: rotate(-45deg);
+	-webkit-transform-origin: right top;
+	transform-origin: right top;
+	transition: width .3s ease-in;
+	width: 0;
 }
-
-
+.c-lay__nav-btn[rel="next"] {
+	position: absolute;
+	right: calc(var(--lay-gap) * 2);
+}
 .c-lay__nav-btn[rel="prev"] {
 	left: calc(var(--lay-gap) * 2);
 	position: absolute;
 }
-
 .c-lay__nav-btn[rel="next"] i {
 	left: calc(var(--lay-nav-btn-ico-bdw) * -1);
 }
-
+.c-lay__nav-btn[rel="prev"] i {
+	left: var(--lay-nav-btn-ico-bdw);
+	transform: rotate(-135deg);
+}
 .c-lay__nav-btn[rel="next"]:focus,
 .c-lay__nav-btn[rel="prev"]:focus,
 .c-lay__nav-btn[rel="next"]:hover,
@@ -145,13 +90,47 @@
 .c-lay__nav-btn[rel="next"]:hover i {
 	left: calc(var(--lay-nav-btn-ico-bdw) / 2);
 }
-
 .c-lay__nav-btn[rel="prev"]:focus i,
 .c-lay__nav-btn[rel="prev"]:hover i {
-	/* left: calc(var(--lay-nav-btn-ico-bdw) * -1); */
 	left: 0;
 }
+.c-lay__nav-inner {
+	align-items: center;
+	display: flex;
+	height: calc(100% - var(--lay-inner-pb));
+	margin: 0 auto;
+	max-width: var(--lay-inner-w);
+	position: relative;
+	width: 100%;
+}
 
+/* Modifiers */
+[data-nav*="arrows"] .c-lay__nav-btn {
+	display: inline-flex;
+}
+[data-nav*="dots"] .c-lay__dots {
+	display: flex;
+}
+[data-nav*="dots"] .c-lay__nav-inner {
+	height: calc(100% - var(--lay-inner-pb) - (var(--lay-gap) * 2));
+}
+[data-nav*="dots inside"] .c-lay__nav-inner {
+	height: calc(100% - var(--lay-inner-pb));
+}
+[data-nav*="dots scroll"] .c-lay__nav-inner {
+	height: calc(100% - var(--lay-inner-pb) - (var(--lay-gap) * 3));
+}
+[data-nav*="inside"] .c-lay__dots {
+	bottom: var(--lay-gap);
+	left: 50%;
+	position: absolute;
+	transform: translateX(-50%);
+}
+.c-lay[data-nav*="inside"] {
+	/* TODO: PER THEME */
+	--lay-dot-bgc: rgba(0,0,0,.25);
+	--lay-dot-bgc--cur: rgba(255,255,255,.95);
+}
 [data-toggle-expanded]:focus .c-lay__nav-btn i::before,
 [data-toggle-expanded]:hover .c-lay__nav-btn i::before,
 .c-lay__nav-btn[rel="next"]:focus i::before,
@@ -160,26 +139,6 @@
 .c-lay__nav-btn[rel="prev"]:hover i::before {
 	width: calc(var(--lay-nav-btn-ico-sz) * 1.25);
 }
-
-
-
-.c-lay__nav-btn[rel="prev"] i {
-	left: var(--lay-nav-btn-ico-bdw);
-	transform: rotate(-135deg);
-}
-
-
-/* 
-[dir="rtl"] .c-lay__nav-btn[rel="next"] {
-	left: var(--lay-gap);
-	right: auto;
-}
-[dir="rtl"] .c-lay__nav-btn[rel="prev"] {
-	left: auto;
-	right: var(--lay-gap);
-} */
-
-
 [data-section-type="grid-gallery"] .c-lay__dots,
 [data-section-type="grid-gallery"] .c-lay__nav,
 [data-section-type="masonry"] .c-lay__dots,
@@ -188,8 +147,6 @@
 [data-section-type="stack"] .c-lay__nav {
 	display: none;
 }
-
-
 /*
 =====
 DOTS
@@ -224,8 +181,8 @@ DOTS
 	position: relative;
 }
 
-/* Modifiers */
-.c-lay__dot.c-lay__dot--line {
+/* Modifier: Flat lines */
+.c-lay__dots--line .c-lay__dot {
 	--lay-dot-bdrs: 0;
 	--lay-dot-h: 2px;
 	--lay-dot-w: 40px;
