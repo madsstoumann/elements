@@ -177,7 +177,7 @@ export class Layout {
 			if (page) {
 				page.parentNode.dataset.pageOpen = 'true';
 				const section = page.closest('[data-section-type]')
-				if (this.isTouch && (section.dataset.sectionType === 'slider' || section.dataset.sectionType === 'grid-gallery')) {
+				if (this.isTouch && section.dataset.sectionType !== 'stack') {
 					page.closest('[data-inner]').classList.add(this.settings.clsInnerPage);
 				}
 				this.setModal(true);
