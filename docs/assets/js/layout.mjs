@@ -2,8 +2,8 @@
  * Layout module.
  * @module /assets/js/layout
  * @requires /assets/js/common
- * @version 1.1.05
- * @summary 24-07-2020
+ * @version 1.1.06
+ * @summary 26-07-2020
  * @description Helper-functions for Layout Block
  * @example
  * <section data-section-type>
@@ -156,7 +156,7 @@ export class Layout {
 					item.dataset.pageOpen = 'true';
 					item.__scroll = item.parentNode.scrollLeft;
 					const section = item.closest('[data-section-type]')
-					if (this.isTouch && section.dataset.sectionType === 'slider') {
+					if (this.isTouch && section.dataset.sectionType !== 'stack') {
 						item.parentNode.classList.add(this.settings.clsInnerPage);
 					}
 					const data = item.firstElementChild.dataset;
