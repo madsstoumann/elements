@@ -1,5 +1,14 @@
 # Layout Block
 
+## Section: Settings
+
+### Section Type
+1. grid-gallery
+2. masonry
+3. slider
+5. stack (default)
+
+
 1. Headline
 	1. Tag Selector h1-h6
 	2. Style Selector h1-h6

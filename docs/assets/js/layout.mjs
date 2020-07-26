@@ -108,6 +108,7 @@ export class Layout {
 				this.setPage('pageid', data.pageId, data.title);
 				obj.element.dataset.pageOpen = 'true';
 				obj.element.__scroll = obj.element.parentNode.scrollLeft;
+				obj.element.firstElementChild.scrollTo({ top: 0, behavior: 'auto' });
 			}
 		}
 		if (obj.key === 'Escape') {
@@ -162,6 +163,7 @@ export class Layout {
 					}
 					const data = item.firstElementChild.dataset;
 					this.setPage('pageid', data.pageId, data.title);
+					item.firstElementChild.scrollTo({ top: 0, behavior: 'auto' });
 				}
 			});
 		});
