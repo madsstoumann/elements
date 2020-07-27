@@ -7,6 +7,14 @@ If value is an empty string, it will be: `[empty]`. In this case, the attribute 
 
 ---
 ## CMS Implementation
+
+### Content Base Model
+1. Headline (string)
+2. Description (rich text)
+3. Content Area
+4. Expand All (short string)
+5. Collapse All (short string)
+
 The *Layout Block* has a lot of configuration-options, divided into six areas / tabs:
 
 1. Section
@@ -387,7 +395,7 @@ Set main style of headline.
 ```html
 <section class="c-lay">
   <header class="c-lay__header">
-    <h1 class="c-lay__headline  g-typ--h1">Text</h1>
+    <h1 class="c-lay__headline g-typ--h1">Text</h1>
   </header>
 </section>
 ```
@@ -540,40 +548,108 @@ The `page`-type will, with the current implementation, add JavaScript-functional
   data-item-type="page">
 ```
 
-
 ---
-## Markup
+## Basic/Minimum Markup
 ---
 
 ```html
+<!--
+  Values in [SQUARE BRACKETS] are from Base Model
+  Values in {{double curly brackets}} indicate Modifiers/Settings
+-->
 <section class="c-lay"
-  data-align="stretch"
-  data-collapsed-height="full"
-  data-expanded="true"
-  data-grid-phone="100"
-  data-grid-tablet="33:33:33"
-  data-grid-desktop="25:25:25:25"
-  data-nav="arrows scroll"
-  data-section-type="stack"
-  data-toggle-layout="false">
+  data-align="{{stretch}}"	
+  data-grid-phone="{{100}}"
+  data-grid-tablet="{{33:33:33}}"
+  data-grid-desktop="{{25:25:25:25}}"
+  data-section-type="{{stack}}">
+
+<!--
+  `<header>` should only be rendered, 
+  if either [HEADLINE] or [DESCRIPTION] is not EMPTY
+-->
+
   <header class="c-lay__header">
-    <h2 class="c-lay__headline  g-typ--h1">HEADLINE</h2>
-    <div class="c-lay__description  g-typ--m">DESCRIPTION</div>
-    <div data-layout-expanded="COLLAPSE-ALL" data-layout-collapsed="EXPAND-ALL">EXPAND-ALL</div>
+    <h2 class="c-lay__headline {{g-typ--h1}}">[HEADLINE]</h2>
+
+  <!-- if `data-toggle-layout="false"` or NULL/EMPTY -->
+    <div class="c-lay__description g-typ--m">[DESCRIPTION]</div>
+  <!-- end if -->
+
+  <!-- if `data-toggle-layout="true"`-->
+    <div
+      data-layout-expanded="[COLLAPSE-ALL]"
+      data-layout-collapsed="[EXPAND-ALL]">[EXPAND-ALL]
+    </div>
+  <!-- end if -->
   </header>
 
   <div class="c-lay__outer" data-outer>
     <div class="c-lay__inner" data-inner>
-      <div class="c-lay__item"> ... </div>
+      <!-- Content Area. Each item should be wrapped in: -->
+      <div class="c-lay__item"> ... item ... </div>
+      <!-- End Content Area -->
     </div>
   </div>
 
-  <button type="button" data-toggle-expanded="Collapse All" data-toggle-collapsed="Show All">
+  <!-- Render `<header>` HERE instead, if `Header Below Content` is true -->
+
+  <!-- if `data-expanded="false"` -->
+  <button type="button" data-toggle-expanded="[COLLAPSE-ALL]" data-toggle-collapsed="[EXPAND-ALL]">
     <span class="c-lay__nav-btn">
       <i></i>
     </span>
-    <span class="c-lay__nav-txt" data-toggle-label="">Show all</span>
+    <span class="c-lay__nav-txt" data-toggle-label>[EXPAND-ALL]</span>
   </button>
+  <!-- end if -->
+
+</section>
+```
+
+---
+## All Options
+---
+
+```html
+
+<section class="c-lay 
+  {{Inner Max Width}}
+  {{Outer Max Width}}
+  {{Margin Bottom}}
+  {{Margin Top}}
+  {{Padding Bottom}}
+  {{Padding Top}}
+  {{Inner Padding Bottom}}
+  {{Headline Width}}
+  {{Description Width}}
+  "
+  data-align=""
+  data-align-header=""
+  data-animation=""
+  data-animation-target=""
+  data-auto-play=""
+  data-collapsed-height=""
+  data-diagonal=""
+  data-expanded=""
+  data-gap-phone=""
+  data-gap-tablet=""
+  data-gap-desktop=""
+  data-grid-phone=""
+  data-grid-tablet=""
+  data-grid-desktop=""
+  data-item-type=""
+  data-nav=""
+  data-preview=""
+  data-section-type=""
+  data-snap=""
+  data-theme=""
+  data-toggle-layout="">
+
+  <header class="c-lay__header">
+    <{{Headline Tag}} class="c-lay__headline {{Headline Style}}">[HEADLINE]</{{Headline Tag}}>
+    ...
+  </header>
+
 
 </section>
 ```
