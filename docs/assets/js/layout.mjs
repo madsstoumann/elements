@@ -21,6 +21,34 @@ export class Layout {
 	}
 
 	/**
+	 * @function ebook
+	 * @param {NodeList} selector
+	 * @description Swipe an article like an ebook, recalculates "pages" based on columns.
+	*/
+	ebook(selector) {
+		selector.forEach(ebook => {
+			ebook.dataset.ebook = "item";
+			const inner = ebook.parentNode;
+			inner.dataset.ebook = "inner";
+			inner.tabIndex = "0";
+			const wrapper = document.createElement('div');
+			wrapper.dataset.ebook = 'wrapper';
+			inner.appendChild(wrapper);
+
+			const resizeObserver = new ResizeObserver(() => {
+				const pages = Math.ceil(ebook.scrollWidth / ebook.offsetWidth);
+				wrapper.innerHTML = '';
+				for (let page = 0; page < pages; page++) {
+					const page = document.createElement('div');
+					page.dataset.ebook = 'page';
+					wrapper.appendChild(page);
+				}
+			});
+			resizeObserver.observe(ebook);
+		})
+	}
+
+	/**
 	 * @function expandCollapse
 	 * @param {NodeList} selector
 	 * @description Expands/collapses a section
@@ -64,6 +92,7 @@ export class Layout {
 	*/
 	init() {
 		this.backToTop = document.querySelector(`[data-back-to-top]`);
+		this.ebook(document.querySelectorAll(`[data-item-type="ebook"] .c-lay__item`));
 		this.expandCollapse(document.querySelectorAll(`[data-toggle-expanded]`));
 		this.isTouch = ('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
 		this.itemPopup(document.querySelectorAll(`[data-item-type='page'] .c-lay__item`));

@@ -1,7 +1,8 @@
 # Layout Block
 
 **Note:** 
-If value shown and value to be set differs, the value to be set will be shown in parentheses. Default values are shown with square brackets: `[default]`.
+If value shown and value to be set differs, the value to be set will be shown in parentheses.  
+Default values are shown with square brackets: `[default]`.
 
 If value is an empty string, it will be: `[empty]`. In this case, the attribute should not be rendered at all.
 
@@ -15,7 +16,7 @@ If value is an empty string, it will be: `[empty]`. In this case, the attribute 
 4. Expand All (short string)
 5. Collapse All (short string)
 
-The *Layout Block* has a lot of configuration-options, divided into six areas / tabs:
+The *Layout Block* has more than 30 configuration-options, divided into six areas / tabs:
 
 1. Section
 2. Layout
@@ -23,6 +24,8 @@ The *Layout Block* has a lot of configuration-options, divided into six areas / 
 4. Header
 5. Navigation & Animations
 6. Items
+
+All options, except *Header Below Content* are `enum` (drop-downs).
 
 ---
 ## Section: Settings
@@ -51,31 +54,33 @@ If `true`, the section will snap when scrolling vertically.
 ```
 ---
 ### Inner max-width
-This will set the width of the scrollable, inner content area. It's a CSS modifier-class, that will be added to the main `class`-attribute.
+This will set the width of the scrollable, inner content area. 
 
-1. x-small (`c-lay c-lay--w-inner-xs`)
-2. small (`c-lay c-lay--w-inner-s`)
+1. x-small (`xs`)
+2. small (`s`)
 3. medium `[empty][default]`
-4. large (`c-lay c-lay--w-inner-l`)
-5. x-large (`c-lay c-lay--w-inner-xl`)
+4. large (`l`)
+5. x-large (`xl`)
 
 *Example:*
 ```html
-<section class="c-lay c-lay--w-inner-xs">
+<section class="c-lay"
+  data-inner-maw="s">
 ```
 ---
 ### Outer max-width
-This will set the width of the scrollable, inner content area. It's a CSS modifier-class, that will be added to the main `class`-attribute.
+This will set the width of the scrollable, inner content area. 
 
-1. x-small (`c-lay c-lay--w-xs`)
-2. small (`c-lay c-lay--w-s`)
+1. x-small (`xs`)
+2. small (`s`)
 3. medium `[empty][default]`
-4. large (`c-lay c-lay--w-l`)
-5. x-large (`c-lay c-lay--w-xl`)
+4. large (`l`)
+5. x-large (`xl`)
 
 *Example:**
 ```html
-<section class="c-lay c-lay--w-xs">
+<section class="c-lay"
+  data-outer-maw="s">
 ```
 ---
 ### Expanded
@@ -212,72 +217,73 @@ Adds functionalty to toggle between `stack` and `slider`-types. Labels for *Show
 ---
 ### Margin Bottom
 This will add margin to the bottom of the section.  
-It's a CSS modifier-class, that will be added to the main `class`-attribute.
 1. none `[empty][default]`
-2. 1x (`c-lay--mb`)
-3. 2x (`c-lay--mb-2x`)
-4. 3x (`c-lay--mb-3x`)
-5. 4x (`c-lay--mb-4x`)
+2. 1x
+3. 2x
+4. 3x
+5. 4x
 
 *Example:*
 ```html
-<section class="c-lay c-lay--mb">
+<section class="c-lay"
+  data-mb="1x">
 ```
 ---
 ### Margin Top
 This will add margin to the top of the section.  
-It's a CSS modifier-class, that will be added to the main `class`-attribute.
 1. none `[empty][default]`
-2. 1x (`c-lay--mt`)
-3. 2x (`c-lay--mt-2x`)
-4. 3x (`c-lay--mt-3x`)
-5. 4x (`c-lay--mt-4x`)
+2. 1x
+3. 2x
+4. 3x
+5. 4x
 
 *Example:*
 ```html
-<section class="c-lay c-lay--mt">
+<section class="c-lay"
+  data-mt="1x">
 ```
 ---
 ### Padding Bottom
 This will add padding to the bottom of the section.  
 It's a CSS modifier-class, that will be added to the main `class`-attribute.
 1. none `[empty][default]`
-2. 1x (`c-lay--pb`)
-3. 2x (`c-lay--pb-2x`)
-4. 3x (`c-lay--pb-3x`)
-5. 4x (`c-lay--pb-4x`)
+2. 1x
+3. 2x
+4. 3x
+5. 4x
 
 *Example:*
 ```html
-<section class="c-lay c-lay--pb">
+<section class="c-lay"
+  data-pb="1x">
 ```
 ---
 ### Padding Top
-This will add padding to the top of the section.  
-It's a CSS modifier-class, that will be added to the main `class`-attribute.
+This will add padding to the top of the section. 
 1. none `[empty][default]`
-2. 1x (`c-lay--pt`)
-3. 2x (`c-lay--pt-2x`)
-4. 3x (`c-lay--pt-3x`)
-5. 4x (`c-lay--pt-4x`)
+2. 1x
+3. 2x
+4. 3x
+5. 4x
 
 *Example:*
 ```html
-<section class="c-lay c-lay--pt">
+<section class="c-lay"
+  data-pt="1x">
 ```
 ---
 ### Inner Padding Bottom
 This will add padding to the bottom of the inner content area.  
-It's a CSS modifier-class, that will be added to the main `class`-attribute.
-1. none (`c-lay--inner-pb-0x`)
+1. none (`0x`)
 2. 1x `[empty][default]`
-3. 2x (`c-lay--inner-pb-2x`)
-4. 3x (`c-lay--inner-pb-3x`)
-5. 4x (`c-lay--inner-pb-4x`)
+3. 2x (`2x`)
+4. 3x (`3x`)
+5. 4x (`4x`)
 
 *Example:*
 ```html
-<section class="c-lay c-lay--inner-pb-2x">
+<section class="c-lay"
+  data-inner-pb="1x">
 ```
 ---
 ### Phone: Remove Gaps Between
@@ -402,26 +408,27 @@ Set main style of headline.
 ---
 ### Headline Width
 Sets the width of the headline.  
-It's a CSS modifier-class, that will be added to the main `class`-attribute.
-1. small (`c-lay--head-s`)
-2. meidum (`c-lay--head-m`)
+
+1. small (`s`)
+2. medium (`m`)
 3. large `[empty][default]`
 
 *Example:*
 ```html
-<section class="c-lay c-lay--head-s">
+<section class="c-lay"
+  data-headline-w="m">
 ```
 ---
 ### Description Width
 Sets the width of the description-text.  
-It's a CSS modifier-class, that will be added to the main `class`-attribute.
-1. small (`c-lay--desc-s`)
-2. meidum (`c-lay--desc-m`)
+1. small (`s`)
+2. meidum (`m`)
 3. large `[empty][default]`
 
 *Example:*
 ```html
-<section class="c-lay c-lay--desc-m">
+<section class="c-lay"
+  data-desc-w="s">
 ```
 ---
 ### Header Below Content
@@ -612,23 +619,14 @@ The `page`-type will, with the current implementation, add JavaScript-functional
 
 ```html
 
-<section class="c-lay 
-  {{Inner Max Width}}
-  {{Outer Max Width}}
-  {{Margin Bottom}}
-  {{Margin Top}}
-  {{Padding Bottom}}
-  {{Padding Top}}
-  {{Inner Padding Bottom}}
-  {{Headline Width}}
-  {{Description Width}}
-  "
+<section class="c-lay"
   data-align=""
   data-align-header=""
   data-animation=""
   data-animation-target=""
   data-auto-play=""
   data-collapsed-height=""
+  data-desc-w=""
   data-diagonal=""
   data-expanded=""
   data-gap-phone=""
@@ -637,9 +635,17 @@ The `page`-type will, with the current implementation, add JavaScript-functional
   data-grid-phone=""
   data-grid-tablet=""
   data-grid-desktop=""
+  data-headline-w=""
+  data-inner-maw=""
+  data-inner-pb=""
   data-item-type=""
+  data-mb=""
+  data-mt=""
   data-nav=""
+  data-outer-maw=""
+  data-pb=""
   data-preview=""
+  data-pt=""
   data-section-type=""
   data-snap=""
   data-theme=""
