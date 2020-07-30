@@ -667,7 +667,7 @@ EBOOK
 	-webkit-overflow-scrolling: touch;
 	columns: var(--lay-inner-maw) auto;
 	column-gap: 0;
-	height: calc(100vh - (var(--lay-item-gap) * 2));
+	height: calc(100vh - (var(--lay-item-gap) * 5));
 	orphans: 3;
 	widows: 2;
 }
@@ -680,16 +680,19 @@ EBOOK
 	outline: none;
 }
 [data-ebook="page"] {
-	margin-left: 0;
+	color: hsl(210, 24%, 84%);
+	font-size: small;
+	margin: 0 0 var(--lay-gap) 0;
 	margin-right: 0;
 	max-width: none;
 	width: var(--lay-inner-maw);
 	scroll-snap-align: start;
 	position: relative;
+	text-align: center;
 }
 [data-ebook="wrapper"] {
 	display: flex;
-	height: 1px;
+	/* height: 1px; */
 }
 [data-collapsed-height="small"] [data-ebook="item"] { height: 20rem; }
 [data-collapsed-height="medium"] [data-ebook="item"] { height: 30rem; }
@@ -747,5 +750,7 @@ TODO !
 
 /* TODO Touch */
 @media (hover: none) and (pointer: coarse) {
-	/* ... */
+	[data-ebook="inner"]:focus {
+		border: 0;
+	}
 }

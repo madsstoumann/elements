@@ -31,16 +31,14 @@ export class Layout {
 			const inner = ebook.parentNode;
 			inner.dataset.ebook = "inner";
 			inner.tabIndex = "0";
-			const wrapper = document.createElement('div');
-			wrapper.dataset.ebook = 'wrapper';
+			const wrapper = h('div', { 'data-ebook': 'wrapper' });
 			inner.appendChild(wrapper);
 
 			const resizeObserver = new ResizeObserver(() => {
 				const pages = Math.ceil(ebook.scrollWidth / ebook.offsetWidth);
 				wrapper.innerHTML = '';
-				for (let page = 0; page < pages; page++) {
-					const page = document.createElement('div');
-					page.dataset.ebook = 'page';
+				for (let index = 0; index < pages; index++) {
+					const page = h('div', { 'data-ebook': 'page' }, [`${index+1} / ${pages}`]);
 					wrapper.appendChild(page);
 				}
 			});
