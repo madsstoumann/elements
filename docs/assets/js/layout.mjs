@@ -2,8 +2,8 @@
  * Layout module.
  * @module /assets/js/layout
  * @requires /assets/js/common
- * @version 1.1.06
- * @summary 26-07-2020
+ * @version 1.1.08
+ * @summary 01-08-2020
  * @description Helper-functions for Layout Block
  * @example
  * <section data-section-type>
@@ -90,6 +90,7 @@ export class Layout {
 	*/
 	init() {
 		this.backToTop = document.querySelector(`[data-back-to-top]`);
+		// this.controlPanel(document.querySelectorAll(`[data-control-panel]:not([data-control-panel=""])`));
 		this.ebook(document.querySelectorAll(`[data-item-type="ebook"] .c-lay__item`));
 		this.expandCollapse(document.querySelectorAll(`[data-toggle-expanded]`));
 		this.isTouch = ('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
