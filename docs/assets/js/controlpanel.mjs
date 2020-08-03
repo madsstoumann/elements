@@ -18,7 +18,22 @@ export class ControlPanel {
 		}, stringToType(settings));
 		this.init();
 	}
-	init() {}
+	init() {
+		/*
+			Update Custom Prop OR CSS Class
+			Load State
+			Set State
+			UUID per ControlPanel
+		
+		*/
+
+		this.options = {
+			alignment: '',
+			audio: '',
+			background: ''
+		}
+	}
+
 	test(selector) {
 		// controlPanel(selector/target, config)
 		const cp = {

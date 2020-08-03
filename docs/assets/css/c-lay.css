@@ -1,7 +1,7 @@
 /**
  * c-lay.css
- * @version 1.3.6
- * @summary 29-07-2020
+ * @version 1.3.7
+ * @summary 03-08-2020
  * @author Mads Stoumann
  * @description Stylesheet for Layout Component
 	Variables are concatinated from: 
@@ -84,6 +84,7 @@
 	--lay-item-mis: var(--lay-gap);
 	--lay-item-preview: 10%;
 	--lay-item-smis: var(--lay-gap);
+	--lay-outer-maw: 1600px; /* Should be the same as `--lay-maw`, but must NOT be changed */
 
 	background: var(--lay-bg);
 	color: var(--lay-c);
@@ -250,7 +251,7 @@ MODIFIERS
 [data-diagonal*="medium"] {
 	transform: var(--lay-diag-skew) var(--lay-diag-transY);
 	margin-bottom: calc(var(--lay-diag-p) * 2);
-	padding-bottom: calc(var(--lay-diag-p) / 2);
+	/* padding-bottom: calc(var(--lay-diag-p) / 2); */
 }
 [data-diagonal*="content"] .c-lay__outer {
 	padding-bottom: calc(var(--lay-diag-p) * 2);
@@ -273,7 +274,7 @@ MODIFIERS
 	transform: var(--lay-diag-skew) var(--lay-diag-transY);
 }
 [data-diagonal*="medium"] {
-	--lay-diag-half-tan: 0.06139228045; /* tan(7deg)/2 */
+	--lay-diag-half-tan: 0.06139228045; /* Calculated using: tan(7deg)/2 */
 	--lay-diag-skew: skewY(-7deg);
 	--lay-diag-unskew: skewY(7deg);
 }
@@ -394,8 +395,6 @@ Phone-specific styles in `c-lay_grid.css`
 
 /* SCROLLBAR */
 [data-nav*="scroll"] .c-lay__inner {
-	/* TODO */
-	/* --lay-inner-pb: var(--lay-gap); */
 	scrollbar-color: var(--lay-scrbar-thumb-bg) var(--lay-scrbar-bg);
 	scrollbar-width: var(--lay-scrbar-sz);
 }
@@ -473,6 +472,7 @@ Phone-specific styles in `c-lay_grid.css`
 	--lay-scrbar-thumb-bg: hsl(210, 24%, 54%);
 }
 @media (prefers-color-scheme: dark) {
+	/* TODO: Test/create all themes to work with dark-mode ! */
 	.c-lay {
 		--lay-bg: hsl(220, 26%, 14%);
 		--lay-c: #FDFDFD;
@@ -495,10 +495,8 @@ Phone-specific styles in `c-lay_grid.css`
 		--lay-dot-bgc--cur-focus: hsl(195, 100%, 95%);
 		--lay-scrbar-bg: hsl(214, 19%, 38%);
 		--lay-scrbar-thumb-bg: hsl(214, 19%, 68%);
-
 	}
 	[data-theme="theme03"] {
-		/* TODO ! */
 		--lay-bg: #4A5567;
 		--lay-c: #FEFEFE;
 	}
@@ -612,13 +610,15 @@ RWD
 		--lay-gap: 1.25rem;
 	}
 	.c-lay__item {
-		--lay-item-smis: 0;
+		/* TODO: Delete? */
+		/* --lay-item-smis: 0; */
 	}
 	[data-theme] .c-lay__item {
 		--lay-item-smis: var(--lay-item-gap);
 	}
 	.c-lay__item:last-of-type::after {
-		display: none;
+		/* TODO: Delete? */
+		/* display: none; */
 	}
 	/* WIDTHS */
 	[data-desc-w="s"] { --lay-desc-maw: 50%; }
@@ -631,10 +631,22 @@ RWD
 /* When screen is larger than OUTER */
 @media screen and (min-width: 1600px) {
 	[data-section-type="stack"] {
-		/* TODO */
-		--lay-maw: calc(1600px - (var(--lay-gap) * 2));
-		/* --lay-pl: 0;
-		--lay-pr: 0; */
+		--lay-maw: calc(var(--lay-outer-maw) - (var(--lay-gap) * 2));
+	}
+}
+
+/* TOUCH - TARGET */
+@media (hover: none) and (pointer: coarse) {
+	[data-ebook="inner"]:focus {
+		border: 0;
+	}
+	.c-lay__wrapper {
+		-webkit-overflow-scrolling: touch;
+		height: 100%;
+		/* max-height: 100vh; */
+		max-width: 100vw;
+		/* overflow-y: scroll; */
+		/* scroll-snap-type: y proximity; */
 	}
 }
 
@@ -694,8 +706,6 @@ EBOOK
 [data-collapsed-height="medium"] [data-ebook="item"] { height: 30rem; }
 [data-collapsed-height="large"] [data-ebook="item"] { height: 40rem; }
 
-
-
 /*
 ===========
 PAGE POPUP
@@ -744,19 +754,4 @@ TODO !
 	width: 3rem;
 	height: 3rem;
 	z-index: 10;
-}
-
-/* TODO Target Touch */
-@media (hover: none) and (pointer: coarse) {
-	[data-ebook="inner"]:focus {
-		border: 0;
-	}
-	.c-lay__wrapper {
-		-webkit-overflow-scrolling: touch;
-		height: 100%;
-		max-height: 100vh;
-		max-width: 100vw;
-		overflow-y: scroll;
-		scroll-snap-type: y proximity;
-	}
 }
