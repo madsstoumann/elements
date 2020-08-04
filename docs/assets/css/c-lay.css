@@ -1,7 +1,7 @@
 /**
  * c-lay.css
- * @version 1.3.7
- * @summary 03-08-2020
+ * @version 1.3.8
+ * @summary 04-08-2020
  * @author Mads Stoumann
  * @description Stylesheet for Layout Component
 	Variables are concatinated from: 
@@ -410,7 +410,9 @@ Phone-specific styles in `c-lay_grid.css`
 	background: var(--lay-scrbar-thumb-bg); 
 }
 
-/* SCROLL-SNAP: Add vertical scroll-snap */
+/*
+SCROLL-SNAP: Add vertical scroll-snap.
+WARNING: Can affect expand/collapse */
 [data-snap="true"] {
 	scroll-snap-align: start;
 }
@@ -616,9 +618,8 @@ RWD
 	[data-theme] .c-lay__item {
 		--lay-item-smis: var(--lay-item-gap);
 	}
-	.c-lay__item:last-of-type::after {
-		/* TODO: Delete? */
-		/* display: none; */
+	[data-section-type="grid-gallery"] .c-lay__item:last-of-type::after {
+		display: none;
 	}
 	/* WIDTHS */
 	[data-desc-w="s"] { --lay-desc-maw: 50%; }
@@ -631,7 +632,8 @@ RWD
 /* When screen is larger than OUTER */
 @media screen and (min-width: 1600px) {
 	[data-section-type="stack"] {
-		--lay-maw: calc(var(--lay-outer-maw) - (var(--lay-gap) * 2));
+		/* TODO: BUG */
+		/* --lay-maw: calc(var(--lay-outer-maw) - (var(--lay-gap) * 2)); */
 	}
 }
 

@@ -15,6 +15,20 @@
 	background: #FFF;
 	color: #222;
 	cursor: pointer;
+	scrollbar-color: var(--lay-scrbar-thumb-bg) var(--lay-scrbar-bg);
+	scrollbar-width: var(--lay-scrbar-sz);
+}
+/* TODO */
+.c-crd::-webkit-scrollbar {
+	background: var(--lay-scrbar-bg);
+	height: var(--lay-scrbar-sz);
+	width: var(--lay-scrbar-sz);
+}
+.c-crd::-webkit-scrollbar-thumb {
+	background: var(--lay-scrbar-thumb-bg);
+}
+.c-crd::-webkit-scrollbar-thumb:window-inactive {
+	background: var(--lay-scrbar-thumb-bg); 
 }
 .c-crd__bg {
 	height: 100%;
@@ -59,8 +73,10 @@
 	}
 	.c-crd {
 		background-color: hsl(215deg 27% 14%);
-    color: #FDFDFD;
+		color: #FDFDFD;
 	}
+
+
 	.c-crd__tagline {
 		color: inherit;
 	}
@@ -73,6 +89,7 @@
 	position: relative;
 	width: 100%;
 }
+
 [data-page-open] .c-crd__headline {
 	--font-min: 2;
   --font-max: 4;
