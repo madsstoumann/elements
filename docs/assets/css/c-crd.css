@@ -15,20 +15,20 @@
 	background: #FFF;
 	color: #222;
 	cursor: pointer;
-	scrollbar-color: var(--lay-scrbar-thumb-bg) var(--lay-scrbar-bg);
-	scrollbar-width: var(--lay-scrbar-sz);
+	/* scrollbar-color: var(--lay-scrbar-thumb-bg) var(--lay-scrbar-bg);
+	scrollbar-width: var(--lay-scrbar-sz); */
 }
 /* TODO */
 .c-crd::-webkit-scrollbar {
-	background: var(--lay-scrbar-bg);
+	background: white;
 	height: var(--lay-scrbar-sz);
 	width: var(--lay-scrbar-sz);
 }
 .c-crd::-webkit-scrollbar-thumb {
-	background: var(--lay-scrbar-thumb-bg);
+	background: darkgray;
 }
 .c-crd::-webkit-scrollbar-thumb:window-inactive {
-	background: var(--lay-scrbar-thumb-bg); 
+	background: darkgray; 
 }
 .c-crd__bg {
 	height: 100%;

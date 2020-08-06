@@ -2,8 +2,8 @@
  * Layout module.
  * @module /assets/js/layout
  * @requires /assets/js/common
- * @version 1.1.08
- * @summary 01-08-2020
+ * @version 1.1.09
+ * @summary 06-08-2020
  * @description Helper-functions for Layout Block
  * @example
  * <section data-section-type>
@@ -328,8 +328,8 @@ export class Layout {
 /**
  * Slider
  * @requires /assets/js/common
- * @version 1.1.08
- * @summary 25-07-2020
+ * @version 1.1.09
+ * @summary 06-08-2020
  * @description Slider-functionality for Layout Block
  * @example
  * <section data-section-type="slider">
@@ -580,7 +580,7 @@ export class Slider {
 		this.state = {
 			gap: this.getGap().match(/(\d+)/)[0] - 0,
 			items: [...this.elements.inner.children],
-			itemWidth: this.elements.inner.firstElementChild.offsetWidth,
+			itemWidth: this.elements.inner.firstElementChild?.offsetWidth || 0,
 			loop: this.slider.dataset?.loop === 'true',
 			page: 1,
 			pages: Math.ceil(this.elements.inner.childElementCount / this.itemsPerPage) || 1
