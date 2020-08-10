@@ -10,6 +10,7 @@
  */
 
 import { debounced, h, stringToType } from './common.mjs';
+import ControlPanel from './controlpanel.mjs';
 import KeyHandler from './keyhandler.mjs';
 export class Layout {
 	constructor(settings) {
@@ -90,7 +91,6 @@ export class Layout {
 	*/
 	init() {
 		this.backToTop = document.querySelector(`[data-back-to-top]`);
-		// this.controlPanel(document.querySelectorAll(`[data-control-panel]:not([data-control-panel=""])`));
 		this.ebook(document.querySelectorAll(`[data-item-type="ebook"] .c-lay__item`));
 		this.expandCollapse(document.querySelectorAll(`[data-toggle-expanded]`));
 		this.isTouch = ('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
@@ -106,12 +106,19 @@ export class Layout {
 			}
 		}))
 
+		/* Init Sliders */
 		const sliders = document.querySelectorAll(`[data-section-type='slider']`);
 		sliders.forEach(slider => {
 			const preview = slider.dataset.preview;
 			if (!(this.isTouch && (preview === 'both' || preview === 'next'))) {
 				new Slider(slider, slider.dataset);
 			}
+		});
+
+		/* Init Control Panels */
+		const panels = document.querySelectorAll(`[data-control-panel]:not([data-control-panel=""])`);
+		panels.forEach(panel => {
+				new ControlPanel(panel, panel.dataset);
 		});
 
 		this.loadPopupPage();

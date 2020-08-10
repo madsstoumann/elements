@@ -2,223 +2,123 @@
  * Layout module.
  * @module /assets/js/controlPanel
  * @requires /assets/js/common
- * @version 1.0.0
- * @summary 02-08-2020
+ * @version 1.0.2
+ * @summary 09-08-2020
  * @description Control Panel
  * @example
  * <div data-control-panel="alignment audio background brightness colormode contrast fontsize spacing tabstops typography width">
  */
-
-import { stringToType, uuid } from './common.mjs';
-
-export class ControlPanel {
-	constructor(element, settings, callback) {
+import { h, stringToType, uuid } from './common.mjs';
+export default class ControlPanel {
+	constructor(element, settings) {
 		this.settings = Object.assign({
-			
+			clsForm: 'c-cpl',
+			clsTrigger: 'c-cpl__trigger',
+			clsTriggerLabel: 'c-cpl__summary',
+			lblTrigger: 'Settings',
+			lblExpanded: 'Close Settings',
+			urlData: '../assets/data/control-panel.json'
 		}, stringToType(settings));
+		this.wrapper = element;
 		this.init();
 	}
-	init() {
-		/*
-			Update Custom Prop OR CSS Class
-			Load State
-			Set State
-			UUID per ControlPanel
-		
-		*/
 
-		this.options = {
-			alignment: '',
-			audio: '',
-			background: ''
+	async init() {
+		/* Fetch data from API */
+		this.data = await (await fetch(this.settings.urlData)).json();
+		this.options = this.settings.controlPanel.split(' ');
+
+		if (this.data && this.options.length && (typeof this.settings.controlPanelTrigger === 'string')) {
+			let [trigger, insertMethod] = this.settings.controlPanelTrigger.split('::');
+			const wrapper = this.wrapper.querySelector(trigger);
+			if (!wrapper) { return false; }
+
+			let html = '';
+			this.options.forEach(option => {
+				html+= this.renderGroup(this.data, option);
+			});
+
+			this.form = h('form', { class: this.settings.clsForm, id: uuid() });
+			this.form.innerHTML = html;
+			this.form.addEventListener('change', this.onChange.bind(this));
+
+			this.trigger = h('details', { class: this.settings.clsTrigger, 'data-cp-trigger': '' }, [h('summary', { 'data-cp-trigger-label': '' }, [this.settings.lblTrigger])]);
+			this.trigger.appendChild(this.form);
+			wrapper.insertAdjacentElement(insertMethod || 'beforeend', this.trigger);
 		}
 	}
 
-	test(selector) {
-		// controlPanel(selector/target, config)
-		const cp = {
-			alignment: {
-				key: 'c-lay__cp-align',
-				name: 'Alignment',
-				value: [
-					{
-						icon: `<svg viewBox="0 0 100 100"><path d="M40,30 L60,30Z M30,40 L70,40Z M20,50 L80,50Z M30,60 L70,60Z M40,70 L60,70Z" /></svg>`,
-						name: 'Center Text',
-						value: 'c-lay__cp-align--center'
-					},
-					{
-						icon: `<svg viewBox="0 0 100 100"><path d="M20,30 L80,30Z M20,40 L80,40Z M20,50 L80,50Z M20,60 L80,60Z M20,70 L80,70Z" /></svg>`,
-						name: 'Justify Text',
-						value: 'c-lay__cp-align--justify'
-					},
-					{
-						checked: true,
-						icon: `<svg viewBox="0 0 100 100"><path d="M20,30 L80,30Z M20,40 L60,40Z M20,50 L80,50Z M20,60 L70,60Z M20,70 L60,70Z" /></svg>`,
-						name: 'Left-align Text',
-						value: 'c-lay__cp-align--left'
-					},
-					{
-						icon: `<svg viewBox="0 0 100 100"><path d="M20,30 L80,30Z M40,40 L80,40Z M30,50 L80,50Z M20,60 L80,60Z M40,70 L80,70Z" /></svg>`,
-						name: 'Right-align Text',
-						value: 'c-lay__cp-align--right'
-					}
-				]
-			},
-			audio: {},
-			background: {
-				key: 'c-lay__cp-bgc',
-				name: 'Background Color',
-				value: [
-					{
-						checked: true,
-						icon: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#ffffff" /></svg>`,
-						name: 'Light',
-						value: 'c-lay__cp-bgc--light'
-					},
-					{
-						icon: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#000000" /></svg>`,
-						name: 'Dark',
-						value: 'c-lay__cp-bgc--dark'
-					},
-					{
-						icon: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#f8f0db" /></svg>`,
-						name: 'Sepia',
-						value: 'c-lay__cp-bgc--sepia'
-					},
-					{
-						icon: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#cae6cf" /></svg>`,
-						name: 'Green',
-						value: 'c-lay__cp-bgc--green'
-					}
-				]
-			},
-			spacing: {
-				key: 'c-lay__cp-space',
-				name: 'Spacing',
-				value: [
-					{
-						icon: `<svg viewBox="0 0 100 100"><path d="M20,40 L80,40Z M20,50 L80,50Z M20,60 L80,60Z" /></svg>`,
-						name: 'Small',
-						value: 'c-lay__cp-space--s'
-					},
-					{
-						icon: `<svg viewBox="0 0 100 100"><path d="M20,35 L80,35Z M20,50 L80,50Z M20,65 L80,65Z" /></svg>`,
-						name: 'Medium',
-						value: 'c-lay__cp-space--m'
-					},
-					{
-						icon: `<svg viewBox="0 0 100 100"><path d="M20,30 L80,30Z M20,50 L80,50Z M20,70 L80,70Z" /></svg>`,
-						name: 'Large',
-						value: 'c-lay__cp-space--l'
-					}
-				]
-			},
-			size: {
-				key: 'c-lay__cp-fz',
-				name: 'Size',
-				value: [
-					{
-						checked: true,
-						icon: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#ffffff" /></svg>`,
-						name: 'Small',
-						value: 'c-lay__cp-fz--s'
-					},
-					{
-						icon: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#000000" /></svg>`,
-						name: 'Medium',
-						value: 'c-lay__cp-fz--m'
-					},
-					{
-						icon: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#f8f0db" /></svg>`,
-						name: 'Large',
-						value: 'c-lay__cp-fz--l'
-					},
-					{
-						icon: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#cae6cf" /></svg>`,
-						name: 'X-Large',
-						value: 'c-lay__cp-fz--xl'
-					}
-				]
-			},
-			typography: {
-				key: 'c-lay__cp-f',
-				name: 'Typography',
-				value: [
-					{
-						checked: true,
-						icon: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#ffffff" /></svg>`,
-						name: 'Sans Serif',
-						value: 'c-lay__cp-f--sanserif'
-					},
-					{
-						icon: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#000000" /></svg>`,
-						name: 'Serif',
-						value: 'c-lay__cp-f--serif'
-					},
-					{
-						icon: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#f8f0db" /></svg>`,
-						name: 'Monspace',
-						value: 'c-lay__cp-f--monospace'
-					},
-					{
-						icon: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#cae6cf" /></svg>`,
-						name: 'Rounded',
-						value: 'c-lay__cp-f--rounded'
-					}
-				]
-			}
+	/**
+	 * @function onChange
+	 * @description Main event-handler, updates state
+	 * @param {Event} event
+	 */
+	onChange(event) {	
+		const element = event.target;
+		const target = element.dataset.target ? document.querySelector(element.dataset.target) || this.wrapper : this.wrapper;
+		if (element.dataset.type === 'property') {
+			this.setCSSProperty(target, element.dataset.key, element.value, element.dataset.suffix);
 		}
-		selector.forEach(panel => {
-			const options = panel.dataset.controlPanel;
-			const outer = panel.querySelector('[data-outer]');
-			let html = '';
-
-			const hasAlignment = options.includes('alignment');
-			const hasAudio = options.includes('audio');
-			const hasBackground = options.includes('background');
-			const hasMargin = options.includes('margin');
-			const hasSpacing = options.includes('spacing');
-			const hasTypography = options.includes('typography');
-
-			const renderGroup = (obj, key) => {
-				const id = uuid();
-				return `
-				<fieldset>
-					<legend>${obj[key]['name']}</legend>
-					${obj[key]['value'].map(item => `
-						<label aria-label="${item.name}">
-							<input type="radio" name="${id}" data-key="${obj[key]['key']}" value="${item.value}" ${item.checked ? ' checked': ''} />
-							${item.icon}
-						</label>
-					`).join('')}
-				</fieldset>`;
-			}
-
-			const renderWrapper = (html) => { return `
-				<details class="c-lay__cp">
-					<summary>Settings</summary>
-					<form data-control-panel>${html}</form>
-			</details>
-				`
-			}
-
-		if (hasBackground) { html += renderGroup(cp, 'background'); }
-		if (hasSpacing) { html += renderGroup(cp, 'spacing'); }
-		if (hasAlignment) { html += renderGroup(cp, 'alignment'); }
-		if (hasAudio) { html += renderGroup(cp, 'audio'); }
-		if (hasTypography) { html += renderGroup(cp, 'typography'); }
-		if (hasTypography) { html += renderGroup(cp, 'size'); }
-		
-		outer.insertAdjacentHTML('afterbegin', renderWrapper(html));
-		const form = outer.querySelector('[data-control-panel]');
-		form.addEventListener('change', (event) => appChange(event.target));
-
-		function appChange(element) {	
-			const keys = [...panel.classList].filter(item => !item.includes(element.dataset.key));
-			keys.push(element.value);
-			panel.className = keys.join(' ');
+		else {
+			this.setCSSClass(target, element);
 		}
+		//this.settings.fnCallback
+		// set state
+	}
 
-		});
+	/**
+	 * @function renderGroup
+	 * @description Renders a radio-button group
+	 * @param {Object} obj
+	 * @param {String} key
+	 */
+	renderGroup(obj, key) {
+		const id = uuid();
+		return `
+		<details data-cp-item>
+			<summary data-cp-item-label><span>${obj[key].name}</span></summary>
+			<div data-cp-item-panel>
+			${obj[key].value.map(item => { return `
+				<label aria-label="${item.name}">
+					<input type="${item.type ? item.type : 'radio'}" name="${id}" value="${item.value}"
+						data-key="${obj[key].key}"
+						data-suffix="${item.suffix || ''}"
+						data-target="${item.target || obj[key].target || ''}"
+						data-type="${obj[key].type || 'property'}"
+						${item.max ? `max="${item.max}"` : ''}
+						${item.min ? `min="${item.min}"` : ''}
+						${item.step ? `step="${item.step}"` : ''}
+						${item.checked ? ' checked': ''}
+					/>
+					${item.icon ? item.icon : ''}
+					${!item.icon && item.name ? `<span class="${item.class || ''}">${item.name}</span>` : ''}
+				</label>
+			`}).join('')}
+			</div>
+		</details>`;
+	}
+
+	/**
+	 * @function setCSSProperty
+	 * @description Helper-function for setting a custom CSS property on a given element
+	 * @param {Node} element
+	 * @param {String} property
+	 * @param {String | Number} value
+	 * @param {String} [suffix]
+	 */
+	setCSSProperty(element = document.documentElement, property, value, suffix = '') {
+		element.style.setProperty(`--${property}`, `${value}${suffix}`);
+	}
+
+	/**
+	 * @function setCSSClass
+	 * @description Helper-function for setting a CSS-class, and removing classes matching a prefix-key.
+	 * @param {Node} target
+	 * @param {Node} element
+	 */
+	setCSSClass(target, element) {
+		const keys = [...target.classList].filter(item => {return !item.includes(element.dataset.key)});
+		keys.push(element.value);
+		target.className = keys.join(' ');
 	}
 }

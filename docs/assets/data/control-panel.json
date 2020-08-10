@@ -1,0 +1,132 @@
+{
+	"alignment": {
+		"key": "cp-align",
+		"name": "Alignment",
+		"target": "",
+		"value": [
+			{
+				"icon": "<svg viewBox='0 0 100 100'><path d='M40,30 L60,30Z M30,40 L70,40Z M20,50 L80,50Z M30,60 L70,60Z M40,70 L60,70Z' /></svg>",
+				"name": "Center Text",
+				"value": "center"
+			},
+			{
+				"icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M20,40 L80,40Z M20,50 L80,50Z M20,60 L80,60Z M20,70 L80,70Z' /></svg>",
+				"name": "Justify Text",
+				"value": "justify"
+			},
+			{
+				"checked": true,
+				"icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M20,40 L60,40Z M20,50 L80,50Z M20,60 L70,60Z M20,70 L60,70Z' /></svg>",
+				"name": "Left-align Text",
+				"value": "left"
+			},
+			{
+				"icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M40,40 L80,40Z M30,50 L80,50Z M20,60 L80,60Z M40,70 L80,70Z' /></svg>",
+				"name": "Right-align Text",
+				"value": "right"
+			}
+		]
+	},
+	"audio": {},
+	"background": {
+		"key": "cp-bgc--",
+		"name": "Background Color",
+		"type": "class",
+		"value": [
+			{
+				"checked": true,
+				"icon": "<svg viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='#ffffff' /></svg>",
+				"name": "Light",
+				"value": "cp-bgc--light"
+			},
+			{
+				"icon": "<svg viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='#000000' /></svg>",
+				"name": "Dark",
+				"value": "cp-bgc--dark"
+			},
+			{
+				"icon": "<svg viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='#f8f0db' /></svg>",
+				"name": "Sepia",
+				"value": "cp-bgc--sepia"
+			},
+			{
+				"icon": "<svg viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='#cae6cf' /></svg>",
+				"name": "Green",
+				"value": "cp-bgc--green"
+			}
+		]
+	},
+	"fontsize": {
+		"key": "cp-fz",
+		"name": "Fontsize",
+		"value": [
+			{
+				"icon": "",
+				"max": 300,
+				"min": 50,
+				"name": "",
+				"suffix": "%",
+				"type": "range",
+				"value": 100
+			}
+		]
+	},
+	"spacing": {
+		"key": "cp-lh",
+		"name": "Spacing",
+		"value": [
+			{
+				"icon": "<svg viewBox='0 0 100 100'><path d='M20,40 L80,40Z M20,50 L80,50Z M20,60 L80,60Z' /></svg>",
+				"name": "Small",
+				"value": 1
+			},
+			{
+				"checked": true,
+				"icon": "<svg viewBox='0 0 100 100'><path d='M20,35 L80,35Z M20,50 L80,50Z M20,65 L80,65Z' /></svg>",
+				"name": "Medium",
+				"value": 1.4
+			},
+			{
+				"icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M20,50 L80,50Z M20,70 L80,70Z' /></svg>",
+				"name": "Large",
+				"value": 2
+			}
+		]
+	},
+	"typography": {
+		"key": "cp-ff",
+		"name": "Typography",
+		"value": [
+			{
+				"checked": true,
+				"class": "c-cpl--sansserif",
+				"name": "Sans Serif",
+				"value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+			},
+			{
+				"class": "c-cpl--serif",
+				"name": "Serif",
+				"value": "ui-serif, Georgia, 'Times New Roman', Times, serif"
+			},
+			{
+				"class": "c-cpl--monospace",
+				"name": "Monospace",
+				"value": "ui-monospace, 'Courier New', Courier, monospace"
+			}
+		]
+	},
+	"width": {
+		"key": "cp-w",
+		"name": "Width",
+		"value": [
+			{
+				"icon": "",
+				"max": 15,
+				"min": 2,
+				"name": "",
+				"type": "range",
+				"value": 2
+			}
+		]
+	}
+}

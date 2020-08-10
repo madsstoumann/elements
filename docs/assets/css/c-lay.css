@@ -682,7 +682,7 @@ EBOOK
 	widows: 2;
 }
 [data-ebook="item"] > * {
-	margin: 0 calc(var(--lay-gap) * 2);
+	margin: 0 calc(var(--lay-gap) * var(--cp-w, 2));
 }
 [data-ebook="inner"]:focus {
 	border-left: 1px dashed hsl(210, 24%, 84%);

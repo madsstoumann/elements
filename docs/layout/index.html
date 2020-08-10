@@ -11,6 +11,7 @@
 	<link href="../assets/css/animations.css" rel="stylesheet" media="screen">
 	<link href="../assets/css/c-lay.css" rel="stylesheet" media="screen">
 	<link href="../assets/css/c-crd.css" rel="stylesheet" media="screen">
+	<link href="../assets/css/c-cpl.css" rel="stylesheet" media="screen">
 	<link href="../assets/css/c-lay_ie.css" rel="stylesheet" media="screen">
 	<style>
 		/* Demo Styles */
@@ -56,7 +57,7 @@
 		.item--8 { background-color: aquamarine; min-height: 150px; }
 		.item--9 { background-color: #d4ddf9; min-height: 200px;; min-height: 200px; }
 
-		[data-ebook="item"] { font: 120%/1.8 Georgia; }
+		/* [data-ebook="item"] { font: 120%/1.8 Georgia; } */
 
 		[data-back-to-top] {
 			background-color: #ccd6e0;
@@ -833,7 +834,8 @@
 
 <section class="c-lay c-lay__cp-bgc--light"
 data-align="start"
-data-control-panel="typography background spacing margin alignment"
+data-control-panel="alignment background fontsize spacing typography width"
+data-control-panel-trigger=".c-lay__header::beforeend"
 data-grid-phone="100"
 data-grid-tablet="100"
 data-grid-desktop="100"
