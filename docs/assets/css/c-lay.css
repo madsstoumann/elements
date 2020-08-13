@@ -690,7 +690,7 @@ EBOOK
 	outline: none;
 }
 [data-ebook="page"] {
-	color: hsl(210, 24%, 84%);
+	color: hsl(210, 24%, 15%);
 	font-size: small;
 	margin: 0 0 var(--lay-gap) 0;
 	margin-right: 0;

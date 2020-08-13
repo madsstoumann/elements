@@ -2,57 +2,114 @@
 	"alignment": {
 		"key": "cp-align",
 		"name": "Alignment",
-		"target": "",
 		"value": [
 			{
-				"icon": "<svg viewBox='0 0 100 100'><path d='M40,30 L60,30Z M30,40 L70,40Z M20,50 L80,50Z M30,60 L70,60Z M40,70 L60,70Z' /></svg>",
-				"name": "Center Text",
+				"__icon": "<svg viewBox='0 0 100 100'><path d='M40,30 L60,30Z M30,40 L70,40Z M20,50 L80,50Z M30,60 L70,60Z M40,70 L60,70Z' /></svg>",
+				"__label": "Center Text",
+				"type": "radio",
 				"value": "center"
 			},
 			{
-				"icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M20,40 L80,40Z M20,50 L80,50Z M20,60 L80,60Z M20,70 L80,70Z' /></svg>",
-				"name": "Justify Text",
+				"__icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M20,40 L80,40Z M20,50 L80,50Z M20,60 L80,60Z M20,70 L80,70Z' /></svg>",
+				"__label": "Justify Text",
+				"type": "radio",
 				"value": "justify"
 			},
 			{
+				"__icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M20,40 L60,40Z M20,50 L80,50Z M20,60 L70,60Z M20,70 L60,70Z' /></svg>",
+				"__label": "Left-align Text",
 				"checked": true,
-				"icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M20,40 L60,40Z M20,50 L80,50Z M20,60 L70,60Z M20,70 L60,70Z' /></svg>",
-				"name": "Left-align Text",
+				"type": "radio",
 				"value": "left"
 			},
 			{
-				"icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M40,40 L80,40Z M30,50 L80,50Z M20,60 L80,60Z M40,70 L80,70Z' /></svg>",
-				"name": "Right-align Text",
+				"__icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M40,40 L80,40Z M30,50 L80,50Z M20,60 L80,60Z M40,70 L80,70Z' /></svg>",
+				"__label": "Right-align Text",
+				"type": "radio",
 				"value": "right"
 			}
 		]
 	},
-	"audio": {},
+	"audio": {
+		"name": "Audio",
+		"value": [
+			{
+				"data-type": "rate",
+				"max": 100,
+				"min": 1,
+				"type": "range",
+				"value": 75
+			},
+			{
+				"data-type": "pitch",
+				"max": 100,
+				"min": 1,
+				"type": "range",
+				"value": 50
+			},
+			{
+				"__data": [],
+				"data-type": "voices",
+				"type": "select",
+				"value": 0
+			}
+		]
+	},
 	"background": {
 		"key": "cp-bgc--",
-		"name": "Background Color",
+		"name": "Background",
 		"type": "class",
 		"value": [
 			{
+				"__icon": "<svg viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='#ffffff' /></svg>",
+				"__label": "Light",
 				"checked": true,
-				"icon": "<svg viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='#ffffff' /></svg>",
-				"name": "Light",
+				"type": "radio",
 				"value": "cp-bgc--light"
 			},
 			{
-				"icon": "<svg viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='#000000' /></svg>",
-				"name": "Dark",
+				"__icon": "<svg viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='#000000' /></svg>",
+				"__label": "Dark",
+				"type": "radio",
 				"value": "cp-bgc--dark"
 			},
 			{
-				"icon": "<svg viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='#f8f0db' /></svg>",
-				"name": "Sepia",
+				"__icon": "<svg viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='#f8f0db' /></svg>",
+				"__label": "Sepia",
+				"type": "radio",
 				"value": "cp-bgc--sepia"
 			},
 			{
-				"icon": "<svg viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='#cae6cf' /></svg>",
-				"name": "Green",
+				"__icon": "<svg viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='#cae6cf' /></svg>",
+				"__label": "Green",
+				"type": "radio",
 				"value": "cp-bgc--green"
+			}
+		]
+	},
+	"brightness": {
+		"key": "cp-brightness",
+		"name": "Brightness",
+		"value": [
+			{
+				"max": 200,
+				"min": 0,
+				"data-suffix": "%",
+				"type": "range",
+				"value": 100
+			}
+		]
+	},
+	"contrast": {
+		"key": "cp-contrast",
+		"name": "Contrast",
+		"value": [
+			{
+				"max": 200,
+				"min": 0,
+				"data-suffix": "%",
+				"type": "range",
+				"value": 100
 			}
 		]
 	},
@@ -61,13 +118,33 @@
 		"name": "Fontsize",
 		"value": [
 			{
-				"icon": "",
 				"max": 300,
 				"min": 50,
-				"name": "",
-				"suffix": "%",
+				"data-suffix": "%",
 				"type": "range",
 				"value": 100
+			}
+		]
+	},
+	"grayscale": {
+		"key": "cp-grayscale",
+		"name": "Grayscale",
+		"value": [
+			{
+				"__label": "Monochrome",
+				"type": "checkbox",
+				"value": 1
+			}
+		]
+	},
+	"invert": {
+		"key": "cp-invert",
+		"name": "Invert",
+		"value": [
+			{
+				"__label": "Invert colors",
+				"type": "checkbox",
+				"value": 1
 			}
 		]
 	},
@@ -76,20 +153,30 @@
 		"name": "Spacing",
 		"value": [
 			{
-				"icon": "<svg viewBox='0 0 100 100'><path d='M20,40 L80,40Z M20,50 L80,50Z M20,60 L80,60Z' /></svg>",
-				"name": "Small",
-				"value": 1
-			},
+				"max": 3,
+				"min": 1,
+				"step": 0.1,
+				"type": "range",
+				"value": 1.6
+			}
+		]
+	},
+	"tabstops": {
+		"key": "cp__tabs--",
+		"name": "Tab Stops",
+		"type": "class",
+		"value": [
 			{
+				"__label": "Hide",
 				"checked": true,
-				"icon": "<svg viewBox='0 0 100 100'><path d='M20,35 L80,35Z M20,50 L80,50Z M20,65 L80,65Z' /></svg>",
-				"name": "Medium",
-				"value": 1.4
+				"type": "radio",
+				"value": "cp__tabs--hide"
 			},
 			{
-				"icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M20,50 L80,50Z M20,70 L80,70Z' /></svg>",
-				"name": "Large",
-				"value": 2
+				"__label": "Show",
+				
+				"type": "radio",
+				"value": "cp__tabs--show"
 			}
 		]
 	},
@@ -98,32 +185,33 @@
 		"name": "Typography",
 		"value": [
 			{
+				"__label": "Sans Serif",
+				"__labelclass": "c-cpl--sansserif",
 				"checked": true,
-				"class": "c-cpl--sansserif",
-				"name": "Sans Serif",
+				"type": "radio",
 				"value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
 			},
 			{
-				"class": "c-cpl--serif",
-				"name": "Serif",
+				"__labelclass": "c-cpl--serif",
+				"__label": "Serif",
+				"type": "radio",
 				"value": "ui-serif, Georgia, 'Times New Roman', Times, serif"
 			},
 			{
-				"class": "c-cpl--monospace",
-				"name": "Monospace",
+				"__labelclass": "c-cpl--monospace",
+				"__label": "Monospace",
+				"type": "radio",
 				"value": "ui-monospace, 'Courier New', Courier, monospace"
 			}
 		]
 	},
-	"width": {
+	"margin": {
 		"key": "cp-w",
-		"name": "Width",
+		"name": "Margin",
 		"value": [
 			{
-				"icon": "",
 				"max": 15,
 				"min": 2,
-				"name": "",
 				"type": "range",
 				"value": 2
 			}

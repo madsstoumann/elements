@@ -47,6 +47,12 @@ export class Layout {
 		})
 	}
 
+	ebookUpdate(element) {
+		/* TODO! Recalculate "pages" when ControlPanel values change */
+		// console.log(element)
+	}
+
+
 	/**
 	 * @function expandCollapse
 	 * @param {NodeList} selector
@@ -118,7 +124,7 @@ export class Layout {
 		/* Init Control Panels */
 		const panels = document.querySelectorAll(`[data-control-panel]:not([data-control-panel=""])`);
 		panels.forEach(panel => {
-				new ControlPanel(panel, panel.dataset);
+			new ControlPanel(panel, panel.dataset, this.updateLayout);
 		});
 
 		this.loadPopupPage();
