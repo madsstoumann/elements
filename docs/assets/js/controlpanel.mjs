@@ -2,8 +2,8 @@
  * Layout module.
  * @module /assets/js/controlPanel
  * @requires /assets/js/common
- * @version 1.0.7
- * @summary 13-08-2020
+ * @version 1.0.8
+ * @summary 14-08-2020
  * @description Control Panel
  * @example
  * <div data-control-panel="alignment audio background brightness colormode contrast fontsize spacing tabstops typography width">
@@ -151,6 +151,7 @@ export default class ControlPanel {
 	playPauseAudio() {
 		if (this.audio.playing) {
 			this.audio.playing = false;
+			this.play.removeAttribute('data-cp-playing');
 			this.play.innerText = this.settings.lblPlay;
 			// speechSynthesis.pause();
 			// speechSynthesis.cancel(); /* WIP: CHROME MAC */
@@ -160,6 +161,7 @@ export default class ControlPanel {
 		else {
 			// speechSynthesis.resume();
 			this.audio.playing = true;
+			this.play.dataset.cpPlaying = '';
 			this.play.innerText = this.settings.lblPause;
 			// speechSynthesis.speak(this.audio.utterance);
 		}
@@ -180,6 +182,7 @@ export default class ControlPanel {
 		<details data-cp-item>
 			<summary data-cp-item-summary><span data-cp-item-label>${obj[key].name}</span></summary>
 			<div data-cp-item-panel>
+			${obj[key].desc ? `<small>${obj[key].desc}</small>` :''}
 			${obj[key].value.map(item => {
 				const tag = item.type === 'select' ? item.type : 'input';
 				return `

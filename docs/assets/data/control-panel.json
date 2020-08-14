@@ -55,9 +55,9 @@
 			}
 		]
 	},
-	"background": {
+	"theme": {
 		"key": "cp-bgc--",
-		"name": "Background",
+		"name": "Theme",
 		"type": "class",
 		"value": [
 			{
@@ -163,7 +163,7 @@
 	},
 	"tabstops": {
 		"key": "cp__tabs--",
-		"name": "Tab Stops",
+		"name": "Focusable Elements",
 		"type": "class",
 		"value": [
 			{
@@ -214,6 +214,20 @@
 				"min": 2,
 				"type": "range",
 				"value": 2
+			}
+		]
+	},
+	"zoom": {
+		"desc": "This method is not recommended, and is for legacy purposes only. On modern browsers, hold the CTRL/CMD-key and press the plus- or minus-keys.",
+		"key": "cp-zoom",
+		"name": "Zoom",
+		"value": [
+			{
+				"max": 300,
+				"min": 50,
+				"data-suffix": "%",
+				"type": "range",
+				"value": 100
 			}
 		]
 	}
