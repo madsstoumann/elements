@@ -12,10 +12,7 @@ import { h, stringToType, uuid } from './common.mjs';
 export default class ControlPanel {
 	constructor(element, settings, callback) {
 		this.settings = Object.assign({
-			clsForm: 'c-cpl',
-			clsOuter: 'c-clp__outer',
-			clsTrigger: 'c-cpl__trigger',
-			clsTriggerLabel: 'c-cpl__summary',
+			clsOuter: '',
 			controlPanelId: '',
 			lblAudio: 'Audio',
 			lblTrigger: 'Settings',
@@ -89,7 +86,7 @@ export default class ControlPanel {
 			});
 
 			/* Create main controls, add eventListeners */
-			this.form = h('form', { class: this.settings.clsForm,  'data-cp-form': '' });
+			this.form = h('form', { 'data-cp-form': '' });
 			this.form.innerHTML = html;
 			this.form.addEventListener('change', (event) => { return this.setValue(event.target) });
 			this.form.addEventListener('reset', this.resetForm.bind(this));
@@ -134,7 +131,7 @@ export default class ControlPanel {
 		this.audio.utterance.voice = this.audio.voices[0];
 		this.audio.utterance.volume = 0.5;
 
-		this.play = h('button', { class: this.settings.clsPlay, type: 'button', 'data-cp-play': '' }, [this.settings.lblPlay]);
+		this.play = h('button', { type: 'button', 'data-cp-play': '' }, [this.settings.lblPlay]);
 
 		/* Add eventListeners */
 		this.audio.utterance.addEventListener('boundary', (event) => { console.log(event); })
@@ -187,7 +184,7 @@ export default class ControlPanel {
 				const tag = item.type === 'select' ? item.type : 'input';
 				return `
 				<label aria-label="">
-					<!-- TODO! LABEL BEFORE -->
+					${item.__labelbefore ? `<span class="${item.__labelclass || ''}">${item.__label}</span>` : ''}
 					<${tag} ${item.type==='radio' ? ` name="${id}"` : ''}
 						${Object.keys(item).map(entry => {return !entry.startsWith('__') ? `${entry}="${item[entry]}"` : ''}).join('')}
 						data-key="${obj[key].key || item.__key}"
@@ -195,9 +192,8 @@ export default class ControlPanel {
 						data-parent="${key}">
 						${tag === 'select' && item.__data ? item.__data.map(option => { return `<option value="${option.value || option.name}">${option.name}</option>` }).join('') : '' }
 					</${tag}>
-
 					${item.__icon ? item.__icon : ''}
-					${!item.__icon && item.__label ? `<span class="${item.__labelclass || ''}">${item.__label}</span>` : ''}
+					${!item.__icon && item.__label && !item.__labelbefore ? `<span class="${item.__labelclass || ''}">${item.__label}</span>` : ''}
 				</label>
 			`}).join('')}
 			</div>

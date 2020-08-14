@@ -40,12 +40,13 @@
 	--cpl-c--focus: hsl(0, 0%, 4%);
 	--cpl-c--grey: hsl(0, 0%, 95%);
 	--cpl-fz: 1rem;
-	--cpl-ico-a11y: '';
+	--cpl-ico-a11y: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.5 1.5c0-0.828 0.672-1.5 1.5-1.5s1.5 0.672 1.5 1.5c0 0.828-0.672 1.5-1.5 1.5s-1.5-0.672-1.5-1.5z"></path><path d="M10 5l5.15-2.221-0.371-0.929-6.279 2.15h-1l-6.279-2.15-0.371 0.929 5.15 2.221v4l-2.051 6.634 0.935 0.355 2.902-6.489h0.429l2.902 6.489 0.935-0.355-2.051-6.634z"></path></svg>');
 	--cpl-ico-arrdown: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20 40 L50 70 L80 40" stroke-width="1px" vector-effect="non-scaling-stroke" stroke="rgb(102,102,102)" fill="transparent"></path></svg>');
+	--cpl-ico-check: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 2.5l-8.5 8.5-3.5-3.5-1.5 1.5 5 5 10-10z" fill="white"></path></svg>');
 	--cpl-ico-pause: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zM8 14.5c-3.59 0-6.5-2.91-6.5-6.5s2.91-6.5 6.5-6.5 6.5 2.91 6.5 6.5-2.91 6.5-6.5 6.5zM5 5h2v6h-2zM9 5h2v6h-2z"></path></svg>');
 	--cpl-ico-play: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zM8 14.5c-3.59 0-6.5-2.91-6.5-6.5s2.91-6.5 6.5-6.5 6.5 2.91 6.5 6.5-2.91 6.5-6.5 6.5zM6 4.5l6 3.5-6 3.5z"></path></svg>');
 	--cpl-ico-trigger: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14.59 9.535c-0.839-1.454-0.335-3.317 1.127-4.164l-1.572-2.723c-0.449 0.263-0.972 0.414-1.529 0.414-1.68 0-3.042-1.371-3.042-3.062h-3.145c0.004 0.522-0.126 1.051-0.406 1.535-0.839 1.454-2.706 1.948-4.17 1.106l-1.572 2.723c0.453 0.257 0.845 0.634 1.123 1.117 0.838 1.452 0.336 3.311-1.12 4.16l1.572 2.723c0.448-0.261 0.967-0.41 1.522-0.41 1.675 0 3.033 1.362 3.042 3.046h3.145c-0.001-0.517 0.129-1.040 0.406-1.519 0.838-1.452 2.7-1.947 4.163-1.11l1.572-2.723c-0.45-0.257-0.839-0.633-1.116-1.113zM8 11.24c-1.789 0-3.24-1.45-3.24-3.24s1.45-3.24 3.24-3.24c1.789 0 3.24 1.45 3.24 3.24s-1.45 3.24-3.24 3.24z"></path></svg>');
-	--cpl-ico-l: 1.5rem;
+	--cpl-ico--l: 1.5rem;
 	--cpl-ico--m: 1rem;
 	--cpl-ico--s: 0.5rem;
 	--cpl-ico-xl: 2.5rem;
@@ -54,6 +55,7 @@
 	--cpl-w: 20rem;
 	--cpl-z: 100;
 
+	align-items: center;
 	display: flex;
 	flex-direction: column;
 	margin: var(--cpl-m);
@@ -113,14 +115,12 @@
 }
 [data-cp-play] {
 	align-items: center;
-	align-self: flex-start;
 	background-color: transparent;
 	border: 0;
 	color: currentColor;
 	display: inline-flex;
 	font-size: var(--cpl-fz);
 	height: var(--cpl-ico-xl);
-	width: 100vw;
 }
 [data-cp-play],
 [data-cp-trigger-label] {
@@ -210,7 +210,7 @@
 	vector-effect: non-scaling-stroke;
 	width: var(--cpl-ico-xl);
 }
-
+[data-cp-form] [type="checkbox"],
 [data-cp-form] [type="radio"] {
 	clip: rect(0 0 0 0); 
   clip-path: inset(50%);
@@ -221,6 +221,34 @@
   width: 1px;
 }
 
+[data-cp-form] [type="checkbox"] + span {
+	align-items: center;
+	display: inline-flex;
+}
+
+[data-cp-form] [type="radio"] + span {
+	font-size: small;
+	padding: 0.35rem 0.7rem;
+	/* display: inline-block; */
+	display: inline-flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+
+[data-cp-form] [type="checkbox"] + span::before {
+	background: var(--cpl-c--grey) var(--cpl-ico-check) no-repeat center center/var(--cpl-ico--m);
+	content: '';
+	display: inline-block;
+	height: var(--cpl-ico--l);
+	margin-inline-end: var(--cpl-unit);
+	width: var(--cpl-ico--l);
+}
+
+[data-cp-form] [type="checkbox"]:checked + span::before {
+	background-color: currentColor;
+}
+
 [data-cp-form] button,
 [data-cp-form] select {
 	border: 1px solid var(--cpl-bdc);
@@ -229,10 +257,15 @@
 	padding: var(--cpl-unit);
 }
 
+[data-cp-form] kbd {
+	background: var(--cpl-c--grey);
+	padding: 0.125rem 0.25rem;
+}
+
 [data-cp-form] select {
 	background-image: var(--cpl-ico-arrdown);
 	background-repeat: no-repeat;
-	background-size: var(--cpl-ico-l);
+	background-size: var(--cpl-ico--l);
 	background-position: calc(100% - var(--cpl-unit)) 50%;
 	border-radius: 0;
 	margin: calc(var(--cpl-unit) / 2) 0 var(--cpl-unit) 0;
@@ -244,6 +277,11 @@
 	border-color: var(--cpl-bdc--focus);
 	outline: none;
 }
+[data-cp-form] input:focus + svg,
+[data-cp-form] [type="radio"]:focus + span { box-shadow: 0 0 0 1px var(--cpl-bdc--focus); }
+[data-cp-form] input:checked + svg,
+[data-cp-form] [type="radio"]:checked + span { background-color: var(--cpl-c--grey); pointer-events: none;}
+[data-cp-form] [type="checkbox"]:focus + span { text-decoration: underline; }
 
 
 
@@ -335,13 +373,6 @@ TRACK
 	appearance: none;
 }
 
-/* [data-cp-form] input[type="checkbox"]::before {
-	border: 1px solid var(--cpl-bdc);
-	content: 'X';
-	display: inline-block;
-	height: 1rem;
-	width: 1rem;
-} */
 
 
 /* MODIFIERS */
@@ -362,25 +393,43 @@ TRACK
 	color: #222;
 }
 
-
-
-
-.c-cpl--monospace,
-.c-cpl--sansserif,
-.c-cpl--serif {
-	/* border: 1px solid #222; */
-	display: inline-block;
-	margin-bottom: 0.5rem;
-	padding: 0.35rem 0.7rem;
+.cp__theme--dark::before,
+.cp__theme--green::before,
+.cp__theme--light::before,
+.cp__theme--sepia::before {
+	border: 1px solid var(--cpl-bdc--focus);
+	border-radius: 50%;
+	content: '';
+	display: block;
+	height: var(--cpl-ico--l);
+	width: var(--cpl-ico--l);
 }
+.cp__theme--dark::before {
+	background-color: #111;
+
+}
+.cp__theme--light::before {
+	background-color: #FEFEFE;
+}
+
+.cp__theme--green::before {
+	background-color: #CAE6CF;
+}
+.cp__theme--sepia::before {
+	background-color: #F8F0DB;
+}
+
+/* DEMO */
+[data-cp].a11y {
+	--cpl-ico-trigger: var(--cpl-ico-a11y);
+}
+
+
+
+
 .c-cpl--monospace { font-family: ui-monospace, 'Courier New', Courier, monospace; }
 .c-cpl--sansserif, [data-cp-outer] * { font-family: ui-sansserif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif }
 .c-cpl--serif { font-family: ui-serif, Georgia, 'Times New Roman', Times, serif }
-
-[data-cp-form] input:focus + svg,
-[data-cp-form] input:focus + span { box-shadow: 0 0 0 1px var(--cpl-bdc); }
-[data-cp-form] input:checked + svg,
-[data-cp-form] input:checked + span { background-color: var(--cpl-c--grey); pointer-events: none;}
 
 
 /* Highlight tab-stops */

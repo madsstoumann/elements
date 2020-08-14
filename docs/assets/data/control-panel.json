@@ -34,6 +34,8 @@
 		"name": "Audio",
 		"value": [
 			{
+				"__label": "Rate",
+				"__labelbefore": true,
 				"data-type": "rate",
 				"max": 100,
 				"min": 1,
@@ -41,6 +43,8 @@
 				"value": 75
 			},
 			{
+				"__label": "Pitch",
+				"__labelbefore": true,
 				"data-type": "pitch",
 				"max": 100,
 				"min": 1,
@@ -49,41 +53,11 @@
 			},
 			{
 				"__data": [],
+				"__label": "Voices",
+				"__labelbefore": true,
 				"data-type": "voices",
 				"type": "select",
 				"value": 0
-			}
-		]
-	},
-	"theme": {
-		"key": "cp-bgc--",
-		"name": "Theme",
-		"type": "class",
-		"value": [
-			{
-				"__icon": "<svg viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='#ffffff' /></svg>",
-				"__label": "Light",
-				"checked": true,
-				"type": "radio",
-				"value": "cp-bgc--light"
-			},
-			{
-				"__icon": "<svg viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='#000000' /></svg>",
-				"__label": "Dark",
-				"type": "radio",
-				"value": "cp-bgc--dark"
-			},
-			{
-				"__icon": "<svg viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='#f8f0db' /></svg>",
-				"__label": "Sepia",
-				"type": "radio",
-				"value": "cp-bgc--sepia"
-			},
-			{
-				"__icon": "<svg viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='#cae6cf' /></svg>",
-				"__label": "Green",
-				"type": "radio",
-				"value": "cp-bgc--green"
 			}
 		]
 	},
@@ -110,6 +84,25 @@
 				"data-suffix": "%",
 				"type": "range",
 				"value": 100
+			}
+		]
+	},
+	"focusable": {
+		"key": "cp__tabs--",
+		"name": "Focusable Elements",
+		"type": "class",
+		"value": [
+			{
+				"__label": "Default",
+				"checked": true,
+				"type": "radio",
+				"value": "cp__tabs--hide"
+			},
+			{
+				"__label": "Highlight",
+				
+				"type": "radio",
+				"value": "cp__tabs--show"
 			}
 		]
 	},
@@ -148,6 +141,18 @@
 			}
 		]
 	},
+	"margin": {
+		"key": "cp-w",
+		"name": "Margin",
+		"value": [
+			{
+				"max": 15,
+				"min": 2,
+				"type": "range",
+				"value": 2
+			}
+		]
+	},
 	"spacing": {
 		"key": "cp-lh",
 		"name": "Spacing",
@@ -161,22 +166,35 @@
 			}
 		]
 	},
-	"tabstops": {
-		"key": "cp__tabs--",
-		"name": "Focusable Elements",
+	"theme": {
+		"key": "cp-bgc--",
+		"name": "Theme",
 		"type": "class",
 		"value": [
 			{
-				"__label": "Hide",
+				"__label": "Light",
+				"__labelclass": "cp__theme--light",
 				"checked": true,
 				"type": "radio",
-				"value": "cp__tabs--hide"
+				"value": "cp-bgc--light"
 			},
 			{
-				"__label": "Show",
-				
+				"__label": "Dark",
+				"__labelclass": "cp__theme--dark",
 				"type": "radio",
-				"value": "cp__tabs--show"
+				"value": "cp-bgc--dark"
+			},
+			{
+				"__label": "Sepia",
+				"__labelclass": "cp__theme--sepia",
+				"type": "radio",
+				"value": "cp-bgc--sepia"
+			},
+			{
+				"__label": "Green",
+				"__labelclass": "cp__theme--green",
+				"type": "radio",
+				"value": "cp-bgc--green"
 			}
 		]
 	},
@@ -205,20 +223,8 @@
 			}
 		]
 	},
-	"margin": {
-		"key": "cp-w",
-		"name": "Margin",
-		"value": [
-			{
-				"max": 15,
-				"min": 2,
-				"type": "range",
-				"value": 2
-			}
-		]
-	},
 	"zoom": {
-		"desc": "This method is not recommended, and is for legacy purposes only. On modern browsers, hold the CTRL/CMD-key and press the plus- or minus-keys.",
+		"desc": "This method is not recommended, and is for legacy purposes only. On modern browsers, hold the <kbd>CTRL</kbd> or <kbd>&#8984;</kbd>-key and press the <kbd>+</kbd> or <kbd>-</kbd> keys.",
 		"key": "cp-zoom",
 		"name": "Zoom",
 		"value": [
