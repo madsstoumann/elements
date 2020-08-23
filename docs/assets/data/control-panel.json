@@ -1,70 +1,78 @@
 {
 	"alignment": {
-		"key": "cp-align",
+		"$grid": 20,
+		"$key": "cp-align",
+		"$preset": "icon",
 		"name": "Alignment",
-		"value": [
+		"values": [
 			{
-				"__icon": "<svg viewBox='0 0 100 100'><path d='M40,30 L60,30Z M30,40 L70,40Z M20,50 L80,50Z M30,60 L70,60Z M40,70 L60,70Z' /></svg>",
-				"__label": "Center Text",
+				"$icon": "<svg viewBox='0 0 100 100'><path d='M40,30 L60,30Z M30,40 L70,40Z M20,50 L80,50Z M30,60 L70,60Z M40,70 L60,70Z' /></svg>",
+				"$label": "Center Text",
 				"type": "radio",
 				"value": "center"
 			},
 			{
-				"__icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M20,40 L80,40Z M20,50 L80,50Z M20,60 L80,60Z M20,70 L80,70Z' /></svg>",
-				"__label": "Justify Text",
+				"$icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M20,40 L80,40Z M20,50 L80,50Z M20,60 L80,60Z M20,70 L80,70Z' /></svg>",
+				"$label": "Justify Text",
 				"type": "radio",
 				"value": "justify"
 			},
 			{
-				"__icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M20,40 L60,40Z M20,50 L80,50Z M20,60 L70,60Z M20,70 L60,70Z' /></svg>",
-				"__label": "Left-align Text",
+				"$icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M20,40 L60,40Z M20,50 L80,50Z M20,60 L70,60Z M20,70 L60,70Z' /></svg>",
+				"$label": "Left-align Text",
 				"checked": true,
 				"type": "radio",
 				"value": "left"
 			},
 			{
-				"__icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M40,40 L80,40Z M30,50 L80,50Z M20,60 L80,60Z M40,70 L80,70Z' /></svg>",
-				"__label": "Right-align Text",
+				"$icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M40,40 L80,40Z M30,50 L80,50Z M20,60 L80,60Z M40,70 L80,70Z' /></svg>",
+				"$label": "Right-align Text",
 				"type": "radio",
 				"value": "right"
 			}
 		]
 	},
 	"audio": {
+		"$grid": 100,
+		"$keytype": "audio",
+		"desc": "When changing audio-settings, playback will re-start.",
 		"name": "Audio",
-		"value": [
+		"values": [
 			{
-				"__label": "Rate",
-				"__labelbefore": true,
-				"data-type": "rate",
-				"max": 100,
-				"min": 1,
+				"$before": true,
+				"$label": "Rate",
+				"$key": "rate",
+				"max": 10,
+				"min": 0.1,
+				"step": 0.1,
 				"type": "range",
-				"value": 75
+				"value": 1
 			},
 			{
-				"__label": "Pitch",
-				"__labelbefore": true,
-				"data-type": "pitch",
-				"max": 100,
-				"min": 1,
+				"$before": true,
+				"$label": "Pitch",
+				"$key": "pitch",
+				"max": 2,
+				"min": 0,
+				"step": 0.1,
 				"type": "range",
-				"value": 50
+				"value": 1
 			},
 			{
-				"__data": [],
-				"__label": "Voices",
-				"__labelbefore": true,
-				"data-type": "voices",
+				"$before": true,
+				"$data": [],
+				"$label": "Voices",
+				"$key": "voices",
 				"type": "select",
 				"value": 0
 			}
 		]
 	},
 	"brightness": {
-		"key": "cp-brightness",
+		"$grid": 100,
+		"$key": "cp-brightness",
 		"name": "Brightness",
-		"value": [
+		"values": [
 			{
 				"max": 200,
 				"min": 0,
@@ -75,9 +83,10 @@
 		]
 	},
 	"contrast": {
-		"key": "cp-contrast",
+		"$grid": 100,
+		"$key": "cp-contrast",
 		"name": "Contrast",
-		"value": [
+		"values": [
 			{
 				"max": 200,
 				"min": 0,
@@ -88,28 +97,22 @@
 		]
 	},
 	"focusable": {
-		"key": "cp__tabs--",
+		"$key": "focusable--",
+		"$keytype": "class",
 		"name": "Focusable Elements",
-		"type": "class",
-		"value": [
+		"values": [
 			{
-				"__label": "Default",
-				"checked": true,
-				"type": "radio",
-				"value": "cp__tabs--hide"
-			},
-			{
-				"__label": "Highlight",
-				
-				"type": "radio",
-				"value": "cp__tabs--show"
+				"$label": "Highlight",
+				"type": "checkbox",
+				"value": "cp__focusable--show"
 			}
 		]
 	},
 	"fontsize": {
-		"key": "cp-fz",
+		"$grid": 100,
+		"$key": "cp-fz",
 		"name": "Fontsize",
-		"value": [
+		"values": [
 			{
 				"max": 300,
 				"min": 50,
@@ -120,31 +123,32 @@
 		]
 	},
 	"grayscale": {
-		"key": "cp-grayscale",
+		"$key": "cp-grayscale",
 		"name": "Grayscale",
-		"value": [
+		"values": [
 			{
-				"__label": "Monochrome",
+				"$label": "Monochrome",
 				"type": "checkbox",
 				"value": 1
 			}
 		]
 	},
 	"invert": {
-		"key": "cp-invert",
+		"$key": "cp-invert",
 		"name": "Invert",
-		"value": [
+		"values": [
 			{
-				"__label": "Invert colors",
+				"$label": "Invert colors",
 				"type": "checkbox",
 				"value": 1
 			}
 		]
 	},
 	"margin": {
-		"key": "cp-w",
+		"$grid": 100,
+		"$key": "cp-w",
 		"name": "Margin",
-		"value": [
+		"values": [
 			{
 				"max": 15,
 				"min": 2,
@@ -154,9 +158,10 @@
 		]
 	},
 	"spacing": {
-		"key": "cp-lh",
+		"$grid": 100,
+		"$key": "cp-lh",
 		"name": "Spacing",
-		"value": [
+		"values": [
 			{
 				"max": 3,
 				"min": 1,
@@ -166,72 +171,90 @@
 			}
 		]
 	},
-	"theme": {
-		"key": "cp-bgc--",
-		"name": "Theme",
-		"type": "class",
-		"value": [
+	"speech": {
+		"$grid": 100,
+		"$keytype": "speech",
+		"desc": "Check this box to allow filling out forms using speech recognition.",
+		"name": "Speech Recognition",
+		"values": [
 			{
-				"__label": "Light",
-				"__labelclass": "cp__theme--light",
+				"$label": "Enable",
+				"type": "checkbox",
+				"value": "1"
+			}
+		]
+	},
+	"theme": {
+		"$grid": 25,
+		"$key": "cp-bgc--",
+		"$keytype": "class",
+		"$preset": "theme",
+		"name": "Theme",
+		"values": [
+			{
+				"$class": "cp__theme--light",
+				"$label": "Light",
 				"checked": true,
 				"type": "radio",
 				"value": "cp-bgc--light"
 			},
 			{
-				"__label": "Dark",
-				"__labelclass": "cp__theme--dark",
+				"$class": "cp__theme--dark",
+				"$label": "Dark",
 				"type": "radio",
 				"value": "cp-bgc--dark"
 			},
 			{
-				"__label": "Sepia",
-				"__labelclass": "cp__theme--sepia",
+				"$class": "cp__theme--sepia",
+				"$label": "Sepia",
 				"type": "radio",
 				"value": "cp-bgc--sepia"
 			},
 			{
-				"__label": "Green",
-				"__labelclass": "cp__theme--green",
+				"$class": "cp__theme--green",
+				"$label": "Green",
 				"type": "radio",
 				"value": "cp-bgc--green"
 			}
 		]
 	},
 	"typography": {
-		"key": "cp-ff",
+		"$grid": 33,
+		"$key": "cp-ff",
+		"$preset": "font",
 		"name": "Typography",
-		"value": [
+		"values": [
 			{
-				"__label": "Sans Serif",
-				"__labelclass": "c-cpl--sansserif",
+				"$class": "c-cpl--sansserif",
+				"$label": "Sans Serif",
 				"checked": true,
 				"type": "radio",
 				"value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
 			},
 			{
-				"__labelclass": "c-cpl--serif",
-				"__label": "Serif",
+				"$class": "c-cpl--serif",
+				"$label": "Serif",
 				"type": "radio",
 				"value": "ui-serif, Georgia, 'Times New Roman', Times, serif"
 			},
 			{
-				"__labelclass": "c-cpl--monospace",
-				"__label": "Monospace",
+				"$class": "c-cpl--monospace",
+				"$label": "Monospace",
 				"type": "radio",
 				"value": "ui-monospace, 'Courier New', Courier, monospace"
 			}
 		]
 	},
 	"zoom": {
+		"$grid": 100,
+		"$key": "cp-zoom",
 		"desc": "This method is not recommended, and is for legacy purposes only. On modern browsers, hold the <kbd>CTRL</kbd> or <kbd>&#8984;</kbd>-key and press the <kbd>+</kbd> or <kbd>-</kbd> keys.",
-		"key": "cp-zoom",
 		"name": "Zoom",
-		"value": [
+		"values": [
 			{
+				"data-suffix": "%",
 				"max": 300,
 				"min": 50,
-				"data-suffix": "%",
 				"type": "range",
 				"value": 100
 			}

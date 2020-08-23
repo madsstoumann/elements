@@ -2,11 +2,11 @@
  * Layout module.
  * @module /assets/js/controlPanel
  * @requires /assets/js/common
- * @version 1.0.8
- * @summary 14-08-2020
+ * @version 1.2.2
+ * @summary 23-08-2020
  * @description Control Panel
  * @example
- * <div data-control-panel="alignment audio background brightness colormode contrast fontsize spacing tabstops typography width">
+ * <div data-control-panel="alignment audio background brightness contrast fontsize spacing typography zoom">
  */
 import { h, stringToType, uuid } from './common.mjs';
 export default class ControlPanel {
@@ -15,6 +15,7 @@ export default class ControlPanel {
 			clsOuter: '',
 			controlPanelId: '',
 			lblAudio: 'Audio',
+			lblCollapse: 'Collapse',
 			lblTrigger: 'Settings',
 			lblExpanded: 'Close Settings',
 			lblPitch: 'Pitch',
@@ -30,6 +31,25 @@ export default class ControlPanel {
 		}
 		this.wrapper = element;
 		this.init();
+	}
+
+	/**
+	 * @function collapseAll
+	 * @description Closes all open panels
+	 */
+	collapseAll() {
+		const details = this.trigger.querySelectorAll('details');
+		details.forEach(detail => { detail.open = false; });
+	}
+
+	/**
+	 * @function findDataKey
+	 * @param {String} key
+	 * @param {String} value
+	 * @description Finds a key from value in this.data
+	 */
+	findDataKey(key, value) {
+		return Object.values(this.data[key].values).findIndex(obj => { return obj['$key'] === value; });
 	}
 
 	/**
@@ -66,10 +86,19 @@ export default class ControlPanel {
 				supported: (typeof window.speechSynthesis !== 'undefined')
 			}
 			if (this.audio.supported && this.options.includes('audio')) {
+				const [lang, region] = (this.wrapper.lang || document.documentElement.lang || 'en-US').split('-');
 				this.audio.voices = await this.getVoices();
-				const index = Object.values(this.data.audio.value).findIndex(key => { return key['data-type'] === 'voices'; });
-				this.data.audio.value[index].__data = this.audio.voices;
-				this.initAudio();
+
+				try {
+					this.audio.voices = this.audio.voices.filter(voice => { return voice.lang.startsWith(lang) });
+					const index = this.findDataKey('audio', 'voices');
+					this.data.audio.values[index].$data = this.audio.voices;
+					this.initAudio(lang, region);
+				}
+				catch(err) {
+					delete this.data.audio;	
+					console.error(err);
+				}
 			}
 
 			/* Find trigger insertion-node, if not found = exit */
@@ -90,7 +119,10 @@ export default class ControlPanel {
 			this.form.innerHTML = html;
 			this.form.addEventListener('change', (event) => { return this.setValue(event.target) });
 			this.form.addEventListener('reset', this.resetForm.bind(this));
+			this.collapse = h('button', { type: 'button', 'data-cp-collapse': '' }, [this.settings.lblCollapse]);
+			this.collapse.addEventListener('click', () => { return this.collapseAll(); });
 			this.reset = h('button', { type: 'reset', 'data-cp-reset': '' }, [this.settings.lblReset]);
+			this.form.appendChild(this.collapse);
 			this.form.appendChild(this.reset);
 			this.trigger = h('details', { 'data-cp-trigger': '' }, [h('summary', { 'data-cp-trigger-label': '' }, [h('span', { }, [this.settings.lblTrigger])])]);
 			this.trigger.addEventListener('keydown', (event) => { if(event.key === 'Escape') {
@@ -108,59 +140,78 @@ export default class ControlPanel {
 				}
 			});
 		}
-		// eslint-disable-next-line
-		console.log(this);
+		this.loadState();
 	}
 
 	/**
 	 * @function initAudio
+	 * @param {String} lang
 	 * @description Init speechSynthesis, set defaults
-	 * TODO
 	 */
-	initAudio() {
-		const [lang, region] = (this.wrapper.lang || document.documentElement.lang || 'en-US').split('-');
+	initAudio(lang, region) {
+		const pitchIndex = this.findDataKey('audio', 'pitch');
+		const rateIndex = this.findDataKey('audio', 'rate');
 
 		this.audio.enabled = true;
 		this.audio.paused = false;
-		this.audio.playing = false;
+		this.audio.playing = null; /* Initial value. After play have started, it will be `true` or `false` */
 		this.audio.utterance = new SpeechSynthesisUtterance();
 		this.audio.utterance.lang = `${lang}-${region}`;
-		this.audio.utterance.pitch = 1;
-		this.audio.utterance.rate = 1;
-		this.audio.utterance.text = this.wrapper.innerText;
+		this.audio.utterance.pitch = this.data.audio.values[pitchIndex].value;
+		this.audio.utterance.rate = this.data.audio.values[rateIndex].value;
+		this.audio.utterance.text = this.wrapper.textContent;
 		this.audio.utterance.voice = this.audio.voices[0];
 		this.audio.utterance.volume = 0.5;
-
 		this.play = h('button', { type: 'button', 'data-cp-play': '' }, [this.settings.lblPlay]);
 
 		/* Add eventListeners */
-		this.audio.utterance.addEventListener('boundary', (event) => { console.log(event); })
-		this.audio.utterance.addEventListener('end', (event) => { console.log(event); })
-		this.audio.utterance.onpause = () => { this.audio.paused = true; console.log('pause event') }
+		this.audio.utterance.addEventListener('end', () => {
+			this.setPlayPause(true);
+			this.audio.playing = null;
+		})
 		this.play.addEventListener('click', this.playPauseAudio.bind(this));
+		window.speechSynthesis.cancel();
+	}
+
+	/**
+	 * @function loadState
+	 * @description Load current state from localStorage
+	 */
+	loadState() {
+		const state = window.localStorage.getItem(this.outer.id);
+		this.state = state ? JSON.parse(state) : {};
+
+		for (const [key, value] of Object.entries(this.state)) {
+			const input = this.form.elements[key];
+			input.value = value;
+			
+			if (input.nodeName === 'INPUT') {
+				this.setValue(input, true);
+			}
+			else if (Object.prototype.isPrototypeOf.call(NodeList.prototype, input)) {
+				const checked = [...input].findIndex(elm => { return elm.value === value; });
+				this.setValue(input[checked], true);
+			}
+		}
 	}
 
 	/**
 	 * @function playPauseAudio
 	 * @description Play/Pause speechSynthesis
-	 * TODO 
 	 */
 	playPauseAudio() {
 		if (this.audio.playing) {
-			this.audio.playing = false;
-			this.play.removeAttribute('data-cp-playing');
-			this.play.innerText = this.settings.lblPlay;
-			// speechSynthesis.pause();
-			// speechSynthesis.cancel(); /* WIP: CHROME MAC */
-			// speechSynthesis.resume();
-			// this.paused = false;
+			this.setPlayPause(true);
+			speechSynthesis.pause();
 		}
 		else {
-			// speechSynthesis.resume();
-			this.audio.playing = true;
-			this.play.dataset.cpPlaying = '';
-			this.play.innerText = this.settings.lblPause;
-			// speechSynthesis.speak(this.audio.utterance);
+			if (this.audio.playing === false) {
+				window.speechSynthesis.resume();
+			}
+			else {
+				window.speechSynthesis.speak(this.audio.utterance);
+			}
+			this.setPlayPause(false);
 		}
 	}
 
@@ -169,31 +220,31 @@ export default class ControlPanel {
 	 * @description Renders a radio-button group
 	 * @param {Object} obj
 	 * @param {String} key
-	 * TODO
-	 * data-target="${item.target || obj[key].target || ''}"
-	 * ${item.checked ? ' checked': ''}
 	 */
 	renderGroup(obj, key) {
-		const id = uuid();
 		return `
-		<details data-cp-item>
-			<summary data-cp-item-summary><span data-cp-item-label>${obj[key].name}</span></summary>
+		<details data-cp-item${obj[key].open ? ' open' : ''}>
+			<summary data-cp-item-summary>
+				<span data-cp-item-label>${obj[key].name}</span>
+			</summary>
 			<div data-cp-item-panel>
 			${obj[key].desc ? `<small>${obj[key].desc}</small>` :''}
-			${obj[key].value.map(item => {
+			${obj[key].values.map(item => {
 				const tag = item.type === 'select' ? item.type : 'input';
 				return `
-				<label aria-label="">
-					${item.__labelbefore ? `<span class="${item.__labelclass || ''}">${item.__label}</span>` : ''}
-					<${tag} ${item.type==='radio' ? ` name="${id}"` : ''}
-						${Object.keys(item).map(entry => {return !entry.startsWith('__') ? `${entry}="${item[entry]}"` : ''}).join('')}
-						data-key="${obj[key].key || item.__key}"
-						data-key-type="${obj[key].type || 'property'}"
-						data-parent="${key}">
-						${tag === 'select' && item.__data ? item.__data.map(option => { return `<option value="${option.value || option.name}">${option.name}</option>` }).join('') : '' }
+				<label
+					data-label-grid="${item.$grid || obj[key].$grid || 'auto'}"
+					data-preset="${item.$preset || obj[key].$preset || ''}">
+					${item.$before && item.$label ? `<span class="${item.$class || ''}">${item.$label}</span>` : ''}
+					<${tag}
+						${Object.keys(item).map(entry => {return !entry.startsWith('$') ? `${entry}="${item[entry]}"` : ''}).join('')}
+						data-key="${item.$key || obj[key].$key}"
+						data-key-type="${item.$keytype || obj[key].$keytype || 'property'}"
+						name="${key}">
+						${tag === 'select' && item.$data ? item.$data.map(option => { return `<option value="${option.value || option.name}">${option.name}</option>` }).join('') : '' }
 					</${tag}>
-					${item.__icon ? item.__icon : ''}
-					${!item.__icon && item.__label && !item.__labelbefore ? `<span class="${item.__labelclass || ''}">${item.__label}</span>` : ''}
+					${item.$icon ? item.$icon : ''}
+					${!item.$icon && item.$label && !item.$before ? `<span class="${item.$class || ''}">${item.$label}</span>` : ''}
 				</label>
 			`}).join('')}
 			</div>
@@ -205,21 +256,27 @@ export default class ControlPanel {
 	 * @description Resets to default values
 	 */
 	resetForm() {
+		/* Remove saved state */
+		window.localStorage.removeItem(this.outer.id);
+		this.state = {};
 		/* Run updates after regular `reset`-event */
 		setTimeout( () => {
 			const elements = this.form.querySelectorAll(`[checked], [type="checkbox"]:not(checked), [type="range"], select`);
 			elements.forEach(element => {
-				this.setValue(element);
+				this.setValue(element, true);
 			})
 		}, 100);
+		this.collapseAll();
 	}
 
 	/**
 	 * @function saveState
+	 * @param {String} id
+	 * @param {Object} state
 	 * @description Save current state to localStorage
 	 */
-	saveState() {
-		window.localStorage.setItem(this.outer.id, JSON.stringify(this.data));
+	saveState(id, state) {
+		window.localStorage.setItem(id, JSON.stringify(state));
 	}
 
 	/**
@@ -239,11 +296,32 @@ export default class ControlPanel {
 	 * @description Helper-function for setting a CSS-class, and removing classes matching a prefix-key.
 	 * @param {Node} target
 	 * @param {Node} element
+	 * @param {Boolean} addRemove
 	 */
-	setCSSClass(target, element) {
+	setCSSClass(target, element, addRemove) {
 		const keys = [...target.classList].filter(item => {return !item.includes(element.dataset.key)});
-		keys.push(element.value);
+		if (addRemove) {
+			keys.push(element.value);
+		}
 		target.className = keys.join(' ');
+	}
+
+	/**
+	 * @function setPlayPause
+	 * @description Updates labels and icon when play/pause audio
+	 * @param {Boolean} playing
+	 */
+	setPlayPause(playing) {
+		if (playing) {
+			this.audio.playing = false;
+			this.play.removeAttribute('data-cp-playing');
+			this.play.innerText = this.settings.lblPlay;
+		}
+		else {
+			this.audio.playing = true;
+			this.play.dataset.cpPlaying = '';
+			this.play.innerText = this.settings.lblPause;
+		}
 	}
 
 	/**
@@ -251,29 +329,54 @@ export default class ControlPanel {
 	 * @description Main event-handler
 	 * @param {Node} element
 	 */
-	setValue(element) {	
-		const target = element.dataset.target ? document.querySelector(element.dataset.target) || this.wrapper : this.wrapper;
-		let value = element.value;
+	setValue(element, reset = false) {	
+		let saveState = true;
+		const target = element?.dataset?.target ? document.querySelector(element.dataset.target) || this.wrapper : this.wrapper;
+		let value = element?.value || null;
+		if (!value) return;
+
+		/* Handle checkboxes: `value` in state-object is `1` if checked/selected */
+		if (element.type === 'checkbox') {
+			if (reset && this.state[element.name] == 1) {
+				element.checked = true;
+			}
+			if (!element.checked) {
+				delete this.state[element.name];
+				saveState = false;
+				value = 0;
+			}
+		}
+
+		if (!reset) {
+			if (saveState) { this.state[element.name] = value; }
+			this.saveState(this.outer.id, this.state);
+		}
+
 		switch (element.dataset.keyType) {
-			case 'pitch':
-				break;
 			case 'property':
-				if (element.type === 'checkbox' && !element.checked) { 
-					value = 0;
-				}
 				this.setCSSProperty(target, element.dataset.key, value, element.dataset.suffix);
 				break;
-			case 'rate':
-				break;
-			case 'voices':
-				this.audio.utterance.voice = this.audio.voices[element.selectedIndex];
-				break;
+			case 'audio':
+				switch (element.dataset.key) {
+					case 'pitch':
+						this.audio.utterance.pitch = element.value - 0;
+						break;
+					case 'rate':
+						this.audio.utterance.rate = element.value - 0;
+						break;
+					case 'voices':
+						this.audio.utterance.voice = this.audio.voices[element.selectedIndex];
+						break;
+					default: break;
+				}
+				break;	
 			default:
-				this.setCSSClass(target, element);
+				this.setCSSClass(target, element, saveState);
 				break;
 		}
+
 		if (this.fnCallback) {
-			this.fnCallback(element);
+			this.fnCallback(this.wrapper, element);
 		}
 	}
 }

@@ -2,8 +2,8 @@
  * Layout module.
  * @module /assets/js/layout
  * @requires /assets/js/common
- * @version 1.1.09
- * @summary 06-08-2020
+ * @version 1.1.10
+ * @summary 17-08-2020
  * @description Helper-functions for Layout Block
  * @example
  * <section data-section-type>
@@ -36,22 +36,36 @@ export class Layout {
 			inner.appendChild(wrapper);
 
 			const resizeObserver = new ResizeObserver(() => {
-				const pages = Math.ceil(ebook.scrollWidth / ebook.offsetWidth);
-				wrapper.innerHTML = '';
-				for (let index = 0; index < pages; index++) {
-					const page = h('div', { 'data-ebook': 'page' }, [`${index+1} / ${pages}`]);
-					wrapper.appendChild(page);
-				}
+				this.ebookRecalc(ebook, wrapper);
 			});
 			resizeObserver.observe(ebook);
 		})
 	}
 
-	ebookUpdate(element) {
-		/* TODO! Recalculate "pages" when ControlPanel values change */
-		// console.log(element)
+	ebookRecalc(ebook, wrapper) {
+		const pages = Math.ceil(ebook.scrollWidth / ebook.offsetWidth);
+		wrapper.innerHTML = '';
+		for (let index = 0; index < pages; index++) {
+			const page = h('div', { 'data-ebook': 'page' }, [`${index+1} / ${pages}`]);
+			wrapper.appendChild(page);
+		}
 	}
 
+	ebookUpdate(parent, element) {
+		const ebook = parent.querySelector(`[data-ebook="item"]`);
+		const wrapper = parent.querySelector(`[data-ebook="wrapper"]`);
+
+		switch(element.dataset.key) {
+			case 'cp-align':
+			case 'cp-ff':
+			case 'cp-fz':
+			case 'cp-lh':
+			case 'cp-w': 
+				this.ebookRecalc(ebook, wrapper);
+			break;
+			default: break;
+		}
+	}
 
 	/**
 	 * @function expandCollapse
@@ -124,7 +138,7 @@ export class Layout {
 		/* Init Control Panels */
 		const panels = document.querySelectorAll(`[data-control-panel]:not([data-control-panel=""])`);
 		panels.forEach(panel => {
-			new ControlPanel(panel, panel.dataset, this.updateLayout);
+			new ControlPanel(panel, panel.dataset, this.ebookUpdate.bind(this));
 		});
 
 		this.loadPopupPage();

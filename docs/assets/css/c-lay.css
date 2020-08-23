@@ -611,10 +611,6 @@ RWD
 	.c-lay {
 		--lay-gap: 1.25rem;
 	}
-	.c-lay__item {
-		/* TODO: Delete? */
-		/* --lay-item-smis: 0; */
-	}
 	[data-theme] .c-lay__item {
 		--lay-item-smis: var(--lay-item-gap);
 	}
@@ -690,7 +686,9 @@ EBOOK
 	outline: none;
 }
 [data-ebook="page"] {
-	color: hsl(210, 24%, 15%);
+	/* color: hsl(210, 24%, 15%); */
+	color: #989590;
+	font-family: ui-sanserif, sans-serif;
 	font-size: small;
 	margin: 0 0 var(--lay-gap) 0;
 	margin-right: 0;

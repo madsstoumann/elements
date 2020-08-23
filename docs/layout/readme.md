@@ -130,6 +130,7 @@ Grid to use on smaller devices.
 
 1. 100 `[default]`
 2. 50:50
+3. hidden
 
 *Example:*
 ```html
@@ -151,6 +152,7 @@ Grid to use on medium-sized devices.
 9. 25:50:25
 10. 25:25:50
 11. 25:25:25:25
+12. hidden
 
 *Example:*
 ```html
@@ -172,6 +174,7 @@ Grid to use on larger devices.
 9. 25:50:25
 10. 25:25:50
 11. 25:25:25:25 `[default]`
+12. hidden
 
 *Example:*
 ```html
