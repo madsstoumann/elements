@@ -173,16 +173,17 @@
 	},
 	"speech": {
 		"$grid": 100,
-		"$key": "cp__speech--",
-		"$keytype": "class",
-		"desc": "Check this box to allow filling out forms using speech recognition.",
+		"$keytype": "speech",
 		"name": "Speech Recognition",
 		"open": true,
 		"values": [
 			{
-				"$label": "Enable",
-				"type": "checkbox",
-				"value": "cp__speech--enabled"
+				"$before": true,
+				"$data": [],
+				"$label": "Language",
+				"$key": "language",
+				"type": "select",
+				"value": "en-US"
 			}
 		]
 	},

@@ -1,7 +1,7 @@
 /**
  * c-cpl.css
- * @version 1.1.8
- * @summary 22-08-2020
+ * @version 1.2.0
+ * @summary 24-08-2020
  * @author Mads Stoumann
  * @description Stylesheet for ControlPanel Component
 */
@@ -128,6 +128,7 @@
 	padding: var(--cpl-unit) 0 0 var(--cpl-unit);
 	text-align: left;
 }
+[data-cp-listen],
 [data-cp-play] {
 	align-items: center;
 	background-color: transparent;
@@ -137,16 +138,22 @@
 	font-size: var(--cpl-fz);
 	height: var(--cpl-ico-xl);
 }
+[data-cp-listen],
 [data-cp-play],
 [data-cp-trigger-label] {
 	border-color: transparent;
 	border-style: dashed;
 	border-width: var(--cpl-bdw) 0;
 }
+[data-cp-listen]::before {
+	mask: no-repeat left center/var(--cpl-ico--m) var(--cpl-ico--mic);
+	-webkit-mask: no-repeat left center/var(--cpl-ico--m) var(--cpl-ico--mic);
+}
 [data-cp-play]::before {
 	mask: no-repeat left center/var(--cpl-ico--m) var(--cpl-ico--play);
 	-webkit-mask: no-repeat left center/var(--cpl-ico--m) var(--cpl-ico--play);
 }
+[data-cp-listen]::before,
 [data-cp-play]::before,
 [data-cp-trigger-label] span::before {
 	background-color: currentColor;
@@ -156,6 +163,7 @@
 	margin-inline-end: 0.5rem;
 	width: var(--cpl-ico--m);
 }
+[data-cp-listen]:focus,
 [data-cp-play]:focus,
 [data-cp-trigger-label]:focus {
 	border-color: currentColor;
@@ -175,6 +183,13 @@
 }
 [data-cp-item-summary]:focus [data-cp-item-label] {
 	text-decoration: underline;
+}
+[data-cp-result] {
+	background-color: black;
+	color: white;
+	flex: 0 0 100%;
+	font-family: ui-monospace, monospace;
+	font-size: small;
 }
 [data-cp-trigger-label]:focus span {
 	text-decoration: underline;
@@ -230,8 +245,8 @@
 
 /* RWD */
 @media screen and (min-width: 48rem) {
-	[data-cp] { flex-direction: row; }
-	[data-cp-play], [data-cp-trigger] { width: initial; }
+	[data-cp] { flex-direction: row; flex-wrap: wrap; }
+	[data-cp-play], [data-cp-listen], [data-cp-trigger] { width: initial; }
 	[data-cp-form] { width: var(--cpl-w); }
 }
 
@@ -360,11 +375,9 @@
 	border: 1px solid var(--cpl-bdc);
 }
 
-
-
 /* Focus */
 [data-cp-form] button:focus,
-[data-cp-form] input:not([type="range"]),
+[data-cp-form] input:not([type="range"]):focus,
 [data-cp-form] select:focus,
 [data-cp-form] textarea:focus {
 	border-color: var(--cpl-bdc--focus);
@@ -540,29 +553,12 @@ TRACK
 	text-align: var(--cp-align);
 }
 
-/* DEMO */
-[data-cp].a11y {
-	--cpl-ico-trigger: var(--cpl-ico--a11y);
-}
-[data-cp].ebook {
-	--cpl-ico-trigger: var(--cpl-ico--text);
-}
-[data-cp].speech {
-	--cpl-ico-trigger: var(--cpl-ico--mic);
-}
-
-.cp__speech--enabled [data-cp-trigger-label] span::before {
+[data-cp-listen="listening"]::before {
 	background-color: red;
 	animation: blink-animation 1s steps(5, start) infinite;
-  
 }
 
 @keyframes blink-animation {
-  to {
-    visibility: hidden;
-  }
-}
-@-webkit-keyframes blink-animation {
   to {
     visibility: hidden;
   }

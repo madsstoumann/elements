@@ -9,6 +9,7 @@
  * <div data-control-panel="alignment audio background brightness contrast fontsize spacing typography zoom">
  */
 import { h, stringToType, uuid } from './common.mjs';
+import { languages } from './languages.js';
 export default class ControlPanel {
 	constructor(element, settings, callback) {
 		this.settings = Object.assign({
@@ -16,6 +17,8 @@ export default class ControlPanel {
 			controlPanelConfig: '',
 			controlPanelId: '',
 			lblCollapse: 'Collapse',
+			lblListen: 'Enable',
+			lblListenStop: 'Disable',
 			lblTrigger: 'Settings',
 			lblPause: 'Pause audio',
 			lblPlay: 'Read article',
@@ -77,7 +80,7 @@ export default class ControlPanel {
 		this.config = this.settings.controlPanelConfig.split(' ');
 
 		if (this.data && this.options.length && (typeof this.settings.controlPanelTrigger === 'string')) {
-			/* Initial audio-checks */
+			/* Init audio/speech-synthesis */
 			this.audio = {
 				enabled: false,
 				supported: (typeof window.speechSynthesis !== 'undefined')
@@ -96,6 +99,15 @@ export default class ControlPanel {
 					delete this.data.audio;	
 					console.error(err);
 				}
+			}
+			/* Init speech recognition */
+			window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+			this.speech = {
+				enabled: false,
+				supported: ('SpeechRecognition' in window)
+			}
+			if (this.speech.supported && this.options.includes('speech')) {
+				this.initSpeech();
 			}
 
 			/* Find trigger insertion-node, if not found = exit */
@@ -132,7 +144,7 @@ export default class ControlPanel {
 				this.trigger.firstElementChild.focus();
 			}});
 			this.trigger.appendChild(this.form);
-			this.outer = h('nav', { class: this.settings.clsOuter, 'data-cp': '', id: this.settings.controlPanelId ? this.settings.controlPanelId : uuid() }, [this.audio.enabled ? this.play : '', this.trigger]);
+			this.outer = h('nav', { class: this.settings.clsOuter, 'data-cp': '', id: this.settings.controlPanelId ? this.settings.controlPanelId : uuid() }, [this.speech.enabled ? this.listen : '', this.audio.enabled ? this.play : '', this.trigger, this.speech.enabled ? this.result : '']);
 			wrapper.insertAdjacentElement(insertMethod || 'beforeend', this.outer);
 
 			/* Close panel when clicking outside */
@@ -172,6 +184,68 @@ export default class ControlPanel {
 		})
 		this.play.addEventListener('click', this.playPauseAudio.bind(this));
 		window.speechSynthesis.cancel();
+	}
+
+	/**
+	 * @function initSpeech
+	 * @description Init Speech Recognition
+	 */
+	initSpeech() {
+		const languageIndex = this.findDataKey('speech', 'language');
+		this.data.speech.values[languageIndex].$data = languages;
+
+		this.speech.enabled = true;
+		this.speech.listening = false;
+		this.speech.recognition = new window.SpeechRecognition();
+		this.speech.recognition.continuous = true;
+		// this.speech.recognition.interimResults = true;
+		// this.speech.recognition.maxAlternatives = 10;
+
+		this.speech.recognition.lang = this.wrapper.lang || document.documentElement.lang || 'en-US';
+		this.speech.text = '';
+		this.listen = h('button', { type: 'button', 'data-cp-listen': '' }, [this.listenLabel()]);
+		this.result = h('div', { 'data-cp-result': '' });
+
+		/* Add eventListeners */
+		this.listen.addEventListener('click', this.listenToggle.bind(this));
+		this.speech.recognition.addEventListener('result', (event) => {
+			const len = event.results.length - 1;
+			const tag = document.activeElement.nodeName;
+			this.speech.text = event.results[len][0].transcript;
+
+			if (tag === 'INPUT' || tag === 'TEXTAREA') {
+				document.activeElement.value += this.speech.text;
+			}
+			else {
+				this.result.innerText = this.speech.text;
+			}
+		});
+	}
+
+	/**
+	 * @function listenLabel
+	 * @description Updates listen-toggler with selected language
+	 */
+	listenLabel() {
+		const lang = languages.find(item => item.value === this.speech.recognition.lang);
+		return `${this.speech.listening ? this.settings.lblListenStop : this.settings.lblListen} (${lang.name})`;
+	}
+
+	/**
+	 * @function listenToggle
+	 * @description Toggles Speech Recognition listener
+	 */
+	listenToggle() {
+		this.speech.listening = !this.speech.listening;
+		this.listen.dataset.cpListen = this.speech.listening ? 'listening' : '';
+		this.listen.innerText = this.listenLabel();
+
+		if (this.speech.listening) {
+			this.speech.recognition.start();
+		}
+		else {
+			this.speech.recognition.stop();
+		}
 	}
 
 	/**
@@ -372,7 +446,16 @@ export default class ControlPanel {
 					default: break;
 				}
 				this.stopAudio();
-				break;	
+				break;
+			case 'speech':
+				switch (element.dataset.key) {
+					case 'language':
+						this.speech.recognition.lang = element.value;
+						this.listen.innerText = this.listenLabel();
+						break;
+					default: break;
+				}
+				break;
 			default:
 				this.setCSSClass(target, element, saveState);
 				break;
