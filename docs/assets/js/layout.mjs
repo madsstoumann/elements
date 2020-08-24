@@ -355,8 +355,8 @@ export class Layout {
 /**
  * Slider
  * @requires /assets/js/common
- * @version 1.1.09
- * @summary 06-08-2020
+ * @version 1.1.10
+ * @summary 24-08-2020
  * @description Slider-functionality for Layout Block
  * @example
  * <section data-section-type="slider">
@@ -372,7 +372,6 @@ export class Slider {
 			clsDotWrap: 'c-lay__dots',
 			clsNav: 'c-lay__nav',
 			clsNavInner: 'c-lay__nav-inner',
-			clsOverflow: 'c-lay__inner--overflow',
 			lblGoToSlide: 'Go to slide',
 			lblItemRole: 'slide',
 			lblNext: 'Next',

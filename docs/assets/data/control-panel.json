@@ -6,26 +6,26 @@
 		"name": "Alignment",
 		"values": [
 			{
-				"$icon": "<svg viewBox='0 0 100 100'><path d='M40,30 L60,30Z M30,40 L70,40Z M20,50 L80,50Z M30,60 L70,60Z M40,70 L60,70Z' /></svg>",
+				"$icon": "<svg viewBox='0 0 20 20'><path d='M1 1h18v2h-18v-2zM1 9h18v2h-18v-2zM1 17h18v2h-18v-2zM4 5h12v2h-12v-2zM4 13h12v2h-12v-2z'></path></svg>",
 				"$label": "Center Text",
 				"type": "radio",
 				"value": "center"
 			},
 			{
-				"$icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M20,40 L80,40Z M20,50 L80,50Z M20,60 L80,60Z M20,70 L80,70Z' /></svg>",
+				"$icon": "<svg viewBox='0 0 20 20'><path d='M1 1h18v2h-18v-2zM1 9h18v2h-18v-2zM1 17h18v2h-18v-2zM1 5h18v2h-18v-2zM1 13h18v2h-18v-2z'></path></svg>",
 				"$label": "Justify Text",
 				"type": "radio",
 				"value": "justify"
 			},
 			{
-				"$icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M20,40 L60,40Z M20,50 L80,50Z M20,60 L70,60Z M20,70 L60,70Z' /></svg>",
+				"$icon": "<svg viewBox='0 0 20 20'><path d='M1 1h18v2h-18v-2zM1 9h18v2h-18v-2zM1 17h18v2h-18v-2zM1 5h12v2h-12v-2zM1 13h12v2h-12v-2z'></path></svg>",
 				"$label": "Left-align Text",
 				"checked": true,
 				"type": "radio",
 				"value": "left"
 			},
 			{
-				"$icon": "<svg viewBox='0 0 100 100'><path d='M20,30 L80,30Z M40,40 L80,40Z M30,50 L80,50Z M20,60 L80,60Z M40,70 L80,70Z' /></svg>",
+				"$icon": "<svg viewBox='0 0 20 20'><path d='M1 1h18v2h-18v-2zM1 9h18v2h-18v-2zM1 17h18v2h-18v-2zM7 5h12v2h-12v-2zM7 13h12v2h-12v-2z'></path></svg>",
 				"$label": "Right-align Text",
 				"type": "radio",
 				"value": "right"
@@ -35,7 +35,7 @@
 	"audio": {
 		"$grid": 100,
 		"$keytype": "audio",
-		"desc": "When changing audio-settings, playback will re-start.",
+		"desc": "When changing audio-settings, playback will re-start. On IOS devices, make sure that “Soft Mute” is not enabled in the “Control Center”.",
 		"name": "Audio",
 		"values": [
 			{
@@ -97,7 +97,7 @@
 		]
 	},
 	"focusable": {
-		"$key": "focusable--",
+		"$key": "cp__focusable--",
 		"$keytype": "class",
 		"name": "Focusable Elements",
 		"values": [
@@ -173,14 +173,16 @@
 	},
 	"speech": {
 		"$grid": 100,
-		"$keytype": "speech",
+		"$key": "cp__speech--",
+		"$keytype": "class",
 		"desc": "Check this box to allow filling out forms using speech recognition.",
 		"name": "Speech Recognition",
+		"open": true,
 		"values": [
 			{
 				"$label": "Enable",
 				"type": "checkbox",
-				"value": "1"
+				"value": "cp__speech--enabled"
 			}
 		]
 	},

@@ -1,9 +1,9 @@
 /**
- * Layout module.
+ * Control Panel
  * @module /assets/js/controlPanel
  * @requires /assets/js/common
- * @version 1.2.2
- * @summary 23-08-2020
+ * @version 1.2.4
+ * @summary 24-08-2020
  * @description Control Panel
  * @example
  * <div data-control-panel="alignment audio background brightness contrast fontsize spacing typography zoom">
@@ -13,17 +13,13 @@ export default class ControlPanel {
 	constructor(element, settings, callback) {
 		this.settings = Object.assign({
 			clsOuter: '',
+			controlPanelConfig: '',
 			controlPanelId: '',
-			lblAudio: 'Audio',
 			lblCollapse: 'Collapse',
 			lblTrigger: 'Settings',
-			lblExpanded: 'Close Settings',
-			lblPitch: 'Pitch',
 			lblPause: 'Pause audio',
 			lblPlay: 'Read article',
-			lblRate: 'Rate',
 			lblReset: 'Reset',
-			lblVoices: 'Voices',
 			urlData: '../assets/data/control-panel.json'
 		}, stringToType(settings));
 		if (callback && (typeof callback === 'function')) {
@@ -78,6 +74,7 @@ export default class ControlPanel {
 		/* Fetch data from API */
 		this.data = await (await fetch(this.settings.urlData)).json();
 		this.options = this.settings.controlPanel.split(' ');
+		this.config = this.settings.controlPanelConfig.split(' ');
 
 		if (this.data && this.options.length && (typeof this.settings.controlPanelTrigger === 'string')) {
 			/* Initial audio-checks */
@@ -119,11 +116,16 @@ export default class ControlPanel {
 			this.form.innerHTML = html;
 			this.form.addEventListener('change', (event) => { return this.setValue(event.target) });
 			this.form.addEventListener('reset', this.resetForm.bind(this));
-			this.collapse = h('button', { type: 'button', 'data-cp-collapse': '' }, [this.settings.lblCollapse]);
-			this.collapse.addEventListener('click', () => { return this.collapseAll(); });
-			this.reset = h('button', { type: 'reset', 'data-cp-reset': '' }, [this.settings.lblReset]);
-			this.form.appendChild(this.collapse);
-			this.form.appendChild(this.reset);
+			
+			if (this.config.includes('collapse')) {
+				this.collapse = h('button', { type: 'button', 'data-cp-collapse': '' }, [this.settings.lblCollapse]);
+				this.collapse.addEventListener('click', () => { return this.collapseAll(); });
+				this.form.appendChild(this.collapse);
+			}
+			if (this.config.includes('reset')) {
+				this.reset = h('button', { type: 'reset', 'data-cp-reset': '' }, [this.settings.lblReset]);
+				this.form.appendChild(this.reset);
+			}
 			this.trigger = h('details', { 'data-cp-trigger': '' }, [h('summary', { 'data-cp-trigger-label': '' }, [h('span', { }, [this.settings.lblTrigger])])]);
 			this.trigger.addEventListener('keydown', (event) => { if(event.key === 'Escape') {
 				this.trigger.open = false;
@@ -166,8 +168,7 @@ export default class ControlPanel {
 
 		/* Add eventListeners */
 		this.audio.utterance.addEventListener('end', () => {
-			this.setPlayPause(true);
-			this.audio.playing = null;
+			this.stopAudio();
 		})
 		this.play.addEventListener('click', this.playPauseAudio.bind(this));
 		window.speechSynthesis.cancel();
@@ -202,7 +203,7 @@ export default class ControlPanel {
 	playPauseAudio() {
 		if (this.audio.playing) {
 			this.setPlayPause(true);
-			speechSynthesis.pause();
+			window.speechSynthesis.pause();
 		}
 		else {
 			if (this.audio.playing === false) {
@@ -233,6 +234,7 @@ export default class ControlPanel {
 				const tag = item.type === 'select' ? item.type : 'input';
 				return `
 				<label
+					aria-label="${item.$label}"
 					data-label-grid="${item.$grid || obj[key].$grid || 'auto'}"
 					data-preset="${item.$preset || obj[key].$preset || ''}">
 					${item.$before && item.$label ? `<span class="${item.$class || ''}">${item.$label}</span>` : ''}
@@ -337,7 +339,7 @@ export default class ControlPanel {
 
 		/* Handle checkboxes: `value` in state-object is `1` if checked/selected */
 		if (element.type === 'checkbox') {
-			if (reset && this.state[element.name] == 1) {
+			if (reset && this.state[element.name] == element.value) {
 				element.checked = true;
 			}
 			if (!element.checked) {
@@ -369,6 +371,7 @@ export default class ControlPanel {
 						break;
 					default: break;
 				}
+				this.stopAudio();
 				break;	
 			default:
 				this.setCSSClass(target, element, saveState);
@@ -378,5 +381,15 @@ export default class ControlPanel {
 		if (this.fnCallback) {
 			this.fnCallback(this.wrapper, element);
 		}
+	}
+
+	/**
+	 * @function stopAudio
+	 * @description Runs, when speechSynthesis voice, pitch or rate changes.
+	 */
+	stopAudio() {
+		window.speechSynthesis.cancel();
+		this.setPlayPause(true);
+		this.audio.playing = null;
 	}
 }

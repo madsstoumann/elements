@@ -409,6 +409,12 @@ Phone-specific styles in `c-lay_grid.css`
 [data-nav*="scroll"] .c-lay__inner::-webkit-scrollbar-thumb:window-inactive {
 	background: var(--lay-scrbar-thumb-bg); 
 }
+/* TODO: HACK Firefox */
+@-moz-document url-prefix() { 
+  .c-lay__inner {
+     overflow: hidden;
+  }
+}
 
 /*
 SCROLL-SNAP: Add vertical scroll-snap.
@@ -686,8 +692,8 @@ EBOOK
 	outline: none;
 }
 [data-ebook="page"] {
-	/* color: hsl(210, 24%, 15%); */
-	color: #989590;
+	color: hsl(210, 24%, 15%);
+	/* color: #989590; */
 	font-family: ui-sanserif, sans-serif;
 	font-size: small;
 	margin: 0 0 var(--lay-gap) 0;

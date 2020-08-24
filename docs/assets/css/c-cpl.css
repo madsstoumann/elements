@@ -90,6 +90,9 @@
 	width: 100vw;
 	z-index: var(--cpl-z);
 }
+[data-control-panel-config*="relative"] [data-cp-form] {
+	position: relative;
+}
 [data-cp-item] {
 	border-bottom: var(--cpl-bdw) solid var(--cpl-bdc);
 }
@@ -150,7 +153,7 @@
 	content: "";
 	display: inline-block;
 	height: var(--cpl-ico--m);
-	margin-inline-end: var(--cpl-unit);
+	margin-inline-end: 0.5rem;
 	width: var(--cpl-ico--m);
 }
 [data-cp-play]:focus,
@@ -242,6 +245,7 @@
 [data-cp-form] input:not([type="range"]),
 [data-cp-form] select,
 [data-cp-form] textarea {
+	background-color: #fff;
 	border: 1px solid var(--cpl-bdc);
 	color: inherit;
 	font-size: 1rem;
@@ -293,7 +297,10 @@
 	background-size: var(--cpl-ico--l);
 	border-radius: 0;
 	/* margin: calc(var(--cpl-unit) / 2) 0 var(--cpl-unit) 0; */
+	padding-right: 3rem;
 	position: relative;
+	
+  text-overflow: ellipsis;
 	width: 100%;
 }
 [data-label-grid],
@@ -340,9 +347,10 @@
 	fill: currentColor;
 	height: 100%;
 	left: 0;
+	padding: var(--cpl-unit);
 	position: absolute;
 	stroke: currentColor;
-	stroke-width: 2px;
+	stroke-width: 0;
 	top: 0;
 	transition: all .3s ease-in-out;
 	width: 100%;
@@ -539,7 +547,23 @@ TRACK
 [data-cp].ebook {
 	--cpl-ico-trigger: var(--cpl-ico--text);
 }
-[data-cp].speak {
+[data-cp].speech {
 	--cpl-ico-trigger: var(--cpl-ico--mic);
 }
 
+.cp__speech--enabled [data-cp-trigger-label] span::before {
+	background-color: red;
+	animation: blink-animation 1s steps(5, start) infinite;
+  
+}
+
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
