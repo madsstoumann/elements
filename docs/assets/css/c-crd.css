@@ -67,6 +67,14 @@
 	display: none;
 }
 
+/* .c-crd:hover {
+	transform: translate3d(0,-4px,0);
+	box-shadow: 0 12px 30px 0 rgba(0,0,0,.2);
+	transition-property: box-shadow,transform;
+	transition-duration: 600ms;
+	transition-timing-function: cubic-bezier(.16,1,.29,.99);
+} */
+
 @media (prefers-color-scheme: dark) {
 	a {
 		color: #81E5d9;

@@ -114,8 +114,9 @@ export class Layout {
 		this.ebook(document.querySelectorAll(`[data-item-type="ebook"] .c-lay__item`));
 		this.expandCollapse(document.querySelectorAll(`[data-toggle-expanded]`));
 		this.isTouch = ('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
-		this.itemPopup(document.querySelectorAll(`[data-item-type='page'] .c-lay__item`));
+		this.itemPopup(document.querySelectorAll(`[data-item-type*='page'] .c-lay__item`));
 		this.observeAnimations(document.querySelectorAll('[data-animation]'));
+		/* TODO */
 		this.toggleLayout(document.querySelectorAll(`[data-layout-collapsed]`));
 
 		window.addEventListener('scroll', debounced(200, () => {
@@ -127,7 +128,7 @@ export class Layout {
 		}))
 
 		/* Init Sliders */
-		const sliders = document.querySelectorAll(`[data-section-type='slider']`);
+		const sliders = document.querySelectorAll(`[data-section-type="slider"], [data-toggle-layout="slider"`);
 		sliders.forEach(slider => {
 			const preview = slider.dataset.preview;
 			if (!(this.isTouch && (preview === 'both' || preview === 'next'))) {
@@ -339,14 +340,21 @@ export class Layout {
 		selector.forEach(toggle => {
 			toggle.addEventListener('click', () => {
 				const section = toggle.closest('[data-section-type]');
-				if (section.dataset.sectionType === 'slider') {
-					section.dataset.sectionType = 'stack';
-					toggle.innerText = toggle.dataset.layoutExpanded;
-				}
-				else if (section.dataset.sectionType === 'stack') {
-					section.dataset.sectionType = 'slider';
-					toggle.innerText = toggle.dataset.layoutCollapsed;
-				}
+				const currentLayout = section.dataset.sectionType;
+				const newLayout = section.dataset.toggleLayout;
+				const header = toggle.innerText === toggle.dataset.layoutCollapsed ? toggle.dataset.layoutExpanded : toggle.dataset.layoutCollapsed;
+
+				section.dataset.toggleLayout = currentLayout;
+				section.dataset.sectionType = newLayout;
+				toggle.innerText = header;
+				// if (section.dataset.sectionType === 'slider') {
+				// 	section.dataset.sectionType = 'stack';
+				// 	toggle.innerText = toggle.dataset.layoutExpanded;
+				// }
+				// else if (section.dataset.sectionType === 'stack') {
+				// 	section.dataset.sectionType = 'slider';
+				// 	toggle.innerText = toggle.dataset.layoutCollapsed;
+				// }
 			});
 		});
 	}
@@ -355,8 +363,8 @@ export class Layout {
 /**
  * Slider
  * @requires /assets/js/common
- * @version 1.1.10
- * @summary 24-08-2020
+ * @version 1.1.20
+ * @summary 28-08-2020
  * @description Slider-functionality for Layout Block
  * @example
  * <section data-section-type="slider">
@@ -544,6 +552,7 @@ export class Slider {
 	 * @description Run this method if/after slide-items are updated dynamically, to re-calculate state/dots etc.
 	 */
 	refreshSlider() {
+		this.elements.nav.hidden = !(this.elements.inner.scrollWidth > this.elements.inner.clientWidth);
 		this.itemsPerPage = this.getItemsPerPage();
 		this.setState();
 		if (this.hasDots) {

@@ -2,8 +2,8 @@
  * Control Panel
  * @module /assets/js/controlPanel
  * @requires /assets/js/common
- * @version 1.2.4
- * @summary 24-08-2020
+ * @version 1.2.6
+ * @summary 26-08-2020
  * @description Control Panel
  * @example
  * <div data-control-panel="alignment audio background brightness contrast fontsize spacing typography zoom">
@@ -16,14 +16,7 @@ export default class ControlPanel {
 			clsOuter: '',
 			controlPanelConfig: '',
 			controlPanelId: '',
-			lblCollapse: 'Collapse',
-			lblListen: 'Enable',
-			lblListenStop: 'Disable',
-			lblTrigger: 'Settings',
-			lblPause: 'Pause audio',
-			lblPlay: 'Read article',
-			lblReset: 'Reset',
-			urlData: '../assets/data/control-panel.json'
+			controlPanelUrl: '../assets/data/control-panel-en.json'
 		}, stringToType(settings));
 		if (callback && (typeof callback === 'function')) {
 			this.fnCallback = callback;
@@ -75,7 +68,7 @@ export default class ControlPanel {
 	 */
 	async init() {
 		/* Fetch data from API */
-		this.data = await (await fetch(this.settings.urlData)).json();
+		this.data = await (await fetch(this.settings.controlPanelUrl)).json();
 		this.options = this.settings.controlPanel.split(' ');
 		this.config = this.settings.controlPanelConfig.split(' ');
 
@@ -130,15 +123,15 @@ export default class ControlPanel {
 			this.form.addEventListener('reset', this.resetForm.bind(this));
 			
 			if (this.config.includes('collapse')) {
-				this.collapse = h('button', { type: 'button', 'data-cp-collapse': '' }, [this.settings.lblCollapse]);
+				this.collapse = h('button', { type: 'button', 'data-cp-collapse': '' }, [this.data.labels.$collapse]);
 				this.collapse.addEventListener('click', () => { return this.collapseAll(); });
 				this.form.appendChild(this.collapse);
 			}
 			if (this.config.includes('reset')) {
-				this.reset = h('button', { type: 'reset', 'data-cp-reset': '' }, [this.settings.lblReset]);
+				this.reset = h('button', { type: 'reset', 'data-cp-reset': '' }, [this.data.labels.$reset]);
 				this.form.appendChild(this.reset);
 			}
-			this.trigger = h('details', { 'data-cp-trigger': '' }, [h('summary', { 'data-cp-trigger-label': '' }, [h('span', { }, [this.settings.lblTrigger])])]);
+			this.trigger = h('details', { 'data-cp-trigger': '' }, [h('summary', { 'data-cp-trigger-label': '' }, [h('span', { }, [this.data.labels.$trigger])])]);
 			this.trigger.addEventListener('keydown', (event) => { if(event.key === 'Escape') {
 				this.trigger.open = false;
 				this.trigger.firstElementChild.focus();
@@ -176,12 +169,15 @@ export default class ControlPanel {
 		this.audio.utterance.text = this.wrapper.textContent;
 		this.audio.utterance.voice = this.audio.voices[0];
 		this.audio.utterance.volume = 0.5;
-		this.play = h('button', { type: 'button', 'data-cp-play': '' }, [this.settings.lblPlay]);
+		this.play = h('button', { type: 'button', 'data-cp-play': '' }, [this.data.labels.$playAudio]);
 
 		/* Add eventListeners */
+		// this.audio.utterance.addEventListener('boundary', (event) => {
+		// 	console.log(event.target.text.substr(event.charIndex).match(/^.+?\b/)[0]);
+		// });
 		this.audio.utterance.addEventListener('end', () => {
 			this.stopAudio();
-		})
+		});
 		this.play.addEventListener('click', this.playPauseAudio.bind(this));
 		window.speechSynthesis.cancel();
 	}
@@ -228,7 +224,7 @@ export default class ControlPanel {
 	 */
 	listenLabel() {
 		const lang = languages.find(item => item.value === this.speech.recognition.lang);
-		return `${this.speech.listening ? this.settings.lblListenStop : this.settings.lblListen} (${lang.name})`;
+		return `${this.speech.listening ? this.data.labels.$disableSpeech : this.data.labels.$enableSpeech} (${lang.name})`;
 	}
 
 	/**
@@ -391,12 +387,12 @@ export default class ControlPanel {
 		if (playing) {
 			this.audio.playing = false;
 			this.play.removeAttribute('data-cp-playing');
-			this.play.innerText = this.settings.lblPlay;
+			this.play.innerText = this.data.labels.$playAudio;
 		}
 		else {
 			this.audio.playing = true;
 			this.play.dataset.cpPlaying = '';
-			this.play.innerText = this.settings.lblPause;
+			this.play.innerText = this.data.labels.$pauseAudio;
 		}
 	}
 

@@ -280,6 +280,11 @@ GRID DESKTOP
 =============
 */
 @media screen and (min-width: 1200px) {
+	/* 20% */
+	[data-grid-desktop="20:20:20:20:20"] .c-lay__item {
+		--lay-gap-num: (5/4);
+		--lay-item-w: var(--lay-w20);
+	}
 	/* 25% */
 	[data-grid-desktop="25:25:25:25"] .c-lay__item {
 		--lay-gap-num: (4/3);
@@ -398,6 +403,7 @@ GRID DESKTOP
 		--lay-item-w: 100%;
 	}
 	/* STACK: Remove margin-inline-start from first item in each row */
+	[data-section-type="stack"][data-grid-desktop="20:20:20:20:20"] .c-lay__item:nth-of-type(5n+1),
 	[data-section-type="stack"][data-grid-desktop="25:25:25:25"] .c-lay__item:nth-of-type(4n+1),
 	[data-section-type="stack"][data-grid-desktop="25:75"] .c-lay__item:nth-of-type(2n+1),
 	[data-section-type="stack"][data-grid-desktop="75:25"] .c-lay__item:nth-of-type(2n+1),

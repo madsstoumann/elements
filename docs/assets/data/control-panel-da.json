@@ -1,13 +1,22 @@
 {
+	"labels": {
+		"$collapse": "Collapse",
+		"$enableSpeech": "Enable",
+		"$disableSpeech": "Disable",
+		"$pauseAudio": "Pause oplæsning",
+		"$playAudio": "Læs artikel",
+		"$reset": "Nulstil",
+		"$trigger": "Indstillinger"
+	},
 	"alignment": {
 		"$grid": 20,
 		"$key": "cp-align",
 		"$preset": "icon",
-		"name": "Alignment",
+		"name": "Tekstjustering",
 		"values": [
 			{
 				"$icon": "<svg viewBox='0 0 20 20'><path d='M1 1h18v2h-18v-2zM1 9h18v2h-18v-2zM1 17h18v2h-18v-2zM4 5h12v2h-12v-2zM4 13h12v2h-12v-2z'></path></svg>",
-				"$label": "Center Text",
+				"$label": "Centrér tekst",
 				"type": "radio",
 				"value": "center"
 			},
@@ -35,12 +44,12 @@
 	"audio": {
 		"$grid": 100,
 		"$keytype": "audio",
-		"desc": "When changing audio-settings, playback will re-start. On IOS devices, make sure that “Soft Mute” is not enabled in the “Control Center”.",
-		"name": "Audio",
+		"desc": "Når indstillinger for oplæsning ændres, vil afspilning starte forfra. Hvis du bruger iPhone eller iPad, skal “Soft Mute” være slået fra i “Kontrolcenteret”.",
+		"name": "Oplæsning",
 		"values": [
 			{
 				"$before": true,
-				"$label": "Rate",
+				"$label": "Hastighed",
 				"$key": "rate",
 				"max": 10,
 				"min": 0.1,
@@ -50,7 +59,7 @@
 			},
 			{
 				"$before": true,
-				"$label": "Pitch",
+				"$label": "Tone",
 				"$key": "pitch",
 				"max": 2,
 				"min": 0,
@@ -61,7 +70,7 @@
 			{
 				"$before": true,
 				"$data": [],
-				"$label": "Voices",
+				"$label": "Stemmer",
 				"$key": "voices",
 				"type": "select",
 				"value": 0
@@ -85,7 +94,7 @@
 	"contrast": {
 		"$grid": 100,
 		"$key": "cp-contrast",
-		"name": "Contrast",
+		"name": "Kontrast",
 		"values": [
 			{
 				"max": 200,
@@ -99,10 +108,10 @@
 	"focusable": {
 		"$key": "cp__focusable--",
 		"$keytype": "class",
-		"name": "Focusable Elements",
+		"name": "Fokusérbare elementer",
 		"values": [
 			{
-				"$label": "Highlight",
+				"$label": "Markér",
 				"type": "checkbox",
 				"value": "cp__focusable--show"
 			}
@@ -111,7 +120,7 @@
 	"fontsize": {
 		"$grid": 100,
 		"$key": "cp-fz",
-		"name": "Fontsize",
+		"name": "Skriftstørrelse",
 		"values": [
 			{
 				"max": 300,
@@ -124,7 +133,7 @@
 	},
 	"grayscale": {
 		"$key": "cp-grayscale",
-		"name": "Grayscale",
+		"name": "Gråtoner",
 		"values": [
 			{
 				"$label": "Monochrome",
@@ -147,7 +156,7 @@
 	"margin": {
 		"$grid": 100,
 		"$key": "cp-w",
-		"name": "Margin",
+		"name": "Margen",
 		"values": [
 			{
 				"max": 15,
@@ -160,7 +169,7 @@
 	"spacing": {
 		"$grid": 100,
 		"$key": "cp-lh",
-		"name": "Spacing",
+		"name": "Afstand",
 		"values": [
 			{
 				"max": 3,
@@ -174,16 +183,16 @@
 	"speech": {
 		"$grid": 100,
 		"$keytype": "speech",
-		"name": "Speech Recognition",
+		"name": "Talegenkendelse",
 		"open": true,
 		"values": [
 			{
 				"$before": true,
 				"$data": [],
-				"$label": "Language",
+				"$label": "Sprog",
 				"$key": "language",
 				"type": "select",
-				"value": "en-US"
+				"value": "da-DK"
 			}
 		]
 	},
@@ -192,18 +201,18 @@
 		"$key": "cp-bgc--",
 		"$keytype": "class",
 		"$preset": "theme",
-		"name": "Theme",
+		"name": "Tema",
 		"values": [
 			{
 				"$class": "cp__theme--light",
-				"$label": "Light",
+				"$label": "Lyst",
 				"checked": true,
 				"type": "radio",
 				"value": "cp-bgc--light"
 			},
 			{
 				"$class": "cp__theme--dark",
-				"$label": "Dark",
+				"$label": "Mørkt",
 				"type": "radio",
 				"value": "cp-bgc--dark"
 			},
@@ -215,22 +224,28 @@
 			},
 			{
 				"$class": "cp__theme--green",
-				"$label": "Green",
+				"$label": "Grønt",
 				"type": "radio",
 				"value": "cp-bgc--green"
 			}
 		]
 	},
 	"typography": {
-		"$grid": 33,
+		"$grid": 50,
 		"$key": "cp-ff",
 		"$preset": "font",
-		"name": "Typography",
+		"name": "Typografi",
 		"values": [
+			{
+				"$class": "c-cpl--default",
+				"$label": "Standard",
+				"checked": true,
+				"type": "radio",
+				"value": "inherit"
+			},
 			{
 				"$class": "c-cpl--sansserif",
 				"$label": "Sans Serif",
-				"checked": true,
 				"type": "radio",
 				"value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
 			},
@@ -251,8 +266,8 @@
 	"zoom": {
 		"$grid": 100,
 		"$key": "cp-zoom",
-		"desc": "This method is not recommended, and is for legacy purposes only. On modern browsers, hold the <kbd>CTRL</kbd> or <kbd>&#8984;</kbd>-key and press the <kbd>+</kbd> or <kbd>-</kbd> keys.",
-		"name": "Zoom",
+		"desc": "Denne metode anbefales ikke, og er kun for ældre browsere. I nyere browsere, holdes <kbd>CTRL</kbd> eller <kbd>&#8984;</kbd>-tasten inde, herefter trykkes på <kbd>+</kbd> eller <kbd>-</kbd> tasterne.",
+		"name": "Zoom ind/ud",
 		"values": [
 			{
 				"data-suffix": "%",

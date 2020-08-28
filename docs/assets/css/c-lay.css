@@ -1,7 +1,7 @@
 /**
  * c-lay.css
- * @version 1.3.8
- * @summary 04-08-2020
+ * @version 1.4.0
+ * @summary 28-08-2020
  * @author Mads Stoumann
  * @description Stylesheet for Layout Component
 	Variables are concatinated from: 
@@ -87,6 +87,7 @@
 	--lay-outer-maw: 1600px; /* Should be the same as `--lay-maw`, but must NOT be changed */
 
 	background: var(--lay-bg);
+	box-sizing: border-box;
 	color: var(--lay-c);
 	margin-bottom: var(--lay-mb);
 	margin-left: var(--lay-ml);
@@ -154,6 +155,7 @@
 }
 .c-lay__item {
 	--lay-item-w: 100%;
+	--lay-w20: calc(20% - (var(--lay-item-gap) / var(--lay-gap-num, 2)));
 	--lay-w25: calc(25% - (var(--lay-item-gap) / var(--lay-gap-num, 2)));
 	--lay-w33: calc((100% / 3) - (var(--lay-item-gap) / var(--lay-gap-num, 2)));
 	--lay-w50: calc(50% - (var(--lay-item-gap) / var(--lay-gap-num, 2)));
@@ -178,6 +180,7 @@
 }
 /* Show preview/snippet of next item, only when `slider` */
 [data-section-type="slider"][data-preview="next"] .c-lay__item {
+	--lay-w20: calc(20% - (var(--lay-item-preview) / 5) - (var(--lay-item-gap) / (6/5)));
 	--lay-w25: calc(25% - (var(--lay-item-preview) / 4) - (var(--lay-item-gap) / (5/4)));
 	--lay-w33: calc((100% / 3) - (var(--lay-item-preview) / 3) - (var(--lay-item-gap) / (4/3)));
 	--lay-w50: calc(50% - (var(--lay-item-preview) / 2) - (var(--lay-item-gap) / 2));
@@ -219,15 +222,6 @@
 MODIFIERS
 ==========
 */
-/* ALIGN HEADER */
-[data-align-header="left"] {
-	--lay-head-ai: flex-start;
-	--lay-head-tal: left;
-}
-[data-align-header="right"] {
-	--lay-head-ai: flex-end;
-	--lay-head-tal: right;
-}
 
 /* ALIGN ITEMS */
 [data-align="center"] .c-lay__inner {
@@ -251,14 +245,13 @@ MODIFIERS
 [data-diagonal*="medium"] {
 	transform: var(--lay-diag-skew) var(--lay-diag-transY);
 	margin-bottom: calc(var(--lay-diag-p) * 2);
-	/* padding-bottom: calc(var(--lay-diag-p) / 2); */
 }
 [data-diagonal*="content"] .c-lay__outer {
 	padding-bottom: calc(var(--lay-diag-p) * 2);
 	transform: var(--lay-diag-unskew) var(--lay-diag-transY);
 }
 [data-diagonal*="header"] .c-lay__header {
-	margin-bottom: calc(var(--lay-diag-p) * 2);
+	padding-bottom: calc(var(--lay-diag-p) * 2);
 	transform: var(--lay-diag-unskew) var(--lay-diag-transY);
 }
 [data-diagonal*="content header"] .c-lay__header {
@@ -347,6 +340,35 @@ MODIFIERS
 }
 [data-collapsed-height="full"] [data-toggle-expanded] {
 	display: none;
+}
+
+/* HEADER TYPE */
+[data-header-type="left"] {
+	--lay-head-ai: flex-start;
+	--lay-head-tal: left;
+}
+[data-header-type="right"] {
+	--lay-head-ai: flex-end;
+	--lay-head-tal: right;
+}
+[data-header-type="row"] {
+	--lay-head-fd: row;
+	--lay-head-jc: space-between;
+}
+[data-header-type="row"] .c-lay__description {
+	display: none;
+}
+[data-header-type="row"] .c-lay__header {
+	--lay-head-tal: left;
+	margin-bottom: var(--lay-gap);
+}
+[data-header-type="row"] .c-lay__headline {
+	--spacer-bottom: 0;
+}
+[data-section-type="stack"][data-toggle-layout="slider"] .c-lay__header {
+	--lay-head-arr: rotate(-135deg) translate(-4px, 0);
+	padding-inline-end: 0;
+	padding-inline-start: 0;
 }
 
 /* MARGIN, PADDING AND GAPS */
@@ -513,11 +535,7 @@ WARNING: Can affect expand/collapse */
 		--lay-c: #FEFEFE;
 	}
 }
-
-/* TOGGLE LAYOUT */
-[data-toggle-layout="false"] [data-layout-collapsed] {
-	display: none;
-}
+/* TODO: TOGGLE-LAYOUT ARROW */
 [data-layout-collapsed] {
 	align-items: center;
 	background-color: transparent;
@@ -544,30 +562,9 @@ WARNING: Can affect expand/collapse */
 	transition: transform .16s ease-in;
 	width: 0.5em;
 }
-
 [data-layout-collapsed]:focus {
 	outline: none;
 	text-decoration: dotted underline;
-}
-[data-toggle-layout="true"] {
-	--lay-head-fd: row;
-	--lay-head-jc: space-between;
-}
-[data-toggle-layout="true"] .c-lay__description {
-	display: none;
-}
-[data-toggle-layout="true"] .c-lay__header {
-	--lay-head-tal: left;
-	margin-bottom: var(--lay-gap);
-}
-[data-toggle-layout="true"] .c-lay__headline {
-	--spacer-bottom: 0;
-
-}
-[data-section-type="stack"][data-toggle-layout="true"] .c-lay__header {
-	--lay-head-arr: rotate(-135deg) translate(-4px, 0);
-	padding-inline-end: 0;
-	padding-inline-start: 0;
 }
 
 /* WIDTHS */
@@ -596,13 +593,6 @@ RWD
 	}
 }
 @media screen and (min-width: 64rem) {
-	/*
-	Hide overflow and use JavaScript-based navigation on larger screen-sizes.
-	This class is added via JavaScript if needed.
-	*/
-	.c-lay__inner--overflow {
-		overflow: hidden;
-	}
 	/* WIDTHS */
 	[data-desc-w="s"] { --lay-desc-maw: 65%; }
 	[data-desc-w="m"] { --lay-desc-maw: 90%; }
@@ -633,9 +623,24 @@ RWD
 }
 /* When screen is larger than OUTER */
 @media screen and (min-width: 1600px) {
+	[data-section-type="grid-gallery"],
 	[data-section-type="stack"] {
-		/* TODO: BUG */
-		/* --lay-maw: calc(var(--lay-outer-maw) - (var(--lay-gap) * 2)); */
+		--lay-maw: calc(var(--lay-outer-maw));
+	}
+	[data-theme]:not([data-theme=""]) {
+		--lay-maw: calc(var(--lay-outer-maw) - (var(--lay-gap) * 2));
+	}
+	[data-section-type="slider"]:not([data-theme]) {
+		--lay-maw: calc(var(--lay-outer-maw) - (var(--lay-gap) * 2));
+	}
+	[data-section-type="slider"]:not([data-theme]) .c-lay__item {
+		--lay-item-smis: 0;
+	}
+	[data-section-type="slider"]:not([data-theme]) .c-lay__item:first-of-type {
+		--lay-item-mis: 0;
+	}
+	[data-section-type="slider"]:not([data-theme]) .c-lay__item:last-of-type::after {
+		display: none;
 	}
 }
 
@@ -760,4 +765,9 @@ TODO !
 	width: 3rem;
 	height: 3rem;
 	z-index: 10;
+}
+
+[data-section-type="slider"][data-item-type*="image"] .c-lay__item {
+	text-align: center;
+
 }
