@@ -190,6 +190,8 @@
 	flex: 0 0 100%;
 	font-family: ui-monospace, monospace;
 	font-size: small;
+	line-height: 2;
+	text-align: center;
 }
 [data-cp-trigger-label]:focus span {
 	text-decoration: underline;
@@ -245,7 +247,12 @@
 
 /* RWD */
 @media screen and (min-width: 48rem) {
-	[data-cp] { flex-direction: row; flex-wrap: wrap; }
+	[data-cp] {
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		width: 100%;
+	}
 	[data-cp-play], [data-cp-listen], [data-cp-trigger] { width: initial; }
 	[data-cp-form] { width: var(--cpl-w); }
 }

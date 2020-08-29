@@ -2,8 +2,8 @@
  * Control Panel
  * @module /assets/js/controlPanel
  * @requires /assets/js/common
- * @version 1.2.6
- * @summary 26-08-2020
+ * @version 1.2.7
+ * @summary 28-08-2020
  * @description Control Panel
  * @example
  * <div data-control-panel="alignment audio background brightness contrast fontsize spacing typography zoom">
@@ -194,7 +194,7 @@ export default class ControlPanel {
 		this.speech.listening = false;
 		this.speech.recognition = new window.SpeechRecognition();
 		this.speech.recognition.continuous = true;
-		// this.speech.recognition.interimResults = true;
+		this.speech.recognition.interimResults = true;
 		// this.speech.recognition.maxAlternatives = 10;
 
 		this.speech.recognition.lang = this.wrapper.lang || document.documentElement.lang || 'en-US';
@@ -205,15 +205,20 @@ export default class ControlPanel {
 		/* Add eventListeners */
 		this.listen.addEventListener('click', this.listenToggle.bind(this));
 		this.speech.recognition.addEventListener('result', (event) => {
-			const len = event.results.length - 1;
-			const tag = document.activeElement.nodeName;
-			this.speech.text = event.results[len][0].transcript;
+			const speech = event.results[event.results.length - 1];
+			this.speech.text = speech[0].transcript;
 
-			if (tag === 'INPUT' || tag === 'TEXTAREA') {
-				document.activeElement.value += this.speech.text;
+			if (!speech.isFinal) {
+				this.result.innerText = this.speech.text;
 			}
 			else {
-				this.result.innerText = this.speech.text;
+				const tag = document.activeElement.nodeName;
+				if (tag === 'INPUT' || tag === 'TEXTAREA') {
+					document.activeElement.value += this.speech.text;
+				}
+				else {
+					this.result.innerText = this.speech.text;
+				}
 			}
 		});
 	}
