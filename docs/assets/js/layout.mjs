@@ -116,8 +116,7 @@ export class Layout {
 		this.isTouch = ('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
 		this.itemPopup(document.querySelectorAll(`[data-item-type*='page'] .c-lay__item`));
 		this.observeAnimations(document.querySelectorAll('[data-animation]'));
-		/* TODO */
-		this.toggleLayout(document.querySelectorAll(`[data-layout-collapsed]`));
+		this.toggleLayout(document.querySelectorAll(`[data-layout-label]`));
 
 		window.addEventListener('scroll', debounced(200, () => {
 			document.documentElement.style.setProperty('--scroll-y', window.scrollY);
@@ -332,6 +331,16 @@ export class Layout {
 	}
 
 	/**
+	 * @function toggleGallery
+	 * @param {Node} section
+	 * @description Toggles between `grid-gallery` and `slider`
+ 	*/
+	toggleGallery(section) {
+		console.log(section.dataset.sectionType);
+		section.classList.toggle('c-lay--overlay', section.dataset.sectionType === 'slider');
+	}
+
+	/**
 	 * @function toggleLayout
 	 * @param {NodeList} selector
 	 * @description Toggles between `stack` and `slider`
@@ -342,19 +351,15 @@ export class Layout {
 				const section = toggle.closest('[data-section-type]');
 				const currentLayout = section.dataset.sectionType;
 				const newLayout = section.dataset.toggleLayout;
-				const header = toggle.innerText === toggle.dataset.layoutCollapsed ? toggle.dataset.layoutExpanded : toggle.dataset.layoutCollapsed;
+				const header = toggle.innerText === toggle.dataset.layoutLabel ? toggle.dataset.layoutLabelToggle : toggle.dataset.layoutLabel;
 
 				section.dataset.toggleLayout = currentLayout;
 				section.dataset.sectionType = newLayout;
 				toggle.innerText = header;
-				// if (section.dataset.sectionType === 'slider') {
-				// 	section.dataset.sectionType = 'stack';
-				// 	toggle.innerText = toggle.dataset.layoutExpanded;
-				// }
-				// else if (section.dataset.sectionType === 'stack') {
-				// 	section.dataset.sectionType = 'slider';
-				// 	toggle.innerText = toggle.dataset.layoutCollapsed;
-				// }
+				
+				if (section.dataset?.itemType === 'image') {
+					this.toggleGallery(section);
+				}
 			});
 		});
 	}

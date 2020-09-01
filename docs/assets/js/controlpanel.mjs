@@ -2,8 +2,8 @@
  * Control Panel
  * @module /assets/js/controlPanel
  * @requires /assets/js/common
- * @version 1.2.7
- * @summary 28-08-2020
+ * @version 1.3.1
+ * @summary 01-09-2020
  * @description Control Panel
  * @example
  * <div data-control-panel="alignment audio background brightness contrast fontsize spacing typography zoom">
@@ -13,7 +13,7 @@ import { languages } from './languages.js';
 export default class ControlPanel {
 	constructor(element, settings, callback) {
 		this.settings = Object.assign({
-			clsOuter: '',
+			controlPanelClass: '',
 			controlPanelConfig: '',
 			controlPanelId: '',
 			controlPanelUrl: '../assets/data/control-panel-en.json'
@@ -67,12 +67,20 @@ export default class ControlPanel {
 	 * @description Creates a new ControlPanel, creates controls/events
 	 */
 	async init() {
+		/* Find trigger insertion-node, if not found = exit */
+		if (!typeof this.settings.controlPanelTrigger === 'string') { return false; }
+		let [trigger, insertMethod] = this.settings.controlPanelTrigger.split('::');
+		const wrapper = this.wrapper.querySelector(trigger);
+		if (!wrapper) { return false; }
+
 		/* Fetch data from API */
 		this.data = await (await fetch(this.settings.controlPanelUrl)).json();
 		this.options = this.settings.controlPanel.split(' ');
 		this.config = this.settings.controlPanelConfig.split(' ');
+		this.dialogSupported = typeof HTMLDialogElement === 'function';
+		let html = '';
 
-		if (this.data && this.options.length && (typeof this.settings.controlPanelTrigger === 'string')) {
+		if (this.data && this.options.length) {
 			/* Init audio/speech-synthesis */
 			this.audio = {
 				enabled: false,
@@ -94,22 +102,40 @@ export default class ControlPanel {
 				}
 			}
 			/* Init speech recognition */
-			window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
 			this.speech = {
 				enabled: false,
 				supported: ('SpeechRecognition' in window)
 			}
-			if (this.speech.supported && this.options.includes('speech')) {
-				this.initSpeech();
+			if (this.options.includes('speech')) {
+				if (this.speech.supported) {
+					this.initSpeech();
+				} else {
+					const speechIndex = this.options.findIndex(item => item === 'speech');
+					this.options.splice(speechIndex, 1);
+				}
 			}
 
-			/* Find trigger insertion-node, if not found = exit */
-			let [trigger, insertMethod] = this.settings.controlPanelTrigger.split('::');
-			const wrapper = this.wrapper.querySelector(trigger);
-			if (!wrapper) { return false; }
+			/* Init fullscreen toggler */
+			if (this.options.includes('fullscreen')) {
+				const fullscreenIndex = this.options.findIndex(item => item === 'fullscreen');
+				this.options.splice(fullscreenIndex, 1);
+				this.fullscreen = h('button', { type: 'button', 'data-cp-full': '' }, [this.data.labels.$fullscreen]);
+				this.fullscreen.addEventListener('click', () => {
+					if ('requestFullscreen' in this.wrapper) {
+						this.wrapper.requestFullscreen();
+					}
+					else {
+						this.wrapper.webkitRequestFullScreen();
+					}
+				})
+			}
+
+			/* Init keyboard-shortcuts */
+			if (this.options.includes('keyboard')) {
+				this.renderShortcuts();
+			}
 
 			/* Create inner markup from this.data & this.options */
-			let html = '';
 			this.options.forEach(option => {
 				if (this.data[option]) {
 					html+= this.renderGroup(this.data, option);
@@ -122,11 +148,13 @@ export default class ControlPanel {
 			this.form.addEventListener('change', (event) => { return this.setValue(event.target) });
 			this.form.addEventListener('reset', this.resetForm.bind(this));
 			
+			/* Add option to collapse all open panels */
 			if (this.config.includes('collapse')) {
 				this.collapse = h('button', { type: 'button', 'data-cp-collapse': '' }, [this.data.labels.$collapse]);
 				this.collapse.addEventListener('click', () => { return this.collapseAll(); });
 				this.form.appendChild(this.collapse);
 			}
+			/* Add option to reset to defauly */
 			if (this.config.includes('reset')) {
 				this.reset = h('button', { type: 'reset', 'data-cp-reset': '' }, [this.data.labels.$reset]);
 				this.form.appendChild(this.reset);
@@ -137,8 +165,20 @@ export default class ControlPanel {
 				this.trigger.firstElementChild.focus();
 			}});
 			this.trigger.appendChild(this.form);
-			this.outer = h('nav', { class: this.settings.clsOuter, 'data-cp': '', id: this.settings.controlPanelId ? this.settings.controlPanelId : uuid() }, [this.speech.enabled ? this.listen : '', this.audio.enabled ? this.play : '', this.trigger, this.speech.enabled ? this.result : '']);
+			this.outer = h('nav', { class: this.settings.controlPanelClass, 'data-cp': '', id: this.settings.controlPanelId ? this.settings.controlPanelId : uuid() }, [this.speech.enabled ? this.listen : '', this.audio.enabled ? this.play : '', this.fullscreen ? this.fullscreen : '', this.trigger, this.speech.enabled ? this.result : '']);
 			wrapper.insertAdjacentElement(insertMethod || 'beforeend', this.outer);
+
+			/* Set keyboard-shortcut keyboard-listener */
+			if (this.options.includes('keyboard')) {
+				const button = this.form.querySelector('[data-dialog');
+				button.addEventListener('click', () => { this.dialogSupported ? this.dialog.showModal() : this.dialog.setAttribute('open', 'open'); });
+				document.documentElement.addEventListener('keydown', (event) => {
+					if (!this.dialogSupported && event.key === 'Escape' && this.dialog.hasAttribute('open')) { this.dialog.removeAttribute('open'); }
+					if (event.shiftKey && event.key === this.data.keyboard.key) {
+						this.dialogSupported ? this.dialog.showModal() : this.dialog.setAttribute('open', 'open');
+					}
+				})
+			}
 
 			/* Close panel when clicking outside */
 			document.addEventListener('click', () => {
@@ -188,6 +228,7 @@ export default class ControlPanel {
 	 */
 	initSpeech() {
 		const languageIndex = this.findDataKey('speech', 'language');
+		const lang = this.data.speech.values[languageIndex].value;
 		this.data.speech.values[languageIndex].$data = languages;
 
 		this.speech.enabled = true;
@@ -197,7 +238,7 @@ export default class ControlPanel {
 		this.speech.recognition.interimResults = true;
 		// this.speech.recognition.maxAlternatives = 10;
 
-		this.speech.recognition.lang = this.wrapper.lang || document.documentElement.lang || 'en-US';
+		this.speech.recognition.lang = lang || this.wrapper.lang || document.documentElement.lang || 'en-US';
 		this.speech.text = '';
 		this.listen = h('button', { type: 'button', 'data-cp-listen': '' }, [this.listenLabel()]);
 		this.result = h('div', { 'data-cp-result': '' });
@@ -207,7 +248,7 @@ export default class ControlPanel {
 		this.speech.recognition.addEventListener('result', (event) => {
 			const speech = event.results[event.results.length - 1];
 			this.speech.text = speech[0].transcript;
-
+console.log(event);
 			if (!speech.isFinal) {
 				this.result.innerText = this.speech.text;
 			}
@@ -260,8 +301,7 @@ export default class ControlPanel {
 		for (const [key, value] of Object.entries(this.state)) {
 			const input = this.form.elements[key];
 			input.value = value;
-			
-			if (input.nodeName === 'INPUT') {
+			if (input.nodeName === 'INPUT' || input.nodeName === 'SELECT') {
 				this.setValue(input, true);
 			}
 			else if (Object.prototype.isPrototypeOf.call(NodeList.prototype, input)) {
@@ -306,10 +346,10 @@ export default class ControlPanel {
 			<div data-cp-item-panel>
 			${obj[key].desc ? `<small>${obj[key].desc}</small>` :''}
 			${obj[key].values.map(item => {
+				const id = Math.random().toString(36).slice(-6);
 				const tag = item.type === 'select' ? item.type : 'input';
 				return `
 				<label
-					aria-label="${item.$label}"
 					data-label-grid="${item.$grid || obj[key].$grid || 'auto'}"
 					data-preset="${item.$preset || obj[key].$preset || ''}">
 					${item.$before && item.$label ? `<span class="${item.$class || ''}">${item.$label}</span>` : ''}
@@ -317,15 +357,38 @@ export default class ControlPanel {
 						${Object.keys(item).map(entry => {return !entry.startsWith('$') ? `${entry}="${item[entry]}"` : ''}).join('')}
 						data-key="${item.$key || obj[key].$key}"
 						data-key-type="${item.$keytype || obj[key].$keytype || 'property'}"
-						name="${key}">
-						${tag === 'select' && item.$data ? item.$data.map(option => { return `<option value="${option.value || option.name}">${option.name}</option>` }).join('') : '' }
+						name="${key}"
+						${tag === 'input' && item.type === 'range' ? `id="${id}" oninput="${id}__output.value=${id}.value"` : ''}>
+						${tag === 'select' && item.$data ? item.$data.map(option => { return `<option value="${option.value || option.name}"${item.value === option.value ? `selected="selected"`:''}>${option.name}</option>` }).join('') : '' }
 					</${tag}>
+					${tag === 'input' && item.type === 'range' ? `<nav><output for="${id}" id="${id}__output">${item.value}</output>${item['data-suffix']||''}</nav>` : ''}
 					${item.$icon ? item.$icon : ''}
 					${!item.$icon && item.$label && !item.$before ? `<span class="${item.$class || ''}">${item.$label}</span>` : ''}
 				</label>
 			`}).join('')}
 			</div>
 		</details>`;
+	}
+
+	/**
+	 * @function renderDialog
+	 * @description Renders dialog with keyboard shortcuts
+	 */
+	renderShortcuts() {
+		const close = h('button', { 'aria-label': 'Close', type: 'button' }, ['✕']);
+		const id = uuid();
+		const inner = h('div', { 'data-cp-dialog-inner': '' });
+		close.addEventListener('click', () => { this.dialogSupported ? this.dialog.close() : this.dialog.removeAttribute('open'); });
+		this.dialog = h('dialog', { 'data-cp-dialog': this.dialogSupported ? '' : 'none', id: id }, [close, inner]);
+		inner.innerHTML += this.data.keyboard.shortcuts.map(group => `
+			<strong>${group.name}</strong>
+			${group.values.map(item => 
+			`<dl>
+				<dt>${item.name}</dt>
+				<dd>${item.desc}</dd>
+			</dl>`).join(' ')}
+		`).join(' ');
+		document.documentElement.appendChild(this.dialog);
 	}
 
 	/**
@@ -406,11 +469,11 @@ export default class ControlPanel {
 	 * @description Main event-handler
 	 * @param {Node} element
 	 */
-	setValue(element, reset = false) {	
+	setValue(element, reset = false) {
 		let saveState = true;
 		const target = element?.dataset?.target ? document.querySelector(element.dataset.target) || this.wrapper : this.wrapper;
 		let value = element?.value || null;
-		if (!value) return;
+		if (!value) return; 
 
 		/* Handle checkboxes: `value` in state-object is `1` if checked/selected */
 		if (element.type === 'checkbox') {
@@ -422,6 +485,13 @@ export default class ControlPanel {
 				saveState = false;
 				value = 0;
 			}
+		}
+
+		if (element?.type === 'range') {
+			try {
+				element.nextElementSibling.firstElementChild.value = value;
+			}
+			catch(err) {}
 		}
 
 		if (!reset) {

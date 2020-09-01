@@ -1,8 +1,9 @@
 {
 	"labels": {
-		"$collapse": "Collapse",
+		"$collapse": "Luk åbne paneler",
 		"$enableSpeech": "Enable",
 		"$disableSpeech": "Disable",
+		"$fullscreen": "Fuld skærm",
 		"$pauseAudio": "Pause oplæsning",
 		"$playAudio": "Læs artikel",
 		"$reset": "Nulstil",
@@ -80,7 +81,7 @@
 	"brightness": {
 		"$grid": 100,
 		"$key": "cp-brightness",
-		"name": "Brightness",
+		"name": "Lysstyrke",
 		"values": [
 			{
 				"max": 200,
@@ -133,10 +134,10 @@
 	},
 	"grayscale": {
 		"$key": "cp-grayscale",
-		"name": "Gråtoner",
+		"name": "Monokrom",
 		"values": [
 			{
-				"$label": "Monochrome",
+				"$label": "Vis indhold i gråtoner",
 				"type": "checkbox",
 				"value": 1
 			}
@@ -144,10 +145,10 @@
 	},
 	"invert": {
 		"$key": "cp-invert",
-		"name": "Invert",
+		"name": "Invertér",
 		"values": [
 			{
-				"$label": "Invert colors",
+				"$label": "Invertér farver",
 				"type": "checkbox",
 				"value": 1
 			}
@@ -163,6 +164,26 @@
 				"min": 2,
 				"type": "range",
 				"value": 2
+			}
+		]
+	},
+	"reduce": {
+		"desc": "Hvis du har aktiveret “Reduce motion” eller “Reduce transparency” i tilgængeligheds-indstillinger, vil disse automatisk virke.",
+		"name": "Reducér bevægelse og transparens",
+		"values": [
+			{
+				"$label": "Reducér bevægelse",
+				"$key": "cp--reduce-motion",
+				"$keytype": "class",
+				"type": "checkbox",
+				"value": "cp--reduce-motion"
+			},
+			{
+				"$label": "Reducér transparens",
+				"$key": "cp--reduce-transparency",
+				"$keytype": "class",
+				"type": "checkbox",
+				"value": "cp--reduce-transparency"
 			}
 		]
 	},

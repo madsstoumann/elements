@@ -2,6 +2,7 @@
 	"labels": {
 		"$collapse": "Collapse",
 		"$enableSpeech": "Enable",
+		"$fullscreen": "Fullscreen",
 		"$disableSpeech": "Disable",
 		"$pauseAudio": "Pause audio",
 		"$playAudio": "Read article",
@@ -153,6 +154,74 @@
 			}
 		]
 	},
+	"keyboard": {
+		"desc": "Click the button below, or use <kbd>Shift</kbd>+<kbd>?</kbd> to see keyboard shortcuts",
+		"key": "?",
+		"name": "Keybaord shortcuts",
+		"shortcuts": [
+			{
+				"name": "Menubar",
+				"values": [
+					{
+						"name": "Arrow Down",
+						"desc": "Opens menupanel, sets focus on first item"
+					},
+					{
+						"name": "Arrow Left",
+						"desc": "Moves focus to the previous item in the menubar"
+					},
+					{
+						"name": "Arrow Right",
+						"desc": "Moves focus to the next item in the menubar"
+					},
+					{
+						"name": "Arrow Up",
+						"desc": "Opens menupanel, sets focus on last item"
+					},
+					{
+						"name": "Escape",
+						"desc": "Close the menupanel"
+					},
+					{
+						"name": "A-Z",
+						"desc": "Sets focus on the menubar-item, beginning with selected letter"
+					}
+				]
+			},
+			{
+				"name": "Menupanel",
+				"values": [
+					{
+						"name": "Arrow Down",
+						"desc": "Moves focus to the next item in the menubar"
+					},
+					{
+						"name": "Arrow Left",
+						"desc": "Moves focus to the next item in the menubar"
+					},
+					{
+						"name": "Arrow Right",
+						"desc": "Moves focus to the next item in the menubar"
+					}
+				]
+			},
+			{
+				"name": "Something else",
+				"values": [
+					{
+						"name": "Arrow Down",
+						"desc": "Moves focus to the next item in the menubar"
+					}				]
+			}
+		],
+		"values": [
+			{
+				"data-dialog": "true",
+				"type": "button",
+				"value": "View keyboard shortcuts"
+			}
+		]
+	},
 	"margin": {
 		"$grid": 100,
 		"$key": "cp-w",
@@ -163,6 +232,26 @@
 				"min": 2,
 				"type": "range",
 				"value": 2
+			}
+		]
+	},
+	"reduce": {
+		"desc": "If you've enabled “Reduce motion” or “Reduce transparency” in the accessibility-settings, these wil be disabled on this website. Here, you can manually disabled them as well.",
+		"name": "Reduce motion & transparency",
+		"values": [
+			{
+				"$label": "Reduce motion",
+				"$key": "cp--reduce-motion",
+				"$keytype": "class",
+				"type": "checkbox",
+				"value": "cp--reduce-motion"
+			},
+			{
+				"$label": "Reduce transparency",
+				"$key": "cp--reduce-transparency",
+				"$keytype": "class",
+				"type": "checkbox",
+				"value": "cp--reduce-transparency"
 			}
 		]
 	},
