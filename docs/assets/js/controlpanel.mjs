@@ -104,7 +104,7 @@ export default class ControlPanel {
 			/* Init speech recognition */
 			this.speech = {
 				enabled: false,
-				supported: ('SpeechRecognition' in window)
+				supported: ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)
 			}
 			if (this.options.includes('speech')) {
 				if (this.speech.supported) {
@@ -165,7 +165,7 @@ export default class ControlPanel {
 				this.trigger.firstElementChild.focus();
 			}});
 			this.trigger.appendChild(this.form);
-			this.outer = h('nav', { class: this.settings.controlPanelClass, 'data-cp': '', id: this.settings.controlPanelId ? this.settings.controlPanelId : uuid() }, [this.speech.enabled ? this.listen : '', this.audio.enabled ? this.play : '', this.fullscreen ? this.fullscreen : '', this.trigger, this.speech.enabled ? this.result : '']);
+			this.outer = h('div', { class: this.settings.controlPanelClass, 'data-cp': '', id: this.settings.controlPanelId ? this.settings.controlPanelId : uuid() }, [this.speech.enabled ? this.listen : '', this.audio.enabled ? this.play : '', this.fullscreen ? this.fullscreen : '', this.trigger, this.speech.enabled ? this.result : '']);
 			wrapper.insertAdjacentElement(insertMethod || 'beforeend', this.outer);
 
 			/* Set keyboard-shortcut keyboard-listener */
@@ -227,6 +227,7 @@ export default class ControlPanel {
 	 * @description Init Speech Recognition
 	 */
 	initSpeech() {
+		window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 		const languageIndex = this.findDataKey('speech', 'language');
 		const lang = this.data.speech.values[languageIndex].value;
 		this.data.speech.values[languageIndex].$data = languages;
@@ -248,7 +249,7 @@ export default class ControlPanel {
 		this.speech.recognition.addEventListener('result', (event) => {
 			const speech = event.results[event.results.length - 1];
 			this.speech.text = speech[0].transcript;
-console.log(event);
+
 			if (!speech.isFinal) {
 				this.result.innerText = this.speech.text;
 			}
@@ -350,6 +351,7 @@ console.log(event);
 				const tag = item.type === 'select' ? item.type : 'input';
 				return `
 				<label
+					${item.$label ? `aria-label="${item.$label}"` : ''}
 					data-label-grid="${item.$grid || obj[key].$grid || 'auto'}"
 					data-preset="${item.$preset || obj[key].$preset || ''}">
 					${item.$before && item.$label ? `<span class="${item.$class || ''}">${item.$label}</span>` : ''}

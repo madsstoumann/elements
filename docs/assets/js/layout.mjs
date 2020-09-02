@@ -464,7 +464,7 @@ export class Slider {
 		/* Create elements */
 		this.elements = {
 			inner: this.slider.querySelector('[data-inner]'),
-			nav: h('nav', { class: this.settings.clsNav }, [h('div', { class: this.settings.clsNavInner })]),
+			nav: h('div', { class: this.settings.clsNav }, [h('div', { class: this.settings.clsNavInner })]),
 			outer: this.slider.querySelector('[data-outer]')
 		}
 
@@ -507,7 +507,7 @@ export class Slider {
 		
 		/* Add navigation dots */
 		if (this.hasDots) {
-			this.elements.dots = h('nav', { class: this.settings.clsDotWrap });
+			this.elements.dots = h('div', { class: this.settings.clsDotWrap });
 			this.elements.outer.appendChild(this.elements.dots);
 		}
 
@@ -532,7 +532,7 @@ export class Slider {
 		this.refreshSlider();
 
 		/* Set aria-attributes */
-		this.slider.setAttribute('aria-roledescription', 'carousel');
+		// this.slider.setAttribute('aria-roledescription', 'carousel');
 		this.state.items.forEach((slide, index) => {
 			slide.setAttribute('aria-label', `${this.settings.lblGoToSlide} ${index+1} / ${this.state.items.length}`);
 			slide.setAttribute('aria-roledescription', this.settings.lblItemRole);
