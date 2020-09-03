@@ -375,6 +375,11 @@ TEXT-LIGHT: hsl(212, 14%, 98%);
 	padding: var(--cpl-unit);
 	-webkit-appearance: none;
 }
+[data-cp-form] input,
+[data-cp-form] select,
+[data-cp-form] textarea {
+	width: 100%;
+}
 [data-cp-form] button,
 [data-cp-form] input[type="button"] {
 	background-color: var(--cpl-c--medium);

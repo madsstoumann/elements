@@ -138,7 +138,7 @@ export class Layout {
 		/* Init Control Panels */
 		const panels = document.querySelectorAll(`[data-control-panel]:not([data-control-panel=""])`);
 		panels.forEach(panel => {
-			// new ControlPanel(panel, panel.dataset, this.ebookUpdate.bind(this));
+			new ControlPanel(panel, panel.dataset, this.ebookUpdate.bind(this));
 		});
 
 		this.loadPopupPage();
