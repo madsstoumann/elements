@@ -128,7 +128,14 @@ figure {
 		}
 	</style>
 </head>
-<body class="g-typ g-typ__dynamic">
+<body class="g-typ g-typ__dynamic"
+	data-control-panel="brightness contrast focusable grayscale invert keyboard reduce typography zoom"
+	data-control-panel-id="a11y"
+	data-control-panel-class="a11y"
+	data-control-panel-config="collapse reset"
+	data-control-panel-label="Accessibility"
+	data-control-panel-trigger="#a11y_trigger::beforeend"
+	data-control-panel-url="../assets/data/control-panel-en.json">
 
 <main class="c-lay__wrapper" id="top">
 	<h1 class="sr-only">Layout Block Demo</h1>
@@ -158,7 +165,7 @@ figure {
 				<div class="c-lay__item"><div class="item">full-width &mdash; slide 5</div></div>
 			</div>
 		</div>
-		<header class="c-lay__header">
+		<header class="c-lay__header" id="a11y_trigger">
 			<h2 class="c-lay__headline g-typ--h1">Above: Full-width hero</h2>
 			<div class="c-lay__description g-typ--m">
 					The slider above will change slide automatically if JavaScript is loaded, as the <code>data-auto-play</code>-attribute is set to <code>true</code>.
@@ -932,7 +939,7 @@ figure {
 
 	<section class="c-lay"
 		data-align="start"
-		data-control-panel="fullscreen alignment audio focusable fontsize margin spacing typography theme zoom"
+		data-control-panel="alignment audio fontsize margin spacing typography theme"
 		data-control-panel-id="ebook"
 		data-control-panel-config="collapse reset"
 		data-control-panel-trigger=".c-lay__header::beforeend"

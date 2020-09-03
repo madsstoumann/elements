@@ -40,19 +40,20 @@
 .cp--reduce-motion * {
 	animation: none !important;
 }
-@media screen and (prefers-reduced-motion: reduce) { 
+.cp--reduce-transparency * {
+	opacity: 1 !important;
+}
+/* @media screen and (prefers-reduced-motion: reduce) { 
 	* {
 		animation: none !important;
 	}
 }
-.cp--reduce-transparency * {
-	opacity: 1 !important;
-}
+
 @media screen and (prefers-reduced-transparency: reduce) { 
 	* {
 		opacity: 1 !important;
 	}
-}
+} */
 
 /* Share Icons with other CSS by placing them at :root-level */
 :root {
@@ -608,6 +609,9 @@ TRACK
 }
 
 /* MODIFIERS */
+[data-cp].a11y {
+	--cpl-ico-trigger: var(--ico--a11y);
+}
 
 /* Focusable Elements */
 .cp__focusable--show button,
@@ -676,6 +680,15 @@ TRACK
 
 /* TODO: MOVE TO LAYOUT BLOCK */
 [data-control-panel] [data-inner] {
+	background-color: var(--cp-bgc);
+	font-family: var(--cp-ff);
+	font-size: var(--cp-fz);
+	line-height: var(--cp-lh);
+	text-align: var(--cp-align);
+}
+
+body[data-control-panel] {
+	--cp-ff: var(--f-body);
 	background-color: var(--cp-bgc);
 	font-family: var(--cp-ff);
 	font-size: var(--cp-fz);

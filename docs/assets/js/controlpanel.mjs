@@ -16,6 +16,7 @@ export default class ControlPanel {
 			controlPanelClass: '',
 			controlPanelConfig: '',
 			controlPanelId: '',
+			controlPanelLabel: '',
 			controlPanelUrl: '../assets/data/control-panel-en.json'
 		}, stringToType(settings));
 		if (callback && (typeof callback === 'function')) {
@@ -159,7 +160,7 @@ export default class ControlPanel {
 				this.reset = h('button', { type: 'reset', 'data-cp-reset': '' }, [this.data.labels.$reset]);
 				this.form.appendChild(this.reset);
 			}
-			this.trigger = h('details', { 'data-cp-trigger': '' }, [h('summary', { 'data-cp-trigger-label': '' }, [h('span', { }, [this.data.labels.$trigger])])]);
+			this.trigger = h('details', { 'data-cp-trigger': '' }, [h('summary', { 'data-cp-trigger-label': '' }, [h('span', { }, [this.settings.controlPanelLabel || this.data.labels.$trigger])])]);
 			this.trigger.addEventListener('keydown', (event) => { if(event.key === 'Escape') {
 				this.trigger.open = false;
 				this.trigger.firstElementChild.focus();
