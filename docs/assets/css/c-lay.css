@@ -616,7 +616,7 @@ RWD
 		--lay-maw: calc(100vw - (var(--lay-gap) * 2));
 	}
 	[data-section-type="slider"]:not([data-theme]) {
-		--lay-maw: calc(100vw - (var(--lay-gap) * 2));
+		--lay-maw: calc(100% - (var(--lay-gap) * 2));
 	}
 	[data-section-type="slider"]:not([data-theme]) .c-lay__item {
 		--lay-item-smis: 0;

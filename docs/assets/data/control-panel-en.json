@@ -157,7 +157,7 @@
 	"keyboard": {
 		"desc": "Click the button below, or use <kbd>Shift</kbd>+<kbd>?</kbd> to see keyboard shortcuts",
 		"key": "?",
-		"name": "Keybaord shortcuts",
+		"name": "Keyboard shortcuts",
 		"shortcuts": [
 			{
 				"name": "Menubar",

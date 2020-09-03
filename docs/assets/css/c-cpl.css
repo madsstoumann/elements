@@ -137,8 +137,10 @@ TEXT-LIGHT: hsl(212, 14%, 98%);
 	background: var(--cpl-dialog-bgc);
 }
 [data-cp-dialog] button {
+	background-color: transparent	;
 	border: 0;
 	border-radius: 50%;
+	color: var(--cpl-dialog-c);
 	display: block;
 	float: right;
 	font-size: 2rem;
@@ -147,9 +149,7 @@ TEXT-LIGHT: hsl(212, 14%, 98%);
 	width: var(--cpl-ico-xl);
 }
 [data-cp-dialog] button:focus {
-	background-color: transparent;
 	box-shadow: 0 0 0 2px var(--cpl-dialog-c);
-	color: var(--cpl-dialog-c);
 	outline: none;
 }
 [data-cp-dialog] dd {
@@ -378,6 +378,9 @@ TEXT-LIGHT: hsl(212, 14%, 98%);
 [data-cp-form] button,
 [data-cp-form] input[type="button"] {
 	background-color: var(--cpl-c--medium);
+	border: 0;
+	border-radius: 0.25rem;
+	padding: var(--cpl-unit) calc(var(--cpl-unit) * 1.5);
 }
 button[data-cp-reset] {
 	background-color: var(--cpl-c--dark);
