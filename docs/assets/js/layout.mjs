@@ -2,8 +2,8 @@
  * Layout module.
  * @module /assets/js/layout
  * @requires /assets/js/common
- * @version 1.1.10
- * @summary 17-08-2020
+ * @version 1.1.12
+ * @summary 04-09-2020
  * @description Helper-functions for Layout Block
  * @example
  * <section data-section-type>
@@ -334,6 +334,7 @@ export class Layout {
 	 * @function toggleGallery
 	 * @param {Node} section
 	 * @description Toggles between `grid-gallery` and `slider`
+	 * TODO ? USE THIS?
  	*/
 	toggleGallery(section) {
 		console.log(section.dataset.sectionType);
@@ -357,9 +358,9 @@ export class Layout {
 				section.dataset.sectionType = newLayout;
 				toggle.innerText = header;
 				
-				if (section.dataset?.itemType === 'image') {
-					this.toggleGallery(section);
-				}
+				// if (section.dataset?.itemType === 'image') {
+				// 	this.toggleGallery(section);
+				// }
 			});
 		});
 	}
@@ -368,8 +369,8 @@ export class Layout {
 /**
  * Slider
  * @requires /assets/js/common
- * @version 1.1.20
- * @summary 28-08-2020
+ * @version 1.1.21
+ * @summary 04-09-2020
  * @description Slider-functionality for Layout Block
  * @example
  * <section data-section-type="slider">
@@ -385,6 +386,9 @@ export class Slider {
 			clsDotWrap: 'c-lay__dots',
 			clsNav: 'c-lay__nav',
 			clsNavInner: 'c-lay__nav-inner',
+			clsTab: 'c-lay__tab',
+			clsTabCur: 'c-lay__tab--current',
+			clsTabsWrap: 'c-lay__tabs',
 			lblGoToSlide: 'Go to slide',
 			lblItemRole: 'slide',
 			lblNext: 'Next',
@@ -438,7 +442,7 @@ export class Slider {
 		const page = Math.round(this.elements.inner.scrollLeft / Math.floor((this.itemsPerPage * (this.state.itemWidth + gap))));
 		this.state.page = (page + 1);
 
-		if (!this.state.loop) {
+		if (!this.state.loop && this.hasArrows) {
 			/* Set navigation buttons to disabled, if first or last */
 			this.elements.next.toggleAttribute('disabled', this.state.page === this.state.pages);
 			this.elements.prev.toggleAttribute('disabled', this.state.page === 1);
@@ -460,6 +464,7 @@ export class Slider {
 		this.hasArrows = this.settings.nav.includes('arrows');
 		this.hasDots = this.settings.nav.includes('dots');
 		this.hasScroll = this.settings.nav.includes('scroll');
+		this.hasTabs = this.settings.nav.includes('tabs');
 
 		/* Create elements */
 		this.elements = {
@@ -507,8 +512,14 @@ export class Slider {
 		
 		/* Add navigation dots */
 		if (this.hasDots) {
-			this.elements.dots = h('div', { class: this.settings.clsDotWrap });
-			this.elements.outer.appendChild(this.elements.dots);
+			if (this.hasTabs) {
+				this.elements.dots = h('div', { class: this.settings.clsTabsWrap });
+				this.elements.outer.insertBefore(this.elements.dots, this.elements.outer.firstElementChild);
+			}
+			else {
+				this.elements.dots = h('div', { class: this.settings.clsDotWrap });
+				this.elements.outer.appendChild(this.elements.dots);
+			}
 		}
 
 		/* Detect resize: Add/remove dots and arrows */
@@ -579,8 +590,10 @@ export class Slider {
 	renderNavigationDots() {
 		this.dots = [];
 		this.elements.dots.innerHTML = '';
-		for (let page = 1; page <= this.state.pages; page++) { 
-			const dot = h('button', { class: this.settings.clsDot, type: 'button', 'aria-label': `${this.settings.lblGoToSlide} ${page}`, 'data-page': page});
+		const headers = this.hasTabs ? [...this.elements.inner.querySelectorAll('[data-tab-header], h1, h2, h3, h4, h5, h6')] : [];
+		for (let page = 0; page < this.state.pages; page++) {
+			const label = this.hasTabs ? headers[page].dataset?.tabHeader || headers[page].innerText : '';
+			const dot = h('button', { class: (this.hasTabs ? this.settings.clsTab : this.settings.clsDot), type: 'button', 'aria-label': `${this.settings.lblGoToSlide} ${page + 1}`, 'data-page': page + 1}, [label]);
 			dot.addEventListener('click', () => {
 				this.state.page = parseInt(dot.dataset.page, 10);
 				this.scrollToPage();
@@ -634,9 +647,9 @@ export class Slider {
 	updateDots(page) {
 		if (this.dots?.length) {
 			this.dots.forEach((dot, index) => {
-				dot.classList.remove(this.settings.clsDotCur);
+				dot.classList.remove(this.hasTabs ? this.settings.clsTabCur : this.settings.clsDotCur);
 				if (index === page) {
-					dot.classList.add(this.settings.clsDotCur);
+					dot.classList.add(this.hasTabs ? this.settings.clsTabCur : this.settings.clsDotCur);
 				}
 			});
 		}

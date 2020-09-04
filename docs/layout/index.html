@@ -30,7 +30,7 @@
 	<link rel="preload" href="../assets/css/c-crd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 	<link rel="preload" href="../assets/css/c-cpl.css" as="style" onload="this.onload=null;this.rel='stylesheet'"> -->
 
-	<link href="../assets/css/c-lay_ie.css" rel="stylesheet" media="screen">
+	<!-- <link href="../assets/css/c-lay_ie.css" rel="stylesheet" media="screen"> -->
 	<style>
 		/* Demo Styles */
 		*:focus:not(:focus-visible) {
@@ -56,6 +56,7 @@
 		.item  {
 			box-sizing: border-box;
 			padding-left: var(--lay-gap);
+			padding-right: var(--lay-gap);
 			padding-top: var(--lay-gap);
 		}
 		.c-lay__item:focus {
@@ -64,7 +65,7 @@
 		.c-lay__item:focus > * {
 			box-shadow: 0px 6px 1px#ff5722;
 		}
-
+		.item--0 { background-color: white; }
 		.item--1 { background-color: hotpink; color: #282828; min-height: 200px; }
 		.item--2 { background-color: orange; min-height: 400px; }
 		.item--3 { background-color: greenyellow; min-height: 150px; }
@@ -840,25 +841,32 @@ figure {
 			</div>
 		</div>
 	</section>
-<!--
 
-		<section class="c-lay"
-		data-animation="a-fade-in-bottom"
-		data-animation-target=".c-lay__item"
-		data-control-panel="brightness contrast grayscale invert theme"
-		data-control-panel-id="gallery"
-		data-control-panel-config="reset"
-		data-control-panel-trigger=".c-lay__header::beforeend"
-		data-gap-phone="edge small"
-		data-gap-tablet="edge small"
-		data-gap-desktop="small"
-		data-inner-pb="0x"
-		data-item-type="page image"
-		data-section-type="grid-gallery"
-		>
--->
 	<section class="c-lay"
-		data-control-panel="brightness contrast"
+		data-grid-phone="100"
+		data-grid-tablet="100"
+		data-grid-desktop="100"
+		data-nav="dots tabs"
+		data-section-type="slider"
+		data-theme="theme01">
+		<header class="c-lay__header">
+			<h2 class="c-lay__headline g-typ--h1">Slider Tabs</h2>
+			<div class="c-lay__description g-typ--m">
+				Turning the <code>data-section-type="slider"</code> into tabs.
+			</div>
+		</header>
+		<div class="c-lay__outer" data-outer>
+			<div class="c-lay__inner" data-inner>
+				<div class="c-lay__item"><div class="item item--0"><h3>First Tab</h3><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, officia temporibus laudantium quos aliquam velit minus provident, dolor architecto, molestiae hic rerum ad explicabo neque sit est veritatis natus. Enim quod eveniet corrupti illo tempore exercitationem in vel alias accusantium, qui dolorum iure aliquid, deleniti harum beatae perferendis, ea iste eaque placeat? Accusantium, fuga. Soluta, consectetur quisquam! Maxime officiis soluta labore illo, possimus eveniet voluptas facere deserunt nulla, eligendi, ipsam et expedita illum optio eaque enim repellendus explicabo eos asperiores error laboriosam? Ducimus suscipit nulla nostrum exercitationem? Aut obcaecati provident unde soluta incidunt dicta, laudantium atque, sint, sit minima enim?</p></div></div>
+				<div class="c-lay__item"><div class="item item--0"><h3>Second Tab</h3><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor sequi sit repellat nam, repudiandae omnis eum. Perferendis, nesciunt. Recusandae praesentium a totam quod aut neque repellendus, culpa pariatur, incidunt tenetur, tempore labore veritatis amet asperiores magnam doloremque ipsam doloribus itaque quis! Nemo impedit optio dolorem quod totam. Suscipit, eligendi adipisci.</p></div></div>
+				<div class="c-lay__item"><div class="item item--0"><h3>Third Tab</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores dolore velit ab neque ipsum adipisci architecto laborum magni necessitatibus voluptas rem, beatae eveniet harum rerum!</p></div></div>
+				<div class="c-lay__item"><div class="item item--0"><h3>Fourth Tab</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci a iure autem veritatis expedita pariatur vitae sapiente cupiditate totam nihil similique itaque, voluptate dolor quibusdam illo voluptas porro voluptatibus? Maiores similique incidunt, impedit nemo culpa error illo, quis facilis esse porro suscipit debitis distinctio animi nam sint! Ducimus inventore explicabo saepe dolores magnam quasi rem amet vero corporis exercitationem harum, ratione ipsa quae expedita. Voluptas quam quaerat veritatis distinctio, eum natus inventore incidunt modi? Obcaecati expedita doloribus consequuntur veritatis nihil, itaque dolorem tenetur nam reprehenderit aperiam distinctio magni iusto, dolorum animi voluptates laborum est adipisci, autem iure possimus eligendi consequatur voluptatum placeat perferendis! Pariatur commodi quia consequatur eveniet ad, vitae ab natus explicabo, ducimus totam, in voluptatibus. Voluptas corporis ipsam officia eveniet dignissimos. Autem maxime officiis pariatur veritatis, saepe delectus deserunt fugit expedita magni omnis dolor numquam quidem ut. Quisquam dolores perferendis beatae fugiat quaerat? Rem iste ad ex harum!</p></div></div>
+			</div>
+		</div>
+	</section>
+
+	<section class="c-lay"
+		data-control-panel="brightness contrast grayscale invert"
 		data-control-panel-id="gallery"
 		data-control-panel-config="reset"
 		data-control-panel-trigger=".c-lay__header::beforeend"
@@ -915,13 +923,11 @@ figure {
 		data-control-panel="speech theme"
 		data-control-panel-id="speech"
 		data-control-panel-trigger=".c-lay__header::beforeend"
-
 		data-grid-phone="100"
 		data-grid-tablet="100"
 		data-grid-desktop="100"
 		data-inner-maw="s"
 		data-section-type="stack"
-		
 		lang="en-US">
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline g-typ--h1">Speech Recognition</h2>

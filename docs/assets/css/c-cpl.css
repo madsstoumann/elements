@@ -1,7 +1,7 @@
 /**
  * c-cpl.css
- * @version 1.2.2
- * @summary 01-09-2020
+ * @version 1.2.3
+ * @summary 04-09-2020
  * @author Mads Stoumann
  * @description Stylesheet for ControlPanel Component
 */
@@ -27,9 +27,18 @@
 	--cp-theme-sepia-c: #62533C;
 	--cp-zoom: 100%;
 
-	filter: grayscale(var(--cp-grayscale))  invert(var(--cp-invert));
+	/* filter: grayscale(var(--cp-grayscale)) invert(var(--cp-invert)); */
 	zoom: var(--cp-zoom);
 }
+[data-control-panel]:not(body) {
+	/* Weird stuff happening in Chrome when using `filter` on body */
+	filter: grayscale(var(--cp-grayscale)) invert(var(--cp-invert)); 
+}
+
+body[data-control-panel] {
+	/* Weird stuff happening in Chrome when using `filter` on body */
+}
+
 [data-control-panel] img,
 [data-control-panel] [style*='background-image'] {
 	filter: contrast(var(--cp-contrast))

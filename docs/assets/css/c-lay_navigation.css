@@ -1,7 +1,7 @@
 /**
  * c-lay_navigation.css
- * @version 1.0.5
- * @summary 26-07-2020
+ * @version 1.0.6
+ * @summary 04-09-2020
  * @author Mads Stoumann
  * @description Stylesheet for Layout Component: Navigation
 */
@@ -186,4 +186,43 @@ DOTS
 	--lay-dot-bdrs: 0;
 	--lay-dot-h: 2px;
 	--lay-dot-w: 40px;
+}
+
+/*
+=====
+TABS
+=====
+TODO
+*/
+
+.c-lay__tab {
+	background-color: transparent;
+	border: 0;
+	border-radius: .25rem;
+	margin: 0 0.5rem;
+	padding: 0.5rem 1rem;
+	overflow: hidden;
+	position: relative;
+	text-overflow: ellipsis;
+	width: 10rem;
+	white-space: nowrap;
+	
+	z-index: 100; /* TODO! */
+}
+.c-lay__tab:focus {
+	outline: none;
+	text-decoration: dotted underline;
+}
+.c-lay__tab--current {
+	background-color: var(--lay-tab-bgc--cur);
+	color: var(--lay-tab-c--cur);
+}
+.c-lay__tabs {
+	align-items: center;
+	background-color: var(--lay-tab-bgc);
+	border-bottom: 1px solid var(--lay-tab-bgc--cur);
+	box-sizing: border-box;
+	display: flex;
+	height: 3rem;
+	margin: 0 var(--lay-gap);
 }

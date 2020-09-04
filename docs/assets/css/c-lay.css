@@ -1,7 +1,7 @@
 /**
  * c-lay.css
- * @version 1.4.0
- * @summary 28-08-2020
+ * @version 1.4.1
+ * @summary 04-09-2020
  * @author Mads Stoumann
  * @description Stylesheet for Layout Component
 	Variables are concatinated from: 
@@ -52,6 +52,11 @@
 	--lay-nav-btn-ico-sz: 1rem;
 	--lay-nav-btn-sz: 52px;
 	--lay-nav-btn-z: 1;
+
+	/* Tabs */
+	--lay-tab-bgc: hsl(210, 24%, 80%);
+	--lay-tab-bgc--cur: hsl(210, 24%, 30%);
+	--lay-tab-c--cur: hsl(210, 24%, 98%);
 
 	/* Main Layout Block */
 	--lay-bg: #FFF;
@@ -790,7 +795,6 @@ TODO !
 	height: 3rem;
 	z-index: 10;
 }
-
 
 /* TODO */
 [data-section-type="slider"][data-item-type*="image"] .c-lay__item {
