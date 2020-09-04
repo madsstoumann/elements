@@ -337,7 +337,7 @@ export class Layout {
  	*/
 	toggleGallery(section) {
 		console.log(section.dataset.sectionType);
-		section.classList.toggle('c-lay--overlay', section.dataset.sectionType === 'slider');
+		// section.classList.toggle('c-lay--overlay', section.dataset.sectionType === 'slider');
 	}
 
 	/**

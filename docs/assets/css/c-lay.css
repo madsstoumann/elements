@@ -534,6 +534,16 @@ WARNING: Can affect expand/collapse */
 	--lay-scrbar-bg: hsl(210, 24%, 74%);
 	--lay-scrbar-thumb-bg: hsl(210, 24%, 54%);
 }
+[data-theme="theme05"] {
+	--lay-bg: hsl(220, 26%, 14%);
+	--lay-c: #FDFDFD;
+	--lay-dot-bgc: hsl(220, 26%, 34%);
+	--lay-dot-bgc--cur: hsl(220, 26%, 84%);
+	--lay-dot-bgc--cur-focus: hsl(220, 26%, 34%);
+	--lay-dot-bxsh: hsl(195, 100%, 99%);
+	--lay-scrbar-bg: hsl(220, 26%, 38%);
+	--lay-scrbar-thumb-bg: hsl(220, 26%, 68%);
+}
 @media (prefers-color-scheme: dark) {
 	/* TODO: Test/create all themes to work with dark-mode ! */
 	.c-lay {
