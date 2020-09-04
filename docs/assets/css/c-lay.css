@@ -781,6 +781,8 @@ TODO !
 	z-index: 10;
 }
 
+
+/* TODO */
 [data-section-type="slider"][data-item-type*="image"] .c-lay__item {
 	text-align: center;
 }

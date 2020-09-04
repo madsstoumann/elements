@@ -2,8 +2,8 @@
  * Control Panel
  * @module /assets/js/controlPanel
  * @requires /assets/js/common
- * @version 1.3.1
- * @summary 01-09-2020
+ * @version 1.3.3
+ * @summary 04-09-2020
  * @description Control Panel
  * @example
  * <div data-control-panel="alignment audio background brightness contrast fontsize spacing typography zoom">
@@ -183,7 +183,7 @@ export default class ControlPanel {
 
 			/* Close panel when clicking outside */
 			document.addEventListener('click', () => {
-				if (!this.outer.contains(event.target)) {
+				if (!this.trigger.contains(event.target)) {
 					this.trigger.open = false;
 				}
 			});
