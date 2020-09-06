@@ -62,7 +62,7 @@
 	--lay-bg: #FFF;
 	--lay-c: hsl(210, 24%, 16%);
 	--lay-colmc: 2;
-	--lay-gap: 10px;
+	--lay-gap: 10px; /* MUST BE IN PIXELS */
 	--lay-gap-grid: var(--lay-gap);
 	--lay-gap-grid-small: 5px;
 	--lay-mb: 0;
@@ -596,7 +596,7 @@ RWD
 ====
 */
 @media screen and (min-width: 48rem) {
-	.c-lay { --lay-gap: 1rem; }
+	.c-lay { --lay-gap: 16px; }
 	/* PREVIEW */
 	[data-section-type="slider"][data-preview="both"][data-grid-tablet="33:33:33"] .c-lay__item,
 	[data-section-type="slider"][data-preview="both"][data-grid-desktop="33:33:33"] .c-lay__item {
@@ -622,7 +622,7 @@ RWD
 }
 @media screen and (min-width: 75rem) {
 	.c-lay {
-		--lay-gap: 1.25rem;
+		--lay-gap: 20px;
 	}
 	[data-theme] .c-lay__item {
 		--lay-item-smis: var(--lay-item-gap);
@@ -782,17 +782,19 @@ TODO !
 	border-inline-end: none;
 	border-radius: 50%;
 	box-shadow: 0 0 0 2px #FFF;
+	box-sizing: content-box;
 	color: #FFF;
 	content: '\2715';
 	cursor: pointer;
 	display: inline-flex;
+	font-family: ui-sansserif, sans-serif;
 	font-size: 2rem;
+	height: 3rem;
 	justify-content: center;
 	position: absolute;
 	right: var(--lay-gap);
 	top: var(--lay-gap);
 	width: 3rem;
-	height: 3rem;
 	z-index: 10;
 }
 

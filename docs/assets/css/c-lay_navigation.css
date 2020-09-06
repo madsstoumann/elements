@@ -206,8 +206,8 @@ TODO
 	text-overflow: ellipsis;
 	width: 10rem;
 	white-space: nowrap;
-	
-	z-index: 100; /* TODO! */
+	z-index: var(--lay-nav-btn-z);
+
 }
 .c-lay__tab:focus {
 	outline: none;

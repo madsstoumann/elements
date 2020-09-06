@@ -331,17 +331,6 @@ export class Layout {
 	}
 
 	/**
-	 * @function toggleGallery
-	 * @param {Node} section
-	 * @description Toggles between `grid-gallery` and `slider`
-	 * TODO ? USE THIS?
- 	*/
-	toggleGallery(section) {
-		console.log(section.dataset.sectionType);
-		// section.classList.toggle('c-lay--overlay', section.dataset.sectionType === 'slider');
-	}
-
-	/**
 	 * @function toggleLayout
 	 * @param {NodeList} selector
 	 * @description Toggles between `stack` and `slider`
@@ -369,8 +358,8 @@ export class Layout {
 /**
  * Slider
  * @requires /assets/js/common
- * @version 1.1.21
- * @summary 04-09-2020
+ * @version 1.1.22
+ * @summary 06-09-2020
  * @description Slider-functionality for Layout Block
  * @example
  * <section data-section-type="slider">
@@ -611,12 +600,7 @@ export class Slider {
 		let xPos;
 		/* Scroll to center of page, calculate scroll using itemWidth */
 		if (this.slider.dataset.preview === 'both') {
-			if (this.itemsPerPage === 1) {
-				xPos = (this.state.page - 1) * ((this.state.itemWidth - this.state.gap) * this.itemsPerPage);
-			}
-			else {
-				xPos = (this.state.page - 1) * ((this.state.itemWidth - this.state.gap) * this.itemsPerPage);
-			}
+			xPos = (this.state.page - 1) * ((this.state.itemWidth - this.state.gap) * this.itemsPerPage);
 		}
 		/* Scroll to page, use page-based widths */
 		else {

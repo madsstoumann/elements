@@ -132,6 +132,7 @@ body[data-control-panel] {
 	overflow-y: scroll;
 	padding: 2rem;
 	width: 100vw;
+	z-index: 100;
 }
 [data-cp-dialog]::backdrop {
 	background: var(--cpl-dialog-bgc);
