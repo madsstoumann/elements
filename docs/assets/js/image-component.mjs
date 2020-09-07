@@ -294,7 +294,7 @@ export default class ImageComponent extends CssApp {
 				<summary class="app__summary"><span>${this.settings.lblHTMLCode}</span></summary>
 				<div class="app__code"><pre data-elm="htmlCode"></pre></div>
 			</details>
-			<details class="app__details" open>
+			<details class="app__details">
 				<summary class="app__summary"><span>${this.settings.lblJSONCode}</span></summary>
 				<div class="app__code"><pre data-elm="presetCode"></pre></div>
 			</details>
