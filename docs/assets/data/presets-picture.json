@@ -1,0 +1,96 @@
+{
+  "key": "picture",
+  "values": [
+    {
+      "name": "Classic Responsive",
+      "description": "Responsive image. On smaller devices, the image will be 100vw, on tablets 50vw and on desktops 33vw",
+      "deletable": false,
+      "values": [
+        {
+          "alt": "Classic responsive image",
+          "aspectHeight": 0,
+          "aspectWidth": 0,
+          "crossorigin": "anonymous",
+          "decoding": "async",
+          "images": [
+            {
+              "breakpoint": 320,
+              "colorscheme": "",
+              "src": "image.jpg"
+            }
+          ],
+          "loading": "lazy",
+          "media": [
+            {
+              "breakpoint": 320,
+              "size": 100,
+              "unit": "vw"
+            },
+            {
+              "breakpoint": 768,
+              "size": 50,
+              "unit": "vw"
+            },
+            {
+              "breakpoint": 1024,
+              "size": 33,
+              "unit": "vw"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dark Mode 16:9",
+      "description": "Switch between multiple images, based on both viewport and color-scheme.",
+      "deletable": false,
+      "values": [{
+        "alt": "A DARK cup of coffee",
+        "aspectHeight": 16,
+        "aspectWidth": 9,
+        "crossorigin": "anonymous",
+        "decoding": "async",
+        "images": [
+          {
+            "breakpoint": 320,
+            "colorscheme": "",
+            "src": "light-coffee-small.jpg"
+          },
+          {
+            "breakpoint": 320,
+            "colorscheme": "dark",
+            "src": "dark-coffee-small.jpg"
+          },
+          {
+            "breakpoint": 768,
+            "colorscheme": "",
+            "src": "light-coffee-large.jpg"
+          },
+          {
+            "breakpoint": 768,
+            "colorscheme": "dark",
+            "src": "dark-coffee-large.jpg"
+          }
+        ],
+        "loading": "lazy",
+        "media": [
+          {
+            "breakpoint": 320,
+            "size": 100,
+            "unit": "vw"
+          },
+          {
+            "breakpoint": 768,
+            "size": 50,
+            "unit": "vw"
+          },
+          {
+            "breakpoint": 1024,
+            "size": 33,
+            "unit": "vw"
+          }
+        ]
+      }]
+    }
+  ]
+}

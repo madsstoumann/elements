@@ -1,8 +1,8 @@
 /**
  * ImageComponent module.
  * @module /image-component.mjs
- * @version 0.0.3
- * @summary 04-06-2020
+ * @version 0.0.4
+ * @summary 07-09-2020
  * @description Generate code for responsive <picture>
  * @example
  * <div data-js="image-component">
@@ -33,31 +33,21 @@ export default class ImageComponent extends CssApp {
 			lblUploadImage: 'Upload or drag image/s',
 			presetEntry: {
 				alt: 'alt text',
-				aspectHeight: 9,
-				aspectWidth: 16,
+				aspectHeight: 0,
+				aspectWidth: 0,
 				crossorigin: 'anonymous',
 				decoding: 'async',
 				images: [
 					{
 						breakpoint: 320,
 						colorscheme: '',
-						src: 'small.jpg'
-					},
-					{
-						breakpoint: 768,
-						colorscheme: 'dark',
-						src: 'big.jpg'
+						src: 'default.jpg'
 					}
 				],
 				loading: 'lazy',
 				media: [
 					{
 						breakpoint: 320,
-						size: 100,
-						unit: 'vw'
-					},
-					{
-						breakpoint: 768,
 						size: 100,
 						unit: 'vw'
 					}
@@ -88,7 +78,7 @@ export default class ImageComponent extends CssApp {
 	* @description Adds a new entry to the default preset
 	*/
 	addImage() {
-		this.preset.values[0].images.push({ src: 'image.jpg' });
+		this.preset.values[0].images.push({ src: 'IMAGE.jpg' });
 		this.renderImageList();
 		this.setCode();
 	}
@@ -226,12 +216,25 @@ export default class ImageComponent extends CssApp {
 	}
 
 	renderPicture(preset) {
-		return `<picture style="--h:${preset.aspectHeight};--w:${preset.aspectWidth};">${this.renderPictureSource(preset)}${this.renderImage(preset)}\n</picture>`;
+		return `<picture${(preset.aspectHeight > 0) && (preset.aspectWidth > 0) ? ` style="--h:${preset.aspectHeight};--w:${preset.aspectWidth};"`: ''}>${this.renderPictureSource(preset)}${this.renderImage(preset)}\n</picture>`;
 	}
 
 	renderPictureSource(preset) {
-		/* TODO: if breakpoint exists, split ImageSizes, color-scheme etc. */
-		return `${preset.images.map(image => { return `\n\t<source media="${image.breakpoint > 0 ? ` (min-width: ${image.breakpoint}px)` : ''}${(image.breakpoint > 0) && image.colorscheme ? ` and ` : ''}${image.colorscheme ? `(prefers-color-scheme: ${image.colorscheme})`: ''}" srcset="\n${preset.media.map(entry => { return `\t\t${image.src}?w=${entry.breakpoint} ${entry.breakpoint}w` }).join(',\n')}" \n\t\tsizes="100vw">\n`}).join('')}`
+		return `${preset.images.map(image => { return `\n\t<source media="${image.breakpoint > 0 ? `(min-width: ${image.breakpoint}px)` : ''}${(image.breakpoint > 0) && image.colorscheme ? ` and ` : ''}${image.colorscheme ? `(prefers-color-scheme: ${image.colorscheme})`: ''}" srcset="\n${this.renderScrSet(image, preset.media)}" \n\t\tsizes="${this.renderSizes(image, preset.media)}">\n`}).join('')}`
+	}
+
+	renderScrSet(image, media) {
+		return media.filter(opt => {
+			return opt.breakpoint >= image.breakpoint}).map(entry => {
+				return `\t\t${image.src}?w=${entry.breakpoint} ${entry.breakpoint}w`
+			}).join(',\n');
+	}
+
+	renderSizes(image, media) {
+		return media.filter(opt => {
+			return opt.breakpoint >= image.breakpoint}).map(entry => {
+				return `${entry.size}${entry.unit}`
+			}).join(' ');
 	}
 
 	/**
@@ -253,20 +256,20 @@ export default class ImageComponent extends CssApp {
 			<strong class="app__header">${this.settings.lblAppHeader}</strong>
 			<div class="app__edit">
 				<div class="app__preview">
-					<strong class="app__subheader">Basic <code>img</code> info</strong>
-					<p class="app__text">Fill out <code>alt</code>-text, if a fixed aspect-ratio is needed, change the values from <code>0</code></p>
+					<strong class="app__subheader">Basic image info</strong>
+					<p class="app__text">Fill out <code>alt</code>-text, and chose other default options. If a fixed aspect-ratio is needed, change the values from <code>0</code>.</p>
 					<div data-elm="imageinfo"></div>
 				</div>
 
 				<div class="app__controls">
 					<strong class="app__subheader">Image-list</strong>
-					<p class="app__text">If you have more than one image, chose which breakpoint to use, or if that image should be shown for a preferred <code>color-scheme</code>, or a combination.</p>
+					<p class="app__text">If you want to change to another image at a given breakpoint, add another image to the list. You can also switch to another image for a preferred <code>color-scheme</code> (as an example: “Dark Mode”), or a combination.</p>
 
 					<div data-elm="imagelist"></div>
 					<button type="button" class="app__button" data-elm="addImage">${this.settings.lblAddImage}</button>
 
-					<strong class="app__subheader--mt"><code>srcset</code> and <code>sizes</code></strong>
-					<p class="app__text">For a given breakpoint, fill out the approx. size, the final image will have at that breakpoint.</p>
+					<strong class="app__subheader--mt">Source and sizes</strong>
+					<p class="app__text">For a given breakpoint, fill out the approx. size, the final image will have at that breakpoint. This will be common to all images in the list above.</p>
 
 					<div data-elm="breakpoints"></div>
 					<button type="button" class="app__button" data-elm="addBreakpoint">${this.settings.lblAddBreakpoint}</button>
@@ -283,7 +286,10 @@ export default class ImageComponent extends CssApp {
 					</div>
 				</div>
 			</div>
-
+			<details class="app__details" open>
+				<summary class="app__summary"><span>${this.settings.lblPresets}</span></summary>
+				<div class="app__panel" data-elm="presets"></div>
+			</details>
 			<details class="app__details" open>
 				<summary class="app__summary"><span>${this.settings.lblHTMLCode}</span></summary>
 				<div class="app__code"><pre data-elm="htmlCode"></pre></div>
