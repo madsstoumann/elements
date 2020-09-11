@@ -116,6 +116,7 @@ figure {
 			resize: none;
 			width: 100%;
 		}
+		/* TODO: Set data-attribute whether to hide whole section, only header etc */
 		.sr-only {
 
 	clip: rect(0 0 0 0); 
@@ -127,6 +128,35 @@ figure {
   width: 1px;
 
 		}
+
+		/* STORY */
+		.c-story__video {
+  height: 100%;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  z-index: 0;
+} 
+.c-story__page {
+	position: relative;
+}
+.c-story__page-text {
+  background-color: rgba(255, 255, 255, .85);
+  color: rgba(0, 0, 0, .75);
+  line-height: 1.4;
+  margin: 0;
+  padding: 1rem;
+  position: relative;
+  width: 80%;
+}
+[data-item-type="story"] .c-lay__item {
+	height: 100vh;
+}
+[data-item-type="story"] .c-lay__item > * {
+	height: 100%;
+}
 	</style>
 </head>
 <body class="g-typ g-typ__dynamic"
@@ -840,6 +870,49 @@ figure {
 				<div class="c-lay__item"><div class="item item--9">18</div></div>
 			</div>
 		</div>
+	</section>
+
+	<section class="c-lay"
+		data-align="start"
+		data-gap-phone="column edge"
+		data-gap-tablet="column edge"
+		
+		data-grid-phone="100"
+		data-grid-tablet="50:50"
+		data-grid-desktop="50:50"
+		data-item-type="story"
+		data-nav="arrows dots inside"
+		data-outer-maw="xl"
+		data-preview=""
+		data-section-type="slider"
+		>
+		<div class="c-lay__outer" data-outer>
+			<div class="c-lay__inner" data-inner>
+				<div class="c-lay__item">
+					<section class="c-story__page" style="background:#00b0ca;">
+						<video muted autoplay loop playsinline class="c-story__video" height="100%" width="100%">
+							<source src="../assets/video/food.mp4" type="video/mp4">
+						</video>
+						<h2 class="c-story__page-headline">What can you eat with an ostomy?</h2>
+						<div class="c-story__page-text c-story__page-text--right">
+							<p>Many people do not have to change their diet radically. Some ostomates may not be able to fully digest vegetables and fruits with skins.</p>
+							<p>The best way to figure out what you can tolerate is to gradually add different foods to your diet.</p>
+						</div>
+					</section>	
+				
+				</div>
+				<div class="c-lay__item"><div class="item item--1">full-width &mdash; slide 2</div></div>
+				<div class="c-lay__item"><div class="item">full-width &mdash; slide 3</div></div>
+				<div class="c-lay__item"><div class="item item--4">full-width &mdash; slide 4</div></div>
+				<div class="c-lay__item"><div class="item">full-width &mdash; slide 5</div></div>
+			</div>
+		</div>
+		<!-- <header class="c-lay__header" id="a11y_trigger">
+			<h2 class="c-lay__headline g-typ--h1">STORYTELLING</h2>
+			<div class="c-lay__description g-typ--m">
+					The slider above will change slide automatically if JavaScript is loaded, as the <code>data-auto-play</code>-attribute is set to <code>true</code>.
+			</div>
+		</header> -->
 	</section>
 
 	<section class="c-lay"

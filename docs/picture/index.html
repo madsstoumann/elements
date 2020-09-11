@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Responsive Image with Dark Mode</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<style>
+		*, :after, :before {
+		box-sizing: border-box;
+		}
+		body {
+			font-family: ui-sansserif, sans-serif;
+			margin: 0;
+		}
+		/* NOTE: NEVER STYLE <TAGS> DIRECTLY, THIS IS A DEMO! */
+		div {
+			background-color: white;
+			border: 2px solid indianred;
+			font-size: small;
+			margin: 0.5rem;
+			padding: 0.5rem;
+			word-break: break-all;
+		}
+		img {
+			max-width: 100%;
+			width: 100%;
+		}
+		picture {
+			display: block;
+			position: relative;
+		}
+		picture::after {
+			content: '';
+			display: block;
+			padding-bottom: calc((var(--h, 9) / var(--w, 16)) * 100%)
+		}
+		picture img {
+			bottom: 0;
+			height: 100%;
+			left: 0;
+			mix-blend-mode: normal;
+			object-fit: cover;
+			object-position: center center;
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 100%;
+		}
+		@media only screen and (min-width: 768px) {
+			img, picture {
+				width: 50vw;
+			}
+		}
+		@media only screen and (min-width: 1200px) {
+			img, picture {
+				width: 33vw;
+			}
+		}
+		@media (prefers-color-scheme: dark) {
+			body {
+				background-color: #222;
+			}
+		}
+		@media screen and (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2),(min-resolution: 2dppx) {
+			body {
+				background-color: hotpink;
+			}
+		}
+	</style>
+</head>
+<body>
+<!--
+https://developer.mozilla.org/en-US/docs/Web/CSS/@media/aspect-ratio
+https://www.smashingmagazine.com/2014/05/responsive-images-done-right-guide-picture-srcset/
+https://addyosmani.com/blog/lazy-loading/
+
+Chrome ignores importance="high", use loading="eager" instead
+-->
+<!-- 
+		<picture style="--h:9;--w:16;">
+
+			<source media="(min-width: 0px) and (max-width: 767px) and (prefers-color-scheme: light)" srcset="
+				../assets/img/coffee-light-small.jpg?w=320 320w"
+				sizes="100vw">
+
+			<source media="(min-width: 768px) and (prefers-color-scheme: light)" srcset="
+				../assets/img/coffee-light-large.jpg?w=768 768w,
+				../assets/img/coffee-light-large.jpg?w=1200 1200w" 
+				sizes="50vw 33vw">
+
+			<source media="(min-width: 0px) and (max-width: 767px) and (prefers-color-scheme: dark)" srcset="
+				../assets/img/coffee-dark-small.jpg?w=320 320w"
+				sizes="100vw">
+
+			<source media="(min-width: 768px) and (prefers-color-scheme: dark)" srcset="
+				../assets/img/coffee-dark-large.jpg?w=768 768w,
+				../assets/img/coffee-dark-large.jpg?w=1200 1200w" 
+				sizes="50vw 33vw">
+
+			<img
+				alt="A DARK cup of coffee"
+				crossorigin="anonymous"
+				decoding="async"
+				loading="lazy"
+				src="../assets/img/coffee-light-small.jpg" />
+		</picture> -->
+
+		<!--
+			3 sets of breakpoints:
+
+			1. For the w-scaler (250w, 450w etc.)
+			2. For the `sizes`-attribute
+			3. For art direction, when switching to other images
+		-->
+
+		<!-- 
+			scaler-array: [250, 450, 650 ...etc]
+			scaler could also contain info like `quality`, `aspect-ratio` (or width/height as seperate values)
+		-->
+
+		<img
+			alt="A cup of coffee"
+			crossorigin="anonymous"
+			decoding="async"
+			loading="lazy"
+			src="../assets/img/coffee-light-small.jpg"
+			srcset="
+			../assets/img/coffee-light-small.jpg?w=250 250w,
+			../assets/img/coffee-light-small.jpg?w=450 450w,
+			../assets/img/coffee-light-small.jpg?w=650 650w,
+			../assets/img/coffee-light-small.jpg?w=850 850w,
+			../assets/img/coffee-light-small.jpg?w=1050 1050w,
+			../assets/img/coffee-light-small.jpg?w=1250 1250w,
+			../assets/img/coffee-light-small.jpg?w=1450 1450w,
+			../assets/img/coffee-light-small.jpg?w=1650 1650w
+			"
+			sizes="
+			(min-width: 768px) and (max-width: 1199px) 50vw,
+			(min-width: 1200px) 33vw,
+			100vw
+			"
+		/>
+
+		<!--
+			`sizes` breakpoints-array, should be in numeric order (lowest first):
+			0: fallback, last to be rendered
+			768 (or whatever), THEN check if next breakpoint exist, and/if it's size is larger than 768.
+			If true, add (max-width)
+		-->
+
+		<div id="current"></div>
+
+	<script>
+		const cur = document.getElementById('current');
+		const img = document.querySelector('img');
+		const RO = new ResizeObserver(() => {
+			cur.innerText = img.currentSrc;
+		});
+		RO.observe(img);
+
+	</script>
+</body>
+</html>

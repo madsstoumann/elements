@@ -51,7 +51,8 @@ export default class ImageComponent extends CssApp {
 						size: 100,
 						unit: 'vw'
 					}
-				]
+				],
+				path: '../assets/img/'
 			},
 			colorscheme: ['', 'dark', 'light'],
 			crossorigin: ['anonymous', 'use-credentials'],
@@ -202,7 +203,7 @@ export default class ImageComponent extends CssApp {
 	}
 
 	renderImage(preset) {
-		return `\n\t<img alt="${preset.alt}" src="${preset.images[0].src}"${preset.crossorigin ? ` crossorigin="${preset.crossorigin}"`: ''}${preset.decoding ? ` decoding="${preset.decoding}"`: ''}${preset.loading ? ` loading="${preset.loading}"`: ''} />`;
+		return `\n\t<img alt="${preset.alt}" src="${preset.path}${preset.images[0].src}"${preset.crossorigin ? ` crossorigin="${preset.crossorigin}"`: ''}${preset.decoding ? ` decoding="${preset.decoding}"`: ''}${preset.loading ? ` loading="${preset.loading}"`: ''} />`;
 	}
 
 	renderImageInfo() {
@@ -220,13 +221,13 @@ export default class ImageComponent extends CssApp {
 	}
 
 	renderPictureSource(preset) {
-		return `${preset.images.map(image => { return `\n\t<source media="${image.breakpoint > 0 ? `(min-width: ${image.breakpoint}px)` : ''}${(image.breakpoint > 0) && image.colorscheme ? ` and ` : ''}${image.colorscheme ? `(prefers-color-scheme: ${image.colorscheme})`: ''}" srcset="\n${this.renderScrSet(image, preset.media)}" \n\t\tsizes="${this.renderSizes(image, preset.media)}">\n`}).join('')}`
+		return `${preset.images.map(image => { return `\n\t<source media="${image.breakpoint > 0 ? `(min-width: ${image.breakpoint}px)` : ''}${(image.breakpoint > 0) && image.colorscheme ? ` and ` : ''}${image.colorscheme ? `(prefers-color-scheme: ${image.colorscheme})`: ''}" srcset="\n${this.renderScrSet(image, preset.media, preset.path)}" \n\t\tsizes="${this.renderSizes(image, preset.media)}">\n`}).join('')}`
 	}
 
-	renderScrSet(image, media) {
+	renderScrSet(image, media, path) {
 		return media.filter(opt => {
 			return opt.breakpoint >= image.breakpoint}).map(entry => {
-				return `\t\t${image.src}?w=${entry.breakpoint} ${entry.breakpoint}w`
+				return `\t\t${path}${image.src}?w=${entry.breakpoint} ${entry.breakpoint}w`
 			}).join(',\n');
 	}
 

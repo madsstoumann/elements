@@ -36,7 +36,8 @@
               "size": 33,
               "unit": "vw"
             }
-          ]
+          ],
+          "path": "../assets/img/"
         }
       ]
     },
@@ -54,22 +55,22 @@
           {
             "breakpoint": 320,
             "colorscheme": "",
-            "src": "light-coffee-small.jpg"
+            "src": "coffee-light-small.jpg"
           },
           {
             "breakpoint": 320,
             "colorscheme": "dark",
-            "src": "dark-coffee-small.jpg"
+            "src": "coffee-dark-small.jpg"
           },
           {
             "breakpoint": 768,
             "colorscheme": "",
-            "src": "light-coffee-large.jpg"
+            "src": "coffee-light-large.jpg"
           },
           {
             "breakpoint": 768,
             "colorscheme": "dark",
-            "src": "dark-coffee-large.jpg"
+            "src": "coffee-dark-large.jpg"
           }
         ],
         "loading": "lazy",
@@ -89,7 +90,8 @@
             "size": 33,
             "unit": "vw"
           }
-        ]
+        ],
+        "path": "../assets/img/"
       }]
     }
   ]
