@@ -135,7 +135,6 @@ figure {
 		bottom: 0;
 		height: 100%;
 		left: 0;
-		/* max-height: 100vh; */
 		object-fit: cover;
 		position: absolute;
 		right: 0;
@@ -144,8 +143,8 @@ figure {
 		z-index: 0;
 	} 
 	.c-story {
-		/* display: flex; */
 		font-size: 1.25rem;
+		/* height: 100vh; */
 		position: relative;
 	}
 	.c-story::after {
@@ -171,7 +170,7 @@ figure {
 		margin: 0;
 		padding: 1rem;
 		position: absolute;
-		top: 20%;
+		top: 30%;
 		width: 80%;
 	}
 	[data-item-type="story"] .c-lay__item:nth-child(even) .c-story {
@@ -180,7 +179,7 @@ figure {
 	[data-item-type="story"] .c-lay__item:nth-child(even) .c-story__text {
 		left: auto;
 		right: 0;
-		top: 15%;
+		top: 20%;
 	}
 	[data-item-type="story"] .c-lay__item:nth-child(even) .c-story__headline {
 		left: 10%;
@@ -865,7 +864,6 @@ figure {
 
 	<section class="c-lay"
 		data-animation="a-fade-in-bottom"
-		data-animation-target="section"
 		data-grid-phone="50:50"
 		data-grid-tablet="33:33:33"
 		data-grid-desktop="25:25:25:25"
@@ -931,7 +929,7 @@ figure {
 				</div>
 				<div class="c-lay__item">
 					<div class="c-story">
-						<img src="../assets/img/food.jpg" class="c-story__image" />
+						<img src="../assets/img/food.jpg" class="c-story__image" loading="lazy" />
 				<h2 class="c-story__headline">New foods</h2>
 				<div class="c-story__text c-story__page-text--gray">
 					<p>When you introduce a new food, try taking a couple bites, chewing very well and following it up with a glass of fluids.</p>
