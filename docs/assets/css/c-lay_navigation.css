@@ -38,7 +38,7 @@
 	outline: none;
 }
 .c-lay__nav-btn:disabled {
-	opacity: 0;;
+	opacity: 0;
 }
 .c-lay__nav-btn i {
 	border-style: solid;
@@ -81,8 +81,8 @@
 }
 .c-lay__nav-btn[rel="next"]:focus,
 .c-lay__nav-btn[rel="prev"]:focus,
-.c-lay__nav-btn[rel="next"]:hover,
-.c-lay__nav-btn[rel="prev"]:hover {
+.c-lay__nav-btn[rel="next"]:not(:disabled):hover,
+.c-lay__nav-btn[rel="prev"]:not(:disabled):hover {
 	box-shadow: 0 0 0 8px var(--lay-nav-btn-bxsh);
 	opacity: 1;
 }
@@ -220,7 +220,6 @@ TODO
 .c-lay__tabs {
 	align-items: center;
 	background-color: var(--lay-tab-bgc);
-	border-bottom: 1px solid var(--lay-tab-bgc--cur);
 	box-sizing: border-box;
 	display: flex;
 	height: 3rem;
