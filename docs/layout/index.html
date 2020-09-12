@@ -129,35 +129,64 @@ figure {
 
 		}
 
-		/* STORY */
-		.c-story__video {
-  height: 100%;
-  left: 0;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  width: 100vw;
-  z-index: 0;
-} 
-.c-story__page {
-	position: relative;
-}
-.c-story__page-text {
-  background-color: rgba(255, 255, 255, .85);
-  color: rgba(0, 0, 0, .75);
-  line-height: 1.4;
-  margin: 0;
-  padding: 1rem;
-  position: relative;
-  width: 80%;
-}
-[data-item-type="story"] .c-lay__item {
-	height: 100vh;
-}
-[data-item-type="story"] .c-lay__item > * {
-	height: 100%;
-}
-	</style>
+	/* STORY */
+	.c-story__image,
+	.c-story__video {
+		bottom: 0;
+		height: 100%;
+		left: 0;
+		/* max-height: 100vh; */
+		object-fit: cover;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 100%;
+		z-index: 0;
+	} 
+	.c-story {
+		/* display: flex; */
+		font-size: 1.25rem;
+		position: relative;
+	}
+	.c-story::after {
+		content: "";
+		display: block;
+		padding-bottom: 177.777778%;
+	}
+	.c-story__headline {
+		background-color: hsl(195, 2%, 13%);
+		box-sizing: border-box;
+		color: #FFF;
+		padding: .5em;
+		position: absolute;
+		top: 0;
+		width: 80%;
+	 }
+	.c-story__text {
+		background-color: rgba(255, 255, 255, .85);
+		box-sizing: border-box;
+		color: rgba(0, 0, 0, .75);
+		left: 10%;
+		line-height: 1.4;
+		margin: 0;
+		padding: 1rem;
+		position: absolute;
+		top: 20%;
+		width: 80%;
+	}
+	[data-item-type="story"] .c-lay__item:nth-child(even) .c-story {
+		background-color: orangered;
+	}
+	[data-item-type="story"] .c-lay__item:nth-child(even) .c-story__text {
+		left: auto;
+		right: 0;
+		top: 15%;
+	}
+	[data-item-type="story"] .c-lay__item:nth-child(even) .c-story__headline {
+		left: 10%;
+	}
+
+</style>
 </head>
 <body class="g-typ g-typ__dynamic"
 	data-control-panel="brightness contrast focusable keyboard reduce typography zoom"
@@ -836,7 +865,7 @@ figure {
 
 	<section class="c-lay"
 		data-animation="a-fade-in-bottom"
-		data-animation-target=".c-lay__item"
+		data-animation-target="section"
 		data-grid-phone="50:50"
 		data-grid-tablet="33:33:33"
 		data-grid-desktop="25:25:25:25"
@@ -889,22 +918,47 @@ figure {
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
 				<div class="c-lay__item">
-					<section class="c-story__page" style="background:#00b0ca;">
+					<div class="c-story">
 						<video muted autoplay loop playsinline class="c-story__video" height="100%" width="100%">
 							<source src="../assets/video/food.mp4" type="video/mp4">
 						</video>
-						<h2 class="c-story__page-headline">What can you eat with an ostomy?</h2>
-						<div class="c-story__page-text c-story__page-text--right">
+						<h2 class="c-story__headline">What can you eat with an ostomy?</h2>
+						<div class="c-story__text">
 							<p>Many people do not have to change their diet radically. Some ostomates may not be able to fully digest vegetables and fruits with skins.</p>
 							<p>The best way to figure out what you can tolerate is to gradually add different foods to your diet.</p>
 						</div>
-					</section>	
-				
+					</div>	
 				</div>
-				<div class="c-lay__item"><div class="item item--1">full-width &mdash; slide 2</div></div>
-				<div class="c-lay__item"><div class="item">full-width &mdash; slide 3</div></div>
-				<div class="c-lay__item"><div class="item item--4">full-width &mdash; slide 4</div></div>
-				<div class="c-lay__item"><div class="item">full-width &mdash; slide 5</div></div>
+				<div class="c-lay__item">
+					<div class="c-story">
+						<img src="../assets/img/food.jpg" class="c-story__image" />
+				<h2 class="c-story__headline">New foods</h2>
+				<div class="c-story__text c-story__page-text--gray">
+					<p>When you introduce a new food, try taking a couple bites, chewing very well and following it up with a glass of fluids.</p>
+					<p>If your body seems to be handling the food okay after a couple hours, follow the same process.</p>
+				</div>
+					</div>
+				</div>
+				<div class="c-lay__item">
+					<div class="c-story">
+						<video muted autoplay loop playsinline class="c-story__video" height="100%" width="100%">
+							<source src="../assets/video/field.mp4" type="video/mp4">
+						</video>
+						<h2 class="c-story__headline">No need to change diet</h2>
+						<div class="c-story__text c-story__page-text--right">
+							<p>This method helps avoid any food blockages for people with ileostomies or colostomies.</p>
+							<p>People with urostomies shouldn’t have to change their diet, but must monitor fluid intake carefully.</p>
+						</div>
+					</div>
+				</div>
+				<div class="c-lay__item">
+					<div class="c-story">
+						<h2 class="c-story__headline">Find out more</h2>
+				<div class="c-story__text">
+					<p>You can find more information about getting nutrition with an ostomy in my video here, or Shield HealthCare’s Registered Dietitian’s video here or her article here.</p>
+				</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- <header class="c-lay__header" id="a11y_trigger">

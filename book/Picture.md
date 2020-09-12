@@ -76,7 +76,10 @@ Even when the browser-width is `1920px`, the image is shown as `280px` (which, u
 
 Now, change the resolution to `1200*1024` and refresh. Yes, you guessed it, it now downloads an image that is `1300px` wide, but displaying it at `280px` (times 2, because of DPR 2). 
 
+SCALER:
+https://asset.dr.dk/imagescaler/?server=smooth-storage.aptoma.no&file=/users/drf-dr/images/32053888.jpg?t%5Bcrop%5D%5Bx%5D=0&t%5Bcrop%5D%5By%5D=132&t%5Bcrop%5D%5Bwidth%5D=1280&t%5Bcrop%5D%5Bheight%5D=720&t%5Bresize%5D%5Bwidth%5D=1280&t%5Bresize%5D%5Bheight%5D=720&accessToken=81e33a36de761079f12ea0f69527b488b6c53b10c934774e047d0848c25dc24f&quality=70&w=600
 
+https://asset.dr.dk/imagescaler/?server=smooth-storage.aptoma.no&file=/users/drf-dr/images/32053888.jpg?t[crop][x]=0&t[crop][y]=132&t[crop][width]=1280&t[crop][height]=720&t[resize][width]=1280&t[resize][height]=720&accessToken=81e33a36de761079f12ea0f69527b488b6c53b10c934774e047d0848c25dc24f&quality=70&w=600
 ---
 
 ## Testing

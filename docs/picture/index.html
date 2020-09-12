@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 <head>
-	<title>Responsive Image with Dark Mode</title>
+	<title>Responsive Images Demo</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<style>
@@ -38,7 +38,6 @@
 			bottom: 0;
 			height: 100%;
 			left: 0;
-			mix-blend-mode: normal;
 			object-fit: cover;
 			object-position: center center;
 			position: absolute;
@@ -76,10 +75,10 @@ https://addyosmani.com/blog/lazy-loading/
 
 Chrome ignores importance="high", use loading="eager" instead
 -->
-<!-- 
+
 		<picture style="--h:9;--w:16;">
 
-			<source media="(min-width: 0px) and (max-width: 767px) and (prefers-color-scheme: light)" srcset="
+			<!-- <source media="(min-width: 0px) and (max-width: 767px) and (prefers-color-scheme: light)" srcset="
 				../assets/img/coffee-light-small.jpg?w=320 320w"
 				sizes="100vw">
 
@@ -95,7 +94,78 @@ Chrome ignores importance="high", use loading="eager" instead
 			<source media="(min-width: 768px) and (prefers-color-scheme: dark)" srcset="
 				../assets/img/coffee-dark-large.jpg?w=768 768w,
 				../assets/img/coffee-dark-large.jpg?w=1200 1200w" 
-				sizes="50vw 33vw">
+				sizes="50vw 33vw"> -->
+
+			<source 
+				media="(max-width: 767px) and (prefers-color-scheme: light)"
+				srcset="
+				../assets/img/coffee-light-small.jpg?w=250 250w,
+				../assets/img/coffee-light-small.jpg?w=450 450w,
+				../assets/img/coffee-light-small.jpg?w=650 650w,
+				../assets/img/coffee-light-small.jpg?w=850 850w,
+				../assets/img/coffee-light-small.jpg?w=1050 1050w,
+				../assets/img/coffee-light-small.jpg?w=1250 1250w,
+				../assets/img/coffee-light-small.jpg?w=1450 1450w,
+				../assets/img/coffee-light-small.jpg?w=1650 1650w
+				"
+				sizes="
+				(min-width: 768px) and (max-width: 1199px) 50vw,
+				(min-width: 1200px) 33vw,
+				100vw"
+			>
+			<source 
+				media="(min-width: 768px) and (prefers-color-scheme: light)"
+				srcset="
+				../assets/img/coffee-light-large.jpg?w=250 250w,
+				../assets/img/coffee-light-large.jpg?w=450 450w,
+				../assets/img/coffee-light-large.jpg?w=650 650w,
+				../assets/img/coffee-light-large.jpg?w=850 850w,
+				../assets/img/coffee-light-large.jpg?w=1050 1050w,
+				../assets/img/coffee-light-large.jpg?w=1250 1250w,
+				../assets/img/coffee-light-large.jpg?w=1450 1450w,
+				../assets/img/coffee-light-large.jpg?w=1650 1650w
+				"
+				sizes="
+				(min-width: 768px) and (max-width: 1199px) 50vw,
+				(min-width: 1200px) 33vw,
+				100vw"
+			>
+
+			<source 
+				media="(max-width: 767px) and (prefers-color-scheme: dark)"
+				srcset="
+				../assets/img/coffee-dark-small.jpg?w=250 250w,
+				../assets/img/coffee-dark-small.jpg?w=450 450w,
+				../assets/img/coffee-dark-small.jpg?w=650 650w,
+				../assets/img/coffee-dark-small.jpg?w=850 850w,
+				../assets/img/coffee-dark-small.jpg?w=1050 1050w,
+				../assets/img/coffee-dark-small.jpg?w=1250 1250w,
+				../assets/img/coffee-dark-small.jpg?w=1450 1450w,
+				../assets/img/coffee-dark-small.jpg?w=1650 1650w
+				"
+				sizes="
+				(min-width: 768px) and (max-width: 1199px) 50vw,
+				(min-width: 1200px) 33vw,
+				100vw"
+			>
+
+			<source 
+				media="(min-width: 768px) and (prefers-color-scheme: dark)"
+				srcset="
+				../assets/img/coffee-dark-large.jpg?w=250 250w,
+				../assets/img/coffee-dark-large.jpg?w=450 450w,
+				../assets/img/coffee-dark-large.jpg?w=650 650w,
+				../assets/img/coffee-dark-large.jpg?w=850 850w,
+				../assets/img/coffee-dark-large.jpg?w=1050 1050w,
+				../assets/img/coffee-dark-large.jpg?w=1250 1250w,
+				../assets/img/coffee-dark-large.jpg?w=1450 1450w,
+				../assets/img/coffee-dark-large.jpg?w=1650 1650w
+				"
+				sizes="
+				(min-width: 768px) and (max-width: 1199px) 50vw,
+				(min-width: 1200px) 33vw,
+				100vw"
+			>
 
 			<img
 				alt="A DARK cup of coffee"
@@ -103,7 +173,7 @@ Chrome ignores importance="high", use loading="eager" instead
 				decoding="async"
 				loading="lazy"
 				src="../assets/img/coffee-light-small.jpg" />
-		</picture> -->
+		</picture>
 
 		<!--
 			3 sets of breakpoints:
@@ -118,7 +188,7 @@ Chrome ignores importance="high", use loading="eager" instead
 			scaler could also contain info like `quality`, `aspect-ratio` (or width/height as seperate values)
 		-->
 
-		<img
+		<!-- <img
 			alt="A cup of coffee"
 			crossorigin="anonymous"
 			decoding="async"
@@ -139,7 +209,7 @@ Chrome ignores importance="high", use loading="eager" instead
 			(min-width: 1200px) 33vw,
 			100vw
 			"
-		/>
+		/> -->
 
 		<!--
 			`sizes` breakpoints-array, should be in numeric order (lowest first):
@@ -157,7 +227,6 @@ Chrome ignores importance="high", use loading="eager" instead
 			cur.innerText = img.currentSrc;
 		});
 		RO.observe(img);
-
 	</script>
 </body>
 </html>
