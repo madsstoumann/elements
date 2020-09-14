@@ -2,8 +2,8 @@
  * Layout module.
  * @module /assets/js/layout
  * @requires /assets/js/common
- * @version 1.1.12
- * @summary 04-09-2020
+ * @version 1.1.14
+ * @summary 13-09-2020
  * @description Helper-functions for Layout Block
  * @example
  * <section data-section-type>
@@ -110,6 +110,7 @@ export class Layout {
 	 * @description Init Layout Block
 	*/
 	init() {
+		this.lazyloadVideos();
 		this.backToTop = document.querySelector(`[data-back-to-top]`);
 		this.ebook(document.querySelectorAll(`[data-item-type="ebook"] .c-lay__item`));
 		this.expandCollapse(document.querySelectorAll(`[data-toggle-expanded]`));
@@ -221,6 +222,32 @@ export class Layout {
 					item.firstElementChild.scrollTo({ top: 0, behavior: 'auto' });
 				}
 			});
+		});
+	}
+
+	/**
+	 * @function lazyloadVideos
+	 * @description Use Intersection Observer to lazy-load videos
+	*/
+	lazyloadVideos() {
+		const videos = document.querySelectorAll("video");
+		const lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
+			entries.forEach(function(video) {
+				if (video.isIntersecting) {
+					for (var source in video.target.children) {
+						const videoSource = video.target.children[source];
+						if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
+							videoSource.src = videoSource.dataset.src;
+						}
+					}
+					video.target.load();
+					lazyVideoObserver.unobserve(video.target);
+				}
+				});
+			});
+
+		videos.forEach(function(video) {
+			lazyVideoObserver.observe(video);
 		});
 	}
 
