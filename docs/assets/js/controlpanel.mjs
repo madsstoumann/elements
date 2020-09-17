@@ -299,9 +299,9 @@ export default class ControlPanel {
 	loadState() {
 		const state = window.localStorage.getItem(this.outer.id);
 		this.state = state ? JSON.parse(state) : {};
-
 		for (const [key, value] of Object.entries(this.state)) {
 			const input = this.form.elements[key];
+			if (!input) { return false; }
 			input.value = value;
 			if (input.nodeName === 'INPUT' || input.nodeName === 'SELECT') {
 				this.setValue(input, true);
