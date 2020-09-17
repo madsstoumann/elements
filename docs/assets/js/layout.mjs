@@ -247,8 +247,10 @@ export class Layout {
 					}
 					else {
 						element.src = element.dataset.src;
+						delete element.dataset.src;
 						if (element.dataset.srcset) {
 							element.srcset = element.dataset.srcset;
+							delete element.dataset.srcset;
 						}
 					}
 					lazyObserver.unobserve(element);
