@@ -83,9 +83,6 @@
         }
       ]
     },
-
-
-
     {
       "name": "Responsive 100vw 50vw 33vw",
       "description": "Responsive with server-side scaling, 3 `sizes` defined. On smaller devices, the image will be 100vw, on tablets 50vw, and on desktops 33vw",

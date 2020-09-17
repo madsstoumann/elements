@@ -110,7 +110,7 @@ export class Layout {
 	 * @description Init Layout Block
 	*/
 	init() {
-		this.lazyloadVideos();
+		this.lazyLoad();
 		this.backToTop = document.querySelector(`[data-back-to-top]`);
 		this.ebook(document.querySelectorAll(`[data-item-type="ebook"] .c-lay__item`));
 		this.expandCollapse(document.querySelectorAll(`[data-toggle-expanded]`));
@@ -226,28 +226,35 @@ export class Layout {
 	}
 
 	/**
-	 * @function lazyloadVideos
-	 * @description Use Intersection Observer to lazy-load videos
+	 * @function lazyLoad
+	 * @description Use Intersection Observer to lazy-load iframes, images, picture-source and videos
 	*/
-	lazyloadVideos() {
-		const videos = document.querySelectorAll("video");
-		const lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
-			entries.forEach(function(video) {
-				if (video.isIntersecting) {
-					for (var source in video.target.children) {
-						const videoSource = video.target.children[source];
-						if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
-							videoSource.src = videoSource.dataset.src;
+	lazyLoad() {
+		const elements = document.querySelectorAll("iframe[data-src], img[data-src], picture > source[data-src], video");
+		const lazyObserver = new IntersectionObserver(function(entries, observer) {
+			entries.forEach(function(entry) {
+				if (entry.isIntersecting) {
+					const element = entry.target;
+					const tagName = element.tagName;
+					if (tagName === 'VIDEO') {
+						for (let source in element.children) {
+							const videoSource = element.children[source];
+							if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
+								videoSource.src = videoSource.dataset.src;
+							}
 						}
+						element.load();
 					}
-					video.target.load();
-					lazyVideoObserver.unobserve(video.target);
+					else {
+						element.src = element.dataset.src;
+					}
+					console.log(element);
+					lazyObserver.unobserve(element);
 				}
-				});
 			});
-
-		videos.forEach(function(video) {
-			lazyVideoObserver.observe(video);
+		});
+		elements.forEach(function(element) {
+			lazyObserver.observe(element);
 		});
 	}
 
