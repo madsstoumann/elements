@@ -22,6 +22,7 @@
 	<link href="../assets/css/c-lay.css" rel="stylesheet" media="screen">
 	<link href="../assets/css/c-crd.css" rel="stylesheet" media="screen">
 	<link href="../assets/css/c-cpl.css" rel="stylesheet" media="screen">
+	<link href="../assets/css/c-stl.css" rel="stylesheet" media="screen">
 
 	<!-- <link rel="preload" href="../assets/css/demo.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 	<link rel="preload" href="../assets/css/g-typ.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -129,61 +130,6 @@ figure {
 
 		}
 
-	/* STORY */
-	.c-story__image,
-	.c-story__video {
-		bottom: 0;
-		height: 100%;
-		left: 0;
-		object-fit: cover;
-		position: absolute;
-		right: 0;
-		top: 0;
-		width: 100%;
-		z-index: 0;
-	} 
-	.c-story {
-		font-size: 1.25rem;
-		/* height: 100vh; */
-		position: relative;
-	}
-	.c-story::after {
-		content: "";
-		display: block;
-		padding-bottom: 177.777778%;
-	}
-	.c-story__headline {
-		background-color: hsl(195, 2%, 13%);
-		box-sizing: border-box;
-		color: #FFF;
-		padding: .5em;
-		position: absolute;
-		top: 0;
-		width: 80%;
-	 }
-	.c-story__text {
-		background-color: rgba(255, 255, 255, .85);
-		box-sizing: border-box;
-		color: rgba(0, 0, 0, .75);
-		left: 10%;
-		line-height: 1.4;
-		margin: 0;
-		padding: 1rem;
-		position: absolute;
-		top: 30%;
-		width: 80%;
-	}
-	[data-item-type="story"] .c-lay__item:nth-child(even) .c-story {
-		background-color: orangered;
-	}
-	[data-item-type="story"] .c-lay__item:nth-child(even) .c-story__text {
-		left: auto;
-		right: 0;
-		top: 20%;
-	}
-	[data-item-type="story"] .c-lay__item:nth-child(even) .c-story__headline {
-		left: 10%;
-	}
 
 </style>
 </head>
@@ -900,13 +846,37 @@ figure {
 	</section>
 
 	<section class="c-lay"
+		data-align="stretch"	
+		data-desc-w="s"
+		
+		data-grid-phone="100"
+		data-grid-tablet="100"
+		data-grid-desktop="100"
+		data-headline-w="s"
+		
+		data-outer-maw="m"
+		data-section-type="stack">
+		<header class="c-lay__header">
+			<h2 class="c-lay__headline g-typ--h1">Storytelling</h2>
+			<div class="c-lay__description g-typ--m">
+				Tell a story, using snippets of text with rich image- and video-backgrounds. Use two items side-by-side on tablets and larger devices, and a single, full-width item on phones.
+			</div>
+		</header>
+		<div class="c-lay__outer" data-outer>
+			<div class="c-lay__inner" data-inner>
+			</div>
+		</div>
+	</section>
+
+	<section class="c-lay"
 		data-align="start"
 		data-gap-phone="column edge"
 		data-gap-tablet="column edge"
-		
+		data-gap-desktop="column edge"
 		data-grid-phone="100"
 		data-grid-tablet="50:50"
 		data-grid-desktop="50:50"
+		data-inner-maw="m"
 		data-item-type="story"
 		data-nav="arrows dots inside"
 		data-outer-maw="xl"
@@ -916,55 +886,77 @@ figure {
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
 				<div class="c-lay__item">
-					<div class="c-story">
-						<video muted autoplay loop playsinline class="c-story__video">
+					<div class="c-stl">
+						<video muted autoplay loop playsinline class="c-stl__video">
 							<source src="../assets/video/empty.mp4" data-src="../assets/video/food.mp4" type="video/mp4">
 						</video>
-						<h2 class="c-story__headline">What can you eat with an ostomy?</h2>
-						<div class="c-story__text">
-							<p>Many people do not have to change their diet radically. Some ostomates may not be able to fully digest vegetables and fruits with skins.</p>
-							<p>The best way to figure out what you can tolerate is to gradually add different foods to your diet.</p>
+						<div class="c-stl__content">
+							<h2 class="c-stl__headline">Healthy lifestyle</h2>
+							<div class="c-stl__text">
+								<p>Many people do not have to change their diet radically. Some ostomates may not be able to fully digest vegetables and fruits with skins.</p>
+								<p>The best way to figure out what you can tolerate is to gradually add different foods to your diet.</p>
+							</div>
 						</div>
-					</div>	
-				</div>
-				<div class="c-lay__item">
-					<div class="c-story">
-						<img src="../assets/img/1px.gif" data-src="../assets/img/food.jpg" class="c-story__image" loading="lazy" alt="Story" />
-				<h2 class="c-story__headline">New foods</h2>
-				<div class="c-story__text c-story__page-text--gray">
-					<p>When you introduce a new food, try taking a couple bites, chewing very well and following it up with a glass of fluids.</p>
-					<p>If your body seems to be handling the food okay after a couple hours, follow the same process.</p>
-				</div>
 					</div>
 				</div>
 				<div class="c-lay__item">
-					<div class="c-story">
-						<video muted autoplay loop playsinline class="c-story__video">
+					<div class="c-stl" style="background-color: #93b851;">
+						<div class="c-stl__content">
+							<h2 class="c-stl__headline">Find out more</h2>
+							<div class="c-stl__text">
+								<p>You can find more information about getting nutrition with an ostomy in my video here, or Shield HealthCare’s Registered Dietitian’s video here or her article here.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="c-lay__item">
+					<div class="c-stl">
+						<img src="../assets/img/1px.gif" data-src="../assets/img/food.jpg" class="c-stl__image" loading="lazy" alt="Story" />
+						<div class="c-stl__content">
+							<h2 class="c-stl__headline">New foods</h2>
+							<div class="c-stl__text c-stl__page-text--gray">
+								<p>When you introduce a new food, try taking a couple bites, chewing very well and following it up with a glass of fluids.</p>
+								<p>If your body seems to be handling the food okay after a couple hours, follow the same process.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="c-lay__item">
+					<div class="c-stl" style="background-color: #a2adba;">
+						<div class="c-stl__content">
+							<h2 class="c-stl__headline">Find out more</h2>
+							<div class="c-stl__text">
+								<p>You can find more information about getting nutrition with an ostomy in my video here, or Shield HealthCare’s Registered Dietitian’s video here or her article here.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="c-lay__item">
+					<div class="c-stl">
+						<video muted autoplay loop playsinline class="c-stl__video">
 							<source src="../assets/video/empty.mp4" data-src="../assets/video/field.mp4" type="video/mp4">
 						</video>
-						<h2 class="c-story__headline">No need to change diet</h2>
-						<div class="c-story__text c-story__page-text--right">
-							<p>This method helps avoid any food blockages for people with ileostomies or colostomies.</p>
-							<p>People with urostomies shouldn’t have to change their diet, but must monitor fluid intake carefully.</p>
+						<div class="c-stl__content">
+							<h2 class="c-stl__headline">No need to change diet</h2>
+							<div class="c-stl__text c-stl__page-text--right">
+								<p>This method helps avoid any food blockages for people with ileostomies or colostomies.</p>
+								<p>People with urostomies shouldn’t have to change their diet, but must monitor fluid intake carefully.</p>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="c-lay__item">
-					<div class="c-story">
-						<h2 class="c-story__headline">Find out more</h2>
-				<div class="c-story__text">
-					<p>You can find more information about getting nutrition with an ostomy in my video here, or Shield HealthCare’s Registered Dietitian’s video here or her article here.</p>
-				</div>
+					<div class="c-stl" style="background-color: #dbb0a3;">
+						<div class="c-stl__content">
+							<h2 class="c-stl__headline">Find out more</h2>
+							<div class="c-stl__text">
+								<p>You can find more information about getting nutrition with an ostomy in my video here, or Shield HealthCare’s Registered Dietitian’s video here or her article here.</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- <header class="c-lay__header" id="a11y_trigger">
-			<h2 class="c-lay__headline g-typ--h1">STORYTELLING</h2>
-			<div class="c-lay__description g-typ--m">
-					The slider above will change slide automatically if JavaScript is loaded, as the <code>data-auto-play</code>-attribute is set to <code>true</code>.
-			</div>
-		</header> -->
 	</section>
 
 	<section class="c-lay"

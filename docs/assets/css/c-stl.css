@@ -1,0 +1,70 @@
+/**
+ * c-stl.css
+ * @version 1.0.0
+ * @summary 18-09-2020
+ * @author Mads Stoumann
+ * @description Stylesheet for Storytelling Component
+*/
+
+.c-stl {
+	--font-min: 1rem;
+	--font-max: 2rem;
+	--font-scaler: 6vw;
+
+	font-size: clamp( var(--font-min), var(--font-scaler), var(--font-max) );
+	position: relative;
+}
+.c-stl::after {
+	/* Set aspect-ratio to typical phone-size */
+	content: "";
+	display: block;
+	padding-bottom: 177.777778%;
+}
+.c-stl__content {
+	position: absolute;
+	top: 0;
+}
+.c-stl__image,
+.c-stl__video {
+	/* Place images and videos as full height/width background */
+	bottom: 0;
+	height: 100%;
+	left: 0;
+	object-fit: cover;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 100%;
+	z-index: 0;
+} 
+.c-stl__headline {
+	background-color: hsl(195, 2%, 13%);
+	box-sizing: border-box;
+	color: #FFF;
+	font-size: 130%;
+	padding: .5em;
+	/* position: absolute;
+	top: 0; */
+	width: 80%;
+}
+.c-stl__text {
+	background-color: rgba(255, 255, 255, .85);
+	box-sizing: border-box;
+	color: rgba(0, 0, 0, .75);
+	left: 10%;
+	line-height: 1.4;
+	margin: 0;
+	padding: 1em;
+	/* position: absolute;
+	top: 20%; */
+	width: 80%;
+}
+	
+	/* [data-item-type="story"] .c-lay__item:nth-child(even) .c-stl__text {
+		left: auto;
+		right: 0;
+		top: 20%;
+	}
+	[data-item-type="story"] .c-lay__item:nth-child(even) .c-stl__headline {
+		left: 10%;
+	} */
