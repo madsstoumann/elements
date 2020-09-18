@@ -199,8 +199,7 @@ TODO
 	background-color: transparent;
 	border: 0;
 	border-radius: .25rem;
-	margin: 0 0.5rem;
-	padding: 0.5rem 1rem;
+	padding: 0.75em;
 	overflow: hidden;
 	position: relative;
 	text-overflow: ellipsis;
@@ -217,11 +216,20 @@ TODO
 	background-color: var(--lay-tab-bgc--cur);
 	color: var(--lay-tab-c--cur);
 }
-.c-lay__tabs {
+.c-lay__tabs-inner {
 	align-items: center;
-	background-color: var(--lay-tab-bgc);
-	box-sizing: border-box;
 	display: flex;
-	height: 3rem;
-	margin: 0 var(--lay-gap);
+	margin: 0 auto;
+	max-width: var(--lay-inner-maw);
+	height: var(--lay-tab-h);
+	padding: 0 var(--lay-gap);
+}
+.c-lay__tabs {
+  backdrop-filter: saturate(180%) blur(10px);
+	background-color: var(--lay-tab-bgc);
+	border-bottom: 1px solid var(--lay-tab-bdc);
+	box-sizing: border-box;
+	position: sticky;
+	top: 0;
+	z-index: 2;
 }

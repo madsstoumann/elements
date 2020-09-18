@@ -54,9 +54,11 @@
 	--lay-nav-btn-z: 1;
 
 	/* Tabs */
-	--lay-tab-bgc: hsl(210, 24%, 95%);
+	--lay-tab-bdc: rgba(0,0,0,0.16);
+	--lay-tab-bgc: hsl(210, 24%, 95%, 0.89);
 	--lay-tab-bgc--cur: hsl(210, 24%, 30%);
 	--lay-tab-c--cur: hsl(210, 24%, 98%);
+	--lay-tab-h: 4rem;
 
 	/* Main Layout Block */
 	--lay-bg: #FFF;
