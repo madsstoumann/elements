@@ -714,6 +714,7 @@ EBOOK
 }
 [data-ebook="item"] > * {
 	margin: 0 calc(var(--lay-gap) * var(--cp-w, 2));
+	/* width: calc(var(--lay-inner-maw) - (var(--lay-gap) * var(--cp-w, 2) * 2)); */
 }
 [data-ebook="inner"]:focus {
 	border-left: 1px dashed hsl(210, 24%, 84%);
