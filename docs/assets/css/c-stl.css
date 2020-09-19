@@ -75,7 +75,7 @@
 }
 @media screen and (max-width: 48rem) {
 	/* Hide navigation arrows on small devices */
-	.c-lay__nav {
+	[data-item-type="story"] .c-lay__nav {
 		display: none;
 	}
 }
@@ -83,7 +83,6 @@
 	.c-stl {
 		height: initial;
 		max-height: 100vh;
-		
 		width: initial;
 	}
 	.c-stl::after {
@@ -94,7 +93,7 @@
 	}
 }
 @media screen and (min-width: 48rem) {
-	[data-nav*="inside"] .c-lay__dots {
+	[data-item-type="story"][data-nav*="inside"] .c-lay__dots {
 		display: none;
 	}
 	.c-stl {
