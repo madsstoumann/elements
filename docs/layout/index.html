@@ -363,7 +363,6 @@ figure {
 		data-pb="1x"
 		data-preview="next"
 		data-section-type="slider"
-		data-snap="true"
 		data-theme="theme02"
 		data-toggle-layout="stack">
 		<header class="c-lay__header">
@@ -469,7 +468,8 @@ figure {
  
 	<section class="c-lay"
 		data-align="stretch"
-		data-animation="a-fade-in-bottom"
+		data-animation="a-scale-in-center"
+		data-animation-delay="400"
 		data-animation-target=".c-lay__item"
 		data-desc-w="m"
 		data-grid-phone="100"
@@ -481,7 +481,6 @@ figure {
 		data-pb="1x"
 		data-preview="next"
 		data-section-type="slider"
-		data-snap="true"
 		data-theme="theme02"
 		data-toggle-layout="stack">
 		<header class="c-lay__header">
@@ -516,7 +515,6 @@ figure {
 		data-pb="1x"
 		data-preview="next"
 		data-section-type="slider"
-		data-snap="true"
 		data-theme="theme02"
 		data-toggle-layout="stack">
 		<header class="c-lay__header">
@@ -551,7 +549,6 @@ figure {
 		data-nav="arrows dots scroll"
 		data-preview="next"
 		data-section-type="slider"
-		data-snap="true"
 		data-theme="theme02"
 		data-toggle-layout="stack">
 		<header class="c-lay__header">
@@ -737,6 +734,7 @@ figure {
 		data-headline-w="m"
 		data-mb="1x"
 		data-section-type="stack"
+		data-snap="true"
 		data-theme="theme04">
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline g-typ--h1">Stacked content with no gap between columns</h2>
@@ -813,7 +811,8 @@ figure {
 		data-grid-phone="50:50"
 		data-grid-tablet="33:33:33"
 		data-grid-desktop="25:25:25:25"
-		data-section-type="masonry">
+		data-section-type="masonry"
+		data-snap="true">
 		<header class="c-lay__header">
 			<h2 class="c-lay__headline g-typ--h1">Masonry</h2>
 			<div class="c-lay__description g-typ--m">
@@ -871,12 +870,13 @@ figure {
 		data-grid-phone="100"
 		data-grid-tablet="50:50"
 		data-grid-desktop="50:50"
-		data-inner-maw="m"
+		data-inner-maw="s"
 		data-item-type="story"
 		data-nav="arrows dots inside"
 		data-outer-maw="xl"
 		data-preview=""
 		data-section-type="slider"
+		data-snap="true"
 		>
 		<div class="c-lay__outer" data-outer>
 			<div class="c-lay__inner" data-inner>
@@ -1041,6 +1041,32 @@ figure {
 				<div class="c-lay__item"><img src="../assets/img/gallery16.jpg" loading="lazy" alt="description" /></div>
 				<div class="c-lay__item"><video autoplay loop muted playsinline><source src="../assets/video/empty.mp4" data-src="../assets/img/gallery13.mp4" /></video></div>
 				<div class="c-lay__item"><img src="../assets/img/gallery18.jpg" loading="lazy" alt="description" /></div>
+			</div>
+		</div>
+	</section>
+
+	<section class="c-lay"
+		data-align="stretch"
+		data-grid-phone="100"
+		data-grid-tablet="100"
+		data-grid-desktop="100"
+		data-inner-maw="l"
+		data-nav="dots tabs"
+		data-outer-maw="xl"
+		data-section-type="slider">
+		<header class="c-lay__header">
+			<h2 class="c-lay__headline g-typ--h1">Icon Tabs: TODO</h2>
+			<div class="c-lay__description g-typ--m">
+				You can turn the slider-layout — <code>data-section-type="slider"</code> — into tabs using <code>data-nav="dots tabs"</code><br />
+				By using the inner- and outer max-widths, you can control the design of the tabs.
+			</div>
+		</header>
+		<div class="c-lay__outer" data-outer>
+			<div class="c-lay__inner" data-inner>
+				<div class="c-lay__item"><div class="item item--0"><h3>First Tab</h3><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, officia temporibus laudantium quos aliquam velit minus provident, dolor architecto, molestiae hic rerum ad explicabo neque sit est veritatis natus. Enim quod eveniet corrupti illo tempore exercitationem in vel alias accusantium, qui dolorum iure aliquid, deleniti harum beatae perferendis, ea iste eaque placeat? Accusantium, fuga. Soluta, consectetur quisquam! Maxime officiis soluta labore illo, possimus eveniet voluptas facere deserunt nulla, eligendi, ipsam et expedita illum optio eaque enim repellendus explicabo eos asperiores error laboriosam? Ducimus suscipit nulla nostrum exercitationem? Aut obcaecati provident unde soluta incidunt dicta, laudantium atque, sint, sit minima enim?</p><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, officia temporibus laudantium quos aliquam velit minus provident, dolor architecto, molestiae hic rerum ad explicabo neque sit est veritatis natus. Enim quod eveniet corrupti illo tempore exercitationem in vel alias accusantium, qui dolorum iure aliquid, deleniti harum beatae perferendis, ea iste eaque placeat? Accusantium, fuga. Soluta, consectetur quisquam! Maxime officiis soluta labore illo, possimus eveniet voluptas facere deserunt nulla, eligendi, ipsam et expedita illum optio eaque enim repellendus explicabo eos asperiores error laboriosam? Ducimus suscipit nulla nostrum exercitationem? Aut obcaecati provident unde soluta incidunt dicta, laudantium atque, sint, sit minima enim?</p></div></div>
+				<div class="c-lay__item"><div class="item item--0"><h3>Second Tab</h3><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor sequi sit repellat nam, repudiandae omnis eum. Perferendis, nesciunt. Recusandae praesentium a totam quod aut neque repellendus, culpa pariatur, incidunt tenetur, tempore labore veritatis amet asperiores magnam doloremque ipsam doloribus itaque quis! Nemo impedit optio dolorem quod totam. Suscipit, eligendi adipisci.</p></div></div>
+				<div class="c-lay__item"><div class="item item--0"><h3>Third Tab</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores dolore velit ab neque ipsum adipisci architecto laborum magni necessitatibus voluptas rem, beatae eveniet harum rerum!</p></div></div>
+				<div class="c-lay__item"><div class="item item--0"><h3>Fourth Tab</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci a iure autem veritatis expedita pariatur vitae sapiente cupiditate totam nihil similique itaque, voluptate dolor quibusdam illo voluptas porro voluptatibus? Maiores similique incidunt, impedit nemo culpa error illo, quis facilis esse porro suscipit debitis distinctio animi nam sint! Ducimus inventore explicabo saepe dolores magnam quasi rem amet vero corporis exercitationem harum, ratione ipsa quae expedita. Voluptas quam quaerat veritatis distinctio, eum natus inventore incidunt modi? Obcaecati expedita doloribus consequuntur veritatis nihil, itaque dolorem tenetur nam reprehenderit aperiam distinctio magni iusto, dolorum animi voluptates laborum est adipisci, autem iure possimus eligendi consequatur voluptatum placeat perferendis! Pariatur commodi quia consequatur eveniet ad, vitae ab natus explicabo, ducimus totam, in voluptatibus. Voluptas corporis ipsam officia eveniet dignissimos. Autem maxime officiis pariatur veritatis, saepe delectus deserunt fugit expedita magni omnis dolor numquam quidem ut. Quisquam dolores perferendis beatae fugiat quaerat? Rem iste ad ex harum!</p></div></div>
 			</div>
 		</div>
 	</section>

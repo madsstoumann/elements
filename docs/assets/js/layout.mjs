@@ -76,21 +76,23 @@ export class Layout {
 		function toggleFunc(toggle, section, outer, label) {
 			const expanded = section.dataset.expanded === 'true';
 			const height = outer.scrollHeight;
+			const rect = section.getBoundingClientRect();
+			const scrollPosition = (window.pageYOffset || document.documentElement.scrollTop) - (document.documentElement.clientTop || 0);
+			window.setTimeout( () => {
+				window.scrollTo({ top: parseInt(rect.top + scrollPosition, 10), behavior: 'smooth'});
+			}, 250);
+
 			if (expanded) {
 				outer.removeAttribute('style');
 				section.dataset.expanded = 'false';
 				section.setAttribute('aria-expanded', 'false');
-				const rect = section.getBoundingClientRect();
-				const scrollPosition = (window.pageYOffset || document.documentElement.scrollTop) - (document.documentElement.clientTop || 0);
-				window.setTimeout( () => {
-					window.scrollTo({ top: parseInt(rect.top + scrollPosition, 10), behavior: 'smooth'});
-				}, 250);
 			}
 			else {
 				outer.style.height = `${height}px`;
 				section.dataset.expanded = 'true';
 				section.setAttribute('aria-expanded', 'true');
 			}
+
 			toggle.dataset.expanded = expanded ? 'false' : 'true';
 			label.innerText = expanded ? toggle.dataset.toggleCollapsed : toggle.dataset.toggleExpanded;
 		}
