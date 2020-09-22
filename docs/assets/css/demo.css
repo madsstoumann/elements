@@ -1,13 +1,14 @@
 @import 'config.css';
 
 /* Styles for demo only */
+html {
+	scroll-behavior: smooth;
+}
 body {
 	background-color: var(--c-bg);
 	color: var(--c-txt);
 	font-family: var(--f-body);
-	/* width: 100%; */
-	/* min-height: 100vh; */
-	/* min-height: -webkit-fill-available; */
+	margin: 0;
 }
 code {
 	--spacer-bottom: 0;
@@ -19,6 +20,65 @@ code {
 	padding: 0 0.25em;
 	white-space: nowrap;
 }
+.item {
+	background-color: deepskyblue;
+	box-sizing: border-box;
+	color: #383838;
+	min-height: 300px;
+	box-sizing: border-box;
+	padding-left: var(--lay-gap);
+	padding-right: var(--lay-gap);
+	padding-top: var(--lay-gap);
+}
+.c-lay__item:focus {
+	outline: none;
+}
+.c-lay__item:focus > * {
+	box-shadow: 0px 6px 1px#ff5722;
+}
+.item--0 { background-color: white; }
+.item--1 { background-color: hotpink; color: #282828; min-height: 200px; }
+.item--2 { background-color: orange; min-height: 400px; }
+.item--3 { background-color: greenyellow; min-height: 150px; }
+.item--4 { background-color: plum; min-height: 300px; }
+.item--5 { background-color: paleturquoise; min-height: 200px; }
+.item--6 { background-color: burlywood; min-height: 400px; }
+.item--7 { background-color: tomato; color: #282828; min-height: 300px; }
+.item--8 { background-color: aquamarine; min-height: 150px; }
+.item--9 { background-color: #d4ddf9; min-height: 200px;; min-height: 200px; }
+
+/* FIX */
+.c-lay__item figure {
+	-webkit-column-break-inside: avoid;
+          page-break-inside: avoid;
+               break-inside: avoid;
+}
+
+.ebook-demo {
+	margin: 0 5%;
+	max-width: 90%;
+} 
+
+.c-lay__item textarea {
+	border: 1px solid currentColor;
+	box-sizing: border-box;
+	min-height: 15rem;
+	resize: none;
+	width: 100%;
+}
+
+/* TODO: Set data-attribute whether to hide whole section, only header etc */
+.sr-only {
+
+clip: rect(0 0 0 0); 
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap; 
+  width: 1px;
+}
+
 @media (prefers-color-scheme: dark) {
 	body {
 		background-color: var(--c-bg--dark);
@@ -27,5 +87,8 @@ code {
 	code {
 		background-color: #81E5d9;
 		color: var(--c-grey-900);
+	}
+	.item {
+		background-color: #a4b1c1;
 	}
 }
