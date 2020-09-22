@@ -25,6 +25,17 @@
 	<link href="../assets/css/c-stl.css" rel="preload stylesheet" as="style" media="screen">
 	<!-- <link href="../assets/css/c-lay_ie.css" rel="stylesheet" media="screen"> -->
 
+	<meta http-equiv="Content-Security-Policy" content="
+		default-src 'self' unpkg.com;
+		script-src 'self';
+		script-src-elem 'self' unpkg.com 'unsafe-inline';
+		script-src-attr; 
+		style-src 'self';
+		style-src-elem 'self';
+		style-src-attr 'unsafe-inline';
+		img-src 'self' data:;
+		media-src 'self';">
+
 </head>
 <body class="g-typ g-typ__dynamic"
 	data-control-panel="brightness contrast focusable keyboard reduce typography zoom"
@@ -1181,7 +1192,7 @@
 	<!-- <a data-back-to-top href="#top">&#9650;<br />Back to top</a> -->
 </main>
 <script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script>
-<script type="module">
+<script type="module" async>
 	import { Layout } from '../assets/js/layout.mjs';
 	new Layout();
 </script>
