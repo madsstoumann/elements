@@ -24,7 +24,7 @@
 	--lay-dot-bgc--cur: hsl(210, 24%, 30%);
 	--lay-dot-bgc--cur-focus: hsla(210, 24%, 90%, 0.65);
 	--lay-dot-bxsh: hsla(210, 24%, 15%, 0.65);
-	--lay-dot-m: 0 10px; /*0 0.25rem;*/
+	--lay-dot-m: 0 10px;
 	--lay-dot-h: 0.5rem;
 	--lay-dots-m: 1rem 0 0 0;
 	--lay-dot-p: var(--lay-gap) 0;
@@ -65,7 +65,7 @@
 	--lay-bg: #FFF;
 	--lay-c: hsl(210, 24%, 16%);
 	--lay-colmc: 2;
-	--lay-gap: 10px; /* MUST BE IN PIXELS */
+	--lay-gap: 10px; /* MUST BE IN PIXELS (read from JavaScript) */
 	--lay-gap-grid: var(--lay-gap);
 	--lay-gap-grid-small: 5px;
 	--lay-mb: 0;
@@ -136,8 +136,8 @@
 }
 .c-lay__inner {
 	align-items: center;
-	/* TODO: TEST */
-	content-visibility: auto;
+	/* TODO: Generates error in Lighthouse A11Y-test */
+	/* content-visibility: auto; */
 	display: flex;
 	margin: 0 auto;
 	max-width: var(--lay-inner-maw);
