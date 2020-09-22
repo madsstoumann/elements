@@ -136,7 +136,7 @@
 }
 .c-lay__inner {
 	align-items: center;
-	/* TODO: Generates error in Lighthouse A11Y-test */
+	/* TODO FIX: Generates error in Lighthouse A11Y-test */
 	/* content-visibility: auto; */
 	display: flex;
 	margin: 0 auto;
