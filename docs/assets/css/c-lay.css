@@ -1,7 +1,7 @@
 /**
  * c-lay.css
- * @version 1.4.1
- * @summary 04-09-2020
+ * @version 1.4.2
+ * @summary 22-09-2020
  * @author Mads Stoumann
  * @description Stylesheet for Layout Component
 	Variables are concatinated from: 
@@ -136,6 +136,8 @@
 }
 .c-lay__inner {
 	align-items: center;
+	/* TODO: TEST */
+	content-visibility: auto;
 	display: flex;
 	margin: 0 auto;
 	max-width: var(--lay-inner-maw);
