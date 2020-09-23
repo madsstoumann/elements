@@ -16,11 +16,11 @@
 	<meta name="msapplication-config" content="../assets/favicon/browserconfig.xml">
 	<meta name="theme-color" content="#ffffff">
 
-	<link href="../assets/css/c-lay_grid.css" rel="preload" as="style">
-	<link href="../assets/css/c-lay_navigation.css" rel="preload" as="style">
-	<link href="../assets/js/common.mjs" rel="preload" as="script">
-	<link href="../assets/js/keyhandler.mjs" rel="preload" as="script">
-	<link href="../assets/js/controlpanel.mjs" rel="preload" as="script">
+	<!-- <link href="../assets/css/c-lay_grid.css" rel="preload" as="style" crossorigin>
+	<link href="../assets/css/c-lay_navigation.css" rel="preload" as="style" crossorigin> -->
+	<link href="../assets/js/common.mjs" rel="preload" as="script" crossorigin>
+	<link href="../assets/js/keyhandler.mjs" rel="preload" as="script" crossorigin>
+	<link href="../assets/js/controlpanel.mjs" rel="preload" as="script" crossorigin>
 
 	<link href="../assets/css/demo.css" rel="preload stylesheet" as="style" media="screen">
 	<link href="../assets/css/g-typ.css" rel="preload stylesheet" as="style" media="screen">
@@ -104,9 +104,9 @@
 		data-grid-phone="100"
 		data-grid-tablet="100"
 		data-grid-desktop="100"
-		data-nav="arrows dots"
-		data-inner-pb="0x"
-		data-mb="1x"
+		data-nav="arrows dots inside"
+		data-inner-pb="1x"
+		data-mb="0x"
 		data-preview="next"
 		data-section-type="slider">
 		<header class="c-lay__header">
@@ -1207,7 +1207,7 @@
 	</section>
 	<!-- <a data-back-to-top href="#top">&#9650;<br />Back to top</a> -->
 </main>
-<script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script>
+<script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js" integrity="sha384-EYn4rWu1DHvYD0sSSSbMEtXQmMl58CFJd897806+RT1jJVYbhuZlZMN6yG9nCyFa" crossorigin="anonymous"></script>></script>
 <script type="module" async>
 	import { Layout } from '../assets/js/layout.mjs';
 	new Layout();
