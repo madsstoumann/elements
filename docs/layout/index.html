@@ -26,15 +26,25 @@
 	<!-- <link href="../assets/css/c-lay_ie.css" rel="stylesheet" media="screen"> -->
 
 	<meta http-equiv="Content-Security-Policy" content="
-		default-src 'self' unpkg.com;
-		script-src 'self';
+		default-src;
+		script-src;
 		script-src-elem 'self' unpkg.com 'unsafe-inline';
-		script-src-attr; 
+		script-src-attr;
 		style-src 'self';
 		style-src-elem 'self';
-		style-src-attr 'unsafe-inline';
+		style-src-attr 'self' 'unsafe-inline';
 		img-src 'self' data:;
-		media-src 'self';">
+		font-src;
+		connect-src 'self';
+		media-src 'self';
+		object-src 'none';
+		child-src;
+		frame-src;
+		worker-src 'self';
+		form-action;
+		base-uri;
+		manifest-src 'self';
+		report-to">
 
 </head>
 <body class="g-typ g-typ__dynamic"
