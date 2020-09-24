@@ -1,27 +1,27 @@
 # Selling Security
 A couple of years ago, thousands of websites globally were hijacked by code, which made computers run cryptocurrency mining software.
 
-Discovered by renowned security-expert Scott Helme, the malicious code was injected into a 3rd party accessibility-script, “browsealoud” by texthelp.
+Discovered by renowned security-expert Scott Helme, the malicious code was injected into a 3rd party accessibility-script, “browsealoud” by a company called texthelp.
 
-Among the hijacked sites were most UK government sites, the websites of the swedish police and many more.
+Among the hijacked sites were most UK government sites, the website of the swedish police and many more.
 
 There's no doubt about where the crimes of the future will take place, so it's surprising to see, how few websites take security seriously.
 
-And I admit, it's a hard sell: Unlike new, cool UI-components, engaging animations, creative user-journeys etc., security isn't visible.
+And I admit, it's a hard sell: Unlike new, cool UI-components, engaging animations, creative user-journeys etc., security isn't sexy — it's not even visible!
 
-But it will be the day, where a vulnerabilitysecurity flaw scrapes important data, or otherwise ruins revenue.
+But it will be the day, a security flaw scrapes important data, or otherwise ruins revenue.
 
 And while security should be an ongoing strategy for any company, it's not hard to get started.
 
 ## Frontend Fixes
 ### node / npm
-The first line of defense are frontend-assets. If your site use `node_modules`, test for vulnerabilities by running:  
+The first line of defense is fixing frontend-assets. If your site use `node_modules`, test for vulnerabilities by running:  
 `$ npm run audit`, optionally with the `--fix` parameter.
-The latter will try to fix vulnerabilities, as well as give you a report with further steps to take. Yes, some projects contains 500MB+ of `node_modules`, but it should be done.
+The latter will try to fix vulnerabilities, as well as give you a report with further steps to take. Yes, some projects contains 500MB+ of `node_modules`, but it has to be done.
 
-### 3rd party scripts
+### 3rd party scripts and `integrity`
 I have a project where I'm using **unpkg** to deliver a script.   
-unpkg is a fast, global content delivery network for everything on npm:
+**unpkg** is a fast, global content delivery network for everything on npm.
 
 ```js
 <script defer
@@ -33,7 +33,7 @@ Now, if **unpkg** gets hacked, my site will get the hacked script.
 
 Luckily, there's an attribute called `integrity`, which we should all add to `<script>`-tags. It's a SHA-key, generated from the (unhacked) script-source. If the script is hacked, the key will not match anymore, and the script will *not* load. The hack I mentioned at the beginning of this post could have been prevented, if the affected sites had used the `integrity`-attribute.
 
-For *unpkg*, append `?meta` to the end of the url:
+For **unpkg**-scripts, append `?meta` to the end of the url:
 
 ```html
 https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js?meta
@@ -52,7 +52,7 @@ https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js?meta
 }
 ```
 
-Take the *integrity*-part and add to your `<script>`-tag — and add a `crossorigin`-tag as well:
+Take the *integrity*-part and add to your `<script>`-tag — and add a `crossorigin`-attribute as well:
 
 ```js
 <script defer
@@ -62,12 +62,13 @@ Take the *integrity*-part and add to your `<script>`-tag — and add a `crossori
 </script>
 ```
 
-The official name is “Subresource Integrity”, and most of the large CDN's and script-delivery-services support it. Documentation is here:
+The official name is “Subresource Integrity”, and most of the large CDN's and script-delivery-services support it.  
 
+Documentation is here:
 https://w3c.github.io/webappsec-subresource-integrity/
 
 ## Content-Security-Policy
-Next up is *Content-Security-Policy*, or *CSP* for short. This can either be added as response-headers on the server, or as a meta-tag in the html. I'm going to focus on the latter here. 
+Next up is *Content-Security-Policy*, or *CSP* for short. This can either be added as response-headers on the server, or as a `<meta>`-tag in the html. I'm going to focus on the latter here. 
 
 A CSP will tell the webpage from which domains it will allow loading images, fonts, iframes etc. 
 
@@ -93,7 +94,7 @@ To allow the script from **unpkg**, I've added `unpkg.com` to the `script-src`-p
 
 If you try to load a Google Font with the code above, it will fail. You'll have to add entries to both `font-src` and `style-src`. 
 
-For YouTube, you need entries to `child-src` since it's iframe-based, to `script-src` to allow it to runs it's JavaScript **and** to `img-src` as it provides thumbnail images as well. Phew! CSP is not easy, but it's a quick way to add an extra layer of protection to your site.
+For YouTube, you need entries to `child-src` since it's iframe-based, to `script-src` to allow it to runs it's JavaScript **and** to `img-src` as it provides thumbnail images as well. Phew! CSP is not easy, but it's the quickest way to add an extra layer of protection to your site.
 
 > **NOTE!** Marketeers and SEO-people *hate* CSP's!  
 With a CSP in place, they can no longer just add a cool new tracking-script via *Google Tag Manager* or similar. So be prepared to hear a lot of complaints, unless you create a CMS-block, where they can add/remove CSP entries themselves.
