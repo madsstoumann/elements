@@ -156,8 +156,13 @@ Wow! - from **F** to **A+** in a matter of minutes.
 ## Ongoing maintenance
 Now, even if you've done all the things I suggest in this post, you should'nt rest on your laurels. Security is an ongoing activity — you need to test your site whenever a new script is added, update `integrity`-attributes, test SecurityHeaders etc. Whenever a new vulnerability is discovered, test again.
 
-For that, there are services like Detectify: https://detectify.com/
+You can also use a service like Detectify: https://detectify.com/
+
+Detectify will deep-scan your site and provide a “todo-list” of things, you potentially need to look into:
 
 ![Detectify](assets/sec-detectify.png)
 
-Detectify will continuously monitor your site for security vulnerabilities, starting from USD 50 per month per domain. 
+They will continuously monitor your site for security vulnerabilities, starting from USD 50 per month per domain. 
+
+## Conclusion
+Every website should have a “Security Health-check” at least a couple of times per year. 
