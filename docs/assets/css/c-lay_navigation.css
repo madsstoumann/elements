@@ -29,6 +29,7 @@
 	justify-content: center;
 	opacity: .65;
 	text-align: center;
+	transform: translateZ(0);
 	transition: opacity .3s ease-in;
 	width: var(--lay-nav-btn-sz);
 	z-index: var(--lay-nav-btn-z);
