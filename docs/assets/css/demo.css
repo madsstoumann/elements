@@ -91,4 +91,8 @@ clip: rect(0 0 0 0);
 	.item {
 		background-color: #a4b1c1;
 	}
+	.item--0 {
+		background-color: transparent;
+		color: white;
+	}
 }

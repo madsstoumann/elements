@@ -57,6 +57,7 @@
 	--lay-tab-bdc: rgba(0,0,0,0.16);
 	--lay-tab-bgc: hsl(210, 24%, 95%, 0.97);
 	--lay-tab-bgc--cur: hsl(210, 24%, 30%);
+	--lay-tab-c: inherit;
 	--lay-tab-c--cur: hsl(210, 24%, 98%);
 	--lay-tab-h: 4rem;
 

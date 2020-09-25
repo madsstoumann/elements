@@ -200,6 +200,7 @@ TODO
 	background-color: transparent;
 	border: 0;
 	border-radius: .25rem;
+	color: var(--lay-tab-c);
 	padding: 0.75em;
 	overflow: hidden;
 	position: relative;
@@ -255,5 +256,12 @@ TODO
 @media (prefers-color-scheme: dark) {
 	[data-back-to-top] {
 		background-color: #81E5d9;
+	}
+
+	.c-lay__tabs {
+		--lay-tab-bgc: hsl(210, 24%, 5%, 0.97);
+		--lay-tab-c: hsl(210, 24%, 98%);
+		--lay-tab-bgc--cur: hsl(210, 24%, 24%);
+		
 	}
 }

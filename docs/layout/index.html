@@ -27,11 +27,11 @@
 
 	<link href="../assets/css/demo.css" rel="preload stylesheet" as="style" media="screen">
 	<link href="../assets/css/g-typ.css" rel="preload stylesheet" as="style" media="screen">
-	<link href="../assets/css/animations.css" rel="preload stylesheet" as="style" media="screen">
 	<link href="../assets/css/c-lay.css" rel="preload stylesheet" as="style" media="screen">
 	<link href="../assets/css/c-crd.css" rel="preload stylesheet" as="style" media="screen">
 	<link href="../assets/css/c-cpl.css" rel="preload stylesheet" as="style" media="screen">
 	<link href="../assets/css/c-stl.css" rel="preload stylesheet" as="style" media="screen">
+	<link href="../assets/css/animations.css" rel="preload stylesheet" as="style" media="screen">
 	<!-- <link href="../assets/css/c-lay_ie.css" rel="stylesheet" media="screen"> -->
 
 	<meta http-equiv="Content-Security-Policy" content="
@@ -43,7 +43,7 @@
 		connect-src 'self';
 		media-src 'self';
 		object-src 'none';
-		child-src;
+		child-src 'self';
 		frame-src;
 		form-action;
 		base-uri;
@@ -1212,6 +1212,12 @@
 <script type="module" async>
 	import { Layout } from '../assets/js/layout.mjs';
 	new Layout();
+
+	// if ('serviceWorker' in navigator) {
+	// 	window.addEventListener('load', () => {
+	// 		navigator.serviceWorker.register('service-worker.js');
+	// 	});
+	// }
 </script>
 </body>
 </html>
