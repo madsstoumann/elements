@@ -32,7 +32,7 @@ The *Layout Block* has more than 30 configuration-options, divided into six area
 5. Navigation & Animations
 6. Items
 
-All options, except *Header Below Content* are `enum` (drop-downs).
+All options, except *Header Below Content* and *Header: Screen-reader Only* are `enum` (drop-downs).
 
 ---
 ## Section: Settings
