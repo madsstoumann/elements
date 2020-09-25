@@ -93,8 +93,9 @@ This will set the width of the scrollable, inner content area.
 ### Expanded
 By default, a section will be expanded. Using this setting with *Collapsed Height*, will add functionality to toggle the visible height.
 
-1. true `[default]`
-2. false
+1. not set `[default]`
+2. true
+3. false
 
 *Example:*
 ```html
@@ -105,10 +106,11 @@ By default, a section will be expanded. Using this setting with *Collapsed Heigh
 ### Collapsed Height
 By default, a section will full height. Using this setting with *Expanded*, will add functionality to toggle the visible height.
 
-1. full `[default]`
-2. small
-3. medium
-4. large
+1. not set `[default]`
+2. full
+3. small
+4. medium
+5. large
 
 *Example:**
 ```html
