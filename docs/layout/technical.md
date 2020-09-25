@@ -20,9 +20,9 @@ In this case, the attribute should **not be rendered at all.**
 [^1] Each content-item should be wrapped in a `<div>`:  
 `<div class="c-lay__item">`
 
-[^2] This is also used for *Toggle Layout*.  
-If `data-toggle-layout` is **not** empty (default), these labels will be used for toggling (see markup-examples at the end of this document)
+[^2] These two labels have dual purposes. They can be used for **either** *Expand/Collapse* or *Toggle Layout On/Off* (see markup-examples at the end of this document).
 
+---
 The *Layout Block* has more than 30 configuration-options, divided into six areas / tabs:
 
 1. Section
