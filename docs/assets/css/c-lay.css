@@ -201,6 +201,12 @@
 	--lay-w50: calc(50% - (var(--lay-item-preview) / 2) - (var(--lay-item-gap) / 2));
 	--lay-w100: calc(100% - var(--lay-item-preview));
 }
+
+/* Optimize scrollable areas */
+/* [data-section-type="slider"] [data-inner] {
+	transform: translateZ(0);
+} */
+
 /* Animation item delays */
 .c-lay__item:nth-of-type(1) { animation-delay: calc(var(--lay-animdel) / 2); }
 .c-lay__item:nth-of-type(2) { animation-delay: calc(2 * var(--lay-animdel)); }

@@ -2,14 +2,14 @@
  * Layout module.
  * @module /assets/js/layout
  * @requires /assets/js/common
- * @version 1.1.16
- * @summary 24-09-2020
+ * @version 1.1.17
+ * @summary 26-09-2020
  * @description Helper-functions for Layout Block
  * @example
  * <section data-section-type>
  */
 
-import { debounced, h, stringToType } from './common.mjs';
+import { h, stringToType } from './common.mjs';
 import ControlPanel from './controlpanel.mjs';
 import KeyHandler from './keyhandler.mjs';
 import Slider from './slider.mjs';
@@ -109,6 +109,28 @@ export class Layout {
 	}
 
 	/**
+	 * @function fetchContent
+	 * @param {NodeList} selector
+	 * @description Grabs async content from `data-fetch-from`-attributes, inserts innerHTML from matching `data-fetch-content`-attributes
+	*/
+	fetchContent(selector) {
+		selector.forEach(item => {
+			fetch(item.dataset.fetchFrom).then(response => {
+				return response.text();
+			}).then(html => {
+				const parser = new DOMParser();
+				const doc = parser.parseFromString(html, 'text/html');
+				const content = doc.querySelector('[data-fetch-content]');
+				if (content) {
+					item.innerHTML = content.innerHTML;
+				}
+			}).catch(function (err) {
+				console.warn('Could not fetch content: ', err);
+			});
+		})
+	}
+
+	/**
 	 * @function init
 	 * @description Init Layout Block
 	*/
@@ -121,14 +143,28 @@ export class Layout {
 		this.itemPopup(document.querySelectorAll(`[data-item-type*='page'] .c-lay__item`));
 		this.observeAnimations(document.querySelectorAll('[data-animation]'));
 		this.toggleLayout(document.querySelectorAll(`[data-layout-label]`));
+		this.fetchContent(document.querySelectorAll(`[data-fetch-from]`))
 
-		window.addEventListener('scroll', debounced(200, () => {
-			document.documentElement.style.setProperty('--scroll-y', window.scrollY);
-			/* Show `back-to-top` if scrolled more than 4 screens: https://www.nngroup.com/articles/back-to-top/ */
-			if (this.backToTop) {
-				this.backToTop.style.opacity = window.scrollY > window.screen.height * 4 ? 1 : 0;
+		/* Show `back-to-top` if scrolled more than 4 screens: https://www.nngroup.com/articles/back-to-top/ */
+		// window.addEventListener('scroll', debounced(200, () => {
+		// 	document.documentElement.style.setProperty('--scroll-y', window.scrollY);
+		// 	if (this.backToTop) {
+		// 		this.backToTop.style.opacity = window.scrollY > window.screen.height * 4 ? 1 : 0;
+		// 	}
+		// }))
+
+		let ticking = false;
+		let scrollY = 0;
+		window.addEventListener('scroll', () => {
+			scrollY = window.scrollY;
+			if (!ticking) {
+				window.requestAnimationFrame(() => {
+					document.documentElement.style.setProperty('--scroll-y', scrollY);
+					ticking = false;
+				});
+				ticking = true;
 			}
-		}))
+		})
 
 		/* Init Sliders */
 		const sliders = document.querySelectorAll(`[data-section-type="slider"], [data-toggle-layout="slider"`);
@@ -194,12 +230,11 @@ export class Layout {
 	/**
 	 * @function itemPopup
 	 * @param {NodeList} selector
-	 * @description Adds listener to opup-items (open items in full screen)
+	 * @description Adds listener to popup-items (open items in full screen)
 	*/
 	itemPopup(selector) {
 		selector.forEach(item => {
 			item.keyHandler = new KeyHandler(item, { callBack: this.itemHandleKeys, callBackScope: this, preventDefaultKeys: '' });
-			/* TODO: aria-modal */
 			item.firstElementChild.setAttribute('aria-modal', true);
 			item.firstElementChild.setAttribute('role', 'dialog');
 			item.setAttribute('tabindex', 0);
@@ -305,26 +340,32 @@ export class Layout {
 					const section = entry.target;
 					const animation = section.dataset.animation;
 					const target = section.dataset.animationTarget;
-					if (target) {
-						const items = section.querySelectorAll(section.dataset.animationTarget);
-						items.forEach(item => {
-							item.classList.add(animation)
-						});
-						if (target === 'both') {
+					const ratio = parseInt(section.dataset.animationIntersection || 0, 10) / 100;
+
+					if (entry.intersectionRatio >= ratio) {
+						io.unobserve(entry.target);
+						if (target) {
+							const items = section.querySelectorAll(section.dataset.animationTarget);
+							items.forEach(item => {
+								item.classList.add(animation)
+							});
+							/* TODO: data-animation-items ? */
+							if (target === 'both') {
+								section.classList.add(animation);
+							}
+						}
+						else {
 							section.classList.add(animation);
 						}
+						
 					}
-					else {
-						section.classList.add(animation);
-					}
-					io.unobserve(entry.target);
 				}
-				},
-				{
-					threshold: [0.5]
-				});
-			});
-		
+			})
+			},
+			{
+				threshold: [0, 0.25, 0.5, 0.75, 1]
+			}
+			);
 		selector.forEach(section => {
 			io.observe(section);
 		});

@@ -11,7 +11,9 @@ In this case, the attribute should **not be rendered at all.**
 ## CMS Implementation
 
 ### Content Base Model
-1. Headline (string)
+1. Headline Component
+    - Headline
+    - Headline Tag
 2. Description (rich text)
 3. Content Area [^1]
 4. Expand All / Toggle Layout (short string) [^2]
@@ -33,6 +35,54 @@ The *Layout Block* has more than 30 configuration-options, divided into six area
 6. Items
 
 All options, except *Header Below Content* and *Header: Screen-reader Only* are `enum` (drop-downs).
+
+---
+## Headline Component
+---
+The header-section of the *Layout Block* use a *Headline Component*:
+
+### Headline Tag
+Set main tag of headline. Also, add functionality to replace pipe-char, | , in headline with `&shy;`.  
+Double pipe-chars, || , should output a regular pipe-char.
+
+1. h1 `[default]`
+2. h2
+3. h3
+4. h4
+5. h5
+6. h6
+
+*Example:*
+```html
+<section class="c-lay">
+  <header class="c-lay__header">
+    <h1 class="c-lay__headline">Text</h1>
+  </header>
+</section>
+```
+---
+### Headline Style
+Set main style of headline.
+
+1. h1 `(g-typ--h1)[default]`
+2. h2 `(g-typ--h2)`
+3. h3 `(g-typ--h3)`
+4. h4 `(g-typ--h4)`
+5. h5 `(g-typ--h5)`
+6. h6 `(g-typ--h6)`
+
+*Example:*
+```html
+<section class="c-lay">
+  <header class="c-lay__header">
+    <h1 class="c-lay__headline g-typ--h1">Text</h1>
+  </header>
+</section>
+```
+
+---
+### Headline: Screen-reader Only
+TODO! Checkbox. If checked, the `<h1>-<h6>`-tag should be rendered as usual, but with extra *class:* `sr-only`.
 
 ---
 ## Section: Settings
@@ -383,45 +433,6 @@ Align text in `header`-area.
   data-align-header="left">
 ```
 ---
-### Headline Tag
-Set main tag of headline. Also, add functionality to replace pipe-char, | , in headline with `&shy;`.  
-Double pipe-chars, || , should output a regular pipe-char.
-
-1. h1 `[default]`
-2. h2
-3. h3
-4. h4
-5. h5
-6. h6
-
-*Example:*
-```html
-<section class="c-lay">
-  <header class="c-lay__header">
-    <h1 class="c-lay__headline">Text</h1>
-  </header>
-</section>
-```
----
-### Headline Style
-Set main style of headline.
-
-1. h1 `(g-typ--h1)[default]`
-2. h2 `(g-typ--h2)`
-3. h3 `(g-typ--h3)`
-4. h4 `(g-typ--h4)`
-5. h5 `(g-typ--h5)`
-6. h6 `(g-typ--h6)`
-
-*Example:*
-```html
-<section class="c-lay">
-  <header class="c-lay__header">
-    <h1 class="c-lay__headline g-typ--h1">Text</h1>
-  </header>
-</section>
-```
----
 ### Headline Width
 Sets the width of the headline.  
 
@@ -449,10 +460,6 @@ Sets the width of the description-text.
 ---
 ### Header Below Content
 Checkbox. If checked, the `<header>`-tag should be rendered *after* the `<div data-outer>`-tag.
-
----
-### Header: Screen-reader Only
-TODO! Checkbox. If checked, the `<header>`-tag should be rendered as usual, but with extra *class* `sr-only`.
 
 ---
 ## Navigation & Animations: Settings
@@ -550,6 +557,22 @@ Set the animation delay between items, if *Animation target* is either *items* o
 ```html
 <section class="c-lay"
   data-animation-target=".c-lay__item">
+```
+
+---
+### Animation Intersection
+Set the amount of intersection betwween the viewport and the section needed before the animation triggers.
+
+1. 0%`[empty][default]` 
+2. 25% (`25`)
+3. 50% (`0`)
+4. 75% (`75`)
+5. 100% (`100`)
+
+*Example:*
+```html
+<section class="c-lay"
+  data-animation-intersection="25">
 ```
 
 ---
@@ -713,3 +736,25 @@ The `image` and `story`-types are currently only used to add extra styling throu
 
 </section>
 ```
+
+---
+## Appendix
+---
+
+
+### Fetching async data
+By adding `data-fetch-from` and `data-fetch-content`-attributes, content can be loaded async after initial load.
+
+```html
+<div
+  data-fetch-from="article.html"
+  data-page-id="1"
+  data-title="Article Example">
+  ... content will be inserted here ...
+</div>
+
+<!-- article.html -->
+<div data-fetch-content>
+  content ...
+</div>
+  ```
