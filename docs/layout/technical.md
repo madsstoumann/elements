@@ -82,7 +82,7 @@ Set main style of headline.
 
 ---
 ### Headline: Screen-reader Only
-TODO! Checkbox. If checked, the `<h1>-<h6>`-tag should be rendered as usual, but with extra *class:* `sr-only`.
+Checkbox. If checked, the headline-tag, `<h1>-<h6>`, should be rendered as usual, but with extra *class:* `sr-only`.
 
 ---
 ## Section: Settings
@@ -462,42 +462,21 @@ Sets the width of the description-text.
 Checkbox. If checked, the `<header>`-tag should be rendered *after* the `<div data-outer>`-tag.
 
 ---
-## Navigation & Animations: Settings
----
-### Slider Navigation
-If section-type is set to *slider*, this will control how and if arrows, dots and navigation arrows are shown.   
-Note that **tabs** also requires `section-type="slider"`.
+## Animations: Settings
 
-1. all (`arrows dots scroll`)
-2. arrows only (`arrows`)
-3. arrows, scrollbar (`arrows scroll`) `[default]`
-4. arrows, dots (`arrows dots`)
-5. arrows, dots inside (`arrows dots inside`)
-6. dots only (`dots`)
-7. dots inside only (`dots inside`)
-8. scrollbar only (`scroll`)
-9. tabs (`dots tabs`)
+---
+### Set Props
+If `true`, the current intersection-ratio will be applied as CSS Custom Prop `--ratio`
+
+1. false `[empty][default]`
+2. true
 
 *Example:*
 ```html
 <section class="c-lay"
-  data-nav="arrows scroll">
+  data-set-props="true">
 ```
----
-### Auto-Play Slides
-If section-type is set to *slider*, this will control if slides should *auto-play*, as well as the time between each slide.
 
-1. don't autoplay `[empty][default]`
-2. every 3 seconds (`3000`)
-3. every 5 seconds (`5000`)
-4. every 8 seconds (`8000`)
-
-
-*Example:*
-```html
-<section class="c-lay"
-  data-auto-play="3000">
-```
 ---
 ### Animation
 Triggers an animation when the section is intersecting (partly visible).
@@ -523,23 +502,36 @@ Triggers an animation when the section is intersecting (partly visible).
 <section class="c-lay"
   data-animation="a-fade-in-bottom">
 ```
----
-### Animation Target
-By default, the selected animation targets the section.  
-It can also be set to target *items* or *both*.
 
-1. section`[empty][default]`
-2. items (`.c-lay__item`)
-3. both
+---
+### Animation Items
+Triggers an animation on the items of a section, when the section is intersecting (partly visible).
+
+1. none`[empty][default]`
+2. bounce-in-bottom (`a-bounce-in-bottom`)
+3. bounce-in-left (`a-bounce-in-left`)
+4. bounce-in-right (`a-bounce-in-right`)
+5. bounce-in-top (`a-bounce-in-top`)
+6. fade-in-bottom-left (`a-fade-in-bl`)
+7. fade-in-bottom-right (`a-fade-in-br`)
+8. fade-in-bottom (`a-fade-in-bottom`)
+9. fade-in-left (`a-fade-in-left`)
+10. fade-in-right (`a-fade-in-right`)
+11. fade-in-top (`a-fade-in-top`)
+12. scale-in-bottom (`a-scale-in-bottom`)
+13. scale-in-center (`a-scale-in-center`)
+14. slide-in-blurred-bottom (`a-slide-in-blurred-bottom`)
+15. slide-in-blurred-top (`a-slide-in-blurred-top`)
 
 *Example:*
 ```html
 <section class="c-lay"
-  data-animation-target=".c-lay__item">
+  data-animation-items="a-fade-in-bottom">
 ```
+
 ---
 ### Animation Delay
-Set the animation delay between items, if *Animation target* is either *items* or *both*.
+Set the animation delay between items, if *Animation Items*.
 
 1. 25ms `(25)`
 2. 50ms `(50)`
@@ -576,7 +568,44 @@ Set the amount of intersection betwween the viewport and the section needed befo
 ```
 
 ---
-## Items: Settings
+## Navigation & Items: Settings
+
+---
+### Slider Navigation
+If section-type is set to *slider*, this will control how and if arrows, dots and navigation arrows are shown.   
+Note that **tabs** also requires `section-type="slider"`.
+
+1. all (`arrows dots scroll`)
+2. arrows only (`arrows`)
+3. arrows, scrollbar (`arrows scroll`) `[default]`
+4. arrows, dots (`arrows dots`)
+5. arrows, dots inside (`arrows dots inside`)
+6. dots only (`dots`)
+7. dots inside only (`dots inside`)
+8. scrollbar only (`scroll`)
+9. tabs (`dots tabs`)
+
+*Example:*
+```html
+<section class="c-lay"
+  data-nav="arrows scroll">
+```
+---
+### Auto-Play Slides
+If section-type is set to *slider*, this will control if slides should *auto-play*, as well as the time between each slide.
+
+1. don't autoplay `[empty][default]`
+2. every 3 seconds (`3000`)
+3. every 5 seconds (`5000`)
+4. every 8 seconds (`8000`)
+
+
+*Example:*
+```html
+<section class="c-lay"
+  data-auto-play="3000">
+```
+
 ---
 ### Align Items
 Items are styled with *flexbox*, and will by default stretch to the height of the tallest item.

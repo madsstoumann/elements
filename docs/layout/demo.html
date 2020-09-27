@@ -352,29 +352,15 @@
 		</details>
 
 		<details>
-			<summary class="app__subheader">Navigation &amp; Animations</summary>
+			<summary class="app__subheader">Animations</summary>
 			<div class="app__fieldset">
+
 				<label class="app__label">	
-					<select data-type="dataset" data-key="nav">
-						<option value="arrows dots scroll">all of them</option>
-						<option value="arrows">arrows only</option>
-						<option value="arrows scroll" selected>arrows, scrollbar</option>
-						<option value="arrows dots">arrows, dots</option>
-						<option value="arrows dots inside">arrows, dots inside</option>
-						<option value="dots">dots only</option>
-						<option value="dots inside">dots inside only</option>
-						<option value="scroll">scrollbar only</option>
+					<select data-type="dataset" data-key="setProps">
+						<option value="" selected>false</option>
+						<option value="true">true</option>
 					</select>
-					Slider Navigation
-				</label>
-				<label class="app__label">	
-					<select data-type="dataset" data-key="autoPlay">
-						<option value="false" selected>don't autoplay</option>
-						<option value="3000">every 3 seconds</option>
-						<option value="5000">every 5 seconds</option>
-						<option value="8000">every 8 seconds</option>
-					</select>
-					Auto-play slides
+					Set Props
 				</label>
 				<label class="app__label">	
 					<select data-type="dataset" data-key="animation">
@@ -397,12 +383,24 @@
 					Animation
 				</label>
 				<label class="app__label">	
-					<select data-type="dataset" data-key="animationTarget">
-						<option value="" selected>section</option>
-						<option value=".c-lay__item">items</option>
-						<option value="both">both</option>
+					<select data-type="dataset" data-key="animationItems">
+						<option value="" selected>none</option>
+						<option value="a-bounce-in-bottom">bounce-in-bottom</option>
+						<option value="a-bounce-in-left">bounce-in-left</option>
+						<option value="a-bounce-in-right">bounce-in-right</option>
+						<option value="a-bounce-in-top">bounce-in-top</option>
+						<option value="a-fade-in-bl">fade-in-bottom-left</option>
+						<option value="a-fade-in-br">fade-in-bottom-right</option>
+						<option value="a-fade-in-bottom">fade-in-bottom</option>
+						<option value="a-fade-in-left">fade-in-left</option>
+						<option value="a-fade-in-right">fade-in-right</option>
+						<option value="a-fade-in-top">fade-in-top</option>
+						<option value="a-scale-in-bottom">scale-in-bottom</option>
+						<option value="a-scale-in-center">scale-in-center</option>
+						<option value="a-slide-in-blurred-bottom">slide-in-blurred-bottom</option>
+						<option value="a-slide-in-blurred-top">slide-in-blurred-top</option>
 					</select>
-					Animation Target
+					Animation Items
 				</label>
 				<label class="app__label">	
 					<select data-type="dataset" data-key="animationDelay">
@@ -430,32 +428,34 @@
 					</select>
 					Animation Intersection
 				</label>
-				<!-- <label class="app__label" style="background:darkseagreen;">	
-					<select data-type="css" data-key="a-">
-						<option value="" selected>none</option>
-						<option value="a-bounce-in-bottom">bounce-in-bottom</option>
-						<option value="a-bounce-in-left">bounce-in-left</option>
-						<option value="a-bounce-in-right">bounce-in-right</option>
-						<option value="a-bounce-in-top">bounce-in-top</option>
-						<option value="a-fade-in-bl">fade-in-bottom-left</option>
-						<option value="a-fade-in-br">fade-in-bottom-right</option>
-						<option value="a-fade-in-bottom">fade-in-bottom</option>
-						<option value="a-fade-in-left">fade-in-left</option>
-						<option value="a-fade-in-right">fade-in-right</option>
-						<option value="a-fade-in-top">fade-in-top</option>
-						<option value="a-scale-in-bottom">scale-in-bottom</option>
-						<option value="a-scale-in-center">scale-in-center</option>
-						<option value="a-slide-in-blurred-bottom">slide-in-blurred-bottom</option>
-						<option value="a-slide-in-blurred-top">slide-in-blurred-top</option>
-					</select>
-					Test Animation
-				</label> -->
 			</div>
 		</details>
 
 		<details>
-			<summary class="app__subheader">Items</summary>
+			<summary class="app__subheader">Navigation &amp; Items</summary>
 			<div class="app__fieldset">
+				<label class="app__label">	
+					<select data-type="dataset" data-key="nav">
+						<option value="arrows dots scroll">all of them</option>
+						<option value="arrows">arrows only</option>
+						<option value="arrows scroll" selected>arrows, scrollbar</option>
+						<option value="arrows dots">arrows, dots</option>
+						<option value="arrows dots inside">arrows, dots inside</option>
+						<option value="dots">dots only</option>
+						<option value="dots inside">dots inside only</option>
+						<option value="scroll">scrollbar only</option>
+					</select>
+					Slider Navigation
+				</label>
+				<label class="app__label">	
+					<select data-type="dataset" data-key="autoPlay">
+						<option value="false" selected>don't autoplay</option>
+						<option value="3000">every 3 seconds</option>
+						<option value="5000">every 5 seconds</option>
+						<option value="8000">every 8 seconds</option>
+					</select>
+					Auto-play slides
+				</label>
 				<label class="app__label">	
 					<select data-type="dataset" data-key="align">
 						<option value="center">center</option>

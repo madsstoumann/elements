@@ -141,7 +141,7 @@ export class Layout {
 		this.expandCollapse(document.querySelectorAll(`[data-toggle-expanded]`));
 		this.isTouch = ('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
 		this.itemPopup(document.querySelectorAll(`[data-item-type*='page'] .c-lay__item`));
-		this.observeAnimations(document.querySelectorAll('[data-animation]'));
+		this.observeIntersections(document.querySelectorAll('[data-animation],[data-animation-items],[data-set-props]'), '[data-inner]');
 		this.toggleLayout(document.querySelectorAll(`[data-layout-label]`));
 		this.fetchContent(document.querySelectorAll(`[data-fetch-from]`))
 
@@ -329,44 +329,58 @@ export class Layout {
 	}
 
 	/**
-	 * @function observeAnimations
+	 * @function observeIntersections
 	 * @param {NodeList} selector
 	 * @description Observes sections with animations
 	*/
-	observeAnimations(selector) {
+	observeIntersections(selector, itemSelector) {
 		const io = new IntersectionObserver((entries) => {	
 			entries.forEach(entry => {
 				if (entry.isIntersecting) {
 					const section = entry.target;
-					const animation = section.dataset.animation;
-					const target = section.dataset.animationTarget;
+
+					if (section.dataset.setProps) {
+						section.style.setProperty('--ratio', entry.intersectionRatio);
+						section.style.setProperty('--top', entry.boundingClientRect.y < entry.rootBounds.y ? 1 : 0);
+					}
+
+					/* Use custom intersectionRatio from dataset, or use fallback: 0 */
 					const ratio = parseInt(section.dataset.animationIntersection || 0, 10) / 100;
 
 					if (entry.intersectionRatio >= ratio) {
-						io.unobserve(entry.target);
-						if (target) {
-							const items = section.querySelectorAll(section.dataset.animationTarget);
-							items.forEach(item => {
-								item.classList.add(animation)
-							});
-							/* TODO: data-animation-items ? */
-							if (target === 'both') {
-								section.classList.add(animation);
+						/* Unobserve section, unless `setProps` is enabled */
+						if (!section.dataset.setProps) {
+							io.unobserve(entry.target);
+						}
+
+						if (!section.dataset.animationDone) {
+							if (section.dataset.animation) {
+								section.classList.add(section.dataset.animation);
 							}
+
+							if (section.dataset.animationItems && section.__items) {
+								section.__items.forEach(item => {
+									item.classList.add(section.dataset.animationItems)
+								});
+								delete section.__items;
+							}
+							/* Prevent animations from running again, if `setProps` is enabled */
+							section.dataset.animationDone = 'true';
 						}
-						else {
-							section.classList.add(animation);
-						}
-						
 					}
 				}
 			})
 			},
 			{
-				threshold: [0, 0.25, 0.5, 0.75, 1]
+				// threshold: [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
+				threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
 			}
 			);
 		selector.forEach(section => {
+			if (section.dataset.animationItems && itemSelector) {
+				const items = section.querySelector(itemSelector);
+				section.__items = items ? [...items.children] : [];
+			}
 			io.observe(section);
 		});
 	}
