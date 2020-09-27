@@ -13,7 +13,7 @@ In this case, the attribute should **not be rendered at all.**
 ### Content Base Model
 1. Headline Component:
     - Headline [short string]
-    - Headline Tag [short string]
+    - Headline Tag [short string / `enum: h1-h6`]
     - Hide (Screen-reader only) [boolean]
 2. Description (rich text)
 3. Content Area [^1]
@@ -814,15 +814,12 @@ The `image` and `story`-types are currently only used to add extra styling throu
 ## Appendix
 ---
 
-
 ### Fetching async data
 By adding `data-fetch-from` and `data-fetch-content`-attributes, content can be loaded async after initial load.
 
 ```html
 <div
-  data-fetch-from="article.html"
-  data-page-id="1"
-  data-title="Article Example">
+  data-fetch-from="article.html">
   ... content will be inserted here ...
 </div>
 
@@ -831,3 +828,65 @@ By adding `data-fetch-from` and `data-fetch-content`-attributes, content can be 
   content ...
 </div>
   ```
+
+---
+### Modal Page
+If the section has `data-item-type="page"`, the attributes `data-id` and `data-title` should be added to the content area items.
+
+When clicking on an item, the item's immediate parent will have this attribute set:
+
+`data-page-open="true"`
+
+The `data-id`-value will be appended to the `url`:
+
+`?pageid=[data-id]`
+
+And the `data-title`-value will be set as page title.
+
+Using the `HistoryAPI`, a new entry will be pushed, so normal browser-navigation, `back`, can close the modal.
+
+---
+### Observing Intersections
+When `data-set-props="true"`, the intersection-ratio of the *Layout Block* will be set to a custom CSS property:
+
+`--ratio`
+
+To indicate whether the intersection is at the top or the bottom of the viewport, the property:
+
+`--top`
+
+\- will be set to `1` or `0`.
+
+The `--ratio` can be used in a lot of creative ways:
+
+```css
+background-color: hsl(360 * var(--ratio), 100%, 50%);
+
+opacity: var(--ratio);
+
+transform: rotate(calc(360deg * var(--ratio, 1)));
+
+transform: scale(var(--ratio, 1));
+```
+
+---
+### Tabs
+When using `data-section-type="slider"` and `data-nav="dots tabs"`, the first headlines (`h1-h6`-tags) of the content-area items will be used as tab captions.
+
+The attribute `data-tab-header` will take precedence, though, should it exists. 
+
+*Example, tab-caption will be "User Page":*
+```html
+<div data-tab-header="User Page">
+  <h2>Your Personal Page</h2>
+  ... content ...
+</div>
+```
+
+*Example, tab-caption will be "Your Personal Page":*
+```html
+<div>
+  <h2>Your Personal Page</h2>
+  ... content ...
+</div>
+````
