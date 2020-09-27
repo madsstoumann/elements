@@ -730,7 +730,7 @@ The `image` and `story`-types are currently only used to add extra styling throu
   data-align-header=""
   data-animation=""
   data-animation-delay=""
-  data-animation-target=""
+  data-animation-items=""
   data-auto-play=""
   data-collapsed-height=""
   data-desc-w=""
@@ -754,6 +754,7 @@ The `image` and `story`-types are currently only used to add extra styling throu
   data-preview=""
   data-pt=""
   data-section-type=""
+  data-set-props=""
   data-snap=""
   data-theme=""
   data-toggle-layout="">
