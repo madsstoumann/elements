@@ -12,12 +12,13 @@ In this case, the attribute should **not be rendered at all.**
 
 ### Content Base Model
 1. Headline Component
-    - Headline
-    - Headline Tag
+    - Headline [short string]
+    - Headline Tag [short string]
+    - Hide (Screen-reader only) [boolean]
 2. Description (rich text)
 3. Content Area [^1]
-4. Expand All / Toggle Layout (short string) [^2]
-5. Collapse All / Toggle Layout (short string) [^2]
+4. Expand All / Toggle Layout On (short string) [^2]
+5. Collapse All / Toggle Layout Off (short string) [^2]
 
 [^1] Each content-item should be wrapped in a `<div>`:  
 `<div class="c-lay__item">`
@@ -31,8 +32,8 @@ The *Layout Block* has more than 30 configuration-options, divided into six area
 2. Layout
 3. Spacing & Gaps
 4. Header
-5. Navigation & Animations
-6. Items
+5. Animations
+6. Navigation & Items
 
 All options, except *Header Below Content* and *Header: Screen-reader Only* are `enum` (drop-downs).
 
@@ -466,7 +467,7 @@ Checkbox. If checked, the `<header>`-tag should be rendered *after* the `<div da
 
 ---
 ### Set Props
-If `true`, the current intersection-ratio will be applied as CSS Custom Prop `--ratio`
+If `true`, the current intersection-ratio will be applied as CSS Custom Prop `--ratio`, and the intersection-direction is reflected in the `--top`-property, which will be `1` if element is intersecting with the top of the viewport.
 
 1. false `[empty][default]`
 2. true
@@ -553,7 +554,7 @@ Set the animation delay between items, if *Animation Items*.
 
 ---
 ### Animation Intersection
-Set the amount of intersection betwween the viewport and the section needed before the animation triggers.
+Set the amount of intersection needed between the viewport and the section, before the animations trigger.
 
 1. 0%`[empty][default]` 
 2. 25% (`25`)
@@ -640,9 +641,9 @@ If set to *both*, a preview of the previous item will be shown as well, as the u
 ### Item Type
 This is a JavaScript-hook for targeting items.  
 
-The `page`-type adds JavaScript-functionality to open an item as a modal popup on `click`.
+The `page`-type adds JavaScript-functionality to open an item as a modal popup on `click`, as well as pushing `data-id` to the current `url`, so normal browser-navigation can be used to close the modal.
 
-The `ebook`-type adds, via JavaScript, the option to scroll an article-block horizontally, adding pages. A max-height can be set using the setting *Collapsed Height*.
+The `ebook`-type adds, via JavaScript, the option to scroll an article-block horizontally, adding pages. A max-height can be set using the setting: *Collapsed Height*.
 
 The `image` and `story`-types are currently only used to add extra styling through CSS.
 
