@@ -11,7 +11,7 @@ In this case, the attribute should **not be rendered at all.**
 ## CMS Implementation
 
 ### Content Base Model
-1. Headline Component
+1. Headline Component:
     - Headline [short string]
     - Headline Tag [short string]
     - Hide (Screen-reader only) [boolean]
@@ -19,6 +19,7 @@ In this case, the attribute should **not be rendered at all.**
 3. Content Area [^1]
 4. Expand All / Toggle Layout On (short string) [^2]
 5. Collapse All / Toggle Layout Off (short string) [^2]
+6. Header Below Content [boolean]
 
 [^1] Each content-item should be wrapped in a `<div>`:  
 `<div class="c-lay__item">`
@@ -26,8 +27,8 @@ In this case, the attribute should **not be rendered at all.**
 [^2] These two labels have dual purposes. They can be used for **either** *Expand/Collapse* or *Toggle Layout On/Off* (see markup-examples at the end of this document).
 
 ---
-### Content Settings Model
-In addition to the base content model, these are the settigs-properties, which will each be described in detail further on:
+### Settings Model
+In addition to the base content model, these are the settings-properties, which will each be described in detail further on:
 
 - align `[data-align]`
 - alignHeader `[data-align-header]`
@@ -63,7 +64,7 @@ In addition to the base content model, these are the settigs-properties, which w
 - toggleLayout `[data-toggle-layout]`
 
 ---
-The *Layout Block* has more than 30 configuration-options, divided into six areas / tabs:
+The Settings-properties of the *Layout Block* should be divided into six areas / tabs:
 
 1. Section
 2. Layout
@@ -72,7 +73,7 @@ The *Layout Block* has more than 30 configuration-options, divided into six area
 5. Animations
 6. Navigation & Items
 
-All options, except *Header Below Content* and *Header: Screen-reader Only* are `enum` (drop-downs).
+All options, except *Header Below Content* and *Headline Hide (Screen-reader Only)* are `enum` (drop-downs).
 
 ---
 ## Headline Component
@@ -119,7 +120,7 @@ Set main style of headline.
 ```
 
 ---
-### Headline: Screen-reader Only
+### Headline: Hide (Screen-reader Only)
 Checkbox. If checked, the headline-tag, `<h1>-<h6>`, should be rendered as usual, but with extra *class:* `sr-only`.
 
 ---
