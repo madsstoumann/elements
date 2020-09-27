@@ -683,7 +683,9 @@ The `image` and `story`-types are currently only used to add extra styling throu
 -->
 
   <header class="c-lay__header">
-    <h2 class="c-lay__headline {{g-typ--h1}}">[HEADLINE]</h2>
+    <{{Headline Tag}} class="c-lay__headline [IF Model.hide ? {{ScreenReaderClass: sr-only}} : ''; END IF] {{Headline Style}} {{Headline Style}}">
+      [HEADLINE]
+    </{{Headline Tag}}>
 
   <!-- if `data-toggle-layout="false"` or NULL/EMPTY -->
     <div class="c-lay__description g-typ--m">[DESCRIPTION]</div>
@@ -760,8 +762,10 @@ The `image` and `story`-types are currently only used to add extra styling throu
   data-toggle-layout="">
 
   <header class="c-lay__header">
-    <{{Headline Tag}} class="c-lay__headline {{Headline Style}}">[HEADLINE]</{{Headline Tag}}>
-    ...
+    <{{Headline Tag}} class="c-lay__headline [IF Model.hide ? {{ScreenReaderClass: sr-only}} : ''; END IF] {{Headline Style}} {{Headline Style}}">
+      [HEADLINE]
+    </{{Headline Tag}}>
+    ... etc.
   </header>
 
 
