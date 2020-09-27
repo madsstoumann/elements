@@ -26,6 +26,43 @@ In this case, the attribute should **not be rendered at all.**
 [^2] These two labels have dual purposes. They can be used for **either** *Expand/Collapse* or *Toggle Layout On/Off* (see markup-examples at the end of this document).
 
 ---
+### Content Settings Model
+In addition to the base content model, these are the settigs-properties, which will each be described in detail further on:
+
+- align `[data-align]`
+- alignHeader `[data-align-header]`
+- animation `[data-animation]`
+- animationDelay `[data-animation-delay]`
+- animationItems `[data-animation-items]`
+- autoPlay `[data-auto-play]`
+- collapsedHeight `[data-collapsed-height]`
+- descWidth `[data-desc-w]`
+- diagonal `[data-diagonal]`
+- expanded `[data-expanded]`
+- gapPhone `[data-gap-phone]`
+- gapTablet `[data-gap-tablet]`
+- gapDesktop `[data-gap-desktop]`
+- gridPhone `[data-grid-phone]`
+- gridTablet `[data-grid-tablet]`
+- gridDesktop `[data-grid-desktop]`
+- headlineWidth `[data-headline-w]`
+- innerMaxWidth `[data-inner-maw]`
+- innerPaddingBottom `[data-inner-pb]`
+- itemType `[data-item-type]`
+- marginBottom `[data-mb]`
+- marginTop `[data-mt]`
+- nav `[data-nav]`
+- outerMaxWidth `[data-outer-maw]`
+- paddingBottom `[data-pb]`
+- paddingTop `[data-pt]`
+- preview `[data-preview]`
+- sectionType `[data-section-type]`
+- setProps `[data-set-props]`
+- snap `[data-snap]`
+- theme `[data-theme]`
+- toggleLayout `[data-toggle-layout]`
+
+---
 The *Layout Block* has more than 30 configuration-options, divided into six areas / tabs:
 
 1. Section
