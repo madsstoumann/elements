@@ -174,6 +174,7 @@ export class Layout {
 		/* Init Control Panels */
 		const panels = document.querySelectorAll(`[data-control-panel]:not([data-control-panel=""])`);
 		panels.forEach(panel => {
+			/* TODO! FIX: DO NOT RUN ebookUpdate on all CP's */
 			new ControlPanel(panel, panel.dataset, this.ebookUpdate.bind(this));
 		});
 
