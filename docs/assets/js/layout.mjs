@@ -2,19 +2,19 @@
  * Layout module.
  * @module /assets/js/layout
  * @requires /assets/js/common
- * @version 1.1.18
- * @summary 27-09-2020
+ * @version 1.1.19
+ * @summary 28-09-2020
  * @description Helper-functions for Layout Block
- * @example
- * <section data-section-type>
  */
 
 import { h } from './common/h.mjs';
+import { isTouch } from './const/isTouch.mjs';
+import { setModal } from './common/setModal.mjs';
+import { setPage } from './common/setPage.mjs';
 import { stringToType } from './common/stringToType.mjs';
-import ControlPanel from './controlpanel.mjs';
 import KeyHandler from './keyhandler.mjs';
-import Slider from './slider.mjs';
-export class Layout {
+
+export default class Layout {
 	constructor(settings) {
 		this.settings = Object.assign({
 			clsInnerPage: 'c-lay__inner--page',
@@ -26,53 +26,53 @@ export class Layout {
 	/**
 	 * @function ebook
 	 * @param {NodeList} selector
-	 * @description Swipe an article like an ebook, recalculates "pages" based on columns.
+	 * @description Swipe an article like an ebook, recalculates "pages" based on columns, see: `data-item-type="ebook"`.
 	*/
 	ebook(selector) {
-		selector.forEach(ebook => {
-			ebook.dataset.ebook = "item";
+		selector.forEach(section => {
+			const ebook = section.querySelector('.c-lay__item')
 			const inner = ebook.parentNode;
+			const wrapper = h('div', { 'data-ebook': 'wrapper' });
+
+			ebook.dataset.ebook = "item";
 			inner.dataset.ebook = "inner";
 			inner.tabIndex = "0";
-			const wrapper = h('div', { 'data-ebook': 'wrapper' });
 			inner.appendChild(wrapper);
 
+			const ebookRecalc = () => {
+				const pages = Math.ceil(ebook.scrollWidth / ebook.offsetWidth);
+				wrapper.innerHTML = '';
+				for (let index = 0; index < pages; index++) {
+					const page = h('div', { 'data-ebook': 'page' }, [`${index+1} / ${pages}`]);
+					wrapper.appendChild(page);
+				}
+			}
+
+			/* Listen for controlPanelUpdate-event on same section */
+			section.addEventListener("controlPanelUpdate", (event) => { 
+				switch(event.detail.element.dataset.key) {
+					case 'cp-align':
+					case 'cp-ff':
+					case 'cp-fz':
+					case 'cp-lh':
+					case 'cp-w': 
+						ebookRecalc();
+					break;
+					default: break;
+				}
+			});
+
 			const resizeObserver = new ResizeObserver(() => {
-				this.ebookRecalc(ebook, wrapper);
+				ebookRecalc();
 			});
 			resizeObserver.observe(ebook);
 		})
 	}
 
-	ebookRecalc(ebook, wrapper) {
-		const pages = Math.ceil(ebook.scrollWidth / ebook.offsetWidth);
-		wrapper.innerHTML = '';
-		for (let index = 0; index < pages; index++) {
-			const page = h('div', { 'data-ebook': 'page' }, [`${index+1} / ${pages}`]);
-			wrapper.appendChild(page);
-		}
-	}
-
-	ebookUpdate(parent, element) {
-		const ebook = parent.querySelector(`[data-ebook="item"]`);
-		const wrapper = parent.querySelector(`[data-ebook="wrapper"]`);
-
-		switch(element.dataset.key) {
-			case 'cp-align':
-			case 'cp-ff':
-			case 'cp-fz':
-			case 'cp-lh':
-			case 'cp-w': 
-				this.ebookRecalc(ebook, wrapper);
-			break;
-			default: break;
-		}
-	}
-
 	/**
 	 * @function expandCollapse
 	 * @param {NodeList} selector
-	 * @description Expands/collapses a section
+	 * @description Expands/collapses a section, see: `data-collapsed-height` and `data-expanded`.
 	*/
 	expandCollapse(selector) {
 		function toggleFunc(toggle, section, outer, label) {
@@ -110,41 +110,16 @@ export class Layout {
 	}
 
 	/**
-	 * @function fetchContent
-	 * @param {NodeList} selector
-	 * @description Grabs async content from `data-fetch-from`-attributes, inserts innerHTML from matching `data-fetch-content`-attributes
-	*/
-	fetchContent(selector) {
-		selector.forEach(item => {
-			fetch(item.dataset.fetchFrom).then(response => {
-				return response.text();
-			}).then(html => {
-				const parser = new DOMParser();
-				const doc = parser.parseFromString(html, 'text/html');
-				const content = doc.querySelector('[data-fetch-content]');
-				if (content) {
-					item.innerHTML = content.innerHTML;
-				}
-			}).catch(function (err) {
-				console.warn('Could not fetch content: ', err);
-			});
-		})
-	}
-
-	/**
 	 * @function init
 	 * @description Init Layout Block
 	*/
 	init() {
-		this.lazyLoad();
 		this.backToTop = document.querySelector(`[data-back-to-top]`);
-		this.ebook(document.querySelectorAll(`[data-item-type="ebook"] .c-lay__item`));
+		this.ebook(document.querySelectorAll(`[data-item-type="ebook"]`));
 		this.expandCollapse(document.querySelectorAll(`[data-toggle-expanded]`));
-		this.isTouch = ('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
-		this.itemPopup(document.querySelectorAll(`[data-item-type*='page'] .c-lay__item`));
+		this.itemPagePopup(document.querySelectorAll(`[data-item-type*='page'] .c-lay__item`));
 		this.observeIntersections(document.querySelectorAll('[data-animation],[data-animation-items],[data-set-props]'), '[data-inner]');
 		this.toggleLayout(document.querySelectorAll(`[data-layout-label]`));
-		this.fetchContent(document.querySelectorAll(`[data-fetch-from]`))
 
 		let ticking = false;
 		let scrollY = 0;
@@ -161,23 +136,6 @@ export class Layout {
 				ticking = true;
 			}
 		})
-
-		/* Init Sliders */
-		const sliders = document.querySelectorAll(`[data-section-type="slider"], [data-toggle-layout="slider"`);
-		sliders.forEach(slider => {
-			const preview = slider.dataset.preview;
-			if (!(this.isTouch && (preview === 'both' || preview === 'next'))) {
-				new Slider(slider, slider.dataset);
-			}
-		});
-
-		/* Init Control Panels */
-		const panels = document.querySelectorAll(`[data-control-panel]:not([data-control-panel=""])`);
-		panels.forEach(panel => {
-			/* TODO! FIX: DO NOT RUN ebookUpdate on all CP's */
-			new ControlPanel(panel, panel.dataset, this.ebookUpdate.bind(this));
-		});
-
 		this.loadPopupPage();
 		window.addEventListener('popstate', () => {
 			this.loadPopupPage();
@@ -196,16 +154,16 @@ export class Layout {
 		if (obj.event.code === 'Space') {
 			if (!hasPopup) {
 				obj.event.preventDefault();
-				this.setModal(true);
-				this.setPage('pageid', data.pageId, data.title);
+				setModal(true);
+				setPage('pageid', data.pageId, data.title);
 				obj.element.dataset.pageOpen = 'true';
 				obj.element.__scroll = obj.element.parentNode.scrollLeft;
 				obj.element.firstElementChild.scrollTo({ top: 0, behavior: 'auto' });
 			}
 		}
 		if (obj.key === 'Escape') {
-			this.setModal(false);
-			this.setPage('pageid');
+			setModal(false);
+			setPage('pageid');
 			obj.element.focus();
 			obj.element.removeAttribute('data-page-open');
 			obj.element.parentNode.scrollTo({ left: obj.element.__scroll, behavior: 'auto' });
@@ -225,11 +183,11 @@ export class Layout {
 	}
 
 	/**
-	 * @function itemPopup
+	 * @function itemPagePopup
 	 * @param {NodeList} selector
-	 * @description Adds listener to popup-items (open items in full screen)
+	 * @description Adds listener to popup-items (open items in full screen), see: `data-item-type="page"`.
 	*/
-	itemPopup(selector) {
+	itemPagePopup(selector) {
 		selector.forEach(item => {
 			item.keyHandler = new KeyHandler(item, { callBack: this.itemHandleKeys, callBackScope: this, preventDefaultKeys: '' });
 			item.firstElementChild.setAttribute('aria-modal', true);
@@ -238,62 +196,25 @@ export class Layout {
 			item.addEventListener('click', (event) => {
 				if (item.dataset.pageOpen) {
 					if (event.target === item) {
-						this.setModal(false);
+						setModal(false);
 						item.removeAttribute('data-page-open');
 						item.parentNode.scrollTo({ left: item.__scroll, behavior: 'auto' });
-						if (this.isTouch) { item.parentNode.classList.remove(this.settings.clsInnerPage); }
-						this.setPage('pageid');
+						if (isTouch) { item.parentNode.classList.remove(this.settings.clsInnerPage); }
+						setPage('pageid');
 					}
 				} else {
-					this.setModal(true);
+					setModal(true);
 					item.dataset.pageOpen = 'true';
 					item.__scroll = item.parentNode.scrollLeft;
 					const section = item.closest('[data-section-type]')
-					if (this.isTouch && section.dataset.sectionType !== 'stack') {
+					if (isTouch && section.dataset.sectionType !== 'stack') {
 						item.parentNode.classList.add(this.settings.clsInnerPage);
 					}
 					const data = item.firstElementChild.dataset;
-					this.setPage('pageid', data.pageId, data.title);
+					setPage('pageid', data.pageId, data.title);
 					item.firstElementChild.scrollTo({ top: 0, behavior: 'auto' });
 				}
 			});
-		});
-	}
-
-	/**
-	 * @function lazyLoad
-	 * @description Use Intersection Observer to lazy-load iframes, images, picture-source and videos
-	*/
-	lazyLoad() {
-		const elements = document.querySelectorAll("iframe[data-src], img[data-src], video");
-		const lazyObserver = new IntersectionObserver(function(entries) {
-			entries.forEach(function(entry) {
-				if (entry.isIntersecting) {
-					const element = entry.target;
-					const tagName = element.tagName;
-					if (tagName === 'VIDEO') {
-						for (let source in element.children) {
-							const videoSource = element.children[source];
-							if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
-								videoSource.src = videoSource.dataset.src;
-							}
-						}
-						element.load();
-					}
-					else {
-						element.src = element.dataset.src;
-						delete element.dataset.src;
-						if (element.dataset.srcset) {
-							element.srcset = element.dataset.srcset;
-							delete element.dataset.srcset;
-						}
-					}
-					lazyObserver.unobserve(element);
-				}
-			});
-		});
-		elements.forEach(function(element) {
-			lazyObserver.observe(element);
 		});
 	}
 
@@ -308,10 +229,10 @@ export class Layout {
 			if (page) {
 				page.parentNode.dataset.pageOpen = 'true';
 				const section = page.closest('[data-section-type]')
-				if (this.isTouch && section.dataset.sectionType !== 'stack') {
+				if (isTouch && section.dataset.sectionType !== 'stack') {
 					page.closest('[data-inner]').classList.add(this.settings.clsInnerPage);
 				}
-				this.setModal(true);
+				setModal(true);
 			}
 		}
 		else {
@@ -320,7 +241,7 @@ export class Layout {
 				page.removeAttribute('data-page-open');
 				const inner = page.closest('[data-inner]');
 				inner.classList.remove(this.settings.clsInnerPage);
-				this.setModal(false);
+				setModal(false);
 			}
 		}
 	}
@@ -328,7 +249,7 @@ export class Layout {
 	/**
 	 * @function observeIntersections
 	 * @param {NodeList} selector
-	 * @description Observes sections with animations
+	 * @description Observes InterSection, triggers animations, sets CSS properties
 	*/
 	observeIntersections(selector, itemSelector) {
 		const io = new IntersectionObserver((entries) => {	
@@ -382,47 +303,6 @@ export class Layout {
 	}
 
 	/**
-	 * @function setModal
-	 * @param {Boolean} open
-	 * @description Prevents overflow/bounce on iOS devices when opening a modal. Needs custom prop `--scroll-y`
-	*/
-	setModal(open) {
-		const body = document.body;
-		const root = document.documentElement;
-		const scrollY = open ? root.style.getPropertyValue('--scroll-y') || 0 : body.style.top;
-		if (open) { root.style.scrollBehavior = 'auto'; }
-		body.style.position = open ? 'fixed' : '';
-		body.style.top = open ? `-${scrollY}px` : '';
-		if (!open) {	
-			window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
-			root.style.scrollBehavior = 'smooth';
-		}
-	}
-
-	/**
-	 * @function setPage
-	 * @param {String} key
-	 * @param {String} value
-	 * @param {String} title
-	 * @description Upadtes search-params in a url - Sets a `virtual page`.
-	*/
-	setPage(key, value = '', title = document.title) {
-		const params = new URLSearchParams(location.search);
-		const url = new URL(location.href);
-
-		if (value) {
-			params.append(key, value);
-			url.search = params.toString();
-			history.pushState({page: value-0}, title, url);
-		}
-		else {
-			params.delete(key);
-			url.search = params.toString();
-			history.replaceState({page: 0}, title, url);
-		}
-	}
-
-	/**
 	 * @function toggleLayout
 	 * @param {NodeList} selector
 	 * @description Toggles between `stack` and `slider`
@@ -434,7 +314,6 @@ export class Layout {
 				const currentLayout = section.dataset.sectionType;
 				const newLayout = section.dataset.toggleLayout;
 				const header = toggle.innerText === toggle.dataset.layoutLabel ? toggle.dataset.layoutLabelToggle : toggle.dataset.layoutLabel;
-
 				section.dataset.toggleLayout = currentLayout;
 				section.dataset.sectionType = newLayout;
 				toggle.innerText = header;

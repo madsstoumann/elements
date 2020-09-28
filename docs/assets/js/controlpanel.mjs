@@ -2,8 +2,8 @@
  * Control Panel
  * @module /assets/js/controlPanel
  * @requires /assets/js/common
- * @version 1.3.3
- * @summary 04-09-2020
+ * @version 1.3.4
+ * @summary 28-09-2020
  * @description Control Panel
  * @example
  * <div data-control-panel="alignment audio background brightness contrast fontsize spacing typography zoom">
@@ -13,7 +13,7 @@ import { stringToType } from './common/stringToType.mjs';
 import { uuid } from './common/uuid.mjs';
 import { languages } from './languages.js';
 export default class ControlPanel {
-	constructor(element, settings, callback) {
+	constructor(element, settings) {
 		this.settings = Object.assign({
 			controlPanelClass: '',
 			controlPanelConfig: '',
@@ -21,9 +21,6 @@ export default class ControlPanel {
 			controlPanelLabel: '',
 			controlPanelUrl: '../assets/data/control-panel-en.json'
 		}, stringToType(settings));
-		if (callback && (typeof callback === 'function')) {
-			this.fnCallback = callback;
-		}
 		this.wrapper = element;
 		this.init();
 	}
@@ -537,9 +534,8 @@ export default class ControlPanel {
 				break;
 		}
 
-		if (this.fnCallback) {
-			this.fnCallback(this.wrapper, element);
-		}
+		// Dispatch the event
+		this.wrapper.dispatchEvent(new CustomEvent('controlPanelUpdate', { detail: { element: element }}));
 	}
 
 	/**

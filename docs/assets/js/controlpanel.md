@@ -109,3 +109,9 @@ zoom
 	- $key*
 	- $keyType*
 	- attributes
+
+
+## Events
+```js
+element.addEventListener("controlPanelUpdate", function(event) { console.log(event) });
+```
