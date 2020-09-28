@@ -8,7 +8,9 @@
  * @example
  * <div data-control-panel="alignment audio background brightness contrast fontsize spacing typography zoom">
  */
-import { h, stringToType, uuid } from './common.mjs';
+import { h } from './common/h.mjs';
+import { stringToType } from './common/stringToType.mjs';
+import { uuid } from './common/uuid.mjs';
 import { languages } from './languages.js';
 export default class ControlPanel {
 	constructor(element, settings, callback) {

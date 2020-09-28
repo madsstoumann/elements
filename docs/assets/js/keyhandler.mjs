@@ -3,12 +3,12 @@
 /**
  * Key Handler
  * @module keyHandler.mjs
- * @version 0.4.13
- * @summary 17-07-2020
+ * @version 0.4.14
+ * @summary 28-09-2020
  * @author Mads Stoumann
  * @description Navigate list/table with keyboard. Returns an object with: { col, row, end (first or last row), open (parentOpenState) }. If editCallBack-function exists, this is returned with active (element), editMode state, optional undoMode state.
  */
-import { focusable } from './common.mjs';
+import { focusable } from './common/focusable.mjs';
 export default class KeyHandler {
 	constructor(element, settings) {
 		this.settings = Object.assign(

@@ -572,17 +572,18 @@ Triggers an animation on the items of a section, when the section is intersectin
 ### Animation Delay
 Set the animation delay between items, if *Animation Items*.
 
-1. 25ms `(25)`
-2. 50ms `(50)`
-3. 75ms `(75)`
-4. 100ms `(100)`
-5. 125ms `[empty][default]`
-6. 150ms `(150)`
-7. 175ms `(175)`
-8. 200ms `(200)`
-9. 300ms `(300)`
-10. 400ms `(400)`
-11. 500ms `(500)`
+1. 0ms `(0)`
+2. 25ms `(25)`
+3. 50ms `(50)`
+4. 75ms `(75)`
+5. 100ms `(100)`
+6. 125ms `[empty][default]`
+7. 150ms `(150)`
+8. 175ms `(175)`
+9. 200ms `(200)`
+10. 300ms `(300)`
+11. 400ms `(400)`
+12. 500ms `(500)`
 
 *Example:*
 ```html
@@ -873,7 +874,7 @@ transform: scale(var(--ratio, 1));
 ### Tabs
 When using `data-section-type="slider"` and `data-nav="dots tabs"`, the first headlines (`h1-h6`-tags) of the content-area items will be used as tab captions.
 
-The attribute `data-tab-header` will take precedence, though, should it exists. 
+The attribute `data-tab-header` will take precedence, though, should it exist. 
 
 *Example, tab-caption will be "User Page":*
 ```html

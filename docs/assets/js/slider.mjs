@@ -7,7 +7,8 @@
  * @example
  * <section data-section-type="slider">
  */
-import { h, stringToType } from './common.mjs';
+import { h } from './common/h.mjs';
+import { stringToType } from './common/stringToType.mjs';
 export default class Slider {
 	constructor(element, settings) {
 		this.settings = Object.assign({

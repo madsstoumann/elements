@@ -262,6 +262,7 @@ MODIFIERS
 }
 
 /* ANIMATION DELAY */
+[data-animation-delay="0"] { --lay-animdel: 0ms; }
 [data-animation-delay="25"] { --lay-animdel: 25ms; }
 [data-animation-delay="50"] { --lay-animdel: 50ms; }
 [data-animation-delay="75"] { --lay-animdel: 75ms; }

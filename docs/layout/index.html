@@ -19,7 +19,12 @@
 	<link href="../assets/css/config.css" rel="preload" as="style">
 	<link href="../assets/css/c-lay_grid.css" rel="preload" as="style">
 	<link href="../assets/css/c-lay_navigation.css" rel="preload" as="style">
-	<link href="../assets/js/common.mjs" rel="preload" as="script" crossorigin>
+
+	<link href="../assets/js/common/focusable.mjs" rel="preload" as="script" crossorigin>
+	<link href="../assets/js/common/h.mjs" rel="preload" as="script" crossorigin>
+	<link href="../assets/js/common/stringToType.mjs" rel="preload" as="script" crossorigin>
+	<link href="../assets/js/common/uuid.mjs" rel="preload" as="script" crossorigin>
+
 	<link href="../assets/js/keyhandler.mjs" rel="preload" as="script" crossorigin>
 	<link href="../assets/js/controlpanel.mjs" rel="preload" as="script" crossorigin>
 	<link href="../assets/js/languages.js" rel="preload" as="script" crossorigin>
@@ -1174,15 +1179,6 @@
 	<!-- <a data-back-to-top href="#top">&#9650;<br />Back to top</a> -->
 </main>
 <script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js" integrity="sha384-EYn4rWu1DHvYD0sSSSbMEtXQmMl58CFJd897806+RT1jJVYbhuZlZMN6yG9nCyFa" crossorigin="anonymous"></script>
-<script type="module" async>
-	import { Layout } from '../assets/js/layout.mjs';
-	new Layout();
-
-	// if ('serviceWorker' in navigator) {
-	// 	window.addEventListener('load', () => {
-	// 		navigator.serviceWorker.register('service-worker.js');
-	// 	});
-	// }
-</script>
+<script defer src="main.js" type="module"></script>
 </body>
 </html>

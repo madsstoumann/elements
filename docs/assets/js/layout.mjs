@@ -2,14 +2,15 @@
  * Layout module.
  * @module /assets/js/layout
  * @requires /assets/js/common
- * @version 1.1.17
- * @summary 26-09-2020
+ * @version 1.1.18
+ * @summary 27-09-2020
  * @description Helper-functions for Layout Block
  * @example
  * <section data-section-type>
  */
 
-import { h, stringToType } from './common.mjs';
+import { h } from './common/h.mjs';
+import { stringToType } from './common/stringToType.mjs';
 import ControlPanel from './controlpanel.mjs';
 import KeyHandler from './keyhandler.mjs';
 import Slider from './slider.mjs';
@@ -145,14 +146,6 @@ export class Layout {
 		this.toggleLayout(document.querySelectorAll(`[data-layout-label]`));
 		this.fetchContent(document.querySelectorAll(`[data-fetch-from]`))
 
-		/* Show `back-to-top` if scrolled more than 4 screens: https://www.nngroup.com/articles/back-to-top/ */
-		// window.addEventListener('scroll', debounced(200, () => {
-		// 	document.documentElement.style.setProperty('--scroll-y', window.scrollY);
-		// 	if (this.backToTop) {
-		// 		this.backToTop.style.opacity = window.scrollY > window.screen.height * 4 ? 1 : 0;
-		// 	}
-		// }))
-
 		let ticking = false;
 		let scrollY = 0;
 		window.addEventListener('scroll', () => {
@@ -160,6 +153,9 @@ export class Layout {
 			if (!ticking) {
 				window.requestAnimationFrame(() => {
 					document.documentElement.style.setProperty('--scroll-y', scrollY);
+					if (this.backToTop) {
+						this.backToTop.style.opacity = window.scrollY > window.screen.height * 4 ? 1 : 0;
+					}
 					ticking = false;
 				});
 				ticking = true;
@@ -373,7 +369,6 @@ export class Layout {
 			},
 			{
 				threshold: [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
-				// threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
 			}
 			);
 		selector.forEach(section => {
