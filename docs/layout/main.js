@@ -1,6 +1,7 @@
 import { isTouch } from '../assets/js/const/isTouch.mjs';
 import ControlPanel from '../assets/js/controlpanel.mjs';
 import Layout from '../assets/js/layout.mjs';
+import { Share } from '../assets/js/share.mjs';
 import Slider from '../assets/js/slider.mjs';
 
 import { fetchContent } from '../assets/js/common/fetchContent.mjs'
@@ -22,6 +23,12 @@ sliders.forEach(slider => {
 const panels = document.querySelectorAll(`[data-control-panel]:not([data-control-panel=""])`);
 panels.forEach(panel => {
 	new ControlPanel(panel, panel.dataset);
+});
+
+/* Init Share */
+const shares = document.querySelectorAll(`[data-share]`);
+shares.forEach(element => {
+	Share(element);
 });
 
 /* Misc */
