@@ -31,7 +31,7 @@ export function Share(element) {
 			navigator.share({
 				title: document.title,
 				url: location.href
-			})
+			}).catch(() => { return });
 		})
 		element.appendChild(shareButton);
 	}
