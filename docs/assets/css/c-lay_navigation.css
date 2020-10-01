@@ -87,14 +87,6 @@ NAV ARROWS
 =========== 
 */
 .c-lay__nav {
-	--lay-nav-btn-bg: hsla(195, 75%, 15%, 0.85);
-	--lay-nav-btn-bxsh: hsla(195, 75%, 95%, 0.35);
-	--lay-nav-btn-bxsh--focus: hsla(195, 75%, 15%, 0.35);
-	--lay-nav-btn-c: hsla(195, 75%, 95%, 1);
-	--lay-nav-btn-ico-bdw: 2px;
-	--lay-nav-btn-ico-sz: 1rem;
-	--lay-nav-btn-sz: 52px;
-
 	display: block;
 	height: 100%;
 	left: 0;
@@ -106,6 +98,13 @@ NAV ARROWS
 	display: none;
 }
 .c-lay__nav-btn {
+	--lay-nav-btn-bg: hsla(195, 75%, 15%, 0.85);
+	--lay-nav-btn-bxsh: hsla(195, 75%, 95%, 0.35);
+	--lay-nav-btn-bxsh--focus: hsla(195, 75%, 15%, 0.35);
+	--lay-nav-btn-c: hsla(195, 75%, 95%, 1);
+	--lay-nav-btn-ico-bdw: 2px;
+	--lay-nav-btn-ico-sz: 1rem;
+	--lay-nav-btn-sz: 52px;
 	align-items: center;
 	background-color: var(--lay-nav-btn-bg);
 	border: 0;

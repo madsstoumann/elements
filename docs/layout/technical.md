@@ -885,7 +885,13 @@ transform: scale(var(--ratio, 1));
 
 ---
 ### Scroll Position
-The current scroll-position of the page is stored as a Custom CSS Porperty: `--scroll-y`, on the `html` (root)-tag.
+The current scroll-position of the page is stored as a Custom CSS Porperty: `--scroll-y`, on the `html` (root)-tag. The percentage scrolled, is stored in `--scroll-p`.
+
+*Example: Add a Scroll-Line indicator:*
+
+```html
+<div data-scroll-line></div>
+```
 
 ---
 ### Tabs
