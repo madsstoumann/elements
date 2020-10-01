@@ -1,7 +1,7 @@
 /**
  * c-lay_navigation.css
- * @version 1.0.6
- * @summary 04-09-2020
+ * @version 1.0.10
+ * @summary 01-10-2020
  * @author Mads Stoumann
  * @description Stylesheet for Layout Component, Navigation: Arrows, Back-To-Top, Dots, Tabs
 */
@@ -239,6 +239,31 @@ NAV ARROWS
 [data-section-type="stack"] .c-lay__nav {
 	display: none;
 }
+
+/* 
+============
+SCROLL-LINE
+============
+*/
+[data-scroll-line] {
+	--bgc: tomato;
+	--h: 5px;
+	background-color: transparent;
+	height: var(--h);
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: var(--z--scln);
+}
+[data-scroll-line]::after {
+	background-color: var(--bgc);
+	content: "";
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: var(--scroll-p, 0);
+} 
 
 /*
 =====

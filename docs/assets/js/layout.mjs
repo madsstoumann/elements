@@ -128,6 +128,7 @@ export default class Layout {
 			if (!ticking) {
 				window.requestAnimationFrame(() => {
 					document.documentElement.style.setProperty('--scroll-y', scrollY);
+					document.documentElement.style.setProperty('--scroll-p', `${(scrollY / (document.documentElement.scrollHeight  - window.innerHeight)) * 100}%`);
 					if (this.backToTop) {
 						this.backToTop.classList.toggle('c-lay__btt', window.scrollY > window.screen.height * 4);
 					}
