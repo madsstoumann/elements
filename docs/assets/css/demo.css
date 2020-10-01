@@ -37,7 +37,7 @@ code {
 .c-lay__item:focus > * {
 	box-shadow: 0px 6px 1px#ff5722;
 }
-.item--0 { background-color: white; }
+.item--0 { background-color: white; line-height: 1.6; }
 .item--1 { background-color: hotpink; color: #282828; min-height: 200px; }
 .item--2 { background-color: orange; min-height: 400px; }
 .item--3 { background-color: greenyellow; min-height: 150px; }
