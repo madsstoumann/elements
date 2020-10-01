@@ -1,19 +1,13 @@
 /* @import 'config.css'; */
 
 /* Styles for demo only */
-:root {
-	--c-bg: #FFFFFF;
-	--c-bg--dark: #292A2D;
-	--c-txt: hsl(210, 24%, 16%);
-	--c-txt--dark: hsl(216, 33%, 97%);
-}
-html {
 
+html {
 	scroll-behavior: smooth;
 }
 body {
-	background-color: var(--c-bg);
-	color: var(--c-txt);
+	background-color: var(--bgc);
+	color: var(--c);
 	font-family: ui-sansserif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 	margin: 0;
 }
@@ -86,12 +80,12 @@ code {
 
 @media (prefers-color-scheme: dark) {
 	body {
-		background-color: var(--c-bg--dark);
-		color: var(--c-txt--dark);
+		background-color: var(--bgc--dark);
+		color: var(--c--dark);
 	}
 	code {
 		background-color: #81E5d9;
-		color: var(--c-grey-900);
+
 	}
 	.item {
 		background-color: #a4b1c1;

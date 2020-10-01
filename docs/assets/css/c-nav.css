@@ -1,7 +1,7 @@
 /**
  * c-nav.css
  * @version 1.0.00
- * @summary 30-09-2020
+ * @summary 01-10-2020
  * @author Mads Stoumann
  * @description Stylesheet for Share Component
 */
@@ -16,21 +16,20 @@
 }
 
 .c-nav {
-	--bdc: hsl(195, 20%, 60%);
-	--bgc: hsl(195, 20%, 95%);
+	--bdw: 1px;
 	--icon: var(--ico-menu);
-	--icon-bgc: hsl(195, 20%, 50%);
-	--icon-bgc--active: hsl(195, 100%, 10%);
+	--icon-bgc: var(--c--dim);
 	--icon-size: 80%;
 	--link-p: 0.25rem;
 	--mnu-h: 3.375rem;
-	--p: 0.35rem 1.5rem;
+	--p: 0.25rem .75rem;
 	--size: 2rem;
 
 	align-items: center;
-	background: var(--bgc);
+	backdrop-filter: saturate(180%) blur(15px);
+	background: var(--bgc--dim);
 	bottom: 0;
-	border-top: 1px solid var(--bdc);
+	border-top: var(--bdw) solid var(--bdc);
 	box-sizing: border-box;
 	display: flex;
 	justify-content: space-between;
@@ -38,7 +37,7 @@
 	padding: var(--p);
 	position: fixed;
 	width: 100%;
-	z-index: 900; /* TODO */
+	z-index: var(--z--menu);
 }
 
 .c-nav__lnk {
@@ -57,11 +56,12 @@
 }
 
 .c-nav__lnk--active {
-	--icon-bgc: var(--icon-bgc--active);
+	--icon-bgc: var(--active);
 }
+
 .c-nav__lnk--scale {
-	background-color: hsl(195, 20%, 99%);
-	border: 1px solid var(--bdc);
+	background-color: var(--bgc);
+	border: var(--bdw) solid var(--bdc);
 	border-radius: 50%;
 	transform: scale(1.35) translateY(-0.35rem);
 }
@@ -86,5 +86,13 @@
 @media screen and (min-width: 600px) {
 	.c-nav {
 		display: none;
+	}
+}
+@media (prefers-color-scheme: dark) {
+	.c-nav {
+		--bdw: 2px;
+	}
+	.c-nav__lnk--scale {
+		--icon-bgc: var(--c);
 	}
 }

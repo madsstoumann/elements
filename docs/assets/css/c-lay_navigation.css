@@ -3,9 +3,98 @@
  * @version 1.0.6
  * @summary 04-09-2020
  * @author Mads Stoumann
- * @description Stylesheet for Layout Component: Navigation
+ * @description Stylesheet for Layout Component, Navigation: Arrows, Back-To-Top, Dots, Tabs
+*/
+
+/* BACK TO TOP */
+[data-back-to-top] {
+	background-color: var(--active);
+	bottom: var(--mnu-h, 0);
+	color: var(--active-c);
+	font-size: x-small;
+	line-height: 1.3;
+	opacity: 0;
+	padding: 1em;
+	position: fixed;
+	right: 0;
+	transition: opacity .3s ease-in-out;
+	text-align: center;
+	text-decoration: none;
+	visibility: hidden;
+	z-index: var(--z--bttp);
+}
+/* TODO ? */
+.c-lay__btt {
+	opacity: 1;
+	visibility: visible;
+}
+
+/*
+=====
+DOTS
+=====
+*/
+.c-lay__dots {
+	--lay-dot-bdrs: 50%;
+	--lay-dot-bgc: hsl(210, 24%, 80%);
+	--lay-dot-bgc--cur: hsl(210, 24%, 30%);
+	--lay-dot-bgc--cur-focus: hsla(210, 24%, 90%, 0.65);
+	--lay-dot-bxsh: hsla(210, 24%, 15%, 0.65);
+	--lay-dot-m: 0 10px;
+	--lay-dot-h: 0.5rem;
+	--lay-dots-m: 1rem 0 0 0;
+	--lay-dot-p: var(--lay-gap) 0;
+	--lay-dot-w: 0.5rem;
+
+	display: none;
+	justify-content: center;
+	padding: var(--lay-dot-p);
+	position: relative;
+}
+.c-lay__dot {
+	background-color: var(--lay-dot-bgc);
+	border: 0;
+	border-radius: var(--lay-dot-bdrs);
+	box-sizing: border-box;
+	display: block;
+	height: var(--lay-dot-h);
+	margin: var(--lay-dot-m);
+	padding: 0;
+	transition: .3s ease, background-color 0.3s ease-in;
+	width: var(--lay-dot-w);
+}
+.c-lay__dot:focus {
+	box-shadow: 0 0 0 3px var(--lay-dot-bxsh);
+	outline: none;
+}
+.c-lay__dot--current {
+	background-color: var(--lay-dot-bgc--cur);
+}
+.c-lay__dot--current:focus {
+	background-color: var(--lay-dot-bgc--cur-focus);
+}
+
+/* Modifier: Flat lines */
+.c-lay__dots--line .c-lay__dot {
+	--lay-dot-bdrs: 0;
+	--lay-dot-h: 2px;
+	--lay-dot-w: 40px;
+}
+
+/*
+===========
+NAV ARROWS
+=========== 
 */
 .c-lay__nav {
+	--lay-nav-btn-bg: hsla(195, 75%, 15%, 0.85);
+	--lay-nav-btn-bxsh: hsla(195, 75%, 95%, 0.35);
+	--lay-nav-btn-bxsh--focus: hsla(195, 75%, 15%, 0.35);
+	--lay-nav-btn-c: hsla(195, 75%, 95%, 1);
+	--lay-nav-btn-ico-bdw: 2px;
+	--lay-nav-btn-ico-sz: 1rem;
+	--lay-nav-btn-sz: 52px;
+
 	display: block;
 	height: 100%;
 	left: 0;
@@ -32,7 +121,7 @@
 	transform: translateZ(0);
 	transition: opacity .3s ease-in;
 	width: var(--lay-nav-btn-sz);
-	z-index: var(--lay-nav-btn-z);
+	z-index: var(--z--navi);
 }
 .c-lay__nav-btn:focus {
 	box-shadow: 0 0 0 8px var(--lay-nav-btn-bxsh);
@@ -95,6 +184,7 @@
 .c-lay__nav-btn[rel="prev"]:hover i {
 	left: 0;
 }
+
 .c-lay__nav-inner {
 	align-items: center;
 	display: flex;
@@ -127,6 +217,7 @@
 	position: absolute;
 	transform: translateX(-50%);
 }
+
 .c-lay[data-nav*="inside"] {
 	/* TODO: PER THEME */
 	--lay-dot-bgc: rgba(0,0,0,.25);
@@ -148,127 +239,83 @@
 [data-section-type="stack"] .c-lay__nav {
 	display: none;
 }
-/*
-=====
-DOTS
-=====
-*/
-.c-lay__dot {
-	background-color: var(--lay-dot-bgc);
-	border: 0;
-	border-radius: var(--lay-dot-bdrs);
-	box-sizing: border-box;
-	display: block;
-	height: var(--lay-dot-h);
-	margin: var(--lay-dot-m);
-	padding: 0;
-	transition: .3s ease, background-color 0.3s ease-in;
-	width: var(--lay-dot-w);
-}
-.c-lay__dot:focus {
-	box-shadow: 0 0 0 3px var(--lay-dot-bxsh);
-	outline: none;
-}
-.c-lay__dot--current {
-	background-color: var(--lay-dot-bgc--cur);
-}
-.c-lay__dot--current:focus {
-	background-color: var(--lay-dot-bgc--cur-focus);
-}
-.c-lay__dots {
-	display: none;
-	justify-content: center;
-	padding: var(--lay-dot-p);
-	position: relative;
-}
-
-/* Modifier: Flat lines */
-.c-lay__dots--line .c-lay__dot {
-	--lay-dot-bdrs: 0;
-	--lay-dot-h: 2px;
-	--lay-dot-w: 40px;
-}
 
 /*
 =====
 TABS
 =====
-TODO
 */
-
+.c-lay__tabs {
+	--bdw: 2px;
+	--fz: 0.75rem;
+	backdrop-filter: saturate(180%) blur(15px);
+	background-color: var(--bgc);
+	/* box-sizing: content-box; */
+	position: sticky;
+	top: 0;
+	z-index: var(--z--tabs);
+}
 .c-lay__tab {
-	background-color: transparent;
-	border: 0;
-	border-radius: .25rem;
-	color: var(--lay-tab-c);
-	padding: 0.75em;
+	--bdrs: 0;
+	--bgc: transparent;
+	--m: 0;
+	--p: 0.75em 0.75em 1em;
+
+	background-color: var(--bgc);
+	border-color: var(--bdc);
+	border-radius: var(--bdrs);
+	border-style: solid;
+	border-width: 0 0 var(--bdw) 0;
+	bottom: calc(0px - var(--bdw));
+	color: var(--c--dim);
+	font-family: inherit;
+	font-size: var(--fz);
+	margin: var(--m);
+	padding: var(--p);
 	overflow: hidden;
 	position: relative;
 	text-overflow: ellipsis;
 	width: 10rem;
 	white-space: nowrap;
-	z-index: var(--lay-nav-btn-z);
-
+	
 }
 .c-lay__tab:focus {
 	outline: none;
-	text-decoration: dotted underline;
+	text-decoration: underline;
 }
 .c-lay__tab--current {
-	background-color: var(--lay-tab-bgc--cur);
-	color: var(--lay-tab-c--cur);
+	border-color: var(--active);
+	color: var(--c);
 }
 .c-lay__tabs-inner {
 	align-items: center;
+	border-bottom: var(--bdw) solid var(--bdc);
 	display: flex;
 	margin: 0 auto;
-	max-width: var(--lay-inner-maw);
-	height: var(--lay-tab-h);
 	padding: 0 var(--lay-gap);
+	max-width: var(--lay-inner-maw);
 }
+/* Modifier: Tab Pills */
+/*
 .c-lay__tabs {
-  backdrop-filter: saturate(180%) blur(15px);
-	background-color: var(--lay-tab-bgc);
-	border-bottom: 1px solid var(--lay-tab-bdc);
-	box-sizing: border-box;
-	position: sticky;
-	top: 0;
-	z-index: 2;
+	--bdw: 1px;
+	--bgc: var(--bgc--dim);
 }
-
-/* TODO: BACK TO TOP */
-[data-back-to-top] {
-	background-color: #ccd6e0;
-	bottom: var(--mnu-h, 0);
-	color: #2f3e4c;
-	font-size: x-small;
-	line-height: 1.3;
-	opacity: 0;
-	padding: 1em;
-	position: fixed;
-	right: 0;
-	transition: opacity .3s ease-in-out;
-	text-align: center;
-	text-decoration: none;
-	visibility: hidden;
-	z-index: 100; /* TODO */
+.c-lay__tab {
+	--bdw: 0;
+	--m: var(--lay-gap) 0;
+	--p: 0.75em;
 }
-
-/* TODO */
-.c-lay__btt {
-	opacity: 1;
-	visibility: visible;
+.c-lay__tab--current {
+	--bdrs: 0.35rem;
+	--bgc: var(--active);
+	--c: var(--active-c);
 }
+*/
 
-@media (prefers-color-scheme: dark) {
-	[data-back-to-top] {
-		background-color: #81E5d9;
-	}
-
+/* RWD */
+@media screen and (min-width: 64rem) {
 	.c-lay__tabs {
-		--lay-tab-bgc: hsl(210, 24%, 5%, 0.97);
-		--lay-tab-c: hsl(210, 24%, 98%);
-		--lay-tab-bgc--cur: hsl(210, 24%, 24%);
-		
+		--fz: 1rem;
 	}
 }
