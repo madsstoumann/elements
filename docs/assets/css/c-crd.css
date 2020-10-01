@@ -113,6 +113,7 @@
 }
 [data-page-open] .c-crd__text {
 	display: block;
+	padding-bottom: calc(var(--mnu-h, 6rem));
 }
 [data-page-open] .c-crd__text > p {
 	--spacer-left: 1.5;

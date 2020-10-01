@@ -239,7 +239,7 @@ TODO
 /* TODO: BACK TO TOP */
 [data-back-to-top] {
 	background-color: #ccd6e0;
-	bottom: 0px;
+	bottom: var(--mnu-h, 0);
 	color: #2f3e4c;
 	font-size: x-small;
 	line-height: 1.3;
@@ -250,7 +250,14 @@ TODO
 	transition: opacity .3s ease-in-out;
 	text-align: center;
 	text-decoration: none;
-	z-index: 100;
+	visibility: hidden;
+	z-index: 100; /* TODO */
+}
+
+/* TODO */
+.c-lay__btt {
+	opacity: 1;
+	visibility: visible;
 }
 
 @media (prefers-color-scheme: dark) {

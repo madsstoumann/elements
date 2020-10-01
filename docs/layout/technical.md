@@ -813,8 +813,21 @@ The `image` and `story`-types are currently only used to add extra styling throu
 
 ---
 ## Appendix
----
 
+---
+### Back-To-Top
+By adding the attribute `data-back-to-top` to an `<a>`-tag, it will automatically show after approx. 4 screen-heights, and disappear if less.
+
+```html
+<main id="top">
+  ...
+  <a data-back-to-top href="#top">
+    &#9650;<br />Back to top
+  </a>
+</main>
+```
+
+---
 ### Fetching async data
 By adding `data-fetch-from` and `data-fetch-content`-attributes, content can be loaded async after initial load.
 
@@ -869,6 +882,10 @@ transform: rotate(calc(360deg * var(--ratio, 1)));
 
 transform: scale(var(--ratio, 1));
 ```
+
+---
+### Scroll Position
+The current scroll-position of the page is stored as a Custom CSS Porperty: `--scroll-y`, on the `html` (root)-tag.
 
 ---
 ### Tabs

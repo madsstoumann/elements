@@ -129,7 +129,7 @@ export default class Layout {
 				window.requestAnimationFrame(() => {
 					document.documentElement.style.setProperty('--scroll-y', scrollY);
 					if (this.backToTop) {
-						this.backToTop.style.opacity = window.scrollY > window.screen.height * 4 ? 1 : 0;
+						this.backToTop.classList.toggle('c-lay__btt', window.scrollY > window.screen.height * 4);
 					}
 					ticking = false;
 				});
