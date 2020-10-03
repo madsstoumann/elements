@@ -9,7 +9,7 @@
 /* BACK TO TOP */
 [data-back-to-top] {
 	background-color: var(--active);
-	bottom: var(--mnu-h, 0);
+	bottom: var(--mnu-bot-h, 0);
 	color: var(--active-c);
 	font-size: x-small;
 	line-height: 1.3;
@@ -218,7 +218,6 @@ NAV ARROWS
 }
 
 .c-lay[data-nav*="inside"] {
-	/* TODO: PER THEME */
 	--lay-dot-bgc: rgba(0,0,0,.25);
 	--lay-dot-bgc--cur: rgba(255,255,255,.95);
 }

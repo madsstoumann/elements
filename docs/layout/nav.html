@@ -65,14 +65,84 @@
 <body class="g-typ g-typ__dynamic">
 
 <header>
-	<nav class="c-nav">
-		<a href="#" class="c-nav__lnk c-nav__lnk--home"><i></i></a>
-		<a href="#" class="c-nav__lnk c-nav__lnk--user"><i></i></a>
-		<a href="#" class="c-nav__lnk c-nav__lnk--menu c-nav__lnk--scale"><i></i></a>
-		<a href="#" class="c-nav__lnk c-nav__lnk--search"><i></i></a>
-		<a href="#" class="c-nav__lnk c-nav__lnk--cart c-nav__lnk--active"><i></i></a>
+	<!-- <nav
+	data-menu="float"
+	data-menu-slide="left">
+	<div data-menu-inner>
+		<input type="checkbox" id="menu-toggle" hidden />
+		<label data-menu-item="scale" data-menu-burger for="menu-toggle">
+			<i aria-hidden="true"></i>
+		</label>
+		<div data-menu-panel="root">
+
+			<details data-menu-group>
+				<summary data-menu-item>Menu Item One</summary>
+				<div data-menu-panel="sub">Panel for Menu Item One</div>
+			</details>
+
+			<details data-menu-group>
+				<summary data-menu-item>Menu Item Two</summary>
+				<div data-menu-panel="sub">
+					Panel for Menu Item Two
+				</div>
+			</details>
+		</div>
+	</div>
+</nav> -->
+	<nav
+		data-menu="bottom"
+		data-menu-slide="top">
+
+		<div data-menu-inner>
+
+			<a data-menu-item href="/">
+				<span class="sr-only">Frontpage</span>
+				<i aria-hidden="true" data-menu-icon="home"></i>
+			</a>
+
+			<a data-menu-item href="#user">
+				<span class="sr-only">User page</span>
+				<i aria-hidden="true" data-menu-icon="user"></i>
+			</a>
+
+			<input type="checkbox" id="menu-toggle" hidden />
+			<label data-menu-item="scale" data-menu-burger for="menu-toggle">
+				<i aria-hidden="true"></i>
+			</label>
+			<div data-menu-panel="root">
+
+				<details data-menu-group>
+					<summary data-menu-item>Menu Item One</summary>
+					<div data-menu-panel="sub">Panel for Menu Item One</div>
+				</details>
+
+				<details data-menu-group>
+					<summary data-menu-item>Menu Item Two</summary>
+					<div data-menu-panel="sub">
+						Panel for Menu Item Two
+					</div>
+				</details>
+			</div>
+
+			<details data-menu-group>
+				<summary data-menu-item>
+					<i aria-hidden="true" data-menu-icon="search"></i>
+				</summary>
+				<div data-menu-panel>SEARCH PANEL HERE!!!</div>
+			</details>
+
+			<a data-menu-item href="#cart">
+				<span class="sr-only">Cart</span>
+				<i aria-hidden="true" data-menu-icon="cart"></i>
+			</a>
+		</div>
+
 	</nav>
-	<div class="c-nav__panel">...</div>
+
+	
+
+
+
 </header>
 
 <main class="c-lay__wrapper" id="top">

@@ -812,20 +812,65 @@ The `image` and `story`-types are currently only used to add extra styling throu
 ```
 
 ---
-## Appendix
+## Page Type
+
+The *Page Type* hosting *LayoutBlock/s* must have a small Model of it's own:
+
+- Show *Back-To-Top* (`boolean`)
+- Show *Scroll Line* (`boolean`)
+- Snap Vertically (`boolean`)
+
+Also, the `<main>`-element, wrapping *LayotBlock/s*, must have a `class`:
+
+```html
+<main class="c-lay__wrapper">
+  ```
 
 ---
 ### Back-To-Top
-By adding the attribute `data-back-to-top` to an `<a>`-tag, it will automatically show after approx. 4 screen-heights, and disappear if less.
+If *Show Back-To-Top* is enabled, add this snippet just before the closing `</main>`-tag:
+
 
 ```html
-<main id="top">
+<a data-back-to-top href="#top">
+  &#9650;<br />Back to top
+</a>
+```
+
+To the `<main>`-tag itself, add an `id`:
+
+```html
+<main class="c-lay__wrapper" id="top">
+````
+
+The `id` should match the `href`-attribute in the `<a>`-back-to-top-element.
+
+---
+### Scroll Line
+The current scroll-position of the page is stored as two Custom CSS Properties on the `html` (root)-tag:
+
+- `--scroll-y` (unitless/pixels)
+- `--scroll-p` (percentage)
+
+If *Show Scroll Line* is enabled, add this snippet just after the opening `</main>`-tag:
+
+```html
+<main class="c-lay__wrapper">
+  <div data-scroll-line></div>
   ...
-  <a data-back-to-top href="#top">
-    &#9650;<br />Back to top
-  </a>
 </main>
 ```
+
+---
+### Snap Vertically
+If enabled, sections will "snap" to the top, when scrolling vertically. To enable, add the class `c-lay__wrapper--snap` to the `<main>`-tag:
+
+```html
+<main class="c-lay__wrapper c-lay__wrapper--snap">
+  ```
+
+---
+## Appendix I: Extra Features for Content Items
 
 ---
 ### Fetching async data
@@ -842,6 +887,33 @@ By adding `data-fetch-from` and `data-fetch-content`-attributes, content can be 
   content ...
 </div>
   ```
+
+---
+### Lazy-Loading
+Native browser lazy-loading should be used, by adding the attribute `loading="lazy"` to `<img>` and `<iframe>`-tags. However, videos with `autorun` or `playsinline` will download immediately without scripting. 
+
+To lazy-load these videos, rename the `src`-attribute (either in the `<video>`- or `<source>`-tag) to `data-src`:
+
+```html
+<video muted autoplay loop playsinline>
+<source
+  data-src="../assets/video/food.mp4"
+  type="video/mp4">
+</video>
+```
+
+You can also specify a small, "dummy" video as the default `src`:
+
+```html
+<video muted autoplay loop playsinline>
+<source
+  src="../assets/video/empty.mp4"
+  data-src="../assets/video/food.mp4"
+  type="video/mp4">
+</video>
+```
+
+For videos *without* `autorun` or `playsinline`, add the attribute `preload="none"`.
 
 ---
 ### Modal Page
@@ -884,16 +956,6 @@ transform: scale(var(--ratio, 1));
 ```
 
 ---
-### Scroll Position
-The current scroll-position of the page is stored as a Custom CSS Porperty: `--scroll-y`, on the `html` (root)-tag. The percentage scrolled, is stored in `--scroll-p`.
-
-*Example: Add a Scroll-Line indicator:*
-
-```html
-<div data-scroll-line></div>
-```
-
----
 ### Tabs
 When using `data-section-type="slider"` and `data-nav="dots tabs"`, the first headlines (`h1-h6`-tags) of the content-area items will be used as tab captions.
 
@@ -913,4 +975,38 @@ The attribute `data-tab-header` will take precedence, though, should it exist.
   <h2>Your Personal Page</h2>
   ... content ...
 </div>
-````
+```
+
+---
+## Appendix II: Navigation Rules
+
+When configuraing a *Layout Block*, an editor can define how slider navigation should appear:
+
+arrows, dots, dots inside, scrollbar etc.
+
+However, some best practices for touch devices overrule some of these.
+
+1. If a preview of the next or previous slide is enabled, arrows *will not* be rendered on touch devices, even if enabled.
+
+2. If a preview of the next or previous slide is *not* enabled, arrows *will* be rendered on touch devices, if enabled.
+
+3. Arrows will be removed automatically, if there's room for the entire layout on the current device width.
+
+*Example:*
+```html
+<section class="c-lay"
+  data-grid-phone="50:50"
+  data-grid-tablet="33:33:33"
+  data-grid-desktop="20:20:20:20:20"
+  data-nav="arrows"
+  data-section-type="slider">
+  ... five content items ...
+```
+
+The above code will render a slider with five content items. On phones and tablets, the items will be `50%` and `33%` wide, and navigation arrows will be shown.  
+On desktops, however, the width is `20%`, and all five items will be shown, *without* navigation arrows.
+
+---
+## Appendix III: Other Components
+
+*Layout Block* integrates with *Control Panel* and *Share* (see separate documentation)
