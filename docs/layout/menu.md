@@ -57,4 +57,22 @@ On desktop, menu-panels always slide in from the top.
 ### Drop-Down Arrows
 `data-arrow`
 
+
+---
+### Menu Items
+`data-menu-order`
+
+LINK:
+
+```html
+
+<a data-menu-item="root" data-menu-order="5" href="/URL">
+  <i aria-hidden="true" data-icon="cart"></i>
+  <span class="sr-only desktop-only mobile-only">Cart</span>
+</a>
+
+
+`data-circle-num`
+
+
 Direction ? Down / Right

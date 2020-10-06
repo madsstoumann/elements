@@ -64,10 +64,13 @@
 </head>
 <body
 	class="g-typ g-typ__dynamic"
-	data-menu-mobile="bottom"
+	data-menu-mobile=""
 	data-menu-desktop=""
-	data-menu-slide="top"
+	data-menu-slide=""
 >
+<a href="#top" data-skip-link>
+	<span>Go to content</span>
+</a>
 
 <header>
 
@@ -75,24 +78,19 @@
 		<div data-menu-inner>
 			
 			<!-- ROOT LINK -->
-			<a data-menu-item="root" href="/">
-				<span class="sr-only">Frontpage</span>
+			<a data-menu-item="root" data-menu-order="1" href="/">
 				<i aria-hidden="true" data-icon="home"></i>
+				<span class="sr-only">Frontpage</span>
 			</a>
 			<!-- /END ROOT LINK -->
 
-			<a data-menu-item="root" href="#user">
-				<span class="sr-only">User page</span>
-				<i aria-hidden="true" data-icon="user"></i>
-			</a>
-
 			<!-- MAIN MENU TRIGGER -->
 			<input type="checkbox" id="menu-toggle" hidden />
-			<label data-menu-item="scale" data-burger for="menu-toggle">
+			<label data-burger data-menu-item="" data-menu-order="3" for="menu-toggle">
 				<i aria-hidden="true"></i>
 			</label>
-			<div data-menu-panel="root">
-				
+			<div data-menu-panel="root" data-menu-toggle>
+
 				<!-- SUBGROUPS -->
 				<details data-menu-group="root">
 					<summary data-menu-item="group">
@@ -123,18 +121,24 @@
 			</div>
 			<!-- / END MAIN MENU TRIGGER -->
 
+			<a data-circle-num="1"  data-menu-item="root" data-menu-order="2" href="#user">
+				<i aria-hidden="true" data-icon="user"></i>
+				<span class="sr-only">Login</span>
+			</a>
+
 			<!-- ROOT PANEL -->
-			<details data-menu-group>
+			<details data-menu-group data-menu-order="4">
 				<summary data-menu-item="root">
 					<i aria-hidden="true" data-icon="search"></i>
+					<span class="sr-only">Search</span>
 				</summary>
 				<div data-menu-panel="root">SEARCH PANEL HERE!!!</div>
 			</details>
 			<!-- / END ROOT PANEL -->
 
-			<a data-menu-item="root" href="#cart">
-				<span class="sr-only">Cart</span>
+			<a data-circle-num="15" data-menu-item="root" data-menu-order="5" href="#cart">
 				<i aria-hidden="true" data-icon="cart"></i>
+				<span class="sr-only" >Cart</span>
 			</a>
 
 		</div>
