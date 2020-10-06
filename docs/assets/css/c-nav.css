@@ -25,12 +25,12 @@
 	--b: initial;
 	--bdf: saturate(180%) blur(15px);
 	--bdw: 0 0 1px 0;
+	--bgc: var(--bgc--dim);
 	--c: var(--c--dim);
 	--icon: var(--ico-menu);
 	--icon-bdw: 1px;
 	--icon-bgc: var(--c--dim);
 	--icon-size: 80%;
-	--inner-bgc: var(--bgc--dim);
 	--inner-d: flex;
 	--jc: space-between;
 	--item-m: 0;
@@ -44,6 +44,11 @@
 	--trs: top var(--animtf) var(--animdur);
 	--w: 100%;
 
+	backdrop-filter: var(--bdf);
+	background: var(--bgc);
+	border-color: var(--bdc);
+	border-style: solid;
+	border-width: var(--bdw);
 	bottom: var(--b);
 	position: var(--pos);
 	top: var(--t);
@@ -51,12 +56,6 @@
 	width: var(--w);
 	will-change: transform;
 	z-index: var(--z--menu);
-
-	backdrop-filter: var(--bdf);
-	background: var(--inner-bgc);
-	border-color: var(--bdc);
-	border-style: solid;
-	border-width: var(--bdw);
 }
 
 [data-menu] summary {
