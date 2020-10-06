@@ -2,8 +2,8 @@
  * Layout module.
  * @module /assets/js/layout
  * @requires /assets/js/common
- * @version 1.1.19
- * @summary 28-09-2020
+ * @version 1.1.20
+ * @summary 04-10-2020
  * @description Helper-functions for Layout Block
  */
 
@@ -121,12 +121,16 @@ export default class Layout {
 		this.observeIntersections(document.querySelectorAll('[data-animation],[data-animation-items],[data-set-props]'), '[data-inner]');
 		this.toggleLayout(document.querySelectorAll(`[data-layout-label]`));
 
+/* TODO: MOVE SCROLL O OWN MODULE */
 		let ticking = false;
+		let scrollYcur = 0;
 		let scrollY = 0;
 		window.addEventListener('scroll', () => {
 			scrollY = window.scrollY;
+			scrollYcur = document.documentElement.style.getPropertyValue('--scroll-y');
 			if (!ticking) {
 				window.requestAnimationFrame(() => {
+					document.documentElement.style.setProperty('--scroll-d', scrollYcur < scrollY ? 1 : 0);
 					document.documentElement.style.setProperty('--scroll-y', scrollY);
 					document.documentElement.style.setProperty('--scroll-p', `${(scrollY / (document.documentElement.scrollHeight  - window.innerHeight)) * 100}%`);
 					if (this.backToTop) {
@@ -137,6 +141,7 @@ export default class Layout {
 				ticking = true;
 			}
 		})
+/* TODO: END */
 		this.loadPopupPage();
 		window.addEventListener('popstate', () => {
 			this.loadPopupPage();
@@ -260,7 +265,7 @@ export default class Layout {
 
 					if (section.dataset.setProps) {
 						section.style.setProperty('--ratio', entry.intersectionRatio);
-						section.style.setProperty('--top', entry.boundingClientRect.y < entry.rootBounds.y ? 1 : 0);
+						// section.style.setProperty('--top', entry.boundingClientRect.y < entry.rootBounds.y ? 1 : 0);
 					}
 
 					/* Use custom intersectionRatio from dataset, or use fallback: 0 */

@@ -62,96 +62,94 @@
 		manifest-src 'self';
 		">
 </head>
-<body class="g-typ g-typ__dynamic">
+<body
+	class="g-typ g-typ__dynamic"
+	data-menu-mobile="bottom"
+	data-menu-desktop=""
+	data-menu-slide="top"
+>
 
 <header>
-	<!-- <nav
-	data-menu="float"
-	data-menu-slide="left">
-	<div data-menu-inner>
-		<input type="checkbox" id="menu-toggle" hidden />
-		<label data-menu-item="scale" data-menu-burger for="menu-toggle">
-			<i aria-hidden="true"></i>
-		</label>
-		<div data-menu-panel="root">
 
-			<details data-menu-group>
-				<summary data-menu-item>Menu Item One</summary>
-				<div data-menu-panel="sub">Panel for Menu Item One</div>
-			</details>
-
-			<details data-menu-group>
-				<summary data-menu-item>Menu Item Two</summary>
-				<div data-menu-panel="sub">
-					Panel for Menu Item Two
-				</div>
-			</details>
-		</div>
-	</div>
-</nav> -->
-	<nav
-		data-menu="bottom"
-		data-menu-slide="top">
-
+	<nav data-menu>
 		<div data-menu-inner>
-
-			<a data-menu-item href="/">
+			
+			<!-- ROOT LINK -->
+			<a data-menu-item="root" href="/">
 				<span class="sr-only">Frontpage</span>
-				<i aria-hidden="true" data-menu-icon="home"></i>
+				<i aria-hidden="true" data-icon="home"></i>
 			</a>
+			<!-- /END ROOT LINK -->
 
-			<a data-menu-item href="#user">
+			<a data-menu-item="root" href="#user">
 				<span class="sr-only">User page</span>
-				<i aria-hidden="true" data-menu-icon="user"></i>
+				<i aria-hidden="true" data-icon="user"></i>
 			</a>
 
+			<!-- MAIN MENU TRIGGER -->
 			<input type="checkbox" id="menu-toggle" hidden />
-			<label data-menu-item="scale" data-menu-burger for="menu-toggle">
+			<label data-menu-item="scale" data-burger for="menu-toggle">
 				<i aria-hidden="true"></i>
 			</label>
 			<div data-menu-panel="root">
+				
+				<!-- SUBGROUPS -->
+				<details data-menu-group="root">
+					<summary data-menu-item="group">
+						<span data-exp-icon="caret">Menu Item One</span>
+					</summary>
 
-				<details data-menu-group>
-					<summary data-menu-item>Menu Item One</summary>
-					<div data-menu-panel="sub">Panel for Menu Item One</div>
+					<!-- SUBGROUP - LEVEL 2 -->
+					<details data-menu-group>
+						<summary data-menu-item="group">
+							<span data-exp-icon="plus">Menu Item Subpanel</span>
+						</summary>
+						<div data-menu-panel="group">Panel for Menu Item One</div>
+					</details>
+					<!-- / END SUBGROUP - LEVEL 2 -->
+
 				</details>
 
 				<details data-menu-group>
-					<summary data-menu-item>Menu Item Two</summary>
-					<div data-menu-panel="sub">
+					<summary data-menu-item="group">
+						<span data-exp-icon="right">Menu Item Two</span>
+					</summary>
+					<div data-menu-panel="group">
 						Panel for Menu Item Two
 					</div>
 				</details>
+
+				<!-- / END SUBGROUPS -->
 			</div>
+			<!-- / END MAIN MENU TRIGGER -->
 
+			<!-- ROOT PANEL -->
 			<details data-menu-group>
-				<summary data-menu-item>
-					<i aria-hidden="true" data-menu-icon="search"></i>
+				<summary data-menu-item="root">
+					<i aria-hidden="true" data-icon="search"></i>
 				</summary>
-				<div data-menu-panel>SEARCH PANEL HERE!!!</div>
+				<div data-menu-panel="root">SEARCH PANEL HERE!!!</div>
 			</details>
+			<!-- / END ROOT PANEL -->
 
-			<a data-menu-item href="#cart">
+			<a data-menu-item="root" href="#cart">
 				<span class="sr-only">Cart</span>
-				<i aria-hidden="true" data-menu-icon="cart"></i>
+				<i aria-hidden="true" data-icon="cart"></i>
 			</a>
+
 		</div>
 
 	</nav>
-
-	
-
-
 
 </header>
 
 <main class="c-lay__wrapper" id="top">
 	<h1 class="sr-only">Layout Block Demo</h1>
 	<div data-scroll-line></div>
-
+<!-- data-auto-play="5000"-->
 	<section class="c-lay"
 		data-align="stretch"
-		data-auto-play="5000"
+		
 		data-desc-w="s"	
 		data-gap-phone="column edge"
 		data-gap-tablet="column edge"
