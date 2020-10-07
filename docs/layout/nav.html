@@ -69,7 +69,7 @@
 	data-menu-desktop=""
 	data-menu-slide=""
 >
-<a href="#top" data-skip-link>
+<a href="#main" data-skip-link>
 	<span>Go to content</span>
 </a>
 
@@ -95,7 +95,7 @@
 				<!-- SUBGROUPS -->
 				<details data-menu-group="root">
 					<summary data-menu-item="group">
-						<span data-exp-icon="caret">Menu Item One</span>
+						<span data-exp-icon="down">Menu Item One</span>
 					</summary>
 
 					<!-- SUBGROUP - LEVEL 2 -->
@@ -139,7 +139,7 @@
 
 			<a data-circle-num="15" data-menu-item="root" data-menu-order="5" href="#cart">
 				<i aria-hidden="true" data-icon="cart"></i>
-				<span class="sr-only" >Cart</span>
+				<span data-show="d:sr">Cart</span>
 			</a>
 
 		</div>
@@ -148,10 +148,15 @@
 
 </header>
 
-<main class="c-lay__wrapper" id="top">
+<main class="c-lay__wrapper" id="main">
 	<h1 class="sr-only">Layout Block Demo</h1>
+
+	<!-- TOP BANNER AREA -->
+	<!-- <div class="c-ban" style="background:#0071E3; color:white;font-size:small; padding:0.5em;text-align:center;">Some important text you need to focus on.</div> -->
+	<!-- /END TOP BANNER AREA-->
+
 	<div data-scroll-line></div>
-<!-- data-auto-play="5000"-->
+
 	<section class="c-lay"
 		data-align="stretch"
 		
@@ -1232,7 +1237,7 @@
 			</div>
 		</div>
 	</section>
-	<!-- <a data-back-to-top href="#top">&#9650;<br />Back to top</a> -->
+	<!-- <a data-back-to-top href="#main">&#9650;<br />Back to top</a> -->
 </main>
 <script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js" integrity="sha384-EYn4rWu1DHvYD0sSSSbMEtXQmMl58CFJd897806+RT1jJVYbhuZlZMN6yG9nCyFa" crossorigin="anonymous"></script>
 <script src="main.js" type="module"></script>

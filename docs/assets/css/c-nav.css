@@ -1,7 +1,7 @@
 /**
  * c-mnu.css
- * @version 1.0.24
- * @summary 06-10-2020
+ * @version 1.0.25
+ * @summary 07-10-2020
  * @author Mads Stoumann
  * @description Stylesheet for Share Component
 */
@@ -16,6 +16,7 @@
 	--mnu-h: 49px; /* Set from JS?, otherwise calc is: --size + (--inner-pt * 2) + (--item-p * 2) + --bdw */
 	--mnu-pos-b: 0;
 	--mnu-pos-t: 1;
+	--scroll-d: 0; /* Initial - will be updated by JS */
 }
 
 [data-menu] {
@@ -38,10 +39,12 @@
 	--inner-maw: 1600px;
 	--inner-pt: 0.25rem;
 	--inner-pl: .75rem;
+	--o: calc(1 - var(--scroll-d, 1));
 	--pos: fixed;
+	--scale-bgc: #FFF;
 	--size: 2rem;
 	--t: calc(0px - (var(--mnu-h) * var(--scroll-d, 0)));
-	--trs: top var(--animtf) var(--animdur);
+	--trs: opacity var(--animtf) var(--animdur);
 	--w: 100%;
 
 	backdrop-filter: var(--bdf);
@@ -50,6 +53,7 @@
 	border-style: solid;
 	border-width: var(--bdw);
 	bottom: var(--b);
+	opacity: var(--o);
 	position: var(--pos);
 	top: var(--t);
 	transition: var(--trs);
@@ -142,8 +146,8 @@
 
 /* Scale / Circle */
 [data-menu-item*="scale"],
-[data-menu-mobile="float"] [data-burger] {
-	background-color: var(--bgc);
+[data-menu-mobile*="float"] [data-burger] {
+	background-color: var(--scale-bgc);
 	border: var(--icon-bdw) solid var(--bdc);
 	border-radius: 50%;
 	height: var(--size);
@@ -209,6 +213,7 @@ input:checked + [data-menu-item] + [data-menu-panel] {
 	[data-menu-mobile="bottom"] [data-menu] {
 		--bdw: 1px 0 0 0;
 		--b: 0;
+		--o: 1;
 		--t: auto;
 	}
 	[data-menu-mobile="bottom"] [data-menu] [data-menu-item*="scale"] {
@@ -218,35 +223,48 @@ input:checked + [data-menu-item] + [data-menu-panel] {
 		--b: var(--mnu-h);
 		--t: auto;
 	}
+	[data-menu-mobile="fixed"] {
+		--scroll-line-top: var(--mnu-h);
+	}
 	[data-menu-mobile="fixed"] [data-menu] {
+		--o: 1;
 		--t: 0;
 	}
-	[data-menu-mobile="float"] {
+	[data-menu-mobile*="float"] {
 		--mnu-pos-b: 0;
 		--mnu-pos-t: 0;
+		--scroll-line-top: 0;
 	}
-	[data-menu-mobile="float"] [data-menu] {
-		--b: 1rem;
+	[data-menu-mobile*="float"] [data-menu] {
+		--b: 0;
 		--bdf: none;	
 		--bdw: 0;
+		--bgc: transparent;
 		--inner-bgc: transparent;
 		--inner-d: inner-flex;
+		--o: 1;
 		--t: auto;
 		text-align: right;
 	}
-	[data-menu-mobile="float"] [data-burger] {
-		transform: scale(1.5) translate(-1rem, .5rem);
+	[data-menu-mobile*="float"] [data-burger] {
+		transform: scale(1.5) translate(-1.25rem, -0.25rem);
 	}
-	[data-menu-mobile="float"] [data-menu-item]:not([data-burger]) {
+	[data-menu-mobile*="float"] [data-menu-item]:not([data-burger]) {
 		display: none;
 	}
-	[data-menu-mobile="float"] [data-menu-item="group"] {
+	[data-menu-mobile*="float"] [data-menu-item="group"] {
 		display: block !important;
 	}
-	[data-menu-mobile="float"] [data-menu-panel] {
+	[data-menu-mobile*="float"] [data-menu-panel] {
 		--b: 0;
 		--h: 100vh;
 		--t: auto;
+	}
+	[data-menu-mobile="float center"] [data-menu] {
+		text-align: center;
+	}
+	[data-menu-mobile="float center"] [data-burger] {
+		transform: scale(1.5) ;
 	}
 	[data-menu-mobile="static"] {
 		--mnu-pos-b: 0;
@@ -254,6 +272,7 @@ input:checked + [data-menu-item] + [data-menu-panel] {
 		--scroll-line-top: 0;
 	}
 	[data-menu-mobile="static"] [data-menu] {
+		--o: 1;
 		--pos: static;
 		--t: initial;
 	}
@@ -264,6 +283,11 @@ input:checked + [data-menu-item] + [data-menu-panel] {
 	[data-menu-order="3"] { order: 3; }
 	[data-menu-order="4"] { order: 4; }
 	[data-menu-order="5"] { order: 5; }
+	[data-menu-order="6"] { order: 6; }
+	[data-menu-order="7"] { order: 7; }
+	[data-menu-order="8"] { order: 8; }
+	[data-menu-order="9"] { order: 9; }
+	[data-menu-order="10"] { order: 10; }
 }
 
 
@@ -275,7 +299,7 @@ input:checked + [data-menu-item] + [data-menu-panel] {
 		--mnu-pos-t: 1;
 	}
 
-	 [data-menu] {
+	[data-menu] {
 		 --animn: scale-top-bottom;
 		--inner-bgc: rgba(255, 255, 255, .96);
 		--inner-pt: 0.75rem;
@@ -283,11 +307,19 @@ input:checked + [data-menu-item] + [data-menu-panel] {
 		--jc: flex-start;
 	 }
 
+	[data-menu-desktop="fixed"] {
+		--scroll-line-top: var(--mnu-h);
+	}
+	[data-menu-desktop="fixed"] [data-menu] {
+		--o: 1;
+		--t: 0;
+	 }
 	 [data-menu-desktop="static"] {
 		--mnu-pos-t: 0;
 		--scroll-line-top: 0;
 	}
 	[data-menu-desktop="static"] [data-menu] {
+		--o: 1;
 		--pos: relative; 
 	}
 
@@ -362,7 +394,7 @@ input:checked + [data-menu-item] + [data-menu-panel] {
 
 /*
 =================================================
-Accordion Icons: Caret, Right Arrow or Plus/Minus 
+Accordion Icons: Down, Right Arrow or Plus/Minus 
 Add as data-attribute `data-exp-icon` to <span> within <summary>, or to a label directly after a checkbox/radio.
 https://www.nngroup.com/articles/accordion-icons/
 */
@@ -371,7 +403,7 @@ https://www.nngroup.com/articles/accordion-icons/
 	--animtf: ease-in;
 	--bdw: 1px;
 	--c: currentColor;
-	--size: 0.75rem;
+	--size: 0.6rem;
 
 	align-items: center;
 	display: flex;
@@ -381,7 +413,7 @@ https://www.nngroup.com/articles/accordion-icons/
 [data-exp-icon]::after {
 	transition: transform var(--animdur) var(--animtf);
 }
-[data-exp-icon="caret"]::after,
+[data-exp-icon="down"]::after,
 [data-exp-icon="right"]::after {
 	border-color: var(--c);
 	border-style: solid;
@@ -391,7 +423,7 @@ https://www.nngroup.com/articles/accordion-icons/
 	margin: 0;
 	width: var(--size);
 }
-[data-exp-icon="caret"]::after {
+[data-exp-icon="down"]::after {
 	border-width: 0 var(--bdw) var(--bdw) 0;
 	transform: rotate(45deg) translate(calc(var(--size) / -2), 0em);
 }
@@ -404,7 +436,7 @@ https://www.nngroup.com/articles/accordion-icons/
 	height: var(--bdw);
 	position: absolute;
 	right: calc(((var(--w) - var(--size)) / 2));
-	/* Width need to be the diagonal of the caret side-length (--size): sqrt(2) * --size. */
+	/* Width need to be the diagonal of the down-arrow side-length (--size): sqrt(2) * --size. */
 	width: var(--w);
 }
 [data-exp-icon="plus"]::after {

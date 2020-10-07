@@ -52,12 +52,12 @@
 }
 
 body {
-		/* Calculate <main> paddings from menu- and ribbon-height/s */
+		/* Calculate <main> paddings from menu- and ribbon(s)-height/s */
 		--main-pb: calc(var(--mnu-h, 0) * var(--mnu-pos-b, 0));
 		--main-pt: calc(var(--mnu-h, 0) * var(--mnu-pos-t, 0));
 		--scroll-line-top: calc(0px + (var(--mnu-h, 0) * (1 - var(--scroll-d, 0))));
 		-webkit-overflow-scrolling: touch;
-		-webkit-tap-highlight-color: firebrick; /* TODO */
+		-webkit-tap-highlight-color: var(--active);
 }
 
 .c-lay {

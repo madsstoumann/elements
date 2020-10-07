@@ -7,8 +7,10 @@ Defaults to fixed, hide on scroll-down, reveal on scroll-up.
 
 1. Bottom `(bottom)` *Docked to bottom. Always visible*
 2. Top: Fixed `(fixed)` *Docked to top. Always visible*
-3. Top: Reveal `(empty) [default]` *Docked to top. Auto show/hide*
-4. Top: Static `(static)` *Top*
+3. Top: Fixed: Auto-hide `(empty) [default]` *Docked to top. Auto show/hide*
+4. Float Right `(float)`
+5. Float Center `(float center)`
+6. Top: Static `(static)` *Top*
 
 *Example:*
 ```html
@@ -23,7 +25,7 @@ Set style of desktop menu.
 Defaults to fixed, hide on scroll-down, reveal on scroll-up.
 
 1. Top: Fixed `(fixed)`
-2. Top: Reveal `(empty) [default]`
+2. Top: Fixed: Auto-hide `(empty) [default]`
 3. Top: Static `(static)`
 
 *Example:*
@@ -60,7 +62,7 @@ On desktop, menu-panels always slide in from the top.
 
 ---
 ### Menu Items
-`data-menu-order`
+`data-menu-order` 1-10
 
 LINK:
 
@@ -76,3 +78,14 @@ LINK:
 
 
 Direction ? Down / Right
+
+## Content Area
+The types that can be added to the *Content Area* are:
+
+- Link (w/wo icon/text)
+- Panel
+- Main Menu Wrapper
+  - Link
+  - Panel
+    - Panel
+    - Link
