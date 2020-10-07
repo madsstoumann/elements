@@ -245,7 +245,7 @@ SCROLL-LINE
 */
 [data-scroll-line] {
 	--bgc:firebrick;
-	--h: 5px;
+	--h: 2px;
 	background-color: transparent;
 	height: var(--h);
 	position: fixed;
@@ -274,9 +274,8 @@ TABS
 	--fz: 0.75rem;
 	backdrop-filter: saturate(180%) blur(15px);
 	background-color: var(--bgc);
-	/* box-sizing: content-box; */
 	position: sticky;
-	top: 0;
+	top: calc(var(--scroll-line-top, 0) - 1px);
 	z-index: var(--z--tabs);
 }
 .c-lay__tab {
@@ -313,7 +312,6 @@ TABS
 }
 .c-lay__tabs-inner {
 	align-items: center;
-	border-bottom: var(--bdw) solid var(--bdc);
 	display: flex;
 	margin: 0 auto;
 	padding: 0 var(--lay-gap);
@@ -338,8 +336,18 @@ TABS
 */
 
 /* RWD */
+@media screen and (min-width: 48rem) {
+	[data-scroll-line] {
+		--h: 5px;
+	}
+	.c-lay__tabs-inner {
+		border-bottom: var(--bdw) solid var(--bdc);
+	}
+}
 @media screen and (min-width: 64rem) {
+	
 	.c-lay__tabs {
 		--fz: 1rem;
 	}
+	
 }
