@@ -2,8 +2,8 @@
  * Layout module.
  * @module /assets/js/layout
  * @requires /assets/js/common
- * @version 1.1.20
- * @summary 04-10-2020
+ * @version 1.1.21
+ * @summary 06-10-2020
  * @description Helper-functions for Layout Block
  */
 

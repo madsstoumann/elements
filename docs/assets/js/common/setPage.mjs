@@ -9,6 +9,10 @@ export function setPage(key, value = '', title = document.title) {
 	const params = new URLSearchParams(location.search);
 	const url = new URL(location.href);
 
+	if ('scrollRestoration' in history) {
+		history.scrollRestoration = 'manual';
+	}
+
 	if (value) {
 		params.append(key, value);
 		url.search = params.toString();
