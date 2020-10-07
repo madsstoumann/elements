@@ -8,6 +8,7 @@
  */
 
 import { h } from './common/h.mjs';
+import { addDocumentScroll } from './common/addDocumentScroll.mjs';
 import { isTouch } from './const/isTouch.mjs';
 import { setModal } from './common/setModal.mjs';
 import { setPage } from './common/setPage.mjs';
@@ -121,27 +122,12 @@ export default class Layout {
 		this.observeIntersections(document.querySelectorAll('[data-animation],[data-animation-items],[data-set-props]'), '[data-inner]');
 		this.toggleLayout(document.querySelectorAll(`[data-layout-label]`));
 
-/* TODO: MOVE SCROLL O OWN MODULE */
-		let ticking = false;
-		let scrollYcur = 0;
-		let scrollY = 0;
-		window.addEventListener('scroll', () => {
-			scrollY = window.scrollY;
-			scrollYcur = document.documentElement.style.getPropertyValue('--scroll-y');
-			if (!ticking) {
-				window.requestAnimationFrame(() => {
-					document.documentElement.style.setProperty('--scroll-d', scrollYcur < scrollY ? 1 : 0);
-					document.documentElement.style.setProperty('--scroll-y', scrollY);
-					document.documentElement.style.setProperty('--scroll-p', `${(scrollY / (document.documentElement.scrollHeight  - window.innerHeight)) * 100}%`);
-					if (this.backToTop) {
-						this.backToTop.classList.toggle('c-lay__btt', window.scrollY > window.screen.height * 4);
-					}
-					ticking = false;
-				});
-				ticking = true;
+		addDocumentScroll (() => {
+			if (this.backToTop) {
+				this.backToTop.classList.toggle('c-lay__btt', window.scrollY > window.screen.height * 4);
 			}
-		})
-/* TODO: END */
+		});
+
 		this.loadPopupPage();
 		window.addEventListener('popstate', () => {
 			this.loadPopupPage();
