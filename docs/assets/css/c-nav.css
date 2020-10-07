@@ -251,6 +251,7 @@ input:checked + [data-menu-item] + [data-menu-panel] {
 	[data-menu-mobile="static"] {
 		--mnu-pos-b: 0;
 		--mnu-pos-t: 0;
+		--scroll-line-top: 0;
 	}
 	[data-menu-mobile="static"] [data-menu] {
 		--pos: static;
@@ -284,6 +285,7 @@ input:checked + [data-menu-item] + [data-menu-panel] {
 
 	 [data-menu-desktop="static"] {
 		--mnu-pos-t: 0;
+		--scroll-line-top: 0;
 	}
 	[data-menu-desktop="static"] [data-menu] {
 		--pos: relative; 

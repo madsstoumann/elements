@@ -249,7 +249,7 @@ SCROLL-LINE
 	background-color: transparent;
 	height: var(--h);
 	position: fixed;
-	top: 0;
+	top: var(--scroll-line-top);
 	width: 100%;
 	z-index: var(--z--scln);
 }
