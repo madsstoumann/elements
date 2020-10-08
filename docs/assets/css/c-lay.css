@@ -28,12 +28,11 @@
 
 	/* TODO z-index */
 	--z--bttp: 1;
-	--z--menu: 5;
+	--z--menu: 4;
 	--z--mlnk: 2;
-	--z--mpnl: 4; /* DELETE ? */
 	--z--navi: 1;
-	--z--ovrl: 6;
-	--z--skip: 6;
+	--z--ovrl: 5;
+	--z--skip: 5;
 	--z--tabs: 1;
 	--z--scln: 2;
 }

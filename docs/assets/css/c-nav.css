@@ -1,7 +1,7 @@
 /**
  * c-mnu.css
- * @version 1.0.25
- * @summary 07-10-2020
+ * @version 1.0.26
+ * @summary 08-10-2020
  * @author Mads Stoumann
  * @description Stylesheet for Share Component
 */
@@ -36,9 +36,11 @@
 	--jc: space-between;
 	--item-m: 0;
 	--item-p: 0.25rem;
+	--inner-bxsh: none;
 	--inner-maw: 1600px;
 	--inner-pt: 0.25rem;
 	--inner-pl: .75rem;
+	--panel-w: 100%;
 	--o: calc(1 - var(--scroll-d, 1));
 	--pos: fixed;
 	--scale-bgc: #FFF;
@@ -75,6 +77,7 @@
 
 [data-menu-inner] {
 	align-items: center;
+	box-shadow: var(--inner-bxsh);
 	box-sizing: border-box;
 	display: var(--inner-d);
 	justify-content: var(--jc);
@@ -99,6 +102,7 @@
 [data-menu-panel] {
 	--b: calc(var(--mnu-h) * var(--mnu-pos-b));
 	--bgc: #FFF;
+	--bxsh: none;
 	--c: initial;
 	--h: calc(100vh - var(--mnu-h, 0));
 	--l: 0;
@@ -111,6 +115,7 @@
 
 	background-color: var(--bgc);
 	bottom: var(--b);
+	box-shadow: var(--bxsh);
 	box-sizing: border-box;
 	color: var(--c);
 	height: var(--h);
@@ -123,9 +128,8 @@
 	transform: translate(var(--tx), var(--ty));
 	transform-origin: var(--tx) var(--ty);
 	transition: .3s opacity ease-in, var(--animdur) var(--animtf);
-	width: 100%;
+	width: var(--panel-w);
 	z-index: -1;
-	/* z-index: var(--z--mpnl); */
 }
 
 /* Menu-panels based on <details>-tag */
@@ -167,6 +171,7 @@
 }
 [data-menu-slide="left"] [data-menu-panel] {
 	--animn: scale-left-right;
+	--bxsh: 1rem 0 0.5rem 0 rgba(0,0,0,0.16);
 	--ty: 0;
 	--tx: -100vw;
 }
@@ -211,7 +216,9 @@ input:checked + [data-menu-item] + [data-menu-panel] {
 		--mnu-pos-t: 0;
 	}
 	[data-menu-mobile="bottom"] [data-menu] {
-		--bdw: 1px 0 0 0;
+		/* --bdw: 1px 0 0 0; */
+		--bdw: 0;
+		--inner-bxsh: 0px -1px 0px 0px var(--bdc);
 		--b: 0;
 		--o: 1;
 		--t: auto;

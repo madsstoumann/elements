@@ -20,6 +20,10 @@ Defaults to fixed, hide on scroll-down, reveal on scroll-up.
 ```
 
 ---
+### Mobile Menu Panel Width
+- 100% `(empty) [default]`
+
+---
 ### Desktop Menu
 Set style of desktop menu.  
 Defaults to fixed, hide on scroll-down, reveal on scroll-up.
@@ -62,6 +66,9 @@ On desktop, menu-panels always slide in from the top.
 
 ---
 ### Menu Items
+`data-menu-item="scale"`
+
+
 `data-menu-order` 1-10
 
 LINK:
