@@ -1,7 +1,7 @@
 /**
  * c-mnu.css
- * @version 1.0.26
- * @summary 08-10-2020
+ * @version 1.0.27
+ * @summary 10-10-2020
  * @author Mads Stoumann
  * @description Stylesheet for Share Component
 */
@@ -13,7 +13,7 @@
 	--ico-search: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M28.7 27.3l-5.25-5.25c1.6-1.9 2.55-4.4 2.55-7.05 0-6.05-4.95-11-11-11S4 8.95 4 15s4.95 11 11 11c2.65 0 5.15-.95 7.05-2.55l5.25 5.25c.2.2.45.3.7.3.25 0 .5-.1.7-.3.4-.4.4-1 0-1.4zM6 15c0-4.95 4.05-9 9-9s9 4.05 9 9-4.05 9-9 9-9-4.05-9-9z"></path></svg>');
 	--ico-user: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M22.805 15.18A7.89 7.89 0 0024 11a8 8 0 10-16 0 7.89 7.89 0 001.195 4.18A9 9 0 002 24v1a4 4 0 004 4h20a4 4 0 004-4v-1a9 9 0 00-7.195-8.82zM16 5a6 6 0 110 12 6 6 0 010-12zm12 20a2 2 0 01-2 2H6a2 2 0 01-2-2v-1a7 7 0 016.74-7 7.96 7.96 0 0010.5 0A7 7 0 0128 24v1z"></path></svg>');
 
-	--mnu-h: 49px; /* Set from JS?, otherwise calc is: --size + (--inner-pt * 2) + (--item-p * 2) + --bdw */
+	--mnu-h: 50px; /* Set from JS?, otherwise calc is: --size + (--inner-pt * 2) + (--item-p * 2) + --bdw */
 	--mnu-pos-b: 0;
 	--mnu-pos-t: 1;
 	--scroll-d: 0; /* Initial - will be updated by JS */
@@ -27,6 +27,7 @@
 	--bdf: saturate(180%) blur(15px);
 	--bdw: 0 0 1px 0;
 	--bgc: var(--bgc--dim);
+	--bxsh: none;
 	--c: var(--c--dim);
 	--icon: var(--ico-menu);
 	--icon-bdw: 1px;
@@ -55,6 +56,9 @@
 	border-style: solid;
 	border-width: var(--bdw);
 	bottom: var(--b);
+	box-shadow: var(--bxsh);
+	box-sizing: border-box;
+	height: var(--mnu-h);
 	opacity: var(--o);
 	position: var(--pos);
 	top: var(--t);

@@ -1,6 +1,9 @@
 /**
  * @function lazyLoad
- * @description Use Intersection Observer to lazy-load iframes, images, picture-source and videos
+ * @version 1.1.15
+ * @summary 11-10-2020
+ * @description Use Intersection Observer to lazy-load iframes, images, picture-source and videos. 
+ * Autoplay videos when at least 75% is in viewport, pause when not.
 */
 export function lazyLoad() {
 	const elements = document.querySelectorAll("iframe[data-src], img[data-src], video");
@@ -9,14 +12,25 @@ export function lazyLoad() {
 			if (entry.isIntersecting) {
 				const element = entry.target;
 				const tagName = element.tagName;
-				if (tagName === 'VIDEO') {
-					for (let source in element.children) {
-						const videoSource = element.children[source];
-						if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
-							videoSource.src = videoSource.dataset.src;
+				const isVideo = tagName === 'VIDEO';
+				const isLoaded = false;
+
+				if (isVideo) {
+					if (!isLoaded) {
+						for (let source in element.children) {
+							const videoSource = element.children[source];
+							if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
+								videoSource.src = videoSource.dataset.src;
+							}
 						}
+						element.load();
 					}
-					element.load();
+					if (entry.intersectionRatio < 0.75) {
+						element.pause();
+					}
+					else {
+						element.play();
+					}
 				}
 				else {
 					element.src = element.dataset.src;
@@ -26,9 +40,13 @@ export function lazyLoad() {
 						delete element.dataset.srcset;
 					}
 				}
-				lazyObserver.unobserve(element);
+				if (!isVideo) {
+					lazyObserver.unobserve(element);
+				}
 			}
 		});
+	}, {
+		threshold: [0, 0.75]
 	});
 	elements.forEach(function(element) {
 		lazyObserver.observe(element);
