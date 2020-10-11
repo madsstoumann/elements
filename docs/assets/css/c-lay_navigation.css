@@ -246,23 +246,16 @@ SCROLL-LINE
 [data-scroll-line] {
 	--bgc:firebrick;
 	--h: 2px;
-	background-color: transparent;
+	background-color: var(--bgc);
 	height: var(--h);
+	opacity: 0.85;
 	position: fixed;
 	top: var(--scroll-line-top);
+	transform: translateX(calc(-100% + var(--scroll-p, 0)));
 	width: 100%;
+	will-change: transform;
 	z-index: var(--z--scln);
 }
-[data-scroll-line]::after {
-	background-color: var(--bgc);
-	content: "";
-	height: 100%;
-	left: 0;
-	opacity: 0.85;
-	position: absolute;
-	top: 0;
-	width: var(--scroll-p, 0);
-} 
 
 /*
 =====
