@@ -251,7 +251,7 @@ SCROLL-LINE
 	opacity: 0.85;
 	position: fixed;
 	top: var(--scroll-line-top);
-	transform: translateX(calc(-100% + var(--scroll-p, 0)));
+	transform: translateX(calc(-100% + var(--scroll-p, 0%)));
 	width: 100%;
 	will-change: transform;
 	z-index: var(--z--scln);

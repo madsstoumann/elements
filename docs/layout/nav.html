@@ -56,8 +56,7 @@
 		connect-src 'self';
 		media-src 'self';
 		object-src 'none';
-		child-src 'self';
-		frame-src;
+		frame-src 'self';
 		form-action;
 		base-uri;
 		manifest-src 'self';
@@ -67,8 +66,11 @@
 	class="g-typ g-typ__dynamic"
 	data-menu-mobile=""
 	data-menu-desktop=""
-	data-menu-slide=""
+	itemscope itemtype="https://schema.org/WebSite"
 >
+<meta itemprop="url" content="https://www.example.com/"/>
+<h1 data-show="d:sr">Layout Block Demo</h1>
+
 <a href="#main" data-skip-link>
 	<span>Go to content</span>
 </a>
@@ -76,10 +78,12 @@
 <header>
 
 	<nav data-menu>
+
+		<h2 data-show="d:sr">Main Navigation</h2>
 		<div data-menu-inner>
 			
 			<!-- ROOT LINK -->
-			<a data-menu-item="root" data-menu-order="1" href="/">
+			<a data-menu-item="root" data-menu-order="5" href="/">
 				<!-- <i aria-hidden="true" data-icon="home"></i> -->
 				<img src="../assets/svg/layoutblock.svg" loading="lazy" data-show="M-d:n L-d:n" alt="logo" style="height:30px;" />
 				<img src="../assets/svg/layoutblock-text.svg" loading="lazy" data-show="S-d:n" alt="logo desktop" style="height:30px;" />
@@ -87,41 +91,111 @@
 			</a>
 			<!-- /END ROOT LINK -->
 
+
+
 			<!-- MAIN MENU TRIGGER -->
 			<input type="checkbox" id="menu-toggle" hidden />
-			<label data-burger data-menu-item="" data-menu-order="3" for="menu-toggle">
+			<label
+				data-burger
+				data-menu-item=""
+				data-menu-order="1"
+				for="menu-toggle">
 				<i aria-hidden="true"></i>
 			</label>
-			<div data-menu-panel="root" data-menu-toggle>
+
+			<div
+				data-menu-panel="left" 
+				data-menu-panel-height=""
+				data-menu-panel-width="100"
+				data-menu-toggle>
 
 				<!-- SUBGROUPS -->
-				<details data-menu-group="root">
-					<summary data-menu-item="group">
-						<span data-exp-icon="down">Menu Item One</span>
+				<details data-menu-group>
+					<summary data-menu-item>
+						<span data-exp-icon="down">Books</span>
 					</summary>
 
-					<!-- SUBGROUP - LEVEL 2 -->
-					<details data-menu-group>
-						<summary data-menu-item="group">
-							<span data-exp-icon="plus">Menu Item Subpanel</span>
-						</summary>
-						<div data-menu-panel="group">Panel for Menu Item One</div>
-					</details>
-					<!-- / END SUBGROUP - LEVEL 2 -->
+					<div
+						data-columns="3"
+						data-menu-panel="top">
+						<!-- RECURSIVE -->
 
+						<details data-menu-group="list" open>
+							<summary data-menu-item>
+								<span data-exp-icon="plus">Browse</span>
+							</summary>
+							<div data-menu-panel>
+									<a href="#4" data-text-after="new">Books by Author</a>
+									<a href="#5" data-text-after="new">Books by Series</a>
+									<a href="#6">Book Awards</a>
+									<a href="#7" data-text-after="buy">Collectible Editions</a>
+									<a href="#8">Coming Soon by Date</a>
+									<a href="#9">Kids Books</a>
+									<a href="#10">New Releases</a>
+									<a href="#11">Teen Books</a>
+									<a href="#12">This Season's Most Anticipated Books</a>
+									<a href="#13">Top Books of the Month</a>
+							</div>
+						</details>
+
+						<details data-menu-group="list" open>
+							<summary data-menu-item>
+								<span data-exp-icon="plus">Browse</span>
+							</summary>
+							<div data-menu-panel>
+									<a href="#4">Books by Author</a>
+									<a href="#5">Books by Series</a>
+									<a href="#6">Book Awards</a>
+									<a href="#7" data-text-before="Exclusive">Collectible Editions</a>
+									<a href="#8">Coming Soon by Date</a>
+									<a href="#9">Kids Books</a>
+									<a href="#10">New Releases</a>
+									<a href="#11">Teen Books</a>
+									<a href="#12">This Season's Most Anticipated Books</a>
+									<a href="#13">Top Books of the Month</a>
+							</div>
+						</details>
+
+						<div>
+							<button type="button">Sign up for something</button>
+						</div>
+	
+					</div>
 				</details>
 
 				<details data-menu-group>
-					<summary data-menu-item="group">
-						<span data-exp-icon="right">Menu Item Two</span>
+					<summary data-menu-item>
+						<span data-exp-icon="right">Comics</span>
 					</summary>
-					<div data-menu-panel="group">
-						Panel for Menu Item Two
+					<div
+						data-columns="2"
+						data-menu-panel="top">
+						<ul>
+							<li>Item 1</li>
+							<li>Item 2</li>
+							<li>Item 3</li>
+							<li>Item 4</li>
+						</ul>
+
+						<ul>
+							<li>Item 1</li>
+							<li>Item 2</li>
+							<li>Item 3</li>
+							<li>Item 4</li>
+						</ul>
+
+						<ul>
+							<li>Item 1</li>
+							<li>Item 2</li>
+							<li>Item 3</li>
+							<li>Item 4</li>
+						</ul>
 					</div>
 				</details>
 
 				<!-- / END SUBGROUPS -->
 			</div>
+		
 			<!-- / END MAIN MENU TRIGGER -->
 
 			<a data-circle-num="1"  data-menu-item="root" data-menu-order="2" href="#user">
@@ -130,19 +204,44 @@
 			</a>
 
 			<!-- ROOT PANEL -->
-			<details data-menu-group data-menu-order="4">
-				<summary data-menu-item="root">
+			<details
+				data-menu-group="search"
+				data-menu-order="4">
+				<summary data-menu-item>
 					<i aria-hidden="true" data-icon="search"></i>
-					<span class="sr-only">Search</span>
+					<span data-show="d:sr">Search</span>
 				</summary>
-				<div data-menu-panel="root">SEARCH PANEL HERE!!!</div>
+				<div data-menu-panel="top">
+					<form itemprop="potentialAction" itemscope itemtype="https://schema.org/SearchAction">
+						<meta itemprop="target" content="https://query.example.com/search?q={search_term_string}"/>
+						<input itemprop="query-input" type="text" name="search_term_string" required/>
+						<button type="submit">Search</button>
+					</form>
+				</div>
 			</details>
 			<!-- / END ROOT PANEL -->
 
-			<a data-circle-num="15" data-menu-item="root" data-menu-order="5" href="#cart">
-				<i aria-hidden="true" data-icon="cart"></i>
-				<span data-show="d:sr">Cart</span>
-			</a>
+
+			<details
+				data-menu-group="cart"
+				data-menu-order="3">
+				<summary
+					data-circle-num="15"  
+					data-menu-item>
+					<i aria-hidden="true" data-icon="cart"></i>
+					<span
+						data-exp-icon=""
+						data-show="d:sr">
+						Cart
+					</span>
+				</summary>
+				<div
+					data-menu-panel="top"
+					data-menu-panel-height=""
+					data-menu-panel-width="">
+					... CART...
+				</div>
+			</details>
 
 		</div>
 
@@ -151,7 +250,7 @@
 </header>
 
 <main class="c-lay__wrapper" id="main">
-	<h1 class="sr-only">Layout Block Demo</h1>
+	
 
 	<!-- TOP BANNER AREA -->
 	<!-- <div class="c-ban" style="background:#0071E3; color:white;font-size:small; padding:0.5em;text-align:center;">Some important text you need to focus on.</div> -->
@@ -778,469 +877,33 @@
 		</div>
 	</section>
 
-	<section class="c-lay"
-		data-animation="a-fade-in-bottom"
-		data-grid-phone="50:50"
-		data-grid-tablet="33:33:33"
-		data-grid-desktop="25:25:25:25"
-		data-section-type="masonry"
-		data-snap="true">
-		<header class="c-lay__header">
-			<h2 class="c-lay__headline g-typ--h1">Masonry</h2>
-			<div class="c-lay__description g-typ--m">
-				A masonry-simulation using CSS <code>column-count</code>.<br />
-				Columns change from 1 to 4, depending on device-width.
-			</div>
-		</header>
-		<div class="c-lay__outer" data-outer>
-			<div class="c-lay__inner" data-inner>
-				<div class="c-lay__item"><div class="item item--1">1</div></div>
-				<div class="c-lay__item"><div class="item item--2">2</div></div>
-				<div class="c-lay__item"><div class="item item--3">3</div></div>
-				<div class="c-lay__item"><div class="item item--4">4</div></div>
-				<div class="c-lay__item"><div class="item item--5">5</div></div>
-				<div class="c-lay__item"><div class="item item--6">6</div></div>
-				<div class="c-lay__item"><div class="item item--7">7</div></div>
-				<div class="c-lay__item"><div class="item item--8">8</div></div>
-				<div class="c-lay__item"><div class="item item--9">9</div></div>
-				<div class="c-lay__item"><div class="item item--1">10</div></div>
-				<div class="c-lay__item"><div class="item item--2">11</div></div>
-				<div class="c-lay__item"><div class="item item--3">12</div></div>
-				<div class="c-lay__item"><div class="item item--4">13</div></div>
-				<div class="c-lay__item"><div class="item item--5">14</div></div>
-				<div class="c-lay__item"><div class="item item--6">15</div></div>
-				<div class="c-lay__item"><div class="item item--7">16</div></div>
-				<div class="c-lay__item"><div class="item item--8">17</div></div>
-				<div class="c-lay__item"><div class="item item--9">18</div></div>
-			</div>
-		</div>
-	</section>
-
-	<section class="c-lay"
-		data-align="stretch"	
-		data-desc-w="m"
-		data-headline-w="s"
-		data-item-type="story"
-		data-outer-maw="xl"
-		data-section-type="stack"
-		data-theme="theme05">
-		<header class="c-lay__header">
-			<h2 class="c-lay__headline g-typ--h1">Storytelling</h2>
-			<div class="c-lay__description g-typ--m">
-				Tell a story, using snippets of text with rich image- and video-backgrounds. Use two items side-by-side on tablets and larger devices, and a single, full-width item on phones.
-			</div>
-		</header>
-		<div class="c-lay__outer" data-outer>
-			<div class="c-lay__inner" data-inner>
-			</div>
-		</div>
-	</section>
-
-	<section class="c-lay"
-		data-align="start"
-		data-gap-phone="column edge"
-		data-gap-tablet="column edge"
-		data-gap-desktop="column edge"
-		data-grid-phone="100"
-		data-grid-tablet="50:50"
-		data-grid-desktop="50:50"
-		data-inner-maw="s"
-		data-item-type="story"
-		data-nav="arrows dots inside"
-		data-outer-maw="xl"
-		data-preview=""
-		data-section-type="slider"
-		data-snap="true"
-		data-theme="theme05">
-		<div class="c-lay__outer" data-outer>
-			<div class="c-lay__inner" data-inner>
-				<div class="c-lay__item">
-					<div class="c-stl">
-						<video muted autoplay loop playsinline class="c-stl__video">
-							<source src="../assets/video/empty.mp4" data-src="../assets/video/food.mp4" type="video/mp4">
-						</video>
-						<div class="c-stl__content">
-							<h2 class="c-stl__headline">Healthy lifestyle</h2>
-							<div class="c-stl__text">
-								<p>Many people do not have to change their diet radically. Some ostomates may not be able to fully digest vegetables and fruits with skins.</p>
-								<p>The best way to figure out what you can tolerate is to gradually add different foods to your diet.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="c-lay__item">
-					<div class="c-stl c-stl--right" style="background-color: #93b851;">
-						<div class="c-stl__content">
-							<h2 class="c-stl__headline">Morning greenie-smoothie</h2>
-							<div class="c-stl__text">
-								<p>
-									A great and refreshing way to start your day, is with a lot of greens.<br />
-									This greenie not only tastes good, but it will keep you energized for a long time.</p>
-									<ul>
-										<li>A ripe avocado</li>
-										<li>A ripe banana</li>
-										<li>Spinach</li>
-										<li>Rocket</li>
-										<li>Small handful of almonds</li>
-										<li>1 tbsp tahini</li>
-										<li>2 dl water</li>
-									</ul>
-									<p>Blend everything until smooth, and enjoy!</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="c-lay__item">
-					<div class="c-stl">
-						<img src="../assets/img/food.jpg" class="c-stl__image" loading="lazy" alt="Story" />
-						<div class="c-stl__content">
-							<h2 class="c-stl__headline">New foods</h2>
-							<div class="c-stl__text c-stl__page-text--gray">
-								<p>When you introduce a new food, try taking a couple bites, chewing very well and following it up with a glass of fluids.</p>
-								<p>If your body seems to be handling the food okay after a couple hours, follow the same process.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="c-lay__item">
-					<div class="c-stl" style="background-color: #a2adba;">
-						<div class="c-stl__content">
-							<h2 class="c-stl__headline">Find out more</h2>
-							<div class="c-stl__text">
-								<p>You can find more information about getting nutrition with an ostomy in my video here, or Shield HealthCare’s Registered Dietitian’s video here or her article here.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="c-lay__item">
-					<div class="c-stl">
-						<video muted autoplay loop playsinline class="c-stl__video">
-							<source src="../assets/video/empty.mp4" data-src="../assets/video/field.mp4" type="video/mp4">
-						</video>
-						<div class="c-stl__content">
-							<h2 class="c-stl__headline">Fiber-rich diet</h2>
-							<div class="c-stl__text c-stl__page-text--right">
-								<p>This method helps avoid any food blockages for people with ileostomies or colostomies.</p>
-								<p>People with urostomies shouldn’t have to change their diet, but must monitor fluid intake carefully.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="c-lay__item">
-					<div class="c-stl" style="background-color: #dbb0a3;">
-						<div class="c-stl__content">
-							<h2 class="c-stl__headline">Find out more</h2>
-							<div class="c-stl__text">
-								<p>You can find more information about getting nutrition with an ostomy in my video here, or Shield HealthCare’s Registered Dietitian’s video here or her article here.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="c-lay"
-		data-align="stretch"
-		data-grid-phone="100"
-		data-grid-tablet="100"
-		data-grid-desktop="100"
-		data-inner-maw="l"
-		data-nav="dots tabs"
-		data-outer-maw="xl"
-		data-section-type="slider">
-		<header class="c-lay__header">
-			<h2 class="c-lay__headline g-typ--h1">Slider Tabs</h2>
-			<div class="c-lay__description g-typ--m">
-				You can turn the slider-layout — <code>data-section-type="slider"</code> — into tabs using <code>data-nav="dots tabs"</code><br />
-				By using the inner- and outer max-widths, you can control the design of the tabs.
-			</div>
-		</header>
-		<div class="c-lay__outer" data-outer>
-			<div class="c-lay__inner" data-inner>
-				<div class="c-lay__item"><div class="item item--0"><h3>First Tab</h3><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, officia temporibus laudantium quos aliquam velit minus provident, dolor architecto, molestiae hic rerum ad explicabo neque sit est veritatis natus. Enim quod eveniet corrupti illo tempore exercitationem in vel alias accusantium, qui dolorum iure aliquid, deleniti harum beatae perferendis, ea iste eaque placeat? Accusantium, fuga. Soluta, consectetur quisquam! Maxime officiis soluta labore illo, possimus eveniet voluptas facere deserunt nulla, eligendi, ipsam et expedita illum optio eaque enim repellendus explicabo eos asperiores error laboriosam? Ducimus suscipit nulla nostrum exercitationem? Aut obcaecati provident unde soluta incidunt dicta, laudantium atque, sint, sit minima enim?</p><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, officia temporibus laudantium quos aliquam velit minus provident, dolor architecto, molestiae hic rerum ad explicabo neque sit est veritatis natus. Enim quod eveniet corrupti illo tempore exercitationem in vel alias accusantium, qui dolorum iure aliquid, deleniti harum beatae perferendis, ea iste eaque placeat? Accusantium, fuga. Soluta, consectetur quisquam! Maxime officiis soluta labore illo, possimus eveniet voluptas facere deserunt nulla, eligendi, ipsam et expedita illum optio eaque enim repellendus explicabo eos asperiores error laboriosam? Ducimus suscipit nulla nostrum exercitationem? Aut obcaecati provident unde soluta incidunt dicta, laudantium atque, sint, sit minima enim?</p></div></div>
-				<div class="c-lay__item"><div class="item item--0"><h3>Second Tab</h3><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor sequi sit repellat nam, repudiandae omnis eum. Perferendis, nesciunt. Recusandae praesentium a totam quod aut neque repellendus, culpa pariatur, incidunt tenetur, tempore labore veritatis amet asperiores magnam doloremque ipsam doloribus itaque quis! Nemo impedit optio dolorem quod totam. Suscipit, eligendi adipisci.</p></div></div>
-				<div class="c-lay__item"><div class="item item--0"><h3>Third Tab</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores dolore velit ab neque ipsum adipisci architecto laborum magni necessitatibus voluptas rem, beatae eveniet harum rerum!</p></div></div>
-				<div class="c-lay__item"><div class="item item--0"><h3>Fourth Tab</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci a iure autem veritatis expedita pariatur vitae sapiente cupiditate totam nihil similique itaque, voluptate dolor quibusdam illo voluptas porro voluptatibus? Maiores similique incidunt, impedit nemo culpa error illo, quis facilis esse porro suscipit debitis distinctio animi nam sint! Ducimus inventore explicabo saepe dolores magnam quasi rem amet vero corporis exercitationem harum, ratione ipsa quae expedita. Voluptas quam quaerat veritatis distinctio, eum natus inventore incidunt modi? Obcaecati expedita doloribus consequuntur veritatis nihil, itaque dolorem tenetur nam reprehenderit aperiam distinctio magni iusto, dolorum animi voluptates laborum est adipisci, autem iure possimus eligendi consequatur voluptatum placeat perferendis! Pariatur commodi quia consequatur eveniet ad, vitae ab natus explicabo, ducimus totam, in voluptatibus. Voluptas corporis ipsam officia eveniet dignissimos. Autem maxime officiis pariatur veritatis, saepe delectus deserunt fugit expedita magni omnis dolor numquam quidem ut. Quisquam dolores perferendis beatae fugiat quaerat? Rem iste ad ex harum!</p></div></div>
-			</div>
-		</div>
-	</section>
-
-	<section class="c-lay"
-		data-control-panel="brightness contrast grayscale invert"
-		data-control-panel-id="gallery"
-		data-control-panel-config="reset"
-		data-control-panel-trigger=".c-lay__header::beforeend"
-
-		data-gap-phone="edge small"
-		data-gap-tablet="edge small"
-		data-gap-desktop="small"
-		data-grid-phone="100"
-		data-grid-tablet="100"
-		data-grid-desktop="100"
-		data-inner-pb="0x"
-		data-item-type="image"
-		data-nav="arrows dots"
-		data-inner-maw="l"
-		data-outer-maw="xl"
-		data-section-type="grid-gallery"
-		data-set-props="true"
-		data-theme="theme05"
-		data-toggle-layout="slider">
-		<header class="c-lay__header">
-			<h2 class="c-lay__headline g-typ--h1">CSS Grid Gallery</h2>
-			<div class="c-lay__description g-typ--m">
-				A CSS Grid Gallery, similar to Apple Photos.<br />
-				Most images have aspect-ratio 1:1, larger ones 4:3, and others 3:1 or 2:1.<br />
-				Images from pexels.com.
-			</div>
-			<button type="button" data-layout-label-toggle="View as grid" data-layout-label="View as slideshow">View as slideshow</button>
-		</header>
-		<div class="c-lay__outer" data-outer>
-			<div class="c-lay__inner" data-inner>
-				<div class="c-lay__item"><img data-page-id="101" src="../assets/img/gallery01.jpg" loading="lazy" alt="description" /></div>
-				<div class="c-lay__item"><img src="../assets/img/gallery02.jpg" loading="lazy" alt="description" /></div>
-				<div class="c-lay__item"><img src="../assets/img/gallery03.jpg" loading="lazy" alt="description" /></div>
-				<div class="c-lay__item"><img src="../assets/img/gallery04.jpg" loading="lazy" alt="description" /></div>
-				<div class="c-lay__item"><img src="../assets/img/gallery05.jpg" loading="lazy" alt="description" /></div>
-				<div class="c-lay__item"><img src="../assets/img/gallery06.jpg" loading="lazy" alt="description" /></div>
-				<div class="c-lay__item"><img src="../assets/img/gallery07.jpg" loading="lazy" alt="description" /></div>
-				<div class="c-lay__item"><img src="../assets/img/gallery08.jpg" loading="lazy" alt="description" /></div>
-				<div class="c-lay__item"><img src="../assets/img/gallery09.jpg" loading="lazy" alt="description" /></div>
-				<div class="c-lay__item"><img src="../assets/img/gallery10.jpg" loading="lazy" alt="description" /></div>
-				<div class="c-lay__item"><img src="../assets/img/gallery11.jpg" loading="lazy" alt="description" /></div>
-				<div class="c-lay__item"><img src="../assets/img/gallery12.jpg" loading="lazy" alt="description" /></div>
-				<div class="c-lay__item"><img src="../assets/img/gallery17.jpg" loading="lazy" alt="description" /></div>
-				<div class="c-lay__item"><img src="../assets/img/gallery14.jpg" loading="lazy" alt="description" /></div>
-				<div class="c-lay__item"><img src="../assets/img/gallery15.jpg" loading="lazy" alt="description" /></div>
-				<div class="c-lay__item"><img src="../assets/img/gallery16.jpg" loading="lazy" alt="description" /></div>
-				<div class="c-lay__item"><video autoplay loop muted playsinline><source src="../assets/video/empty.mp4" data-src="../assets/img/gallery13.mp4" /></video></div>
-				<div class="c-lay__item"><img src="../assets/img/gallery18.jpg" loading="lazy" alt="description" /></div>
-			</div>
-		</div>
-	</section>
-
-	<section class="c-lay"
-		data-align="start"
-		data-control-panel="speech theme"
-		data-control-panel-id="speech"
-		data-control-panel-trigger=".c-lay__header::beforeend"
-		data-grid-phone="100"
-		data-grid-tablet="100"
-		data-grid-desktop="100"
-		data-inner-maw="s"
-		data-section-type="stack"
-		lang="en-US">
-		<header class="c-lay__header">
-			<h2 class="c-lay__headline g-typ--h1">Speech Recognition</h2>
-			<div class="c-lay__description g-typ--m">
-					Use <code>ControlPanel</code> to enable <code>Speech Recognition</code> for a form, if your browser supports it.
-			</div>
-		</header>
-		<div class="c-lay__outer" data-outer>
-			<div class="c-lay__inner" data-inner>
-
-				<div class="c-lay__item">
-					<label>After enabling <em>Speech Recognition</em>, focus on field below and start speaking<textarea></textarea></label>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="c-lay"
-		data-align="start"
-		data-control-panel="alignment audio fontsize margin spacing typography theme"
-		data-control-panel-id="ebook"
-		data-control-panel-config="collapse reset"
-		data-control-panel-trigger=".c-lay__header::beforeend"
-		data-control-panel-url="../assets/data/control-panel-da.json"
-		data-grid-phone="100"
-		data-grid-tablet="100"
-		data-grid-desktop="100"
-		data-inner-maw="s"
-		data-item-type="ebook"
-		data-nav="arrows scroll"
-		data-pb="1x"
-		data-preview="next"
-		data-section-type="stack"
-		lang="en-US">
-		<header class="c-lay__header">
-			<h2 class="c-lay__headline g-typ--h1">Horizontal Article</h2>
-			<div class="c-lay__description g-typ--m">
-					Read an article horizontally, like an ebook. On touch-devices, you can swipe pages.
-					On desktop devices, either scroll or use arrow-keys, when the article has focus &mdash; indicated by vertical, dotted lines.
-			</div>
-		</header>
-		<div class="c-lay__outer" data-outer>
-			<div class="c-lay__inner" data-inner>
-
-				<div class="c-lay__item">
-					<article>
-						<h3 class="sr-only">Excerpt from “Moby Dick”</h3>
-						<p>Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can. This is my substitute for pistol and ball. With a philosophical flourish Cato throws himself upon his sword; I quietly take to the ship. There is nothing surprising in this. If they but knew it, almost all men in their degree, some time or other, cherish very nearly the same feelings towards the ocean with me.</p>
-						<p>There now is your insular city of the Manhattoes, belted round by wharves as Indian isles by coral reefs—commerce surrounds it with her surf. Right and left, the streets take you waterward. Its extreme downtown is the battery, where that noble mole is washed by waves, and cooled by breezes, which a few hours previous were out of sight of land. Look at the crowds of water-gazers there.</p>
-						<p>Circumambulate the city of a dreamy Sabbath afternoon. Go from Corlears Hook to Coenties Slip, and from thence, by Whitehall, northward. What do you see?—Posted like silent sentinels all around the town, stand thousands upon thousands of mortal men fixed in ocean reveries. Some leaning against the spiles; some seated upon the pier-heads; some looking over the bulwarks of ships from China; some high aloft in the rigging, as if striving to get a still better seaward peep. But these are all landsmen; of week days pent up in lath and plaster—tied to counters, nailed to benches, clinched to desks. How then is this? Are the green fields gone? What do they here?</p>
-						<p>But look! here come more crowds, pacing straight for the water, and seemingly bound for a dive. Strange! Nothing will content them but the extremest limit of the land; loitering under the shady lee of yonder warehouses will not suffice. No. They must get just as nigh the water as they possibly can without falling in. And there they stand—miles of them—leagues. Inlanders all, they come from lanes and alleys, streets and avenues—north, east, south, and west. Yet here they all unite. Tell me, does the magnetic virtue of the needles of the compasses of all those ships attract them thither?</p>
-						<p>Once more. Say you are in the country; in some high land of lakes. Take almost any path you please, and ten to one it carries you down in a dale, and leaves you there by a pool in the stream. There is magic in it. Let the most absent-minded of men be plunged in his deepest reveries—stand that man on his legs, set his feet a-going, and he will infallibly lead you to water, if water there be in all that region. Should you ever be athirst in the great American desert, try this experiment, if your caravan happen to be supplied with a metaphysical professor. Yes, as every one knows, meditation and water are wedded for ever.</p>
-						<figure>
-							<img src="../assets/img/mobydick.jpeg" alt="Moby Dick" loading="lazy" class="ebook-demo" />
-						</figure>
-						<p>
-							But here is an artist. He desires to paint you the dreamiest, shadiest,
-							quietest, most enchanting bit of romantic landscape in all the valley of
-							the Saco. What is the chief element he employs? There stand his trees,
-							each with a hollow trunk, as if a hermit and a crucifix were within; and
-							here sleeps his meadow, and there sleep his cattle; and up from yonder
-							cottage goes a sleepy smoke. Deep into distant woodlands winds a mazy way,
-							reaching to overlapping spurs of mountains bathed in their hill-side blue.
-							But though the picture lies thus tranced, and though this pine-tree shakes
-							down its sighs like leaves upon this shepherd’s head, yet all were vain,
-							unless the shepherd’s eye were fixed upon the magic stream before him. Go
-							visit the Prairies in June, when for scores on scores of miles you wade
-							knee-deep among Tiger-lilies—what is the one charm wanting?—Water—there
-							is not a drop of water there! Were Niagara but a cataract of sand, would
-							you travel your thousand miles to see it? Why did the poor poet of
-							Tennessee, upon suddenly receiving two handfuls of silver, deliberate
-							whether to buy him a coat, which he sadly needed, or invest his money in a
-							pedestrian trip to Rockaway Beach? Why is almost every robust healthy boy
-							with a robust healthy soul in him, at some time or other crazy to go to
-							sea? Why upon your first voyage as a passenger, did you yourself feel such
-							a mystical vibration, when first told that you and your ship were now out
-							of sight of land? Why did the old Persians hold the sea holy? Why did the
-							Greeks give it a separate deity, and own brother of Jove? Surely all this
-							is not without meaning. And still deeper the meaning of that story of
-							Narcissus, who because he could not grasp the tormenting, mild image he
-							saw in the fountain, plunged into it and was drowned. But that same image,
-							we ourselves see in all rivers and oceans. It is the image of the
-							ungraspable phantom of life; and this is the key to it all.
-						</p>
-						<p>
-							Now, when I say that I am in the habit of going to sea whenever I begin to
-							grow hazy about the eyes, and begin to be over conscious of my lungs, I do
-							not mean to have it inferred that I ever go to sea as a passenger. For to
-							go as a passenger you must needs have a purse, and a purse is but a rag
-							unless you have something in it. Besides, passengers get sea-sick—grow
-							quarrelsome—don’t sleep of nights—do not enjoy themselves
-							much, as a general thing;—no, I never go as a passenger; nor, though
-							I am something of a salt, do I ever go to sea as a Commodore, or a
-							Captain, or a Cook. I abandon the glory and distinction of such offices to
-							those who like them. For my part, I abominate all honorable respectable
-							toils, trials, and tribulations of every kind whatsoever. It is quite as
-							much as I can do to take care of myself, without taking care of ships,
-							barques, brigs, schooners, and what not. And as for going as cook,—though
-							I confess there is considerable glory in that, a cook being a sort of
-							officer on ship-board—yet, somehow, I never fancied broiling fowls;—though
-							once broiled, judiciously buttered, and judgmatically salted and peppered,
-							there is no one who will speak more respectfully, not to say
-							reverentially, of a broiled fowl than I will. It is out of the idolatrous
-							dotings of the old Egyptians upon broiled ibis and roasted river horse,
-							that you see the mummies of those creatures in their huge bake-houses the
-							pyramids.
-						</p>
-						<p>
-							No, when I go to sea, I go as a simple sailor, right before the mast,
-							plumb down into the forecastle, aloft there to the royal mast-head. True,
-							they rather order me about some, and make me jump from spar to spar, like
-							a grasshopper in a May meadow. And at first, this sort of thing is
-							unpleasant enough. It touches one’s sense of honor, particularly if you
-							come of an old established family in the land, the Van Rensselaers, or
-							Randolphs, or Hardicanutes. And more than all, if just previous to putting
-							your hand into the tar-pot, you have been lording it as a country
-							schoolmaster, making the tallest boys stand in awe of you. The transition
-							is a keen one, I assure you, from a schoolmaster to a sailor, and requires
-							a strong decoction of Seneca and the Stoics to enable you to grin and bear
-							it. But even this wears off in time.
-						</p>
-						<p>
-							What of it, if some old hunks of a sea-captain orders me to get a broom
-							and sweep down the decks? What does that indignity amount to, weighed, I
-							mean, in the scales of the New Testament? Do you think the archangel
-							Gabriel thinks anything the less of me, because I promptly and
-							respectfully obey that old hunks in that particular instance? Who ain’t a
-							slave? Tell me that. Well, then, however the old sea-captains may order me
-							about—however they may thump and punch me about, I have the
-							satisfaction of knowing that it is all right; that everybody else is one
-							way or other served in much the same way—either in a physical or
-							metaphysical point of view, that is; and so the universal thump is passed
-							round, and all hands should rub each other’s shoulder-blades, and be
-							content.
-						</p>
-						<p>
-							Again, I always go to sea as a sailor, because they make a point of paying
-							me for my trouble, whereas they never pay passengers a single penny that I
-							ever heard of. On the contrary, passengers themselves must pay. And there
-							is all the difference in the world between paying and being paid. The act
-							of paying is perhaps the most uncomfortable infliction that the two
-							orchard thieves entailed upon us. But <em>being paid</em>,—what will compare
-							with it? The urbane activity with which a man receives money is really
-							marvellous, considering that we so earnestly believe money to be the root
-							of all earthly ills, and that on no account can a monied man enter heaven.
-							Ah! how cheerfully we consign ourselves to perdition!
-						</p>
-						<p>
-							Finally, I always go to sea as a sailor, because of the wholesome exercise
-							and pure air of the fore-castle deck. For as in this world, head winds are
-							far more prevalent than winds from astern (that is, if you never violate
-							the Pythagorean maxim), so for the most part the Commodore on the
-							quarter-deck gets his atmosphere at second hand from the sailors on the
-							forecastle. He thinks he breathes it first; but not so. In much the same
-							way do the commonalty lead their leaders in many other things, at the same
-							time that the leaders little suspect it. But wherefore it was that after
-							having repeatedly smelt the sea as a merchant sailor, I should now take it
-							into my head to go on a whaling voyage; this the invisible police officer
-							of the Fates, who has the constant surveillance of me, and secretly dogs
-							me, and influences me in some unaccountable way—he can better answer
-							than any one else. And, doubtless, my going on this whaling voyage, formed
-							part of the grand programme of Providence that was drawn up a long time
-							ago. It came in as a sort of brief interlude and solo between more
-							extensive performances. I take it that this part of the bill must have run
-							something like this:
-						</p>
-						<blockquote>
-							<p><em>Grand Contested Election for the Presidency of the United States.</em>
-							“WHALING VOYAGE BY ONE ISHMAEL. “BLOODY BATTLE IN AFFGHANISTAN.</p>
-						</blockquote>
-						<p>
-							Though I cannot tell why it was exactly that those stage managers, the
-							Fates, put me down for this shabby part of a whaling voyage, when others
-							were set down for magnificent parts in high tragedies, and short and easy
-							parts in genteel comedies, and jolly parts in farces—though I cannot
-							tell why this was exactly; yet, now that I recall all the circumstances, I
-							think I can see a little into the springs and motives which being
-							cunningly presented to me under various disguises, induced me to set about
-							performing the part I did, besides cajoling me into the delusion that it
-							was a choice resulting from my own unbiased freewill and discriminating
-							judgment.
-						</p>
-						<p>
-							Chief among these motives was the overwhelming idea of the great whale
-							himself. Such a portentous and mysterious monster roused all my curiosity.
-							Then the wild and distant seas where he rolled his island bulk; the
-							undeliverable, nameless perils of the whale; these, with all the attending
-							marvels of a thousand Patagonian sights and sounds, helped to sway me to
-							my wish. With other men, perhaps, such things would not have been
-							inducements; but as for me, I am tormented with an everlasting itch for
-							things remote. I love to sail forbidden seas, and land on barbarous
-							coasts. Not ignoring what is good, I am quick to perceive a horror, and
-							could still be social with it—would they let me—since it is
-							but well to be on friendly terms with all the inmates of the place one
-							lodges in.
-						</p>
-						<p>
-							By reason of these things, then, the whaling voyage was welcome; the great
-							flood-gates of the wonder-world swung open, and in the wild conceits that
-							swayed me to my purpose, two and two there floated into my inmost soul,
-							endless processions of the whale, and, mid most of them all, one grand
-							hooded phantom, like a snow hill in the air.
-						</p>
-					</article>
-
-				</div>
-			</div>
-		</div>
-	</section>
 	<!-- <a data-back-to-top href="#main">&#9650;<br />Back to top</a> -->
 </main>
+
+<footer>
+	<!-- BREADCRUMBS -->
+	<ol itemscope itemtype="https://schema.org/BreadcrumbList" class="c-brc">
+		<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+			<a itemprop="item" href="/">
+				<span itemprop="name">Home</span>
+			</a>
+			<meta itemprop="position" content="1" />
+		</li>
+&nbsp;&#9002;
+		<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+			<a itemprop="item" href="/layout">
+				<span itemprop="name">Layout Block</span>
+			</a>
+			<meta itemprop="position" content="2" />
+		</li>
+		›
+		<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+			<span itemprop="name">Navigation</span>
+			<meta itemprop="position" content="3" />
+		</li>
+	</ol>
+	<!-- END BREADCRUMBS -->
+</footer>
 <script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js" integrity="sha384-EYn4rWu1DHvYD0sSSSbMEtXQmMl58CFJd897806+RT1jJVYbhuZlZMN6yG9nCyFa" crossorigin="anonymous"></script>
 <script src="main.js" type="module"></script>
 </body>

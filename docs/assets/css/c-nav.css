@@ -1,7 +1,7 @@
 /**
  * c-mnu.css
- * @version 1.0.27
- * @summary 10-10-2020
+ * @version 1.0.33
+ * @summary 16-10-2020
  * @author Mads Stoumann
  * @description Stylesheet for Share Component
 */
@@ -17,10 +17,10 @@
 	--mnu-pos-b: 0;
 	--mnu-pos-t: 1;
 	--scroll-d: 0; /* Initial - will be updated by JS */
+	--scroll-p: 0%;
 }
 
 [data-menu] {
-	--animn: scale-left-right;
 	--animdur: .3s;
 	--animtf: cubic-bezier(.77, 0, .175, 1);
 	--b: initial;
@@ -33,21 +33,23 @@
 	--icon-bdw: 1px;
 	--icon-bgc: var(--c--dim);
 	--icon-size: 80%;
-	--inner-d: flex;
-	--jc: space-between;
-	--item-m: 0;
-	--item-p: 0.25rem;
 	--inner-bxsh: none;
+	--inner-d: flex;
+	--inner-jc: space-between;
 	--inner-maw: 1600px;
 	--inner-pt: 0.25rem;
 	--inner-pl: .75rem;
+	--item-c: var(--c--dim);
+	--item-m: 0;
+	--item-p: 0.25rem;
+	--item-scale-bgc: #FFF;
+	--item-size: 2rem;
 	--panel-w: 100%;
-	--o: calc(1 - var(--scroll-d, 1));
 	--pos: fixed;
-	--scale-bgc: #FFF;
-	--size: 2rem;
+	--subpanel-bb: 1px solid var(--bdc);
+	--subpanel-p: 1rem;
 	--t: calc(0px - (var(--mnu-h) * var(--scroll-d, 0)));
-	--trs: opacity var(--animtf) var(--animdur);
+	--trs: transform var(--animtf) var(--animdur);
 	--w: 100%;
 
 	backdrop-filter: var(--bdf);
@@ -59,15 +61,15 @@
 	box-shadow: var(--bxsh);
 	box-sizing: border-box;
 	height: var(--mnu-h);
-	opacity: var(--o);
 	position: var(--pos);
-	top: var(--t);
+	transform: translateY(var(--t));
 	transition: var(--trs);
 	width: var(--w);
 	will-change: transform;
 	z-index: var(--z--menu);
 }
 
+/* Remove default styling for <summary>-markers for all browsers */
 [data-menu] summary {
 	display: block;
 	list-style-image: none;
@@ -80,21 +82,22 @@
 }
 
 [data-menu-inner] {
+	/* All variables are set from [data-menu] */
 	align-items: center;
 	box-shadow: var(--inner-bxsh);
 	box-sizing: border-box;
 	display: var(--inner-d);
-	justify-content: var(--jc);
+	height: 100%;
+	justify-content: var(--inner-jc);
 	margin: 0 auto;
 	max-width: var(--inner-maw);
-	min-height: var(--size);
 	padding: var(--inner-pt) var(--inner-pl);
 	position: relative;
 }
 
 [data-menu-item] {
-	--c: var(--c--dim);
-	color: var(--c);
+	/* All variables are set from [data-menu] */
+	color: var(--item-c);
 	margin: var(--item-m);
 	outline: none;
 	padding: var(--item-p);
@@ -104,18 +107,22 @@
 }
 
 [data-menu-panel] {
+	/* Some variables are set from :root & [data-menu] */
+	--animn: scale-left-right;
 	--b: calc(var(--mnu-h) * var(--mnu-pos-b));
 	--bgc: #FFF;
 	--bxsh: none;
 	--c: initial;
 	--h: calc(100vh - var(--mnu-h, 0));
 	--l: 0;
-	--op: 0;
+	--o: 0;
+	--p: 0;
 	--pos: fixed;
 	--r: initial;
 	--t: calc(var(--mnu-h) * var(--mnu-pos-t));
-	--tx: -100vw;
+	--tx: -100vw; /* Panels slide-in from LEFT by default */
 	--ty: 0;
+	--z: -1;
 
 	background-color: var(--bgc);
 	bottom: var(--b);
@@ -124,8 +131,8 @@
 	color: var(--c);
 	height: var(--h);
 	left: var(--l);
-	opacity: var(--op);
-	padding: var(--panel-p, 0);
+	opacity: var(--o);
+	padding: var(--p, 0);
 	position: var(--pos);
 	right: var(--r);
 	top: var(--t);
@@ -133,17 +140,14 @@
 	transform-origin: var(--tx) var(--ty);
 	transition: .3s opacity ease-in, var(--animdur) var(--animtf);
 	width: var(--panel-w);
-	z-index: -1;
+	z-index: var(--z);
 }
 
-/* Menu-panels based on <details>-tag */
-[data-menu-panel="group"] {
-	--h: auto;
-	--panel-p: 1rem; /* TODO */
-	--pos: static;
-}
 
-/* MODIFIERS FOR BOTH DESKTOP/MOBILE */
+/*
+=================================
+MODIFIERS FOR BOTH DESKTOP/MOBILE
+*/
 
 /* Active Item */
 [data-menu-item*="active"],
@@ -155,51 +159,26 @@
 /* Scale / Circle */
 [data-menu-item*="scale"],
 [data-menu-mobile*="float"] [data-burger] {
-	background-color: var(--scale-bgc);
+	background-color: var(--item-scale-bgc);
 	border: var(--icon-bdw) solid var(--bdc);
 	border-radius: 50%;
-	height: var(--size);
+	height: var(--item-size);
 	transform: scale(1.35) translateY(0.35rem);
-	width: var(--size);
+	width: var(--item-size);
 }
 [data-burger][data-menu-item="scale"] {
 	--m: 6px;
 	--w: 20px;
 }
 
-/* Panel Slide Direction */
-[data-menu-slide="bottom"] [data-menu-panel] {
-	--animn: scale-top-bottom;
-	--ty: 100vh;
-	--tx: 0;
-}
-[data-menu-slide="left"] [data-menu-panel] {
-	--animn: scale-left-right;
-	--bxsh: 1rem 0 0.5rem 0 rgba(0,0,0,0.16);
-	--ty: 0;
-	--tx: -100vw;
-}
-[data-menu-slide="right"] [data-menu-panel] {
-	--animn: scale-left-right;
-	--ty: 0;
-	--tx: 100vw;
-}
-[data-menu-slide="top"] [data-menu-panel] {
-	--animn: scale-top-bottom;
-	--ty: -100vh;
-	--tx: 0;
-}
+/*
+=====
+LOGIC
+*/
 
-/* Default icons for menu */
-[data-icon="cart"] { --icon: var(--ico-cart); }
-[data-icon="home"] { --icon: var(--ico-home); }
-[data-icon="search"] { --icon: var(--ico-search); }
-[data-icon="user"] { --icon: var(--ico-user); }
-
-/* LOGIC */
 [data-menu-group][open] [data-menu-item] + [data-menu-panel],
 input:checked + [data-menu-item] + [data-menu-panel] {
-	opacity: 1;
+	--o: 1;
 	transform: none;
 }
 [data-menu-group][open] [data-menu-item] + [data-menu-panel] {
@@ -207,24 +186,73 @@ input:checked + [data-menu-item] + [data-menu-panel] {
 	transform-origin: 0 0;
 }
 
-/* RWD: Mobile */
+
+/*
+================
+RWD: MOBILE ONLY
+*/
 @media screen and (max-width: 767px) {
 
-	[data-menu-item="group"] {
-		--item-p: 1rem;
-		border-bottom: 1px solid var(--bdc);
+	[data-menu-panel] {
+		overflow-y: scroll;
 	}
 
+	/* Panel Slide Direction */
+	[data-menu-panel="bottom"] {
+		--animn: scale-top-bottom;
+		--ty: 100vh;
+		--tx: 0;
+	}
+	[data-menu-panel="left"] {
+		--animn: scale-left-right;
+		--bxsh: 1rem 0 0.5rem -0.25rem rgba(0,0,0,0.16);
+		--ty: 0;
+		--tx: -100vw;
+	}
+	[data-menu-panel="right"] {
+		--animn: scale-left-right;
+		--bxsh: -1rem 0 0.5rem -0.25rem rgba(0,0,0,0.16);
+		--l: auto;
+		--r: 0;
+		--ty: 0;
+		--tx: 100vw;
+	}
+	[data-menu-panel="top"] {
+		--animn: scale-top-bottom;
+		--ty: -100vh;
+		--tx: 0;
+}
+
+	/* Style Sub-Panel Items */
+	[data-menu-panel] [data-menu-group] [data-menu-item] {
+		--item-p: var(--subpanel-p);
+		border-bottom: var(--subpanel-bb);
+	}
+	[data-menu-panel] [data-menu-group][open] [data-menu-panel] {
+		--animn: none;
+		--panel-w: 100%;
+	}
+
+	[data-menu-group][open] [data-menu-group][open] [data-menu-panel] { 
+		border-bottom: var(--subpanel-bb);
+		--p: var(--subpanel-p);
+	}
+
+	/* TODO CLEAN UP */
+	[data-menu-panel] [data-menu-group][open] [data-menu-item] + [data-menu-panel] {
+		--h: auto;
+		--pos: static;
+	}
+
+	/* Dock To Bottom */
 	[data-menu-mobile="bottom"] {
 		--mnu-pos-b: 1;
 		--mnu-pos-t: 0;
 	}
 	[data-menu-mobile="bottom"] [data-menu] {
-		/* --bdw: 1px 0 0 0; */
 		--bdw: 0;
 		--inner-bxsh: 0px -1px 0px 0px var(--bdc);
 		--b: 0;
-		--o: 1;
 		--t: auto;
 	}
 	[data-menu-mobile="bottom"] [data-menu] [data-menu-item*="scale"] {
@@ -234,61 +262,61 @@ input:checked + [data-menu-item] + [data-menu-panel] {
 		--b: var(--mnu-h);
 		--t: auto;
 	}
+
+	/* Fixed To Top */
 	[data-menu-mobile="fixed"] {
 		--scroll-line-top: var(--mnu-h);
 	}
 	[data-menu-mobile="fixed"] [data-menu] {
-		--o: 1;
 		--t: 0;
 	}
-	[data-menu-mobile*="float"] {
+
+	/* Floating Toggler */
+	[data-menu-mobile="float"] {
 		--mnu-pos-b: 0;
 		--mnu-pos-t: 0;
 		--scroll-line-top: 0;
 	}
-	[data-menu-mobile*="float"] [data-menu] {
+	[data-menu-mobile="float"] [data-menu] {
 		--b: 0;
 		--bdf: none;	
 		--bdw: 0;
 		--bgc: transparent;
 		--inner-bgc: transparent;
 		--inner-d: inner-flex;
-		--o: 1;
 		--t: auto;
 		text-align: right;
 	}
-	[data-menu-mobile*="float"] [data-burger] {
-		transform: scale(1.5) translate(-1.25rem, -0.25rem);
+	[data-menu-mobile="float"] [data-burger] {
+		transform: scale(1.5) translate(-1.25rem, -0.75rem);
 	}
-	[data-menu-mobile*="float"] [data-menu-item]:not([data-burger]) {
+	/* Hide All Menu Items EXCEPT `burger`-icon */
+	[data-menu-mobile="float"] [data-menu-item]:not([data-burger]) {
 		display: none;
 	}
-	[data-menu-mobile*="float"] [data-menu-item="group"] {
-		display: block !important;
+	[data-menu-mobile="float"] [data-menu-panel] [data-menu-group] [data-menu-item] {
+		display: block;
 	}
-	[data-menu-mobile*="float"] [data-menu-panel] {
+	[data-menu-mobile="float"] [data-menu-panel] {
 		--b: 0;
 		--h: 100vh;
 		--t: auto;
+		text-align: initial;
 	}
-	[data-menu-mobile="float center"] [data-menu] {
-		text-align: center;
-	}
-	[data-menu-mobile="float center"] [data-burger] {
-		transform: scale(1.5) ;
-	}
+
+	/* Static Position */
 	[data-menu-mobile="static"] {
-		--mnu-pos-b: 0;
 		--mnu-pos-t: 0;
 		--scroll-line-top: 0;
 	}
 	[data-menu-mobile="static"] [data-menu] {
-		--o: 1;
-		--pos: static;
-		--t: initial;
+		--pos: relative;
+	}
+	[data-menu-mobile="static"] [data-menu-panel] { 
+		--t: var(--mnu-h);
 	}
 
-	/* Re-order menu items for mobile devices (if selected by editors) */
+	/* Re-order Menu Items for Mobile */
 	[data-menu-order="1"] { order: 1; }
 	[data-menu-order="2"] { order: 2; }
 	[data-menu-order="3"] { order: 3; }
@@ -299,10 +327,29 @@ input:checked + [data-menu-item] + [data-menu-panel] {
 	[data-menu-order="8"] { order: 8; }
 	[data-menu-order="9"] { order: 9; }
 	[data-menu-order="10"] { order: 10; }
+
+	/* Mobile Panel Height */
+	[data-menu-panel-height="100"] {
+		--b: 0;
+		--h: 100vh;
+		--t: 0;
+		--z: var(--z--mpnl);
+	}
+	[data-menu-mobile="bottom"] [data-menu-panel-height="100"] { 
+		--b: 0;
+		--t: auto;
+	}
+
+	/* TODO Mobile Panel Width */
+	[data-menu-panel-width="85"] {
+		--panel-w: 85%;
+	}
 }
 
-
-/* RWD: Desktop */
+/*
+===========
+RWD: TABLET
+*/
 @media screen and (min-width: 768px) {
 	:root {
 		--mnu-h: 65px;
@@ -311,54 +358,66 @@ input:checked + [data-menu-item] + [data-menu-panel] {
 	}
 
 	[data-menu] {
-		 --animn: scale-top-bottom;
 		--inner-bgc: rgba(255, 255, 255, .96);
+		--inner-jc: flex-start;
 		--inner-pt: 0.75rem;
 		--item-m: 0 0.5rem;
-		--jc: flex-start;
 	 }
 
+	 /* Fixed To Top */
 	[data-menu-desktop="fixed"] {
 		--scroll-line-top: var(--mnu-h);
 	}
 	[data-menu-desktop="fixed"] [data-menu] {
-		--o: 1;
 		--t: 0;
 	 }
+
+	 /* Static Position */
 	 [data-menu-desktop="static"] {
 		--mnu-pos-t: 0;
 		--scroll-line-top: 0;
 	}
 	[data-menu-desktop="static"] [data-menu] {
-		--o: 1;
 		--pos: relative; 
 	}
 
-	 [data-menu-item]:focus {
-		outline: 2px solid firebrick;
+	/* TODO Focus */
+	[data-menu-item]:focus {
+		outline: 1px dotted grey;
 	}
 
 	[data-menu-panel] {
-		background: white;
-		box-shadow: 0 4px 16px 0 rgba(0,0,0,.08);
-		height: 0;
-		left: 0;
-		padding: 1rem;
-		position: absolute;
-		top: 100%;
-		transform-origin: -100% 0;
-		width: 100%; 
+		--animn: scale-top-bottom;
+		--bxsh: 0 4px 16px 0 rgba(0,0,0,.08);
+		--h: 0;
+		--l: 0;
+		--p: 1rem;
+		--pos: absolute;
+		--t: 100%;
+		--tx: -100%;
+		--ty: 0;
+		--w: 100%; 
 	}
-	[data-menu-group][open] [data-menu-panel] {
-		/* animation: scale-top-bottom .3s forwards;
-		animation-timing-function: cubic-bezier(.77, 0, .175, 1); */
-		height: 300px;
-		/* opacity: 1;
-		transform-origin: 0 0; */
+
+	/* Target First-Level Panels */
+	[data-menu-inner] > [data-menu-group][open] [data-menu-panel],
+	[data-menu-toggle] > [data-menu-group][open] > [data-menu-panel] {
+		min-height: 20rem;
+		/* TODO FROM SETTING */
+	}
+
+	/* Target Sub-Level Panels */
+	[data-menu-group][open] [data-menu-group][open] [data-menu-panel] {
+		--animn: none;
+		--bgc: transparent;
+		--bxsh: none;
+		--h: auto;
+		--p: 0.25rem 0 0 0.75rem;
+    --pos: relative;
 	}
 
 	/* Display inner contents of menu-toggle (the panel will only be shown on mobile */
-	[data-menu-panel="root"] {
+	[data-menu-toggle] {
 		display: contents;
 	}
 
@@ -367,16 +426,15 @@ input:checked + [data-menu-item] + [data-menu-panel] {
 	 }
 
 	/* TODO: Get rid of !important */
-	[for="menu-toggle"] {
-		display: none !important;
+	[for="menu-toggle"][data-burger] {
+		display: none;
 	}
-	[data-exp-icon]::after { display: none !important; }
+	[data-exp-icon]::after,
+	[data-exp-icon]::before { display: none !important; }
 }
 
+
 @media (prefers-color-scheme: dark) {
-	[data-menu] {
-		/* --bdw: 2px; */
-	}
 	[data-menu-item] {
 		/* --c: #FFF; */
 		--icon-bgc: var(--c);
@@ -386,9 +444,6 @@ input:checked + [data-menu-item] + [data-menu-panel] {
 		outline: none;
 		text-decoration: dotted underline;
 	}
-	/* [data-menu-group] [data-menu-item] {
-		--c: #222;
-	} */
 }
 
 @keyframes scale-top-bottom {
@@ -402,6 +457,17 @@ input:checked + [data-menu-item] + [data-menu-panel] {
 }
 
 /* OTHER: MOVE TO OWN MODULE? */
+
+/*
+=========================================
+Columns. Desktop Only: Add Column-Count.
+Add as data-attribute `data-columns` to element
+*/
+@media screen and (min-width: 768px) {
+	[data-columns="2"] { column-count: 2;	}
+	[data-columns="3"] { column-count: 3;	}
+	[data-columns="4"] { column-count: 4;	}
+}
 
 /*
 =================================================
@@ -485,10 +551,10 @@ Add as data-attribute `data-burger` to  a <label>, after checkbox/radio.
 	--w: 24px;
 	align-items: center;
 	display: inline-flex;
-	height: var(--size);
+	height: var(--item-size);
 	justify-content: center;
 	position: relative;
-	width: var(--size);
+	width: var(--item-size);
 }
 [data-burger] i,
 [data-burger] i::after,
@@ -560,7 +626,7 @@ Icon will have to exist as a CSS custom property, update `--icon`-variable.
 }
 
 /*
-==============================
+===============================
 Skip Link, only show on :focus
 TODO
 */
@@ -581,3 +647,68 @@ TODO
 	text-decoration: underline;
 	top: 0;
 }
+
+/*
+=============================
+Text After or Before element
+If value is empty, text will not be shown.
+*/
+[data-text-after]:not([data-text-after=""])::after,
+[data-text-before]:not([data-text-before=""])::before {
+	--bgc: hsl(195, 100%, 30%);
+	--c: hsl(195, 100%, 99%);
+	--m: 0.5em;
+	--p: 0.125em 0.5em;
+
+	background-color: var(--bgc);
+	color: var(--c);
+	display: inline-table;
+	font-size: xx-small;
+	padding: var(--p);
+	text-transform: uppercase;
+}
+[data-text-after]::after {
+	content: attr(data-text-after);
+	margin-inline-start: var(--m);
+}
+[data-text-before]::before {
+	content: attr(data-text-before);
+	margin-inline-end: var(--m);
+}
+
+
+
+/* DEMO: Default icons for menu */
+[data-icon="cart"] { --icon: var(--ico-cart); }
+[data-icon="home"] { --icon: var(--ico-home); }
+[data-icon="search"] { --icon: var(--ico-search); }
+[data-icon="user"] { --icon: var(--ico-user); }
+
+/* DEMO STYLES */
+@media screen and (min-width: 768px) {
+	[data-menu-group="cart"] > [data-menu-panel] {
+		--bgc: lightslategrey;
+		--c: white;
+		--l: auto;
+		--panel-w: 20rem;
+		--r: 0;
+	}
+}
+
+[data-menu-group="list"] {
+	break-inside: avoid-column;
+	/* TODO: ONLY DESKTOP */
+	/* margin-bottom: 1rem; */
+}
+[data-menu-group="list"] [data-menu-item] {
+	letter-spacing: 0.05rem;
+	text-transform: uppercase;
+}
+[data-menu-group="list"] a {
+	align-items: center;
+	color: inherit;
+	display: flex;
+	line-height: 1.6;
+	text-decoration: none;
+}
+
