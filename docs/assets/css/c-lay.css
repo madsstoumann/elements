@@ -49,6 +49,11 @@
 	}
 }
 
+html {
+	/* TODO */
+	overscroll-behavior: none;
+}
+
 body {
 		/* Calculate <main> paddings from menu- and ribbon(s)-height/s */
 		--main-pb: calc(var(--mnu-h, 0) * var(--mnu-pos-b, 0));
@@ -742,8 +747,8 @@ EBOOK
 	-webkit-overflow-scrolling: touch;
 	columns: var(--lay-inner-maw) auto;
 	column-gap: 0;
-	/* height: calc(100vh - (var(--lay-item-gap) * 5)); */
-	height: calc(100vh - (var(--lay-item-gap) * 5) - var(--mnu-h, 0));
+	height: calc(100vh - (var(--lay-item-gap) * 5));
+	/* height: calc(100vh - (var(--lay-item-gap) * 5) - var(--mnu-h, 0)); */
 	orphans: 3;
 	widows: 2;
 }

@@ -1,9 +1,9 @@
 /**
  * c-mnu.css
- * @version 1.0.33
- * @summary 16-10-2020
+ * @version 1.0.35
+ * @summary 25-10-2020
  * @author Mads Stoumann
- * @description Stylesheet for Share Component
+ * @description Stylesheet for Menu Component
 */
 
 /* Share Icons with other CSS by placing them at :root-level */
@@ -18,6 +18,7 @@
 	--mnu-pos-t: 1;
 	--scroll-d: 0; /* Initial - will be updated by JS */
 	--scroll-p: 0%;
+	--scroll-y: 0;
 }
 
 [data-menu] {
@@ -48,6 +49,7 @@
 	--pos: fixed;
 	--subpanel-bb: 1px solid var(--bdc);
 	--subpanel-p: 1rem;
+	/* --t: calc(0px - ((1px * var(--scroll-y)) * var(--scroll-d, 0))); */
 	--t: calc(0px - (var(--mnu-h) * var(--scroll-d, 0)));
 	--trs: transform var(--animtf) var(--animdur);
 	--w: 100%;
@@ -378,7 +380,8 @@ RWD: TABLET
 		--scroll-line-top: 0;
 	}
 	[data-menu-desktop="static"] [data-menu] {
-		--pos: relative; 
+		--pos: relative;
+		--t: 0;
 	}
 
 	/* TODO Focus */
@@ -478,62 +481,86 @@ https://www.nngroup.com/articles/accordion-icons/
 [data-exp-icon] {
 	--animdur: .3s;
 	--animtf: ease-in;
-	--bdw: 1px;
+	--bdw: 2px;
 	--c: currentColor;
-	--size: 0.6rem;
+	--size: 1rem;
 
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
 	position: relative;
 }
-[data-exp-icon]::after {
-	transition: transform var(--animdur) var(--animtf);
+[data-exp-icon]::after,
+[data-exp-icon]::before {
+  transform-origin: 50% 50%;
+	transition: all var(--animdur) var(--animtf);
 }
+
 [data-exp-icon="down"]::after,
 [data-exp-icon="right"]::after {
+  background: transparent;
 	border-color: var(--c);
 	border-style: solid;
+  box-sizing: border-box;
 	content: '';
 	display: inline-block;
 	height: var(--size);
 	margin: 0;
+  position: relative;
 	width: var(--size);
 }
 [data-exp-icon="down"]::after {
 	border-width: 0 var(--bdw) var(--bdw) 0;
-	transform: rotate(45deg) translate(calc(var(--size) / -2), 0em);
+  right: 0;
+  top: calc(0px - ((var(--size) / 2) - var(--bdw)));
+  transform: rotate(45deg);
 }
+[data-exp-icon="right"]::after {
+	border-width: var(--bdw) var(--bdw) 0 0;
+  right: calc((var(--size) / 4));
+  top: 0;
+	transform: rotate(45deg);
+}
+
+[data-exp-icon="cross"]::after,
+[data-exp-icon="cross"]::before,
 [data-exp-icon="plus"]::after,
 [data-exp-icon="plus"]::before {
 	--w: calc(var(--size) * 1.4142135623730950488016887242097);
 	background: var(--c);
-	border: 0;
 	content: '';
 	height: var(--bdw);
 	position: absolute;
-	right: calc(((var(--w) - var(--size)) / 2));
+	right: calc(0px - (var(--w) - var(--size)) / 2);
 	/* Width need to be the diagonal of the down-arrow side-length (--size): sqrt(2) * --size. */
 	width: var(--w);
 }
-[data-exp-icon="plus"]::after {
-	transform: rotate(-90deg);
+[data-exp-icon="cross"]::before,
+[data-exp-icon="plus"]::before {
+	transform: rotate(90deg);
 }
-[data-exp-icon="right"]::after {
-	border-width: var(--bdw) var(--bdw) 0 0;
-	transform: rotate(45deg) translate(calc(var(--size) / -2), calc(var(--size) / 2));
+
+/* STATE */
+[open] > summary > [data-exp-icon="cross"]::after {
+	transform: rotate(45deg);
 }
-input:checked + [data-exp-icon]::after,
-[open] > summary > [data-exp-icon]::after {
-	transform: rotate(45deg) scale(-1) translate(0em, calc(var(--size) / -2));
+[open] > summary > [data-exp-icon="cross"]::before {
+  transform: rotate(135deg);
 }
-input:checked + [data-exp-icon="plus"]::after,
-[open] > summary > [data-exp-icon="plus"]::after {
-	transform: rotate(0deg);
+[open] > summary > [data-exp-icon="down"]::after {
+  top: var(--bdw);
+	transform: rotate(45deg) scale(-1) ;
 }
-input:checked + [data-exp-icon="right"]::after,
 [open] > summary > [data-exp-icon="right"]::after {
-	transform: rotate(-45deg) scale(-1) translate(0em, calc(var(--size) / 2));
+  right: 0;
+  top: calc(0px - ((var(--size) / 2) - var(--bdw)));
+	transform: rotate(135deg);
+}
+[open] > summary > [data-exp-icon="plus"]::after {
+	transform: rotate(180deg);
+}
+[open] > summary > [data-exp-icon="plus"]::before {
+	transform: rotate(-0deg);
 }
 
 /*
