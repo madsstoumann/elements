@@ -21,6 +21,10 @@
 	--scroll-y: 0;
 }
 
+[aria-describedby="new-window-0"] {
+  /* TODO! add a visual clue here */
+}
+
 [data-menu] {
 	--animdur: .3s;
 	--animtf: cubic-bezier(.77, 0, .175, 1);
@@ -75,6 +79,7 @@
 [data-menu] summary {
 	display: block;
 	list-style-image: none;
+	list-style-type: none;
 }
 [data-menu] summary::marker {
 	display: none;

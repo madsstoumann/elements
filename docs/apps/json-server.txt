@@ -1,0 +1,1 @@
+(sudo) json-server --watch docs/assets/data/theme.json

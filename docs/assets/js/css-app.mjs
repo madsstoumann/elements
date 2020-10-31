@@ -34,7 +34,13 @@ export default class CssApp {
 	* @function addPreset
 	* @description Adds a new  preset
 	*/
-	addPreset() {
+	async addPreset() {
+
+
+			
+
+
+
 		if (this.elements.presetName.value) {
 			const key = this.elements.presetName.value.replace(' ', "-").toLowerCase();
 			const presetIndex = this.findPreset(key);
@@ -52,6 +58,19 @@ export default class CssApp {
 			else {
 				this.presets.push(this.preset);
 			}
+
+
+			const response = await fetch(this.settings.urlPresets, {
+				method: 'POST',
+				credentials: 'same-origin',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(this.preset)
+				});
+			console.log(response);
+
+	
 			this.app.dispatchEvent(new CustomEvent(this.settings.eventAddPreset, { detail: JSON.stringify(this.preset) }));
 			this.renderPresets();
 
@@ -153,7 +172,7 @@ export default class CssApp {
 			/* Fetch presets from API */
 			let presets = await (await fetch(this.settings.urlPresets)).json();
 			if (presets) {
-				presets = presets.values;
+				// presets = presets.values;
 			}
 
 			/* Get optional, locally stored presets */

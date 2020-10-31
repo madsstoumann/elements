@@ -65,7 +65,7 @@
 <body
 	class="g-typ g-typ__dynamic"
 	data-menu-mobile=""
-	data-menu-desktop=""
+	data-menu-desktop="fixed"
 	itemscope itemtype="https://schema.org/WebSite"
 >
 <meta itemprop="url" content="https://www.example.com/"/>
@@ -75,8 +75,14 @@
 	<span>Go to content</span>
 </a>
 
-<header>
+<div hidden>
+  <span id="new-window-0">Opens in a new window</span>
+  <span id="new-window-1">Opens an external site</span>
+  <span id="new-window-2">Opens an external site in a new window</span>
+</div>
 
+<header>
+	<!-- <div>Service menu</div> -->
 	<nav data-menu>
 
 		<h2 data-show="d:sr">Main Navigation</h2>
@@ -124,6 +130,15 @@
 								<span data-exp-icon="cross">Browse</span>
 							</summary>
 							<div data-menu-panel>
+<!-- TODO: DESCRIBE LINK-COMPONENT, ADD aria-describedby labels to body-MODEL -->
+<a
+  href="https://mysite.com"
+  target="_blank"
+  rel="noopener"
+  aria-describedby="new-window-0"
+>
+  My site
+</a>
 									<a href="#4" data-text-after="new">Books by Author</a>
 									<a href="#5" data-text-after="new">Books by Series</a>
 									<a href="#6">Book Awards</a>
