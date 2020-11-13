@@ -132,6 +132,15 @@
 	margin: 0 0.5ch;
 	padding: 0 0.5ch;
 }
+.app__icon {
+	stroke-width: 1.5;
+	stroke: #2c3e50; 
+	fill: none;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	height: 2.5rem;
+	width: 2.5rem;
+}
 .app__img {
 	bottom: 0;
 	height: 100%;

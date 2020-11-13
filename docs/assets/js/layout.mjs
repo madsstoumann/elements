@@ -2,8 +2,8 @@
  * Layout module.
  * @module /assets/js/layout
  * @requires /assets/js/common
- * @version 1.1.21
- * @summary 06-10-2020
+ * @version 1.1.22
+ * @summary 07-11-2020
  * @description Helper-functions for Layout Block
  */
 
@@ -141,7 +141,7 @@ export default class Layout {
 	*/
 	itemHandleKeys(obj) {
 		const data = obj.element.firstElementChild.dataset;
-		const hasPopup = obj.element.dataset.pageOpen
+		const hasPopup = obj.element.dataset.pageOpen;
 
 		if (obj.event.code === 'Space') {
 			if (!hasPopup) {
@@ -244,7 +244,7 @@ export default class Layout {
 	 * @description Observes InterSection, triggers animations, sets CSS properties
 	*/
 	observeIntersections(selector, itemSelector) {
-		const io = new IntersectionObserver((entries) => {	
+		const IO = new IntersectionObserver((entries) => {	
 			entries.forEach(entry => {
 				if (entry.isIntersecting) {
 					const section = entry.target;
@@ -260,7 +260,7 @@ export default class Layout {
 					if (entry.intersectionRatio >= ratio) {
 						/* Unobserve section, unless `setProps` is enabled */
 						if (!section.dataset.setProps) {
-							io.unobserve(entry.target);
+							IO.unobserve(entry.target);
 						}
 
 						if (!section.dataset.animationDone) {
@@ -284,13 +284,13 @@ export default class Layout {
 			{
 				threshold: [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
 			}
-			);
+		);
 		selector.forEach(section => {
 			if (section.dataset.animationItems && itemSelector) {
 				const items = section.querySelector(itemSelector);
 				section.__items = items ? [...items.children] : [];
 			}
-			io.observe(section);
+			IO.observe(section);
 		});
 	}
 

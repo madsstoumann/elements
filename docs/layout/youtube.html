@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Loading Videos</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="description" content="Put your description here.">
+
+	<meta http-equiv="Content-Security-Policy" content="
+		default-src;
+		script-src 'self' ajax.cloudflare.com unpkg.com *.youtube.com *.ytimg.com 'unsafe-inline' 'unsafe-eval' ;
+		style-src 'self' 'unsafe-inline';
+		img-src 'self' *.ytimg.com data:;
+		font-src;
+		connect-src 'self';
+		media-src 'self';
+		object-src 'none';
+		child-src 'self';
+		frame-src *.youtube.com *.vimeo.com;
+		form-action;
+		base-uri;
+		manifest-src 'self';">
+
+		<style>
+			[data-hide-fullscreen]::-webkit-media-controls-fullscreen-button {
+				display: none !important;
+			}
+			[data-video] > iframe,
+			[data-video] > video,
+			[data-video-poster] {
+				height: 100%;
+				object-fit: cover;
+				position: absolute;
+				width: 100%;
+			}
+			[data-video] {
+				--h: 9;
+				--w: 16;
+				margin: 0;
+				position: relative;
+				padding: 0;
+				width: 100%;
+			}
+			[data-video]::after {
+				content: "";
+				display: block;
+				padding-bottom: calc(100% * (var(--h) / var(--w)));
+			}
+			[data-video-play] {
+				left: 50%;
+				position: absolute;
+				top: 50%;
+				transform: translate(-50%, -50%);
+			}
+		</style>
+	</head>
+	<body>
+
+		<script type="module">
+			(async () => {
+				const videos = await (await fetch('../assets/data/videos.json')).json();
+				import('../assets/js/videoloader.mjs')
+				.then(module => {
+					const jsClass = module.default;
+					new jsClass('', videos);
+				});
+			})();
+		</script>
+
+	</body>
+</html>

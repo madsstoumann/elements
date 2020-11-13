@@ -1,8 +1,8 @@
 /**
  * Slider
  * @requires /assets/js/common
- * @version 1.1.24
- * @summary 24-09-2020
+ * @version 1.1.25
+ * @summary 13-11-2020
  * @description Slider-functionality for Layout Block
  * @example
  * <section data-section-type="slider">
@@ -23,6 +23,7 @@ export default class Slider {
 			clsTab: 'c-lay__tab',
 			clsTabCur: 'c-lay__tab--current',
 			clsTabsInner: 'c-lay__tabs-inner',
+			clsTabsNav: 'c-lay__tabs-nav',
 			clsTabsWrap: 'c-lay__tabs',
 			lblGoToSlide: 'Go to slide',
 			lblItemRole: 'slide',
@@ -149,8 +150,10 @@ export default class Slider {
 		if (this.hasDots) {
 			if (this.hasTabs) {
 				const tabs = h('div', { class: this.settings.clsTabsWrap });
-				this.elements.dots = h('div', { class: this.settings.clsTabsInner });
-				tabs.appendChild(this.elements.dots)
+				this.elements.dots = h('div', { class: this.settings.clsTabsNav });
+				tabs.appendChild(h('div', {class: this.settings.clsTabsInner}, [this.elements.dots]));
+
+				// this.elements.dots.appendChild(h('div', { class: 'hello' }));
 				this.elements.outer.insertBefore(tabs, this.elements.outer.firstElementChild);
 			}
 			else {

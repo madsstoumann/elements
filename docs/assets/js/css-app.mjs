@@ -2,16 +2,18 @@
  * CSS App
  * @module /assets/js/css-app
  * @requires /assets/js/common
- * @version 0.0.5
- * @summary 05-06-2020
+ * @version 0.0.7
+ * @summary 01-11-2020
  * @description Generic CSS App, extend other CSS apps from this
  */
 
 import { mergeArrayOfObjects, stringToType, syntaxHighlight, uuid } from './common.mjs';
 
 export default class CssApp {
-	constructor(element, settings) {
+	constructor(element, settings, presets = []) {
 		this.settings = Object.assign({
+			api: '',
+			appIcon: '',
 			appType: 'css-app',
 			eventAddPreset: 'eventAddPreset',
 			eventDelPreset: 'eventDelPreset',
@@ -20,14 +22,14 @@ export default class CssApp {
 			lblPresetCode: 'Preset code',
 			lblOverwrite: 'Overwrite existing preset?',
 			lblPresetDesc: 'Preset description',
-			lblPresetName: 'Preset name',
+			lblPresetName: 'Preset name [lowercase a-z + 0-9]',
 			lblPresets: 'Presets',
-			lblReset: '↺ Reset',
-			urlPresets: '',
-			useLocalStorage: true
+			lblReset: '↺ Reset / New',
+			useLocalStorage: false
 		}, stringToType(settings));
 
 		this.app = element;
+		this.presets = presets;
 	}
 
 	/**
@@ -35,15 +37,11 @@ export default class CssApp {
 	* @description Adds a new  preset
 	*/
 	async addPreset() {
-
-
-			
-
-
-
 		if (this.elements.presetName.value) {
 			const key = this.elements.presetName.value.replace(' ', "-").toLowerCase();
 			const presetIndex = this.findPreset(key);
+			let overwrite = false;
+
 			this.elements.presetName.value = key;
 			this.preset.name = key;
 			this.preset.description = this.elements.presetDesc.value;
@@ -53,23 +51,28 @@ export default class CssApp {
 				if (!window.confirm(this.settings.lblOverwrite)) {
 					return;
 				}
+				overwrite = true;
 				this.presets.splice(presetIndex, 1, this.preset);
 			}
 			else {
 				this.presets.push(this.preset);
 			}
 
-
-			const response = await fetch(this.settings.urlPresets, {
-				method: 'POST',
-				credentials: 'same-origin',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(this.preset)
-				});
-			console.log(response);
-
+			/* POST/PUT to REST API */
+			if (this.settings.api) {
+				try {
+					await fetch(`${this.settings.api}${overwrite ? `/${this.preset.id}`: ''}`, {
+						method: overwrite ? 'PUT' : 'POST',
+						credentials: 'same-origin',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify(this.preset)
+					});
+				}
+				catch(err) {
+					// eslint-disable-next-line
+					console.error(err);
+				}
+			}
 	
 			this.app.dispatchEvent(new CustomEvent(this.settings.eventAddPreset, { detail: JSON.stringify(this.preset) }));
 			this.renderPresets();
@@ -88,12 +91,27 @@ export default class CssApp {
 	* @param {Node} element
 	* @description Delete a preset
 	*/
-	delPreset(element) {
+	async delPreset(element) {
 		const presetIndex = parseInt(element.dataset.index, 10);
 		if (presetIndex > -1) {
 			const preset = this.presets[presetIndex];
 			let localIndex = Object.prototype.hasOwnProperty.call(preset, 'localIndex') ? preset.localIndex : -1;
 			this.presets.splice(presetIndex, 1);
+
+			if (this.settings.api) {
+				try {
+					await fetch(`${this.settings.api}/${this.preset.id}`, {
+						method: 'DELETE',
+						credentials: 'same-origin',
+						headers: { 'Content-Type': 'application/json' }
+					});
+				}
+				catch(err) {
+					// eslint-disable-next-line
+					console.error(err);
+				}
+			}
+
 			this.app.dispatchEvent(new CustomEvent(this.settings.eventDelPreset, { detail: JSON.stringify(preset) }));
 			this.renderPresets();
 
@@ -170,9 +188,17 @@ export default class CssApp {
 			this.elements.presets.addEventListener('pointerdown', this.pointerDown.bind(this));
 
 			/* Fetch presets from API */
-			let presets = await (await fetch(this.settings.urlPresets)).json();
-			if (presets) {
-				// presets = presets.values;
+			if (this.settings.api) {
+				try {
+					const presets = await (await fetch(this.settings.api)).json();
+					if (presets) {
+						this.presets = presets;
+					}
+				}
+				catch(err) {
+					// eslint-disable-next
+					console.error(err);
+				}
 			}
 
 			/* Get optional, locally stored presets */
@@ -181,10 +207,10 @@ export default class CssApp {
 				const localPresets = window.localStorage.getItem(this.settings.appType);
 				if (localPresets) {
 					this.localPresets = JSON.parse(localPresets);
-					presets = presets ? mergeArrayOfObjects(presets, this.localPresets, 'name') : this.localPresets;
+					this.presets = this.presets ? mergeArrayOfObjects(this.presets, this.localPresets, 'name') : this.localPresets;
 				}
 			}
-			this.presets = presets || [];
+
 			this.renderPresets();
 		}
 		/* Initialize preset, if elements exists */
@@ -251,10 +277,9 @@ export default class CssApp {
 		}
 		catch(err) { console.error(err); }
 		this.preset = {
-			deletable: true,
 			description: '',
+			id: uuid(),
 			name: this.settings.txtEmptyPreset,
-			readonly: false,
 			value: '',
 			values: []
 		};

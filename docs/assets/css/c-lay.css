@@ -1,7 +1,7 @@
 /**
  * c-lay.css
- * @version 1.4.6
- * @summary 05-10-2020
+ * @version 1.4.7
+ * @summary 13-11-2020
  * @author Mads Stoumann
  * @description Stylesheet for Layout Component
 	Variables are concatinated from: 
@@ -56,9 +56,9 @@ html {
 
 body {
 		/* Calculate <main> paddings from menu- and ribbon(s)-height/s */
-		--main-pb: calc(var(--mnu-h, 0) * var(--mnu-pos-b, 0));
-		--main-pt: calc(var(--mnu-h, 0) * var(--mnu-pos-t, 0));
-		--scroll-line-top: calc(0px + (var(--mnu-h, 0) * (1 - var(--scroll-d, 0))));
+		--main-pb: calc(var(--mnu-h, 0px) * var(--mnu-pos-b, 0px));
+		--main-pt: calc(var(--mnu-h, 0px) * var(--mnu-pos-t, 0px));
+		--scroll-line-top: calc(0px + (var(--mnu-h, 0px) * (1 - var(--scroll-d, 0px))));
 		-webkit-overflow-scrolling: touch;
 		-webkit-tap-highlight-color: var(--active);
 }

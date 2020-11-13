@@ -7,26 +7,38 @@
 	<link href="../assets/css/app-clippath.css" rel="stylesheet">
 </head>
 <body>
-	<!--
-	https://css-tricks.com/an-initial-implementation-of-clip-path-path/
-	https://caniuse.com/#feat=mdn-css_properties_clip-path_path
-	https://stackoverflow.com/questions/53393966/convert-svg-path-to-polygon-coordinates 
-	https://css-tricks.com/create-a-responsive-css-motion-path-sure-we-can/
-	http://meyerweb.com/eric/thoughts/2017/02/24/scaling-svg-clipping-paths-for-css-use/
-	https://yoksel.github.io/relative-clip-path/
-	-->
 	<div data-js="clippath"
-		data-url-presets="../assets/data/presets-clippath.json">
+		data-api="http://localhost:3000/clippath/"	
+		data-api-old="../assets/data/presets-clippath.json"
+		data-app-icon="../assets/svg/cssapp.svg#clippath"
+		data-lbl-app-header="CSS &lt;code&gt;clip-path&lt;/code&gt; Editor">
 	</div>
 	
 	<script type="module">
+		/* Default presets, if REST API fails */
+		const presets = [
+			{
+				"name": "triangle",
+				"value": "polygon(50% 0%, 0% 100%, 100% 100%)",
+				"values": [
+					{
+						"coords": [
+							[50,0],
+							[0,100],
+							[100,100]
+						],
+						"type": "polygon"
+					}
+				]
+			}
+		];
 		const elements = document.querySelectorAll('[data-js="clippath"]');
 			if (elements.length) {
 				import('../assets/js/css-clippath.mjs')
 				.then(module => {
 					const jsClass = module.default;
 					elements.forEach(element => {
-						new jsClass(element, element.dataset);
+						new jsClass(element, element.dataset, presets);
 						element.addEventListener('eventAddPreset', (event) => { console.log(JSON.parse(event.detail)); });
 						element.addEventListener('eventDelPreset', (event) => { console.warn(JSON.parse(event.detail)); });
 					});

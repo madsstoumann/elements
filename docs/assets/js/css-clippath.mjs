@@ -2,8 +2,8 @@
  * ClipPath module.
  * @module /assets/js/clippath
  * @requires /assets/js/common
- * @version 0.2.3
- * @summary 07-06-2020
+ * @version 0.2.4
+ * @summary 01-11-2020
  * @description Edit clip-path: ellipse, polygon, url
  * @example
  * <div data-js="clippath">
@@ -12,7 +12,7 @@ import { scrollPosition, uuid } from './common.mjs';
 import { svgCreateWrapper, svgCreateClipPath } from './svg.mjs';
 import CssApp from './css-app.mjs';
 export default class ClipPath extends CssApp {
-	constructor(element, settings) {
+	constructor(element, settings, presets) {
 		super(element, Object.assign({
 			appType: 'clip-path',
 			lblAnimation: 'Animation preview',
@@ -24,7 +24,7 @@ export default class ClipPath extends CssApp {
 			lblSvgWidth: 'SVG viewBox width',
 			pointSize: 40,
 			previewImage: '../assets/img/clippath-demo.jpg'
-		}, settings));
+		}, settings), presets);
 		this.init();
 	}
 
@@ -279,7 +279,10 @@ export default class ClipPath extends CssApp {
 	template() {
 		return `
 		<form class="app" data-elm="app">
-			<strong class="app__header">${this.settings.lblAppHeader}</strong>
+			<strong class="app__header">
+			${this.settings.appIcon ? `	<svg class="app__icon"><use href="${this.settings.appIcon}" /></svg>` : ''}
+				${this.settings.lblAppHeader}
+			</strong>
 			<p class="app__text">${this.settings.lblAppIntro}</p>
 			<div class="app__edit">
 				<div class="app__preview">

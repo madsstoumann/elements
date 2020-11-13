@@ -72,7 +72,7 @@
 	transition: var(--trs);
 	width: var(--w);
 	will-change: transform;
-	z-index: var(--z--menu);
+	z-index: var(--z--menu, initial);
 }
 
 /* Remove default styling for <summary>-markers for all browsers */

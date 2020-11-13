@@ -4,8 +4,8 @@
  * @requires /assets/js/css-app
  * @requires /assets/colorpicker
  * @requires /assets/js/common
- * @version 0.1.2
- * @summary 18-05-2020
+ * @version 0.1.3
+ * @summary 01-11-2020
  * @description box-shadow, filter: drop-shadow and text-shadow editor
  * @example
  * <div data-js="[box/drop/text]-shadow" data-app-type="[box/drop/text]-shadow">
@@ -15,7 +15,7 @@ import CssApp from './css-app.mjs';
 import ColorPicker from './colorpicker.mjs';
 
 export default class CssShadows extends CssApp {
-	constructor(element, settings) {
+	constructor(element, settings, presets) {
 		super(element, Object.assign({
 			appType: 'box-shadow',
 			lblAddEntry: 'Add shadow',
@@ -41,7 +41,7 @@ export default class CssShadows extends CssApp {
 				x: 0,
 				y: 1
 			}
-		}, settings));
+		}, settings), presets);
 
 		this.init();
 	}
@@ -220,7 +220,10 @@ export default class CssShadows extends CssApp {
 	template() {
 		return `
 		<form class="app" data-elm="app">
-			<strong class="app__header">${this.settings.lblAppHeader}</strong>
+			<strong class="app__header">
+				${this.settings.appIcon ? `	<svg class="app__icon"><use href="${this.settings.appIcon}" /></svg>` : ''}
+				${this.settings.lblAppHeader}
+			</strong>
 			<div class="app__edit">
 				<div class="app__preview">
 					${this.settings.appType === 'box-shadow' ? `<div data-elm="previewBox"></div>`: ''}

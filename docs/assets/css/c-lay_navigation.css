@@ -1,7 +1,7 @@
 /**
  * c-lay_navigation.css
- * @version 1.0.12
- * @summary 08-10-2020
+ * @version 1.0.13
+ * @summary 13-11-2020
  * @author Mads Stoumann
  * @description Stylesheet for Layout Component, Navigation: Arrows, Back-To-Top, Dots, Tabs
 */
@@ -250,7 +250,7 @@ SCROLL-LINE
 	height: var(--h);
 	opacity: 0.85;
 	position: fixed;
-	top: var(--scroll-line-top);
+	top: var(--scroll-line-top, 0px);
 	transform: translateX(calc(-100% + var(--scroll-p, 0%)));
 	width: 100%;
 	will-change: transform;
@@ -268,7 +268,7 @@ TABS
 	backdrop-filter: saturate(180%) blur(15px);
 	background-color: var(--bgc);
 	position: sticky;
-	top: calc(var(--scroll-line-top, 0) - 1px);
+	top: calc(var(--scroll-line-top, 0px) - 1px);
 	z-index: var(--z--tabs);
 }
 .c-lay__tab {
@@ -310,6 +310,9 @@ TABS
 	padding: 0 var(--lay-gap);
 	max-width: var(--lay-inner-maw);
 }
+.c-lay__tabs-nav {
+	width: 100%; 
+}
 /* Modifier: Tab Pills */
 /*
 .c-lay__tabs {
@@ -333,7 +336,7 @@ TABS
 	[data-scroll-line] {
 		--h: 5px;
 	}
-	.c-lay__tabs-inner {
+	.c-lay__tabs-nav {
 		border-bottom: var(--bdw) solid var(--bdc);
 	}
 }

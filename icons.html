@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Playground:Icons</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	
+	<style>
+		[data-css-icon] {
+			--animdur: .3s;
+			--loading-animdur: 0.8s;
+			--animtf: ease-in;
+			--bdw: 2px;
+			--bdrs: 50%;
+			--bgc: inherit;
+			--c: currentcolor;
+			--dots-bgc: silver;
+			--dots-size: calc(var(--size, 2.5rem) / 5);
+			--icon-size: 1rem;
+			--size: 2.5rem;
+			align-items: center;
+			cursor: pointer;
+			display: flex;
+			justify-content: space-between;
+		}
+		[data-css-icon] i {
+			align-items: center;
+			background-color: var(--bgc);
+			border-radius: var(--bdrs);
+			box-sizing: border-box;
+			display: inline-flex;
+			height: var(--size);
+			justify-content: center;
+			position: relative;
+			transition: background-color var(--animdur) var(--animtf);
+			width: var(--size);
+		}
+		[data-css-icon] i::after,
+		[data-css-icon] i::before {
+			--pos: relative;
+			box-sizing: border-box;
+			content: "";
+			display: inline-block;
+			margin: 0;
+			position: var(--pos);
+			transform-origin: 50% 50%;
+			transition: all var(--animdur) var(--animtf);
+		}
+
+		/* ARROWS */
+		[data-css-icon*="arr-down"] i::after,
+		[data-css-icon*="arr-left"] i::after,
+		[data-css-icon*="arr-right"] i::after,
+		[data-css-icon*="arr-up"] i::after,
+		[data-css-icon*="chv-down"] i::after,
+		[data-css-icon*="chv-left"] i::after,
+		[data-css-icon*="chv-right"] i::after,
+		[data-css-icon*="chv-up"] i::after {
+			background: transparent;
+			border-color: var(--c);
+			border-style: solid;
+			height: var(--icon-size);
+			width: var(--icon-size);
+		}
+		[data-css-icon*="chv-down"] i::after,
+		[data-css-icon*="chv-up"] i::after {
+			border-width: 0 var(--bdw) var(--bdw) 0;
+			top: calc(0px - (var(--icon-size) / 4));
+			transform: rotate(45deg);
+		}
+		[data-css-icon*="chv-left"] i::after,
+		[data-css-icon*="chv-right"] i::after {
+			border-width: var(--bdw) var(--bdw) 0 0;
+			right: calc(0px - (var(--icon-size) / 4));
+			top: 0;
+			transform: rotate(-135deg);
+		}
+		[data-css-icon*="chv-right"] i::after {
+			right: calc((var(--icon-size) / 4));
+			transform: rotate(45deg);
+		}
+		[data-css-icon*="chv-up"] i::after {
+			top: var(--bdw);
+			transform: rotate(45deg) scale(-1) ;
+		}
+		[data-css-icon*="arr"] i::after {
+			--pos: absolute;
+			border-width: 0 var(--bdw) var(--bdw) 0;
+			transform: rotate(45deg);
+		}
+		[data-css-icon*="arr"] i::before {
+			transform: rotate(90deg) translate(calc(0px - var(--bdw)), 0px);
+		}
+		[data-css-icon*="arr-left"] i {
+			transform: rotate(90deg);
+		}
+		[data-css-icon*="arr-right"] i {
+			transform: rotate(-90deg);
+		}
+		[data-css-icon*="arr-up"] i {
+			transform: rotate(180deg);
+		}
+
+		/* LINES: MINUS, PLUS, EQUALS, MENU */
+		[data-css-icon*="arr-"] i::before,
+		[data-css-icon*="equals"] i::after,
+		[data-css-icon*="equals"] i::before,
+		[data-css-icon*="cross"] i::after,
+		[data-css-icon*="cross"] i::before,
+		[data-css-icon*="menu"] i,
+		[data-css-icon*="menu"] i::after,
+		[data-css-icon*="menu"] i::before,
+		[data-css-icon*="minus"] i::after,
+		[data-css-icon*="plus"] i::after,
+		[data-css-icon*="plus"] i::before {
+			--pos: absolute;
+			/* Width need to be the diagonal of the down-arrow side-length (--size): sqrt(2) * --size. */
+			--w: calc(var(--icon-size) * 1.4142135623730950488016887242097);
+			background: var(--c);
+			height: var(--bdw);
+			width: var(--w);
+		}
+		[data-css-icon*="cross"] i::after {
+			transform: rotate(45deg);
+		}
+		[data-css-icon*="cross"] i::before {
+			transform: rotate(135deg);
+		}
+		[data-css-icon*="plus"] i::before {
+			transform: rotate(90deg);
+		}
+		[data-css-icon*="equals"] i {
+			--m: calc(var(--icon-size) / 4);
+		}
+		[data-css-icon*="equals"] i::after {
+			transform: translateY(var(--m));
+		}
+		[data-css-icon*="equals"] i::before {
+			transform: translateY(calc(0px - var(--m)));
+		}
+		[data-css-icon*="dots"],
+		[data-css-icon*="menu"] {
+			height: var(--size);
+		}
+		[data-css-icon*="menu"] i {
+			--bdrs: 0;
+			--m: calc(var(--icon-size) / 3);
+			right: calc((var(--size) - var(--w)) / 2);
+		}
+		[data-css-icon*="menu"] i::after {
+			top: var(--m);
+		}
+		[data-css-icon*="menu"] i::before {
+			top: calc(0px - var(--m));
+		}
+
+		/* REFRESH */
+		[data-css-icon*="refresh"] i::before {
+			border-color: var(--c);
+			border-style: solid;
+			border-width: var(--bdw) 0 var(--bdw) var(--bdw);
+			border-radius: 50%;
+			/* right: -3px; */
+			height: var(--icon-size);
+			width: var(--icon-size);
+		}
+		[data-css-icon*="refresh"] i::after {
+			--pos: absolute;
+			border-bottom: calc(var(--icon-size) * 0.25) solid transparent;
+			border-left: calc(var(--icon-size) * 0.3) solid var(--c);
+			border-top: calc(var(--icon-size) * 0.25) solid transparent;
+			right: calc(((var(--size) - var(--icon-size)) / 2) - (var(--icon-size) / 6));
+			height: 0;
+			top: calc(((var(--size) - var(--icon-size)) / 2) + (var(--icon-size) / 6));
+			transform: rotate(60deg);
+			width: 0;
+		}
+
+		/* SEARCH */
+		[data-css-icon*="search"] i::after {
+			--pos: absolute;
+			background-color: var(--c);
+			height: var(--bdw);
+			transform: rotate(37deg) translate(calc(var(--icon-size) * 0.75), 0px);
+			width: calc(var(--icon-size) / 2);
+		}
+		[data-css-icon*="search"] i::before {
+			border: var(--bdw) solid var(--c);
+			border-radius: 50%;
+			height: var(--icon-size);
+			width: var(--icon-size);
+		}
+
+		/* SHOPPING BAG */
+		[data-css-icon*="bag"] i::after {
+			background-color: var(--bgc);
+			border: var(--bdw) solid var(--c);
+			border-radius: 0.25em;
+			height: var(--icon-size);
+			width: var(--icon-size);
+		}
+		[data-css-icon*="bag"] i::before {
+			--pos: absolute;
+			border: var(--bdw) solid var(--c);
+			border-radius: 50%;
+			height: calc(var(--icon-size) / 2);
+			top: calc((var(--size) / 2) - (var(--icon-size) * 0.75));
+			width: calc(var(--icon-size) / 2);
+		}
+
+		/* CHECKMARK */
+		[data-css-icon*="check"] i::after {
+			border-color: var(--c);
+			border-style: solid;
+			border-width: 0 var(--bdw) var(--bdw) 0;
+			height: var(--icon-size);
+			top: calc(var(--icon-size) / -6);
+			transform: rotate(45deg);
+			width: calc(var(--icon-size) / 2);
+		}
+
+		/* PAUSE */
+		[data-css-icon*="pause"] i::after,
+		[data-css-icon*="pause"] i::before {
+			background-color: var(--c);
+			height: var(--icon-size);
+			width: calc(var(--bdw) * 2);
+		}
+		[data-css-icon*="pause"] i::before {
+			left: calc(var(--icon-size) / -6);
+		}
+		[data-css-icon*="pause"] i::after {
+			right: calc(var(--icon-size) / -6);
+		}
+
+		/* PLAY */
+		[data-css-icon*="play"] i::after {
+			border-bottom: calc(var(--icon-size) * 0.5) solid transparent;
+			border-left: calc(var(--icon-size) * 0.75) solid var(--c);
+			border-top: calc(var(--icon-size) * 0.5) solid transparent;
+			height: 0;
+			right: calc(0px - (var(--icon-size) / 8));
+			width: 0;
+		}
+
+		/* STOP */
+		[data-css-icon*="stop"] i::after {
+			background-color: var(--c);
+			height: calc(var(--icon-size) * 0.8);
+			width: calc(var(--icon-size) * 0.8);
+		}
+
+		/* ANIMATED */
+		[data-css-icon*="dots"] i,
+		[data-css-icon*="dots"] i::after,
+		[data-css-icon*="dots"] i::before {
+			animation: dots var(--loading-animdur) infinite alternate;
+			background-color: var(--c);
+			border-radius: 50%;
+			display: block;
+			height: var(--dots-size);
+			width: var(--dots-size);
+		}
+		[data-css-icon*="dots"] i {
+			animation-delay: var(--loading-animdur);
+			right: calc((var(--size) - var(--dots-size)) / 8);
+		}
+		[data-css-icon*="dots"] i::after {
+			--pos: absolute;
+			animation-delay: 0s;
+			left: calc(0px - (var(--dots-size) * 3));
+		}
+		[data-css-icon*="dots"] i::before {
+			--pos: absolute;
+			animation-delay: calc(var(--loading-animdur) / 2);
+			left: calc(0px - (var(--dots-size) * 1.5));
+		}
+		[data-css-icon*="spin"] i::after {
+			animation: spin var(--loading-animdur) infinite linear;
+			border-radius: 50%;
+			border: var(--bdw) solid var(--dots-bgc);
+			border-left: var(--bdw) solid var(--c);
+			content: "";
+			
+			height: calc(var(--icon-size) * 1.5);
+			transform: translateZ(0);
+			width: calc(var(--icon-size) * 1.5);
+		}
+
+		/* RTL: inset-block-end fails */
+		[dir="rtl"] [data-css-icon*="right"] i::after {
+			left: calc((var(--icon-size) / 4));
+		}
+		[dir="rtl"] [data-css-icon*="menu"] i {
+			left: 0.5rem;
+			right: auto;
+		}
+		
+		/* ADDITIONAL MODIFIERS */
+		[data-css-icon*="outline"] i {
+			border: var(--bdw) solid var(--c);
+		}
+		[data-css-icon*="fill"] {
+			--bgc: hsl(195, 10%, 30%);
+			--c: hsl(195, 10%, 95%);
+		}
+		[data-css-icon*="square"] {
+			--bdrs: 5px;
+		}
+		
+		/* For this demo only */
+		body { background-color: hsl(210, 20%, 50%); font-family: system-ui, sans-serif; margin: 0 auto; max-width: 375px; padding: 0.25rem; }
+		button, details { width: calc(50% - 0.5rem); }
+		button { 
+			--bgc: hsl(195, 10%, 90%);
+			background-color: var(--bgc);
+			border: 0;
+			border-radius: 5px;
+			color: var(--c, inherit);
+			font-family: inherit; font-size: inherit;
+			list-style-type: none;
+			margin: 0.25rem 0 0.25rem 0.25rem;
+			outline: none;
+			padding-bottom: 0.5rem;
+			padding-top: 0.5rem;
+			padding-inline-end: 0.5rem;
+			padding-inline-start: 1rem;
+			user-select: none;
+		}
+
+		/* States */
+		button:focus {
+			--bgc: hsl(195, 10%, 75%);
+		}
+
+		@keyframes dots {
+			0% {
+				background-color: var(--c);
+			}
+			50%,
+			100% {
+				background-color: var(--dots-bgc);
+			}
+		}
+
+		@keyframes spin {
+			0% {
+				transform: rotate(0deg);
+			}
+			to {
+				transform: rotate(1turn);
+			}
+		}
+	</style>
+</head>
+<body>
+
+
+	<button type="button"><span data-css-icon="chv-up">Chev Up<i></i></span></button>
+	<button type="button"><span data-css-icon="chv-down">Chev Down<i></i></span></button>
+	<button type="button"><span data-css-icon="chv-left">Chev Left<i></i></span></button>
+	<button type="button"><span data-css-icon="chv-right">Chev Right<i></i></span></button>
+	<button type="button"><span data-css-icon="arr-up">Up<i></i></span></button>
+	<button type="button"><span data-css-icon="arr-down">Down<i></i></span></button>
+	<button type="button"><span data-css-icon="arr-left">Left<i></i></span></button>
+	<button type="button"><span data-css-icon="arr-right">Right<i></i></span></button>
+	<button type="button"><span data-css-icon="plus">Plus<i></i></span></button>
+	<button type="button"><span data-css-icon="minus">Minus<i></i></span></button>
+	<button type="button"><span data-css-icon="cross">Cross<i></i></span></button>
+	<button type="button"><span data-css-icon="equals">Equals<i></i></span></button>
+	<button type="button"><span data-css-icon="search">Search<i></i></span></button>
+	<button type="button"><span data-css-icon="refresh">Refresh<i></i></span></button>
+	<button type="button"><span data-css-icon="play">Play<i></i></span></button>
+	<button type="button"><span data-css-icon="pause">Pause<i></i></span></button>
+	<button type="button"><span data-css-icon="stop">Stop<i></i></span></button>
+	<button type="button"><span data-css-icon="bag">Bag<i></i></span></button>
+	<button type="button"><span data-css-icon="check">Check<i></i></span></button>
+	<button type="button"><span data-css-icon="menu">Menu<i></i></span></button>
+	<button type="button"><span data-css-icon="dots">Dots<i></i></span></button>
+	<button type="button"><span data-css-icon="spin">Spinner<i></i></span></button>
+
+	<button type="button"><span data-css-icon="chv-up fill">Chev Up<i></i></span></button>
+	<button type="button"><span data-css-icon="chv-down fill">Chev Down<i></i></span></button>
+	<button type="button"><span data-css-icon="chv-left fill">Chev Left<i></i></span></button>
+	<button type="button"><span data-css-icon="chv-right fill">Chev Right<i></i></span></button>
+	<button type="button"><span data-css-icon="arr-up fill">Up<i></i></span></button>
+	<button type="button"><span data-css-icon="arr-down fill">Down<i></i></span></button>
+	<button type="button"><span data-css-icon="arr-left fill">Left<i></i></span></button>
+	<button type="button"><span data-css-icon="arr-right fill">Right<i></i></span></button>
+	<button type="button"><span data-css-icon="plus fill">Plus<i></i></span></button>
+	<button type="button"><span data-css-icon="minus fill">Minus<i></i></span></button>
+	<button type="button"><span data-css-icon="cross fill">Cross<i></i></span></button>
+	<button type="button"><span data-css-icon="equals fill">Equals<i></i></span></button>
+	<button type="button"><span data-css-icon="search fill">Search<i></i></span></button>
+	<button type="button"><span data-css-icon="refresh fill">Refresh<i></i></span></button>
+	<button type="button"><span data-css-icon="play fill">Play<i></i></span></button>
+	<button type="button"><span data-css-icon="pause fill">Pause<i></i></span></button>
+	<button type="button"><span data-css-icon="stop fill">Stop<i></i></span></button>
+	<button type="button"><span data-css-icon="bag fill">Bag<i></i></span></button>
+	<button type="button"><span data-css-icon="check fill">Check<i></i></span></button>
+	<button type="button"><span data-css-icon="spin fill">Spinner<i></i></span></button>
+
+	<button type="button"><span data-css-icon="chv-up outline">Chev Up<i></i></span></button>
+<button type="button"><span data-css-icon="chv-down outline">Chev Down<i></i></span></button>
+<button type="button"><span data-css-icon="chv-left outline">Chev Left<i></i></span></button>
+<button type="button"><span data-css-icon="chv-right outline">Chev Right<i></i></span></button>
+<button type="button"><span data-css-icon="arr-up outline">Up<i></i></span></button>
+<button type="button"><span data-css-icon="arr-down outline">Down<i></i></span></button>
+<button type="button"><span data-css-icon="arr-left outline">Left<i></i></span></button>
+<button type="button"><span data-css-icon="arr-right outline">Right<i></i></span></button>
+<button type="button"><span data-css-icon="plus outline">Plus<i></i></span></button>
+<button type="button"><span data-css-icon="minus outline">Minus<i></i></span></button>
+<button type="button"><span data-css-icon="cross outline">Cross<i></i></span></button>
+<button type="button"><span data-css-icon="equals outline">Equals<i></i></span></button>
+<button type="button"><span data-css-icon="search outline">Search<i></i></span></button>
+<button type="button"><span data-css-icon="refresh outline">Refresh<i></i></span></button>
+<button type="button"><span data-css-icon="play outline">Play<i></i></span></button>
+<button type="button"><span data-css-icon="pause outline">Pause<i></i></span></button>
+<button type="button"><span data-css-icon="stop outline">Stop<i></i></span></button>
+<button type="button"><span data-css-icon="bag outline">Bag<i></i></span></button>
+<button type="button"><span data-css-icon="check outline">Check<i></i></span></button>
+<button type="button"><span data-css-icon="spin outline">Spinner<i></i></span></button>
+	<!-- <details >
+		<summary>
+			Adjust
+		</summary>
+		<form>
+			<label>
+				<input type="range" min="1" max="5" step="1" />
+				Stroke-width
+			</label>
+			<label>
+				<input type="range" min="1" max="5" step="1" />
+				Size
+			</label>
+			<label>
+				<input type="checkbox" name="fill" />
+				Fill
+			</label>
+			<label>
+				<input type="checkbox" name="outline" />
+				Outline
+			</label>
+			<label>
+				<input type="checkbox" name="square" />
+				Square
+			</label>
+		</form>
+	</details> -->
+
+</body>
+</html>
