@@ -3,7 +3,7 @@
  * @requires /assets/js/common
  * @version 1.1.25
  * @summary 13-11-2020
- * @description Slider-functionality for Layout Block
+ * @description Slider- and Tabs-functionality for Layout Block
  * @example
  * <section data-section-type="slider">
  */
@@ -152,8 +152,6 @@ export default class Slider {
 				const tabs = h('div', { class: this.settings.clsTabsWrap });
 				this.elements.dots = h('div', { class: this.settings.clsTabsNav });
 				tabs.appendChild(h('div', {class: this.settings.clsTabsInner}, [this.elements.dots]));
-
-				// this.elements.dots.appendChild(h('div', { class: 'hello' }));
 				this.elements.outer.insertBefore(tabs, this.elements.outer.firstElementChild);
 			}
 			else {
@@ -183,7 +181,6 @@ export default class Slider {
 		this.refreshSlider();
 
 		/* Set aria-attributes */
-		// this.slider.setAttribute('aria-roledescription', 'carousel');
 		this.state.items.forEach((slide, index) => {
 			slide.setAttribute('aria-label', `${this.settings.lblGoToSlide} ${index+1} / ${this.state.items.length}`);
 			slide.setAttribute('aria-roledescription', this.settings.lblItemRole);
