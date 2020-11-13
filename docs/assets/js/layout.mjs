@@ -248,10 +248,10 @@ export default class Layout {
 			entries.forEach(entry => {
 				if (entry.isIntersecting) {
 					const section = entry.target;
+					const remove = section.hasAttribute('data-animation-remove');
 
 					if (section.dataset.setProps) {
 						section.style.setProperty('--ratio', entry.intersectionRatio);
-						// section.style.setProperty('--top', entry.boundingClientRect.y < entry.rootBounds.y ? 1 : 0);
 					}
 
 					/* Use custom intersectionRatio from dataset, or use fallback: 0 */
@@ -265,7 +265,17 @@ export default class Layout {
 
 						if (!section.dataset.animationDone) {
 							if (section.dataset.animation) {
-								section.classList.add(section.dataset.animation);
+								if (remove) {
+									if (section.dataset.animationRemove) {
+										section.classList.add(section.dataset.animationRemove);
+									}
+									window.setTimeout( () => {
+										section.classList.remove(section.dataset.animation);
+									}, 2000);
+								}
+								else {
+									section.classList.add(section.dataset.animation);
+								}
 							}
 
 							if (section.dataset.animationItems && section.__items) {
@@ -286,8 +296,16 @@ export default class Layout {
 			}
 		);
 		selector.forEach(section => {
+			const remove = section.hasAttribute('data-animation-remove');
+			if (remove) {
+				/* Add animation now, remove when intersecting */
+				section.classList.add(section.dataset.animation);
+			}
 			if (section.dataset.animationItems && itemSelector) {
 				const items = section.querySelector(itemSelector);
+				if (remove && items) {
+					items.forEach(item => { item.classList.add(section.dataset.animation); })
+				}
 				section.__items = items ? [...items.children] : [];
 			}
 			IO.observe(section);
