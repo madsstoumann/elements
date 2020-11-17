@@ -28,7 +28,7 @@ export default class ToggleTip {
 		this.element.addEventListener('keydown', (event) => { if (event.key === 'Escape') { this.closeTip(); } });
 		this.element.addEventListener('toggle', () => { this.handleToggle(); });
 		this.summary.addEventListener('blur', () => { this.closeTip(); });
-		
+	
 		if (this.settings.addClose) {
 			/* Insert `fake` close-button, as panel already closes onBlur */
 			this.dialog.insertAdjacentHTML('afterbegin', `<div class="${this.settings.clsClose}">${this.settings.lblClose}</div>`)

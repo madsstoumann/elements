@@ -1,7 +1,7 @@
 /**
  * app.css
- * @version 1.1.0
- * @summary 06-06-2020
+ * @version 1.1.1
+ * @summary 17-11-2020
  * @author Mads Stoumann
  * @description Stylesheet for micro-apps, ie. ColorPicker, FilterMaker, ShadowMaker etc..
 	Variables are concatinated from: 
@@ -85,10 +85,17 @@
 
 .app__controls,
 .app__preview {
-	width: calc(50% - (var(--app-m-unit) / 2));
+	flex: 1 1 100%;
+}
+@media screen and (min-width: 767px) {
+	.app__controls,
+	.app__preview {
+		flex: 0 1 calc(50% - (var(--app-m-unit) / 2));
+	}
 }
 .app__edit {
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-between;
 }
 .app__fieldset {

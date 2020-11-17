@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Playground: ToggleTip</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	
+	<style>
+
+[data-toggletip] {
+  display: inline-block;
+	position: relative;
+	user-select: none;
+}
+[data-toggletip] dl {
+	--triangle-size: 12px;
+	--triangle-offset: calc(50% - var(--triangle-size));
+  background-color: white;
+	border-radius: 0.5rem;
+	box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05);
+	box-sizing: border-box;
+	margin: 0;
+	min-width: 20em;
+	padding: 1em;
+	position: absolute;
+	top: calc(100% + var(--triangle-size));
+	z-index: 1;
+}
+
+[data-toggletip] dl::before {
+	background-color: inherit;
+	border: inherit;
+	border-radius: 0 0 0 .25rem;
+	content: "";	
+	display: block;
+	height: calc(var(--triangle-size) * 2);
+	left: var(--triangle-offset);
+	position: absolute;
+	top: calc(0px - var(--triangle-size));
+	transform: rotate(135deg);
+	width: calc(var(--triangle-size) * 2);
+	z-index: -1;
+}
+
+[data-toggletip] dl * {
+	 margin: inherit;
+}
+[data-toggletip] summary {
+	color: hsl(328, 85%, 46%);
+	cursor: help;
+	display: inline-flex;
+	list-style: none;
+	text-decoration: dotted underline;
+}
+[data-toggletip-close] {
+	background-color: lightslategray;
+	border: 0;
+	border-radius: 50%;
+	color: white;
+	float: right;
+	font-size: 1rem;
+	height: 2em;
+	width: 2em;
+}
+[data-toggletip][open] summary,
+[data-toggletip] summary:focus {
+	background-color: hsl(328, 85%, 46%);
+	color: hsl(328, 85%, 98%);
+	outline: none;
+}
+[data-toggletip][open] dl {
+	animation: scale-in 0.5s ease-in-out both;
+}
+[data-toggletip] summary::-webkit-details-marker {
+	display: none;
+}
+
+@media (hover: hover) {
+	[data-toggletip] summary:hover {
+		background-color: hsl(328, 85%, 46%);
+		color: hsl(328, 85%, 98%);
+	}
+}
+
+@keyframes scale-in {
+  0% {
+    transform: scale(0);
+    transform-origin: 0% 0%;
+    opacity: 0.25;
+  }
+  100% {
+    transform: scale(1);
+    transform-origin: 0% 0%;
+    opacity: 1;
+  }
+}
+
+body { background-color: hsl(210, 20%, 90%); font-family: system-ui, sans-serif; line-height: 1.6; padding: 2rem; } 
+
+</style>
+</head>
+<body>
+	<p>
+		The <em>ToggleTips</em> below are made with the <code>&lt;details&gt;</code>-tag and does not require JavaScript.<br />
+		However, when JavaScript is enabled, the tips will change position based on how they fit with the viewport, the triangle will point to the midle of the label, and you can click outside the tip (or on another tip) to close it.
+	</p>
+	<em>The internet</em> or <em>Internet</em> is the global system of interconnected computer networks that use the 
+	<details data-toggletip>
+		<summary>Internet protocol suite</summary>
+		<dl>
+			<dt><strong>Internet protocol suite</strong></dt>
+			<dd>The Internet protocol suite is the conceptual model and set of communications protocols used on the Internet and similar computer networks. It is commonly known as TCP/IP because the original protocols in the suite are the Transmission Control Protocol (TCP) and the Internet Protocol (IP).</dd>
+		</dl>
+	</details>
+	 to link devices worldwide. It is a <em>network of networks</em> that consists of private, public, academic, business, and government networks of local to global scope, linked by a broad array of electronic, 
+	 <details data-toggletip>
+		<summary>wireless</summary>
+		<dl>
+			<dt><strong>Wireless</strong></dt>
+			<dd>Wireless communication, or sometimes simply wireless, is the transfer of information or power between two or more points that are not connected by an electrical conductor. The most common wireless technologies use radio waves.</dd>
+		</dl>
+	</details>, 
+	 and optical networking technologies. The Internet carries an extensive range of information resources and services, such as the inter-linked 
+	 <details data-toggletip>
+		<summary>hypertext</summary>
+		<dl>
+			<dt><strong>Hypertext</strong></dt>
+			<dd>Hypertext is text displayed on a computer display or other electronic devices with references (hyperlinks) to other text that the reader can immediately access, or where text can be revealed progressively at multiple levels of detail.</dd>
+		</dl>
+	</details> 
+	 documents and applications of the 
+	 <details data-toggletip>
+		<summary>World Wide Web (WWW)</summary>
+		<dl>
+			<dt><strong>World Wide Web</strong></dt>
+			<dd>The World Wide Web (abbreviated WWW or the Web) is an information space where documents and other web resources are identified by Uniform Resource Locators (URLs), interlinked by hypertext links, and can be accessed via the Internet. English scientist Tim Berners-Lee invented the World Wide Web in 1989.</dd>
+		</dl>
+	</details>, 
+	<details data-toggletip>
+		<summary>electronic mail</summary>
+		<dl>
+			<dt><strong>Electronic Mail</strong></dt>
+			<dd>Electronic mail (email) is a method of exchanging messages between people using electronics. Email first entered substantial use in the 1960s and by the mid-1970s had taken the form now recognized as email. Email operates across computer networks, which today is primarily the Internet.</dd>
+		</dl>
+	</details>, telephony, and 
+	<details data-toggletip >
+		<summary>file sharing</summary>
+		<dl>
+			<dt><strong>File Sharing</strong></dt>
+			<dd>File sharing is the practice of distributing or providing access to digital media, such as computer programs, multimedia (audio, images and video), documents or electronic books. File sharing may be achieved in a number of ways.</dd>
+		</dl>
+	</details>.
+
+	<script>
+class ToggleTip {
+	constructor(element) {
+		this.bindOutsideClick = this.clickOutside.bind(this);
+		this.element = element;
+		this.summary = this.element.firstElementChild;
+		this.dialog = this.summary.nextElementSibling;
+		this.triangleSize = getComputedStyle(this.dialog).getPropertyValue("--triangle-size").slice(0, -2) - 0;
+	
+		this.dialogWidth = parseInt(window.getComputedStyle(this.dialog).width.replace('px',''), 10);
+		this.element.addEventListener('keydown', (event) => { if (event.key === 'Escape') { this.closeTip(); } });
+		this.element.addEventListener('toggle', () => { this.handleToggle(); });
+		this.summary.addEventListener('blur', () => { this.closeTip(); });
+
+		/* Insert `fake` close-button, as panel already closes onBlur */
+		this.dialog.insertAdjacentHTML('afterbegin', `<button type="button" data-toggletip-close>✕</button>`)
+	}
+
+	/**
+	 * @function clickOutside
+	 * @param {Event} event
+	 * @description Run closeTip when clicked outside
+	 */
+	clickOutside(event) {
+		if (!this.element.contains(event.target)) {
+			this.closeTip();
+		}
+	}
+
+	/**
+	 * @function closeTip
+	 * @description Close the ToggleTip
+	 */
+	closeTip() {
+		this.element.open = false;
+	}
+
+	/**
+	 * @function handleToggle
+	 * @description Add or remove eventListeners onToggle, scrolls to bottom of panel
+	 */
+	handleToggle() {
+		if (this.element.open) {
+			this.dialog.removeAttribute('style');
+			const dialogRect = this.dialog.getBoundingClientRect();
+			const summaryRect = this.summary.getBoundingClientRect();
+			let triangleLeft = (summaryRect.width / 2) - this.triangleSize;
+			const viewportWidth = window.innerWidth; //document.documentElement.clientWidth;
+
+			if ((summaryRect.x + this.dialog.offsetWidth) > viewportWidth) {
+				const dialogLeft = (viewportWidth - this.dialog.offsetWidth) - summaryRect.x;
+				this.dialog.style.left = `${dialogLeft}px`;
+				triangleLeft = (dialogLeft * -1) + triangleLeft;
+			}
+
+			this.dialog.style.setProperty('--triangle-offset', `${triangleLeft}px`);
+			window.scrollBy({ 
+				top: dialogRect.bottom,
+				behavior: 'smooth'
+			});
+			document.addEventListener('click', this.bindOutsideClick);
+		}
+		else {
+			document.removeEventListener('click', this.bindOutsideClick);
+		}
+	}
+}
+
+/* Run It */
+const tips = document.querySelectorAll('[data-toggletip]');
+tips.forEach(tip => new ToggleTip(tip));
+	</script>
+</body>
+</html>

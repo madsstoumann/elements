@@ -3,7 +3,7 @@
  * @module /assets/js/css-app
  * @requires /assets/js/common
  * @version 0.0.7
- * @summary 01-11-2020
+ * @summary 17-11-2020
  * @description Generic CSS App, extend other CSS apps from this
  */
 
@@ -210,7 +210,6 @@ export default class CssApp {
 					this.presets = this.presets ? mergeArrayOfObjects(this.presets, this.localPresets, 'name') : this.localPresets;
 				}
 			}
-
 			this.renderPresets();
 		}
 		/* Initialize preset, if elements exists */
@@ -238,11 +237,12 @@ export default class CssApp {
 	/**
 	* @function loadPreset
 	* @paramn {Node} element
-	* @description Loads preset / overwrites preset
+	* @paramn {Object} data
+	* @description Loads preset / overwrites preset.
 	*/
-	loadPreset(element) {
-		const index = parseInt(element.dataset.index, 10);
-		let preset = this.presets[index];
+	loadPreset(element, data) {
+		const index = element ? parseInt(element.dataset.index, 10) : 0;
+		let preset = element ? this.presets[index] : data;
 		if (preset) {
 			/* Deep-clone preset to avoid reference-updates */
 			preset = JSON.parse(JSON.stringify(preset));

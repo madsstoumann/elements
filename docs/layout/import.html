@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <title>Playground: Import</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<body>
+
+<select id="easingSelect"></select>
+
+<script type="module">
+/* Create a locally scoped variable for the imported module */
+let easingModule;
+const easingSelect = document.getElementById('easingSelect');
+
+import('../assets/js/easing.mjs')
+.then(module => {
+  /* If import is succesful, assign imported module to local variable */
+  easingModule = module;
+  for (const func in module) {
+    /*
+    Iterate functions/methods in module.
+    Add an option for each, assign innerText and value in one go
+    */
+    const option = document.createElement('option');
+    option.innerText = option.value = func.toString();
+    easingSelect.appendChild(option)
+  }
+});
+/*
+Add onChange-listener.
+If selected value (function-name) exists in èasingModule`, run the function.
+*/
+easingSelect.addEventListener('change', () => {
+  const easingFunc = easingModule[easingSelect.value];
+  if (typeof easingFunc === 'function') {
+    // easingFunc();
+    console.log(`Run: easingFunc() ⇒ ${easingSelect.value}()`);
+  }
+})
+</script>
+
+</body>
+</html>

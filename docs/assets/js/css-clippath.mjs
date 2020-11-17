@@ -2,8 +2,8 @@
  * ClipPath module.
  * @module /assets/js/clippath
  * @requires /assets/js/common
- * @version 0.2.4
- * @summary 01-11-2020
+ * @version 0.2.5
+ * @summary 17-11-2020
  * @description Edit clip-path: ellipse, polygon, url
  * @example
  * <div data-js="clippath">
@@ -18,11 +18,21 @@ export default class ClipPath extends CssApp {
 			lblAnimation: 'Animation preview',
 			lblAnimationIntro: 'Hover to see animation between original state and current state.<br />Animation will only work if the number of points are the same.',
 			lblAppHeader: 'CSS <code>clip-path</code> Editor',
-			lblAppIntro: 'Start by selecting a <code data-type="polygon">polygon()</code> — <code data-type="ellipse">ellipse()</code> or <code data-type="url">url()</code>-preset.<br /><code data-type="polygon">polygon()</code> : To add a point, select the point you want to insert a new point <em>after</em> and press <kbd>+</kbd><br />To delete the selected point, press <kbd>-</kbd> or <kbd>Delete</kbd><br />To <em>move</em> the selected point, use mouse, touch or <kbd>Arrow</kbd>-keys.<br />Hold down <kbd>shift</kbd> while selecting a preset to <em>only</em> update animation clip-path.',
+			lblAppIntro: 'Start by selecting a <code data-type="polygon">polygon()</code> — <code data-type="ellipse">ellipse()</code> or <code data-type="url">url()</code>-preset.<br /><code data-type="polygon">polygon()</code> : To add a point, select the point you want to insert a new point <em>after</em> and press <kbd>+</kbd><br />To delete the selected point, press <kbd>-</kbd> or <kbd>Delete</kbd><br />To <em>move</em> the selected point, use mouse, touch or <kbd>Arrow</kbd>-keys.<br />When using <kbd>Arrow</kbd>-keys, hold <kbd>Ctrl</kbd> to move point in smaller intervals.<br />When using mouse, hold down <kbd>Shift</kbd> to lock x-axis or <kbd>Alt</kbd> to lock y-axis.<br />Hold down <kbd>shift</kbd> while selecting a preset to <em>only</em> update animation-preview clip-path.',
 			lblSvgData: 'SVG clipPath data',
 			lblSvgHeight: 'SVG viewBox height',
 			lblSvgWidth: 'SVG viewBox width',
 			pointSize: 40,
+			presetInit: {
+				"name": "triangle",
+				"value": "polygon(50% 0%, 0% 100%, 100% 100%)",
+				"values": [
+					{
+						"coords":  [[50, 0], [0, 100], [100, 100]],
+						"type": "polygon"
+					}
+				]
+			},
 			previewImage: '../assets/img/clippath-demo.jpg'
 		}, settings), presets);
 		this.init();
@@ -33,6 +43,7 @@ export default class ClipPath extends CssApp {
 	* @description Initialize: Create elements, add eventListeners etc.
 	*/
 	async init() {
+		/* Create wrapper for SVG <clipPath>s */
 		let svgID = uuid();
 		document.body.insertAdjacentHTML('beforeEnd', svgCreateWrapper(svgID));
 		this.svgWrapper = document.getElementById(svgID);
@@ -53,8 +64,14 @@ export default class ClipPath extends CssApp {
 				if (this.preset.values[0]?.type === 'polygon') {
 					this.pointCreate();
 				}
+				/* Load initial preset */
+				if (this.initPreset && this.settings.presetInit) {
+					this.loadPreset(null, null, true);
+					this.initPreset = false;
+				}
 			}
 		});
+		this.initPreset = true;
 		resizeObserver.observe(this.elements.points);
 	}
 
@@ -63,14 +80,21 @@ export default class ClipPath extends CssApp {
 	* @paramn {Node} element
 	* @description Loads preset / overwrites preset
 	*/
-	loadPreset(element, event) {
+	loadPreset(element, event, init = false) {
 		if (event && event.shiftKey) {
 			/* Update animation-preview only */
 			const style = element?.firstChild.getAttribute('style').replace('clip-path:', '');
 			this.elements.animation.style.setProperty('--clippath-ani', style);
 			return false;
 		}
-		super.loadPreset(element);
+
+		if (init) {
+			super.loadPreset(null, this.settings.presetInit);
+		}
+		else {
+			super.loadPreset(element);
+		}
+
 		this.elements.animation.style.setProperty('--clippath-ani', this.preset.value);
 		this.presetType = this.preset.values[0].type; 
 		this.setControls(true);
@@ -176,11 +200,26 @@ export default class ClipPath extends CssApp {
 		const index = element.dataset.index - 0;
 		let [x, y] = [...this.preset.values[0].coords[index]];
 
+		x = parseFloat(x);
+		y = parseFloat(y);
+
 		switch(event.key) {
-			case 'ArrowDown': event.preventDefault(); y++; break;
-			case 'ArrowLeft': event.preventDefault(); x--; break;
-			case 'ArrowRight': event.preventDefault(); x++; break;
-			case 'ArrowUp': event.preventDefault(); y--; break;
+			case 'ArrowDown':
+				event.preventDefault();
+				event.ctrlKey ? y = (y + 0.1) : y++;
+				break;
+			case 'ArrowLeft':
+				event.preventDefault(); 
+				event.ctrlKey ? x = (x - 0.1) : x--;
+				break;
+			case 'ArrowRight':
+				event.preventDefault();
+				event.ctrlKey ? x = (x + 0.1) : x++;
+				break;
+			case 'ArrowUp':
+				event.preventDefault();
+				event.ctrlKey ? y = (y - 0.1) : y--;
+				break;
 			case 'Delete': case '-': this.pointDelete(index); return;
 			case '+': this.pointAdd(index); return;
 			default: break;
@@ -190,7 +229,9 @@ export default class ClipPath extends CssApp {
 		y = Math.min(Math.max(y, 0), 100);
 		element.style.left = `${x * this.point.percent}px`;
 		element.style.top = `${y * this.point.percent}px`;
-		this.pointUpdate(index, x, y);
+		
+
+		this.pointUpdate(index, x.toFixed(2), y.toFixed(2));
 	}
 
 	/**
@@ -210,10 +251,19 @@ export default class ClipPath extends CssApp {
 			if (y < 0) y = 0;
 			if ((x  + this.point.width) > this.point.parentRect.width) x = this.point.parentRect.width - this.point.width;
 			if ((y + this.point.width) > this.point.parentRect.height) y = this.point.parentRect.height - this.point.width;
-/*TODO: Lock axis with shift or alt-key */
-/*TODO fine-move 0.1 or 0.01 */
-			this.point.element.style.left = ((type === 'ellipse' && index === 1) || event.shiftKey) ? this.point.element.style.left :  `${x}px`;
-			this.point.element.style.top = ((type === 'ellipse' && index === 2) || event.altKey) ? this.point.element.style.top : `${y}px`;
+
+			/* Lock axii with shift or alt-key */
+			if (event.altKey) {
+				x = this.point.element.dataset.x;
+			}
+			if (event.shiftKey) {
+				y = this.point.element.dataset.y;
+			}
+
+			this.point.element.dataset.x = x;
+			this.point.element.dataset.y = y;
+			this.point.element.style.left = ((type === 'ellipse' && index === 1)) ? this.point.element.style.left : `${x}px`;
+			this.point.element.style.top = ((type === 'ellipse' && index === 2)) ? this.point.element.style.top : `${y}px`;
 			this.pointUpdate(index, Math.ceil(x / this.point.percent), Math.ceil(y / this.point.percent));
 		}
 	}
