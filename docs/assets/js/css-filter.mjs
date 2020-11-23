@@ -1,7 +1,7 @@
 /**
  * FilterMaker module.
  * @module /assets/js/filtermaker
- * @version 0.1.2
+ * @version 0.1.3
  * @summary 23-11-2020
  * @description 
  * @example
@@ -19,6 +19,7 @@ export default class CssFilter extends CssApp {
 		super(element, Object.assign({
 			clsDrag: 'app__img--drag',
 			filterFile: '/docs/assets/svg/filters.svg',
+			filterPathLocal: 'false',
 			lblAppHeader: 'CSS Filter Editor',
 			lblBlur: 'blur',
 			lblBrightness: 'brightness',
@@ -232,7 +233,7 @@ export default class CssFilter extends CssApp {
 						<input type="file" id="${this.uuid}file" class="app__file-drop" data-elm="filedrop" />
 					</figure>
 					<label for="${this.uuid}file" class="app__label">${this.settings.lblUploadImage}</label>
-					<details open data-elm="filters-wrapper">
+					<details data-elm="filters-wrapper">
 						<summary class="app__summary"><span>${this.settings.lblFilters}</span></summary>
 						<div class="app__panel" data-elm="filters"></div>
 					</details>
@@ -311,7 +312,7 @@ export default class CssFilter extends CssApp {
 			</label>
 		${filters.map(filter => { return `
 			<label class="app__label--radio">
-				<input type="radio" class="u-hidden" id="filter-${filter.id}" name="url" data-elm="url" value="url('${this.settings.filterFile}#${filter.id}')" />
+				<input type="radio" class="u-hidden" id="filter-${filter.id}" name="url" data-elm="url" value="url('${this.settings.filterPathLocal === 'false' ? this.settings.filterFile : ''}#${filter.id}')" />
 				<span>${filter.title || filter.id}</span>
 			</label>`}).join('')}`;
 	}
