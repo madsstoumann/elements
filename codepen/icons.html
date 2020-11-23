@@ -1,452 +1,674 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 <head>
-	<title>Playground:Icons</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-	
-	<style>
-		[data-css-icon] {
-			--animdur: .3s;
-			--loading-animdur: 0.8s;
-			--animtf: ease-in;
-			--bdw: 2px;
-			--bdrs: 50%;
-			--bgc: inherit;
-			--c: currentcolor;
-			--dots-bgc: silver;
-			--dots-size: calc(var(--size, 2.5rem) / 5);
-			--icon-size: 1rem;
-			--size: 2.5rem;
-			align-items: center;
-			cursor: pointer;
-			display: flex;
-			justify-content: space-between;
-		}
-		[data-css-icon] i {
-			align-items: center;
-			background-color: var(--bgc);
-			border-radius: var(--bdrs);
-			box-sizing: border-box;
-			display: inline-flex;
-			height: var(--size);
-			justify-content: center;
-			position: relative;
-			transition: background-color var(--animdur) var(--animtf);
-			width: var(--size);
-		}
-		[data-css-icon] i::after,
-		[data-css-icon] i::before {
-			--pos: relative;
-			box-sizing: border-box;
-			content: "";
-			display: inline-block;
-			margin: 0;
-			position: var(--pos);
-			transform-origin: 50% 50%;
-			transition: all var(--animdur) var(--animtf);
-		}
+  <title>CSS Icons</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  
+<style>
+/* * * BEGIN CSS ICONS * * */
+:root {
+  /* The values below should normally be placed under [data-css-icon], they're only at :root in this demo */
+  --icon-bdw: 2px;
+  --icon-size: 1.5rem;
+  --size: 3.75rem;
+}
+[data-css-icon] {
+  --animdur: .3s;
+  --loading-animdur: 0.8s;
+  --animtf: ease-in;
+  --bdrs: 50%;
+  --bgc: inherit;
+  --c: currentcolor;
+  --dots-bgc: silver;
+  --dots-size: calc(var(--size, 2.5rem) / 5);
+  --rgb: 0, 0, 0;
 
-		/* ARROWS */
-		[data-css-icon*="arr-down"] i::after,
-		[data-css-icon*="arr-left"] i::after,
-		[data-css-icon*="arr-right"] i::after,
-		[data-css-icon*="arr-up"] i::after,
-		[data-css-icon*="chv-down"] i::after,
-		[data-css-icon*="chv-left"] i::after,
-		[data-css-icon*="chv-right"] i::after,
-		[data-css-icon*="chv-up"] i::after {
-			background: transparent;
-			border-color: var(--c);
-			border-style: solid;
-			height: var(--icon-size);
-			width: var(--icon-size);
-		}
-		[data-css-icon*="chv-down"] i::after,
-		[data-css-icon*="chv-up"] i::after {
-			border-width: 0 var(--bdw) var(--bdw) 0;
-			top: calc(0px - (var(--icon-size) / 4));
-			transform: rotate(45deg);
-		}
-		[data-css-icon*="chv-left"] i::after,
-		[data-css-icon*="chv-right"] i::after {
-			border-width: var(--bdw) var(--bdw) 0 0;
-			right: calc(0px - (var(--icon-size) / 4));
-			top: 0;
-			transform: rotate(-135deg);
-		}
-		[data-css-icon*="chv-right"] i::after {
-			right: calc((var(--icon-size) / 4));
-			transform: rotate(45deg);
-		}
-		[data-css-icon*="chv-up"] i::after {
-			top: var(--bdw);
-			transform: rotate(45deg) scale(-1) ;
-		}
-		[data-css-icon*="arr"] i::after {
-			--pos: absolute;
-			border-width: 0 var(--bdw) var(--bdw) 0;
-			transform: rotate(45deg);
-		}
-		[data-css-icon*="arr"] i::before {
-			transform: rotate(90deg) translate(calc(0px - var(--bdw)), 0px);
-		}
-		[data-css-icon*="arr-left"] i {
-			transform: rotate(90deg);
-		}
-		[data-css-icon*="arr-right"] i {
-			transform: rotate(-90deg);
-		}
-		[data-css-icon*="arr-up"] i {
-			transform: rotate(180deg);
-		}
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+[data-css-icon] i {
+  --half: calc(var(--icon-size) / 2);
+  align-items: center;
+  background-color: var(--bgc);
+  border-radius: var(--bdrs);
+  box-sizing: content-box;
+  display: inline-flex;
+  height: var(--size);
+  justify-content: center;
+  position: relative;
+  transition: background-color var(--animdur) var(--animtf);
+  width: var(--size);
+}
+[data-css-icon] i b,
+[data-css-icon] i::after,
+[data-css-icon] i::before {
+  --bdc: transparent;
+  --bdrs: 0;
+  --bdw: 0;
+  --befc: unset;
+  --bgcl: transparent;
+  --cpa: none;
+  --h: var(--icon-size);
+  --l: initial;
+  --o: 1;
+  --pos: relative;
+  --r: initial;
+  --t: initial;
+  --trf: none;
+  --trfo: 50% 50%;
+  --w: var(--icon-size);
+  background-color: var(--bgcl);
+  border-color: var(--bdc);
+  border-radius: var(--bdrs);
+  border-style: solid;
+  border-width: var(--bdw);
+  box-sizing: border-box;
+  clip-path: var(--cpa);
+  content: "";
+  display: inline-block;
+  height: var(--h);
+  left: var(--l);
+  margin: 0;
+  opacity: var (--o);
+  position: var(--pos);
+  right: var(--r);
+  top: var(--t);
+  transform: var(--trf);
+  transform-origin: var(--trfo);
+  transition: all var(--animdur) var(--animtf);
+  width: var(--w);
+}
+[data-css-icon] i::before {
+  content: var(--befc);
+}
 
-		/* LINES: MINUS, PLUS, EQUALS, MENU */
-		[data-css-icon*="arr-"] i::before,
-		[data-css-icon*="equals"] i::after,
-		[data-css-icon*="equals"] i::before,
-		[data-css-icon*="cross"] i::after,
-		[data-css-icon*="cross"] i::before,
-		[data-css-icon*="menu"] i,
-		[data-css-icon*="menu"] i::after,
-		[data-css-icon*="menu"] i::before,
-		[data-css-icon*="minus"] i::after,
-		[data-css-icon*="plus"] i::after,
-		[data-css-icon*="plus"] i::before {
-			--pos: absolute;
-			/* Width need to be the diagonal of the down-arrow side-length (--size): sqrt(2) * --size. */
-			--w: calc(var(--icon-size) * 1.4142135623730950488016887242097);
-			background: var(--c);
-			height: var(--bdw);
-			width: var(--w);
-		}
-		[data-css-icon*="cross"] i::after {
-			transform: rotate(45deg);
-		}
-		[data-css-icon*="cross"] i::before {
-			transform: rotate(135deg);
-		}
-		[data-css-icon*="plus"] i::before {
-			transform: rotate(90deg);
-		}
-		[data-css-icon*="equals"] i {
-			--m: calc(var(--icon-size) / 4);
-		}
-		[data-css-icon*="equals"] i::after {
-			transform: translateY(var(--m));
-		}
-		[data-css-icon*="equals"] i::before {
-			transform: translateY(calc(0px - var(--m)));
-		}
-		[data-css-icon*="dots"],
-		[data-css-icon*="menu"] {
-			height: var(--size);
-		}
-		[data-css-icon*="menu"] i {
-			--bdrs: 0;
-			--m: calc(var(--icon-size) / 3);
-			right: calc((var(--size) - var(--w)) / 2);
-		}
-		[data-css-icon*="menu"] i::after {
-			top: var(--m);
-		}
-		[data-css-icon*="menu"] i::before {
-			top: calc(0px - var(--m));
-		}
+/* ARROWS / CHEVRONS / TRIANGLES */
+[data-css-icon*="arr-"] i::after,
+[data-css-icon*="chv-"] i::after {
+  --bdc: var(--c);
+}
+[data-css-icon*="arr-"] i::after {
+  --bdw: 0 var(--icon-bdw) var(--icon-bdw) 0;
+  --trf: rotate(45deg);
+}
+[data-css-icon*="chv-"] i::after {
+  --bdw: 0 var(--icon-bdw) var(--icon-bdw) 0;
+  --trl: calc(0px - (var(--icon-size) / 6));
+  --trf: rotate(45deg) translate(var(--trl), var(--trl));
+}
+[data-css-icon*="arr-"] i::before {
+  --trf: rotate(90deg) translateX(calc(0px - var(--icon-bdw)));
+}
+[data-css-icon*="tri-"] i::after {
+  --bgcl: var(--c);
+  --cpa: polygon(10% 20%,50% 90%,90% 20%);
+}
+[data-css-icon*="-left"] i { transform: rotate(90deg); }
+[data-css-icon*="-right"] i { transform: rotate(-90deg); }
+[data-css-icon*="-up"] i { transform: rotate(180deg); }
 
-		/* REFRESH */
-		[data-css-icon*="refresh"] i::before {
-			border-color: var(--c);
-			border-style: solid;
-			border-width: var(--bdw) 0 var(--bdw) var(--bdw);
-			border-radius: 50%;
-			/* right: -3px; */
-			height: var(--icon-size);
-			width: var(--icon-size);
-		}
-		[data-css-icon*="refresh"] i::after {
-			--pos: absolute;
-			border-bottom: calc(var(--icon-size) * 0.25) solid transparent;
-			border-left: calc(var(--icon-size) * 0.3) solid var(--c);
-			border-top: calc(var(--icon-size) * 0.25) solid transparent;
-			right: calc(((var(--size) - var(--icon-size)) / 2) - (var(--icon-size) / 6));
-			height: 0;
-			top: calc(((var(--size) - var(--icon-size)) / 2) + (var(--icon-size) / 6));
-			transform: rotate(60deg);
-			width: 0;
-		}
+/* LINES: MINUS, PLUS, EQUALS, MENU */
+[data-css-icon*="arr-"] i::before,
+[data-css-icon*="equals"] i::after,
+[data-css-icon*="equals"] i::before,
+[data-css-icon*="cross"] i::after,
+[data-css-icon*="cross"] i::before,
+[data-css-icon*="menu"] i b,
+[data-css-icon*="menu"] i::after,
+[data-css-icon*="menu"] i::before,
+[data-css-icon*="minus"] i::after,
+[data-css-icon*="plus"] i::after,
+[data-css-icon*="plus"] i::before {      
+  /* Width need to be the diagonal of the down-arrow side-length (--size): sqrt(2) * --size. */
+  --bgcl: var(--c);
+  --befc: '';
+  --h: var(--icon-bdw);
+  --pos: absolute;
+  --w: calc(var(--icon-size) * 1.4142135623730950488016887242097);
+}
+[data-css-icon*="cross"] i::after { --trf: rotate(45deg); }
+[data-css-icon*="cross"] i::before { --trf: rotate(135deg); }
+[data-css-icon*="cross-turn"] i::after { --trf: rotate(0deg); }
+[data-css-icon*="cross-turn"] i::before,
+[data-css-icon*="plus"] i::before { --trf: rotate(90deg); }
+[data-css-icon*="equals"] i { --dist: calc(var(--icon-size) / 4); }
+[data-css-icon*="equals"] i::after { --trf: translateY(var(--dist)); }
+[data-css-icon*="equals"] i::before { --trf: translateY(calc(0px - var(--dist))); }
+[data-css-icon*="menu"] i::after { --trf: translateY(var(--half)); }
+[data-css-icon*="menu"] i::before { --trf: translateY(calc(0px - var(--half))); }
 
-		/* SEARCH */
-		[data-css-icon*="search"] i::after {
-			--pos: absolute;
-			background-color: var(--c);
-			height: var(--bdw);
-			transform: rotate(37deg) translate(calc(var(--icon-size) * 0.75), 0px);
-			width: calc(var(--icon-size) / 2);
-		}
-		[data-css-icon*="search"] i::before {
-			border: var(--bdw) solid var(--c);
-			border-radius: 50%;
-			height: var(--icon-size);
-			width: var(--icon-size);
-		}
+/* OTHER ICONS */
+[data-css-icon*="bag"] i::after {
+  --bdc: var(--c);
+  --bdrs: 0.25em;
+  --bdw: var(--icon-bdw);
+}
+[data-css-icon*="bag"] i::before {
+  --bdc: var(--c);
+  --bdrs: 50% 50% 0 0 / 100% 100% 0 0;
+  --bdw: var(--icon-bdw);
+  --befc: '';
+  --h: calc(var(--icon-size) / 3);
+  --pos: absolute;
+  --t: calc((var(--icon-size) / 2.5) + 2px);
+  --w: calc(var(--half) + var(--bdw));
+  border-bottom-width: 0;
+}
+[data-css-icon*="bookmark"] i::after {
+  --bgcl: var(--c);
+  --cpa: polygon(90% 0%,90% 70%,50% 100%,10% 70%,10% 0%);
+}
+[data-css-icon*="cart"] i::after {
+  --bgcl: var(--c);
+  --cpa: polygon(3% 10%,21% 10%,28% 30%,100% 30%,81% 66%,42% 66%,45% 74%,79% 74%,76% 81%,40% 81%,16% 17%,0% 17%);
+  --trf: scale(1.2);
+}
+[data-css-icon*="cart"] i::before {
+  --bdrs: 50%;
+  --befc: '';
+  --bgcl: transparent;
+  --pos: absolute;
+  --h: calc(var(--icon-size) / 8);
+  --w: var(--h);
+  box-shadow:
+    calc(var(--h) * -0.25) var(--half)  0 0 rgba(var(--rgb), 1),
+    calc(var(--h) * 1.25) var(--half)  0 0 rgba(var(--rgb), 1)
+}
+[data-css-icon*="check"] i::after {
+  --bdc: var(--c);
+  --bdw: 0 var(--icon-bdw) var(--icon-bdw) 0;
+  --t: calc(var(--icon-size) / -6);
+  --trf: rotate(45deg);
+  --w: var(--half);
+}
+[data-css-icon*="email"] i::after {
+  --bgcl: var(--c);
+  --cpa: polygon(0% 85%,0% 15%,100% 15%,50% 60%,0% 15%,0% 25%,50% 70%,100% 25%,100% 85%);
+}
+[data-css-icon*="heart"] i::after,
+[data-css-icon*="heart"] i::before {
+  --bdrs: var(--w) var(--w) 0 0;
+  --befc: '';
+  --bgcl: var(--c);
+  --pos: absolute;
+  --r: var(--w);
+  --trf: rotate(-45deg);
+  --trfo: 0 100%;
+  --w: calc(var(--icon-size) / 1.6);
+}
+[data-css-icon*="heart"] i::after {
+  --r: calc(var(--w) * 2);
+  --trf: rotate(45deg);
+  --trfo: 100% 100%;
+}
+[data-css-icon*="home"] i::after {
+  --bgcl: var(--c);
+  --cpa: polygon(50% 0%,100% 40%,100% 100%,65% 100%,65% 65%,35% 65%,35% 100%,0% 100%,0% 40%);
+}
+[data-css-icon*="lock"] i::after {
+  --bdc: var(--c);
+  --bdrs: calc(var(--icon-size) / 10);
+  --bdw: calc(var(--icon-size) / 5);
+  --h: calc(var(--icon-size) * 0.7);
+  --pos: absolute;
+  --t: var(--icon-size);
+  border-right-width: calc(var(--icon-size) / 2.5);
+  border-left-width: calc(var(--icon-size) / 2.5);
+}
+[data-css-icon*="lock"] i::before {
+  --bdc: var(--c);
+  --bdw: calc(var(--icon-size) * 0.175);
+  --befc: '';
+  --h: calc(var(--icon-size) * 0.4);
+  --pos: absolute;
+  --t: calc(var(--icon-size) * 0.6);
+  --w: calc(var(--icon-size) * 0.7);
+  border-bottom-width: 0;
+  border-top-left-radius: 50% 100%;
+  border-top-right-radius: 50% 100%;
+}
+[data-css-icon*="message"] i::after {
+  --bgcl: var(--c);
+  /* --cpa: polygon(0% 5%,100% 5%,100% 70%,70% 70%,40% 100%,40% 70%,0% 70%); */
+  --cpa: polygon(0% 0%,100% 0%,100% 75%,70% 75%,70% 30%,55% 30%,55% 45%,70% 45%,70% 75%,40% 100%,40% 75%,40% 30%,25% 30%,26% 46%,40% 45%,40% 75%,0% 75%);
+}
+[data-css-icon*="pause"] i::after {
+  --bgcl: var(--c);
+  --cpa: polygon(40% 0%,0% 0%,0% 100%,40% 100%,40% 0%,60% 0%,100% 0%,100% 100%,60% 100%,60% 0%);
+}
+[data-css-icon*="map"] i::after {
+  --p60: calc(var(--w) * 0.6);
+  --bdrs: var(--p60) var(--p60) 0 var(--p60);
+  --bgcl: var(--c) ;
+  --trf: rotate(45deg);
+}
+[data-css-icon*="map"] i::before {
+  --bdrs: 50%;
+  --befc: '';
+  --h: calc(var(--icon-size) / 3);
+  --w: var(--h);
+  --pos: absolute;
+  --bgcl: var(--bgc, #FFF);
+  z-index: 1;
+}
+[data-css-icon*="phone"] i::after {
+  --bdrs: calc(var(--icon-size) / 10);
+  --bgcl: var(--c);
+  --cpa: polygon(0% 0%,100% 0%,100% 100%,85% 100%,85% 15%,15% 15%,15% 75%,85% 75%,85% 100%,60% 100%,60% 81%,40% 81%,40% 94%,61% 94%,60% 100%,0% 100%);
+  --w: calc(var(--icon-size) * 0.65);
+}
+[data-css-icon*="play"] i::after {
+  --bgcl: var(--c);
+  --cpa: polygon(16% 0%,15% 100%,100% 50%);
+}
+[data-css-icon*="refresh"] i::before {
+  --befc: '';
+  --bgcl: var(--c);
+  --cpa: polygon(40% 35%,75% 50%,80% 15%);
+  --l: var(--icon-size);
+  --pos: absolute;
+}
+[data-css-icon*="refresh"] i::after {
+  --bdc: var(--c);
+  --bdw: var(--icon-bdw);
+  --bdrs: 50%;
+  --cpa: polygon(0% 0%,100% 0%,100% 25%,50% 50%,100% 70%,100% 100%,0% 100%);
+}
+[data-css-icon*="search"] i::after {
+  --pos: absolute;
+  --bgcl: var(--c);
+  --h: var(--icon-bdw);
+  --trf: rotate(37deg) translate(calc(var(--icon-size) * 0.75), 0px);
+  --w: var(--half);
+}
+[data-css-icon*="search"] i::before {
+  --bdc: var(--c);
+  --bdrs: 50%;
+  --bdw: var(--icon-bdw);
+  --befc: '';
+}
+[data-css-icon*="star"] i::after {
+  --bgcl: var(--c);
+  --cpa: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  --h: calc(var(--icon-size) * 1.25);
+  --w: calc(var(--icon-size) * 1.25);
+}
+[data-css-icon*="stop"] i::after {
+  --bgcl: var(--c);
+}
+[data-css-icon*="tube"] i::after {
+  --bdrs: 35% / 100%;
+  --bgcl: var(--c);
+  --cpa: polygon(38% 0%,38% 67%,70% 50%,38% 33%,38% 0%,100% 1%,100% 100%,0% 100%,0% 0%);
+  --h: calc(var(--icon-size) * 0.9)
+}
+[data-css-icon*="user"] i::after {
+  --bgcl: var(--c);
+  --h: var(--half);
+  --pos: absolute;
+  --t: calc(var(--icon-size) * 1.25);
+  border-top-left-radius: 50% 100%;
+  border-top-right-radius: 50% 100%;
+}
+[data-css-icon*="user"] i::before {
+  --bdrs: 50%;
+  --befc: '';
+  --bgcl: var(--c);
+  --h: var(--half);
+  --pos: absolute;
+  --t: calc(var(--icon-size) * 0.75);
+  --w: var(--half);
+}
+[data-css-icon*="video"] i::after {
+  --bdrs: 50% / 100%;
+  --bgcl: var(--c);
+  --cpa: polygon(70% 20%,70% 50%,100% 25%,100% 75%,70% 50%,70% 80%,0% 80%,0% 20%);
+}
 
-		/* SHOPPING BAG */
-		[data-css-icon*="bag"] i::after {
-			background-color: var(--bgc);
-			border: var(--bdw) solid var(--c);
-			border-radius: 0.25em;
-			height: var(--icon-size);
-			width: var(--icon-size);
-		}
-		[data-css-icon*="bag"] i::before {
-			--pos: absolute;
-			border: var(--bdw) solid var(--c);
-			border-radius: 50%;
-			height: calc(var(--icon-size) / 2);
-			top: calc((var(--size) / 2) - (var(--icon-size) * 0.75));
-			width: calc(var(--icon-size) / 2);
-		}
+/* ANIMATED */
+[data-css-icon*="typing"] i b,
+[data-css-icon*="typing"] i::after,
+[data-css-icon*="typing"] i::before {
+  animation: typing var(--loading-animdur) infinite alternate;
+  --bdrs: 50%;
+  --bgcl: var(--c);
+  --h: var(--dots-size);
+  --w: var(--dots-size);
+}
+[data-css-icon*="typing"] i b {
+  animation-delay: var(--loading-animdur);
+}
+[data-css-icon*="typing"] i::after {
+  --l: calc(var(--dots-size) / 3);
+  animation-delay: calc(var(--loading-animdur) * 1.75);
+}
+[data-css-icon*="typing"] i::before {
+  --befc: '';
+  --l: calc(0px - (var(--dots-size) / 3));
+  animation-delay: 0;
+}
+[data-css-icon*="spin"] i::after {
+  --bdc: var(--dots-bgc);
+  --bdrs: 50%;
+  --bdw: var(--icon-bdw);
+  --h: calc(var(--icon-size) * 1.5);
+  --trf: translateZ(0);
+  --w: calc(var(--icon-size) * 1.5);
+  animation: spin var(--loading-animdur) infinite linear;
+  border-left: var(--icon-bdw) solid var(--c);
+}
+[data-css-icon*="dashed"] i::after {
+  --bdc: var(--dots-bgc);
+  --bdrs: 50%;
+  --bdw: var(--icon-bdw);
+  --h: calc(var(--icon-size) * 1.5);
+  --w: var(--h);
+  animation: spin var(--loading-animdur) infinite linear;
+  border-style: dashed;
+}
+[data-css-icon*="dotloader"] i::after {
+  --bdrs: 50%;
+  --h: calc(var(--icon-size) / 3);
+  --w: var(--h);
+  --dot: calc(var(--icon-size) - var(--h));
+  --num: 0.7; /* 45deg, 135deg, 225deg, 315deg (was 0.69231) */
+  animation: spin var(--loading-animdur) infinite steps(8);
+  box-shadow:
+    0 calc(var(--dot) * -1) 0 0 rgba(var(--rgb), 1), 
+    calc(var(--dot) * var(--num)) calc(var(--dot) * var(--num) * -1) 0 0 rgba(var(--rgb), 0.2), 
+    var(--dot) 0 0 0 rgba(var(--rgb), 0.2), 
+    calc(var(--dot) * var(--num)) calc(var(--dot) * var(--num)) 0 0 rgba(var(--rgb), 0.2), 
+    0 var(--dot) 0 0 rgba(var(--rgb), 0.2), 
+    calc(var(--dot) * var(--num) * -1) calc(var(--dot) * var(--num)) 0 0 rgba(var(--rgb), 0.2), 
+    calc(var(--dot) * -1) 0 0 0 rgba(var(--rgb), 0.5), 
+    calc(var(--dot) * var(--num) * -1) calc(var(--dot) * var(--num) * -1) 0 0 rgba(var(--rgb), 0.7);
+}
 
-		/* CHECKMARK */
-		[data-css-icon*="check"] i::after {
-			border-color: var(--c);
-			border-style: solid;
-			border-width: 0 var(--bdw) var(--bdw) 0;
-			height: var(--icon-size);
-			top: calc(var(--icon-size) / -6);
-			transform: rotate(45deg);
-			width: calc(var(--icon-size) / 2);
-		}
+/* ADDITIONAL MODIFIERS */
+[data-css-icon*="outline"] i {
+  border: var(--icon-bdw) solid var(--c);
+}
+[data-css-icon*="fill"] {
+  --bgc: hsl(195, 10%, 30%);
+  --c: hsl(195, 10%, 95%);
+  --rgb: 255, 255, 255;
+}
+[data-css-icon*="square"] {
+  --bdrs: 5px;
+}
 
-		/* PAUSE */
-		[data-css-icon*="pause"] i::after,
-		[data-css-icon*="pause"] i::before {
-			background-color: var(--c);
-			height: var(--icon-size);
-			width: calc(var(--bdw) * 2);
-		}
-		[data-css-icon*="pause"] i::before {
-			left: calc(var(--icon-size) / -6);
-		}
-		[data-css-icon*="pause"] i::after {
-			right: calc(var(--icon-size) / -6);
-		}
+/* STATES: details[open] */
+[open] > summary > [data-css-icon*="chv-down"] i::after { --trl: calc(var(--icon-size) / 6); --trf: rotate(45deg) translate(var(--trl), var(--trl)) scale(-1);}
+[open] > summary > [data-css-icon*="chv-right"] i::after { --trf: rotate(135deg) translate(var(--trl), var(--trl)); }
+[open] > summary > [data-css-icon*="cross-turn"] i::after { --trf: rotate(45deg); }
+[open] > summary > [data-css-icon*="cross-turn"] i::before { --trf: rotate(135deg); }
+[open] > summary > [data-css-icon*="equals"] i::after,
+[open] > summary > [data-css-icon*="menu"] i::after { --trf: rotate(-45deg); }
+[open] > summary > [data-css-icon*="equals"] i::before,
+[open] > summary > [data-css-icon*="menu"] i::before { --trf: rotate(45deg); }
+[open] > summary > [data-css-icon*="menu"] i b { --o: 0; --trf: translateX(100px); }
+[open] > summary > [data-css-icon*="plus"] i::after { --trf: rotate(180deg); }
+[open] > summary > [data-css-icon*="plus"] i::before { --trf: rotate(-0deg); }
+[open] > summary > [data-css-icon*="tri-down"] i::after { --trf: scale(-1); }
+[open] > summary > [data-css-icon*="tri-right"] i::after { --trf: rotate(90deg); }
 
-		/* PLAY */
-		[data-css-icon*="play"] i::after {
-			border-bottom: calc(var(--icon-size) * 0.5) solid transparent;
-			border-left: calc(var(--icon-size) * 0.75) solid var(--c);
-			border-top: calc(var(--icon-size) * 0.5) solid transparent;
-			height: 0;
-			right: calc(0px - (var(--icon-size) / 8));
-			width: 0;
-		}
+/* ANIMATIONS */
+@keyframes typing {
+  0% {
+    background-color: var(--c);
+  }
+  50%,
+  100% {
+    background-color: var(--dots-bgc);
+  }
+}
 
-		/* STOP */
-		[data-css-icon*="stop"] i::after {
-			background-color: var(--c);
-			height: calc(var(--icon-size) * 0.8);
-			width: calc(var(--icon-size) * 0.8);
-		}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
 
-		/* ANIMATED */
-		[data-css-icon*="dots"] i,
-		[data-css-icon*="dots"] i::after,
-		[data-css-icon*="dots"] i::before {
-			animation: dots var(--loading-animdur) infinite alternate;
-			background-color: var(--c);
-			border-radius: 50%;
-			display: block;
-			height: var(--dots-size);
-			width: var(--dots-size);
-		}
-		[data-css-icon*="dots"] i {
-			animation-delay: var(--loading-animdur);
-			right: calc((var(--size) - var(--dots-size)) / 8);
-		}
-		[data-css-icon*="dots"] i::after {
-			--pos: absolute;
-			animation-delay: 0s;
-			left: calc(0px - (var(--dots-size) * 3));
-		}
-		[data-css-icon*="dots"] i::before {
-			--pos: absolute;
-			animation-delay: calc(var(--loading-animdur) / 2);
-			left: calc(0px - (var(--dots-size) * 1.5));
-		}
-		[data-css-icon*="spin"] i::after {
-			animation: spin var(--loading-animdur) infinite linear;
-			border-radius: 50%;
-			border: var(--bdw) solid var(--dots-bgc);
-			border-left: var(--bdw) solid var(--c);
-			content: "";
-			
-			height: calc(var(--icon-size) * 1.5);
-			transform: translateZ(0);
-			width: calc(var(--icon-size) * 1.5);
-		}
+/* * * END CSS ICONS * * */
 
-		/* RTL: inset-block-end fails */
-		[dir="rtl"] [data-css-icon*="right"] i::after {
-			left: calc((var(--icon-size) / 4));
-		}
-		[dir="rtl"] [data-css-icon*="menu"] i {
-			left: 0.5rem;
-			right: auto;
-		}
-		
-		/* ADDITIONAL MODIFIERS */
-		[data-css-icon*="outline"] i {
-			border: var(--bdw) solid var(--c);
-		}
-		[data-css-icon*="fill"] {
-			--bgc: hsl(195, 10%, 30%);
-			--c: hsl(195, 10%, 95%);
-		}
-		[data-css-icon*="square"] {
-			--bdrs: 5px;
-		}
-		
-		/* For this demo only */
-		body { background-color: hsl(210, 20%, 50%); font-family: system-ui, sans-serif; margin: 0 auto; max-width: 375px; padding: 0.25rem; }
-		button, details { width: calc(50% - 0.5rem); }
-		button { 
-			--bgc: hsl(195, 10%, 90%);
-			background-color: var(--bgc);
-			border: 0;
-			border-radius: 5px;
-			color: var(--c, inherit);
-			font-family: inherit; font-size: inherit;
-			list-style-type: none;
-			margin: 0.25rem 0 0.25rem 0.25rem;
-			outline: none;
-			padding-bottom: 0.5rem;
-			padding-top: 0.5rem;
-			padding-inline-end: 0.5rem;
-			padding-inline-start: 1rem;
-			user-select: none;
-		}
+/* For this demo only */
+body { background-color: hsl(210, 20%, 90%); font-family: ui-sans-serif, system-ui, sans-serif; line-height: 1.6; margin: 0 auto; max-width: 32rem; padding: 0 2rem; } 
+code { background-color: hsl(210, 20%, 70%); font-family: ui-monospace, monospace; font-size: 75%; font-weight: normal; padding: 0.15em; }
+[data-app] fieldset { border: 1px solid #888; padding: 0 0.75em; }
+[data-app] { position: fixed; background-color: #1e1e1e; font-family: ui-monospace, monospace; left: 0; padding: 0.5em; right: 0; top: 0; z-index: 2; }
+[data-app] button, [data-app] input:not([type=checkbox]), [data-app] select { background: transparent; border: 1px solid #888; border-radius: 0; color: #d7ba7d; font-family: inherit; font-size: small; padding: 0.25em 0.5em; -webkit-appearance: none; }
+[data-app] button { background: #ce9178; border-color: #ce9178; color: black; }
+[data-app] label { color: #9cdcfe; display: inline-block; margin: 0.25em 0 0.75em 0; }
+[data-app] legend { color: #9cdcfe; }
+[data-app="top"] + main { padding: 100px 0; }
 
-		/* States */
-		button:focus {
-			--bgc: hsl(195, 10%, 75%);
-		}
+button, details { width: calc(50% - 0.5rem); }
+button, summary { 
+  --sum-bgc: hsl(195, 10%, 98%);
+  background-color: var(--sum-bgc);
+  border: 0;
+  border-radius: 5px;
+  color: var(--sum-c, inherit);
+  font-family: inherit; font-size: inherit;
+  list-style-type: none;
+  margin: 0.25rem 0 0.25rem 0.25rem;
+  outline: none;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  padding-inline-end: 0.5rem;
+  padding-inline-start: 1rem;
+  user-select: none;
+}
 
-		@keyframes dots {
-			0% {
-				background-color: var(--c);
-			}
-			50%,
-			100% {
-				background-color: var(--dots-bgc);
-			}
-		}
+details {
+  overflow: hidden;
+}
+details[open] summary + * {
+  opacity: 1;
+  transform: translateY(0);
+}
+summary::marker { display: none; }
+summary::-webkit-details-marker { display: none; }
 
-		@keyframes spin {
-			0% {
-				transform: rotate(0deg);
-			}
-			to {
-				transform: rotate(1turn);
-			}
-		}
-	</style>
+[open] > summary {
+  --sum-bgc: hsl(195, 10%, 20%);
+  --sum-c: hsl(195, 10%, 92%);
+}
+button:focus,
+summary:focus {
+  box-shadow: inset 0 0 0 2px hsl(195, 10%, 20%);
+}
+[open] > summary:focus {
+  --sum-bgc: hsl(195, 10%, 10%);
+    --sum-c: hsl(195, 10%, 99%);
+}
+[open] > summary:focus > [data-css-icon*="fill"],
+[open] > summary > [data-css-icon*="fill"] {
+  --bgc: hsl(195, 10%, 80%);
+  --c: hsl(195, 10%, 10%);
+}
+
+details summary + * {
+  animation: scale-in 0.3s ease-in-out both;
+  color: #777;
+  line-height: 1.6;
+  opacity: 0;
+  padding: 0.5rem;
+}
+
+@keyframes scale-in {
+  0% {
+    transform: scale(0);
+    transform-origin: 0% 0%;
+    opacity: 0.25;
+  }
+  100% {
+    transform: scale(1);
+    transform-origin: 0% 0%;
+    opacity: 1;
+  }
+}
+</style>
 </head>
 <body>
 
+<form id="form" data-app="top">
+  <fieldset>
+    <legend>CSS Icons: Adjust</legend>
+    <label>Stroke-Width	<input type="number" name="stroke" min="1" max="5" value="2" /></label>
+    <label>Size	<input type="number" name="size" min="0.5" max="3" step="0.1" value="1.5" /></label>
+    <label><input type="checkbox" name="fill" />Fill</label>
+    <label><input type="checkbox" name="outline" />Outline</label>
+    <label><input type="checkbox" name="square" />Square</label>
+  </fieldset>
+</form>
 
-	<button type="button"><span data-css-icon="chv-up">Chev Up<i></i></span></button>
-	<button type="button"><span data-css-icon="chv-down">Chev Down<i></i></span></button>
-	<button type="button"><span data-css-icon="chv-left">Chev Left<i></i></span></button>
-	<button type="button"><span data-css-icon="chv-right">Chev Right<i></i></span></button>
-	<button type="button"><span data-css-icon="arr-up">Up<i></i></span></button>
-	<button type="button"><span data-css-icon="arr-down">Down<i></i></span></button>
-	<button type="button"><span data-css-icon="arr-left">Left<i></i></span></button>
-	<button type="button"><span data-css-icon="arr-right">Right<i></i></span></button>
-	<button type="button"><span data-css-icon="plus">Plus<i></i></span></button>
-	<button type="button"><span data-css-icon="minus">Minus<i></i></span></button>
-	<button type="button"><span data-css-icon="cross">Cross<i></i></span></button>
-	<button type="button"><span data-css-icon="equals">Equals<i></i></span></button>
-	<button type="button"><span data-css-icon="search">Search<i></i></span></button>
-	<button type="button"><span data-css-icon="refresh">Refresh<i></i></span></button>
-	<button type="button"><span data-css-icon="play">Play<i></i></span></button>
-	<button type="button"><span data-css-icon="pause">Pause<i></i></span></button>
-	<button type="button"><span data-css-icon="stop">Stop<i></i></span></button>
-	<button type="button"><span data-css-icon="bag">Bag<i></i></span></button>
-	<button type="button"><span data-css-icon="check">Check<i></i></span></button>
-	<button type="button"><span data-css-icon="menu">Menu<i></i></span></button>
-	<button type="button"><span data-css-icon="dots">Dots<i></i></span></button>
-	<button type="button"><span data-css-icon="spin">Spinner<i></i></span></button>
+<main>
+  <button type="button"><span data-css-icon="chv-up">chv-up<i></i></span></button>
+  <button type="button"><span data-css-icon="chv-down">chv-down<i></i></span></button>
+  <button type="button"><span data-css-icon="chv-left">chv-left<i></i></span></button>
+  <button type="button"><span data-css-icon="chv-right">chv-right<i></i></span></button>
+  <button type="button"><span data-css-icon="arr-up">arr-up<i></i></span></button>
+  <button type="button"><span data-css-icon="arr-down">arr-down<i></i></span></button>
+  <button type="button"><span data-css-icon="arr-left">arr-left<i></i></span></button>
+  <button type="button"><span data-css-icon="arr-right">arr-right<i></i></span></button>
+  <button type="button"><span data-css-icon="tri-up">tri-up<i></i></span></button>
+  <button type="button"><span data-css-icon="tri-down">tri-down<i></i></span></button>
+  <button type="button"><span data-css-icon="tri-left">tri-left<i></i></span></button>
+  <button type="button"><span data-css-icon="tri-right">tri-right<i></i></span></button>
+  <button type="button"><span data-css-icon="plus">plus<i></i></span></button>
+  <button type="button"><span data-css-icon="minus">minus<i></i></span></button>
+  <button type="button"><span data-css-icon="cross">cross<i></i></span></button>
+  <button type="button"><span data-css-icon="equals">equals<i></i></span></button>
+  <button type="button"><span data-css-icon="menu">menu*<i><b></b></i></span></button>
+  <button type="button"><span data-css-icon="search">search<i></i></span></button>
+  <button type="button"><span data-css-icon="refresh">refresh<i></i></span></button>
+  <button type="button"><span data-css-icon="play">play<i></i></span></button>
+  <button type="button"><span data-css-icon="pause">pause<i></i></span></button>
+  <button type="button"><span data-css-icon="stop">stop<i></i></span></button>
+  <button type="button"><span data-css-icon="bag">bag<i></i></span></button>
+  <button type="button"><span data-css-icon="check">check<i></i></span></button>
+  <button type="button"><span data-css-icon="heart">heart<i></i></span></button>
+  <button type="button"><span data-css-icon="user">user<i></i></span></button>
+  <button type="button"><span data-css-icon="star">star<i></i></span></button>
+  <button type="button"><span data-css-icon="home">home<i></i></span></button>
+  <button type="button"><span data-css-icon="bookmark">bookmark<i></i></span></button>
+  <button type="button"><span data-css-icon="lock">lock<i></i></span></button>
+  <button type="button"><span data-css-icon="email">email<i></i></span></button>
+  <button type="button"><span data-css-icon="message">message<i></i></span></button>
+  <button type="button"><span data-css-icon="map">map<i></i></span></button>
+  <button type="button"><span data-css-icon="cart">cart<i></i></span></button>
+  <button type="button"><span data-css-icon="video">video<i></i></span></button>
+  <button type="button"><span data-css-icon="phone">phone<i></i></span></button>
+  <button type="button"><span data-css-icon="tube">tube<i></i></span></button>
 
-	<button type="button"><span data-css-icon="chv-up fill">Chev Up<i></i></span></button>
-	<button type="button"><span data-css-icon="chv-down fill">Chev Down<i></i></span></button>
-	<button type="button"><span data-css-icon="chv-left fill">Chev Left<i></i></span></button>
-	<button type="button"><span data-css-icon="chv-right fill">Chev Right<i></i></span></button>
-	<button type="button"><span data-css-icon="arr-up fill">Up<i></i></span></button>
-	<button type="button"><span data-css-icon="arr-down fill">Down<i></i></span></button>
-	<button type="button"><span data-css-icon="arr-left fill">Left<i></i></span></button>
-	<button type="button"><span data-css-icon="arr-right fill">Right<i></i></span></button>
-	<button type="button"><span data-css-icon="plus fill">Plus<i></i></span></button>
-	<button type="button"><span data-css-icon="minus fill">Minus<i></i></span></button>
-	<button type="button"><span data-css-icon="cross fill">Cross<i></i></span></button>
-	<button type="button"><span data-css-icon="equals fill">Equals<i></i></span></button>
-	<button type="button"><span data-css-icon="search fill">Search<i></i></span></button>
-	<button type="button"><span data-css-icon="refresh fill">Refresh<i></i></span></button>
-	<button type="button"><span data-css-icon="play fill">Play<i></i></span></button>
-	<button type="button"><span data-css-icon="pause fill">Pause<i></i></span></button>
-	<button type="button"><span data-css-icon="stop fill">Stop<i></i></span></button>
-	<button type="button"><span data-css-icon="bag fill">Bag<i></i></span></button>
-	<button type="button"><span data-css-icon="check fill">Check<i></i></span></button>
-	<button type="button"><span data-css-icon="spin fill">Spinner<i></i></span></button>
+  <h2>Icons with state / toggle</h2>
+  <details>
+    <summary>
+      <span data-css-icon="chv-down">chv-down<i></i></span>
+    </summary>
+    <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos minus quo ipsam culpa! Dicta, reiciendis.
+    </div>
+  </details>
+  <details>
+    <summary>
+      <span data-css-icon="plus">plus<i></i></span>
+    </summary>
+    <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos minus quo ipsam culpa! Dicta, reiciendis.
+    </div>
+  </details>
+  <details>
+    <summary>
+      <span data-css-icon="chv-right">chv-right<i></i></span>
+    </summary>
+    <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos minus quo ipsam culpa! Dicta, reiciendis.
+    </div>
+  </details>
+  <details>
+    <summary>
+      <span data-css-icon="cross-turn">cross-turn<i></i></span>
+    </summary>
+    <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos minus quo ipsam culpa! Dicta, reiciendis.
+    </div>
+  </details>
+  <details>
+    <summary>
+      <span data-css-icon="equals">equals<i></i></span>
+    </summary>
+    <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos minus quo ipsam culpa! Dicta, reiciendis.
+    </div>
+  </details>
+  <details>
+    <summary>
+      <span data-css-icon="menu">menu*<i><b></b></i></span>
+    </summary>
+    <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos minus quo ipsam culpa! Dicta, reiciendis.
+    </div>
+  </details>
+  <details>
+    <summary>
+      <span data-css-icon="tri-down">tri-down<i></i></span>
+    </summary>
+    <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos minus quo ipsam culpa! Dicta, reiciendis.
+    </div>
+  </details>
+  <details>
+    <summary>
+      <span data-css-icon="tri-right">tri-right<i></i></span>
+    </summary>
+    <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos minus quo ipsam culpa! Dicta, reiciendis.
+    </div>
+  </details>
+  
+  <h2>Animated Icons</h2>
+  <button type="button"><span data-css-icon="typing">typing*<i><b></b></i></span></button>
+  <button type="button"><span data-css-icon="spin">spin<i></i></span></button>
+  <button type="button"><span data-css-icon="dashed">dashed<i></i></span></button>
+  <button type="button"><span data-css-icon="dotloader">dotloader<i></i></span></button>
 
-	<button type="button"><span data-css-icon="chv-up outline">Chev Up<i></i></span></button>
-<button type="button"><span data-css-icon="chv-down outline">Chev Down<i></i></span></button>
-<button type="button"><span data-css-icon="chv-left outline">Chev Left<i></i></span></button>
-<button type="button"><span data-css-icon="chv-right outline">Chev Right<i></i></span></button>
-<button type="button"><span data-css-icon="arr-up outline">Up<i></i></span></button>
-<button type="button"><span data-css-icon="arr-down outline">Down<i></i></span></button>
-<button type="button"><span data-css-icon="arr-left outline">Left<i></i></span></button>
-<button type="button"><span data-css-icon="arr-right outline">Right<i></i></span></button>
-<button type="button"><span data-css-icon="plus outline">Plus<i></i></span></button>
-<button type="button"><span data-css-icon="minus outline">Minus<i></i></span></button>
-<button type="button"><span data-css-icon="cross outline">Cross<i></i></span></button>
-<button type="button"><span data-css-icon="equals outline">Equals<i></i></span></button>
-<button type="button"><span data-css-icon="search outline">Search<i></i></span></button>
-<button type="button"><span data-css-icon="refresh outline">Refresh<i></i></span></button>
-<button type="button"><span data-css-icon="play outline">Play<i></i></span></button>
-<button type="button"><span data-css-icon="pause outline">Pause<i></i></span></button>
-<button type="button"><span data-css-icon="stop outline">Stop<i></i></span></button>
-<button type="button"><span data-css-icon="bag outline">Bag<i></i></span></button>
-<button type="button"><span data-css-icon="check outline">Check<i></i></span></button>
-<button type="button"><span data-css-icon="spin outline">Spinner<i></i></span></button>
-	<!-- <details >
-		<summary>
-			Adjust
-		</summary>
-		<form>
-			<label>
-				<input type="range" min="1" max="5" step="1" />
-				Stroke-width
-			</label>
-			<label>
-				<input type="range" min="1" max="5" step="1" />
-				Size
-			</label>
-			<label>
-				<input type="checkbox" name="fill" />
-				Fill
-			</label>
-			<label>
-				<input type="checkbox" name="outline" />
-				Outline
-			</label>
-			<label>
-				<input type="checkbox" name="square" />
-				Square
-			</label>
-		</form>
-	</details> -->
+  <h2>How To Use</h2>
+  Add <code>&lt;span data-css-icon="ICON-NAME"&gt;[OPTIONAL] TEXT&lt;i&gt;&lt;/i&gt;&lt;/span&gt;</code>
+  <p>*) Requires extra <code>&lt;b&gt;&lt/b&gt;</code>-tag within <code>&lt;i&gt;&lt;/i&gt;</code>-tag.</p>
+</main>
+<script>
+/* For this demo only */
+const form = document.getElementById('form');
+const icons = document.querySelectorAll('[data-css-icon]');
+form.onchange = (event) => {
+  const target = event.target;
+  switch(target.name) {
+    case 'fill':
+      icons.forEach(icon => {
+        target.checked ? icon.dataset.cssIcon += ' fill' : icon.dataset.cssIcon = icon.dataset.cssIcon.replace(' fill', '');
+      })
+      break;
+    case 'outline':
+      icons.forEach(icon => {
+        target.checked ? icon.dataset.cssIcon += ' outline' : icon.dataset.cssIcon = icon.dataset.cssIcon.replace(' outline', '');
+      })
+      break;
+    case 'size':
+      document.documentElement.style.setProperty('--icon-size', `${target.value}rem`);
+      document.documentElement.style.setProperty('--size', `${target.value * 2.5}rem`);
+      break;
+    case 'stroke':
+      document.documentElement.style.setProperty('--icon-bdw', `${target.value}px`);
+      break;
+    case 'square':
+      icons.forEach(icon => {
+        target.checked ? icon.dataset.cssIcon += ' square' : icon.dataset.cssIcon = icon.dataset.cssIcon.replace(' square', '');
+      })
+      break;
+    default: break;
+  }
+}
 
+</script>
 </body>
 </html>

@@ -1,8 +1,8 @@
 /**
  * FilterMaker module.
  * @module /assets/js/filtermaker
- * @version 0.0.7
- * @summary 18-05-2020
+ * @version 0.1.1
+ * @summary 23-11-2020
  * @description 
  * @example
  * <div data-js="filtermaker">
@@ -15,16 +15,15 @@ import CssApp from './css-app.mjs';
 import RangeSlider from './range.mjs';
 
 export default class CssFilter extends CssApp {
-	constructor(element, settings) {
+	constructor(element, settings, presets) {
 		super(element, Object.assign({
 			clsDrag: 'app__img--drag',
 			filterFile: '/docs/assets/svg/filters.svg',
-			imgPreview: '../assets/img/filter-demo.jpg',
 			lblAppHeader: 'CSS Filter Editor',
 			lblBlur: 'blur',
 			lblBrightness: 'brightness',
 			lblContrast: 'contrast',
-			lblFilters: 'SVG Filters',
+			lblFilters: 'url(#filter)',
 			lblGrayscale: 'grayscale',
 			lblHueRotate: 'hue-rotate',
 			lblInvert: 'invert',
@@ -43,10 +42,11 @@ export default class CssFilter extends CssApp {
 				saturate: 1,
 				sepia: 0,
 				url: ''
-			}
-		}, settings));
+			},
+			previewImage: '../assets/img/filter-demo.jpg'
+		}, settings), presets);
 
-		this.init()
+		this.init();console.log(this)
 	}
 
 	/**
@@ -68,6 +68,7 @@ export default class CssFilter extends CssApp {
 	* @description Initialize: Create elements, add eventListeners etc.
 	*/
 	async init() {
+		this.settings.previewImages = this.settings.previewImage.split(',');
 		await super.init();
 
 		/* Add RangeSliders */
@@ -83,6 +84,8 @@ export default class CssFilter extends CssApp {
 		this.elements.preview.addEventListener("dragover", (event) => { event.preventDefault(); return false; });
 		this.elements.preview.addEventListener("dragenter", () => { this.elements.preview.classList.add(this.settings.clsDrag); });
 		document.addEventListener("drop", () => { this.elements.preview.classList.remove(this.settings.clsDrag) ;});
+
+		this.elements.thumbnail.addEventListener('click', (event) => { this.elements.preview.src = this.settings.previewImages[event.target.dataset.index-0] })
 
 		/* Load optional svg-filters from file */
 		const filterFile = await (await fetch(this.settings.filterFile)).text();
@@ -225,7 +228,7 @@ export default class CssFilter extends CssApp {
 			<div class="app__edit">
 				<div class="app__preview">
 					<figure class="app__img-wrapper">
-						<img src="${this.settings.imgPreview}" class="app__img" data-elm="preview" />
+						<img src="${this.settings.previewImages[0]}" class="app__img" data-elm="preview" />
 						<input type="file" id="${this.uuid}file" class="app__file-drop" data-elm="filedrop" />
 					</figure>
 					<label for="${this.uuid}file" class="app__label">${this.settings.lblUploadImage}</label>
@@ -236,6 +239,8 @@ export default class CssFilter extends CssApp {
 				</div>
 
 				<div class="app__controls">
+					${this.templatePreviewImg(this.settings.previewImages)}
+
 					<label class="app__label--range"><span>${this.settings.lblBlur}</span>
 						<input type="range" class="c-rng" min="0" max="10" value="0" step="0.1" name="blur" data-elm="blur" data-suffix="px" data-range-output=":true" />
 					</label>
@@ -288,6 +293,8 @@ export default class CssFilter extends CssApp {
 				<summary class="app__summary"><span>${this.settings.lblPresetCode}</span></summary>
 				<div class="app__code"><pre data-elm="presetCode"></pre></div>
 			</details>
+			<p><strong>CREDITS:</strong> The SVG-gradient filters under <code>url(#filter)</code> are from <a href="https://yoksel.github.io/svg-gradient-map">SVG Gradent Map Filter</a><br /> 
+			Sample photos from <a href="https://www.pexels.com">pexels.com</a>
 		</form>`
 	}
 
@@ -307,5 +314,16 @@ export default class CssFilter extends CssApp {
 				<input type="radio" class="u-hidden" id="filter-${filter.id}" name="url" data-elm="url" value="url('${this.settings.filterFile}#${filter.id}')" />
 				<span>${filter.title || filter.id}</span>
 			</label>`}).join('')}`;
+	}
+		/**
+	* @function templatePreviewImg
+	* @param {Array} images
+	* @description Renders preview images
+	*/	
+	templatePreviewImg(images) {
+		return `
+			<div class="app__thumbnails" data-elm="thumbnail">
+				${images.map((image, index) => { return `<button type="button" data-index="${index}" style="background-image:url(${image});" class="app__img-thumb"></button>`}).join('')}
+			</div>`;
 	}
 }

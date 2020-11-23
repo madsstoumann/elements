@@ -8,17 +8,20 @@
 <style>
 
 body { background-color: hsl(210, 20%, 90%); font-family: ui-sans-serif, system-ui, sans-serif; line-height: 1.6; margin: 0 auto; max-width: 32rem; padding: 0 2rem; } 
-fieldset { border: 1px solid silver;  }
-form { position: fixed; background-color: #fff; font-family: ui-monospace, monospace; left: 0; padding: 1em; right: 0; top: 0; }
-input, select { border: 1px solid silver; border-radius: 0; font-family: inherit; font-size: small; padding: 0.25em 0.5em; /*-webkit-appearance: none;*/ }
-label { display: inline-block; margin: 0.5em 0; }
-main { padding-top: 90px; }
+code { background-color: hsl(210, 20%, 70%); font-family: ui-monospace, monospace; font-size: 75%; font-weight: normal; padding: 0.15em; }
+[data-app] fieldset { border: 1px solid #888; padding: 0 0.75em; }
+[data-app] { position: fixed; background-color: #1e1e1e; font-family: ui-monospace, monospace; left: 0; padding: 0.5em; right: 0; top: 0; }
+[data-app] button, [data-app] input, [data-app] select { background: transparent; border: 1px solid #888; border-radius: 0; color: #d7ba7d; font-family: inherit; font-size: small; padding: 0.25em 0.5em; -webkit-appearance: none; }
+[data-app] button { background: #ce9178; border-color: #ce9178; color: black; }
+[data-app] label { color: #9cdcfe; display: inline-block; margin: 0.25em 0 0.75em 0; }
+[data-app] legend { color: #9cdcfe; }
+[data-app="top"] main { padding-top: 90px; }
 
 </style>
 </head>
 <body>
 
-<form id="form">
+<form id="form" data-app="top">
 	<fieldset>
 		<legend>Scroll to/from a numeric value</legend>
 		<label>From	<input type="number" name="from" min="0" max="99999" value="0" /></label>
@@ -27,11 +30,14 @@ main { padding-top: 90px; }
 		<label>Easing
 			<select name="easing" id="easingSelect">
 			</select>
+		</label>
 			<button type="submit">Run</button>
 	</fieldset>
 </form>
 <main>
-	<h1>Scroll to/from numeric value</h1>
+  <h1>Animate Scroll From Values</h1>
+  <h2>When <code>scroll-behaviour: smooth;</code> isn't enough</h2>
+  <p>Use <code>getBoundingClientRect()</code> to retrieve the coordinates/dimensions of an element, and use the <code>top</code>-value plus <code>document.documentElement.scrollTop</code> to calculate the number to scroll to. In this demo, however, the editor above will most likely cover the content you're scrolling to! ;-)
 	<section>
 		<h2>Section One</h2>
 		<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae debitis facere laudantium a repudiandae magni. Cum laudantium vel eveniet voluptate vitae! Rem sequi laborum soluta sint excepturi sunt ullam est maiores molestiae magnam voluptatum similique eum quaerat architecto aperiam repellendus, cum quae iste, ab expedita inventore in. Impedit eligendi labore totam, nihil exercitationem similique fugiat corporis nulla ad, voluptates recusandae maiores, laudantium ea laboriosam veritatis placeat expedita. Quae voluptas adipisci molestiae minus quos ex dolorum culpa autem magni. Delectus quidem provident accusamus, laboriosam unde doloribus officiis aspernatur debitis excepturi explicabo deleniti dolores praesentium porro minus obcaecati sint. Culpa, possimus quae. Excepturi modi odit reprehenderit esse, possimus eum ex eveniet eius quam, reiciendis praesentium rem laudantium! Ex excepturi similique facilis, qui deleniti ratione doloremque sint recusandae error soluta. Neque, alias. Animi quidem dolore, nihil quo dolorem culpa iure laboriosam! In ea ab numquam. Harum fuga adipisci officiis fugiat aspernatur non quisquam cum at, quia quo sunt modi expedita iusto, voluptate deserunt doloremque odit aliquam iure consectetur magnam ipsum obcaecati? Repellat modi, explicabo distinctio veritatis quos veniam ad id quia fugiat vitae eos? Sed aliquid ad numquam aperiam impedit harum aut fugit modi sapiente quae cumque enim assumenda, repudiandae facilis eaque molestias eum earum doloribus voluptatibus magnam laborum veniam veritatis iusto. Cupiditate repellat quasi fugiat illum ullam recusandae mollitia provident aperiam, error ipsum placeat totam rem officiis natus, ab corrupti, obcaecati explicabo quo. Tenetur, incidunt magni neque quos omnis eaque illo est eius culpa sapiente voluptatum magnam quo laudantium corporis assumenda expedita soluta provident, pariatur delectus libero eligendi similique animi totam? Unde natus quia illo inventore nesciunt. Est hic aspernatur accusamus, beatae perspiciatis minima voluptas magnam iure molestias eos impedit modi maiores consectetur, enim facilis! Provident aspernatur dicta reprehenderit cupiditate, commodi inventore ullam voluptatum sunt deserunt nam odit optio. Sapiente, quos assumenda non, commodi aspernatur nostrum iste iure delectus cupiditate eum magnam dicta pariatur! Quae provident aspernatur ea magni magnam voluptate dolorem quidem reiciendis tenetur. Illum dolores adipisci nostrum ullam amet sint eum laborum error dolorum libero odio vitae voluptatum, incidunt explicabo! Qui pariatur possimus consequatur enim et placeat necessitatibus excepturi deleniti labore delectus iure atque suscipit, natus temporibus tenetur nisi dicta! Ipsum cumque illum id eos voluptas a distinctio molestiae, pariatur facilis quasi facere enim harum consequuntur omnis, maxime quod consectetur commodi at. Nam, velit impedit fugit ducimus magni ad similique omnis rem sed illum placeat, suscipit quam delectus provident quidem voluptate eligendi est. Assumenda ipsam suscipit qui, reiciendis veniam soluta neque ea quo. Beatae eveniet quia dolores laudantium temporibus ex esse molestias perspiciatis natus excepturi accusantium ducimus magni delectus aliquam, eos hic, dolore facere quasi! Non suscipit perspiciatis, animi velit officiis autem minus quis, reprehenderit doloribus, rem numquam. Accusamus laborum iusto architecto cum impedit iure animi voluptatum eius non harum sequi quos nemo, deserunt ducimus esse dolorem optio quam rem maiores? Maiores dicta maxime explicabo blanditiis in autem unde, dolore commodi, ducimus, velit alias natus ipsa eaque error illo dolor deleniti doloribus dolorem cumque sapiente. Reprehenderit ducimus ut odit distinctio.</p>
@@ -56,7 +62,7 @@ main { padding-top: 90px; }
 let easingModule;
 const easingSelect = document.getElementById('easingSelect');
 
-import('../docs/assets/js/easing.mjs')
+import('https://elements.stoumann.dk/assets/js/easing.mjs')
 .then(module => {
   /* If import is succesful, assign imported module to local variable */
   easingModule = module;
