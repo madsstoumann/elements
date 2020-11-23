@@ -1,7 +1,7 @@
 /**
  * FilterMaker module.
  * @module /assets/js/filtermaker
- * @version 0.1.1
+ * @version 0.1.2
  * @summary 23-11-2020
  * @description 
  * @example
