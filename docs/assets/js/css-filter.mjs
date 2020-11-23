@@ -46,7 +46,7 @@ export default class CssFilter extends CssApp {
 			previewImage: '../assets/img/filter-demo.jpg'
 		}, settings), presets);
 
-		this.init();console.log(this)
+		this.init();
 	}
 
 	/**
