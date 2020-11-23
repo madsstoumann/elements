@@ -216,7 +216,6 @@ export default class CssFilter extends CssApp {
 			}
 			str += (key === 'url')  ? `${obj[key]} ` : `${key}(${obj[key]}${suffix}) `;
 		}
-		console.log(str);
 		this.preset.value = str.trim();
 		this.preset.values[0] = obj;
 		super.setCode();
