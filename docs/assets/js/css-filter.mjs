@@ -1,7 +1,7 @@
 /**
  * FilterMaker module.
  * @module /assets/js/filtermaker
- * @version 0.1.4
+ * @version 0.1.5
  * @summary 23-11-2020
  * @description 
  * @example
@@ -214,8 +214,9 @@ export default class CssFilter extends CssApp {
 			else {
 				suffix = '';
 			}
-			str += `${key}(${obj[key]}${suffix}) `;
+			str += (key === 'url')  ? `${obj[key]} ` : `${key}(${obj[key]}${suffix}) `;
 		}
+		console.log(str);
 		this.preset.value = str.trim();
 		this.preset.values[0] = obj;
 		super.setCode();
