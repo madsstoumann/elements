@@ -1,7 +1,7 @@
 /**
  * FilterMaker module.
  * @module /assets/js/filtermaker
- * @version 0.1.3
+ * @version 0.1.4
  * @summary 23-11-2020
  * @description 
  * @example
@@ -19,7 +19,6 @@ export default class CssFilter extends CssApp {
 		super(element, Object.assign({
 			clsDrag: 'app__img--drag',
 			filterFile: '/docs/assets/svg/filters.svg',
-			filterPathLocal: 'false',
 			lblAppHeader: 'CSS Filter Editor',
 			lblBlur: 'blur',
 			lblBrightness: 'brightness',
@@ -89,8 +88,12 @@ export default class CssFilter extends CssApp {
 		this.elements.thumbnail.addEventListener('click', (event) => { this.elements.preview.src = this.settings.previewImages[event.target.dataset.index-0] })
 
 		/* Load optional svg-filters from file */
-		const filterFile = await (await fetch(this.settings.filterFile)).text();
+		const localFilter = this.settings.filterFile.startsWith('#');
+		const filterFile = localFilter ? document.querySelector(this.settings.filterFile)?.outerHTML : await (await fetch(this.settings.filterFile)).text();
 		if (filterFile) {
+			if (!localFilter) {
+				document.body.insertAdjacentHTML('beforeend', filterFile);
+			}
 			const parser = new DOMParser;
 			const doc = parser.parseFromString(filterFile, 'text/xml');
 			const filters = doc.querySelectorAll('filter');
@@ -233,7 +236,7 @@ export default class CssFilter extends CssApp {
 						<input type="file" id="${this.uuid}file" class="app__file-drop" data-elm="filedrop" />
 					</figure>
 					<label for="${this.uuid}file" class="app__label">${this.settings.lblUploadImage}</label>
-					<details data-elm="filters-wrapper">
+					<details data-elm="filters-wrapper" open>
 						<summary class="app__summary"><span>${this.settings.lblFilters}</span></summary>
 						<div class="app__panel" data-elm="filters"></div>
 					</details>
@@ -294,7 +297,7 @@ export default class CssFilter extends CssApp {
 				<summary class="app__summary"><span>${this.settings.lblPresetCode}</span></summary>
 				<div class="app__code"><pre data-elm="presetCode"></pre></div>
 			</details>
-			<p><strong>CREDITS:</strong> The SVG-gradient filters under <code>url(#filter)</code> are from <a href="https://yoksel.github.io/svg-gradient-map">SVG Gradent Map Filter</a><br /> 
+			<p><strong>CREDITS:</strong> The SVG-gradient filters under <code>url(#filter)</code> are from <a href="https://yoksel.github.io/svg-gradient-map">SVG Gradient Map Filter</a><br /> 
 			Sample photos from <a href="https://www.pexels.com">pexels.com</a>
 		</form>`
 	}
@@ -312,7 +315,7 @@ export default class CssFilter extends CssApp {
 			</label>
 		${filters.map(filter => { return `
 			<label class="app__label--radio">
-				<input type="radio" class="u-hidden" id="filter-${filter.id}" name="url" data-elm="url" value="url('${this.settings.filterPathLocal === 'false' ? this.settings.filterFile : ''}#${filter.id}')" />
+				<input type="radio" class="u-hidden" id="filter-${filter.id}" name="url" data-elm="url" value="url('#${filter.id}')" />
 				<span>${filter.title || filter.id}</span>
 			</label>`}).join('')}`;
 	}

@@ -26,12 +26,12 @@
 				})
 			}
 
-			/* Default presets for localhost demo / or when REST API fails */
+		/* Default presets for localhost demo / or when REST API fails */
 		const presets = [
 			{
 				"name": "watercolor",
 				"description": "",
-				"value": "brightness(1.3) invert(0.17) saturate(2.6) sepia(0.25) url(url('/docs/assets/svg/filters.svg#squiggly-1'))",
+				"value": "url('/docs/assets/svg/filters.svg#squiggly-1') brightness(1.3) invert(0.17) saturate(2.6) sepia(0.25)",
 				"values": [
 					{
 						"brightness": 1.3,
@@ -60,7 +60,7 @@
 			{
 				"name": "old-horror",
 				"description": "",
-				"value": "url(url('/docs/assets/svg/filters.svg#grain')) grayscale(1) sepia(0.5) brightness(1.3) invert(0.8)",
+				"value": "url('/docs/assets/svg/filters.svg#grain') grayscale(1) sepia(0.5) brightness(1.3) invert(0.8)",
 				"values": [
 					{
 						"url": "url('/docs/assets/svg/filters.svg#grain')",
@@ -74,7 +74,7 @@
 			{
 				"name": "old-grainy",
 				"description": "",
-				"value": "url(url('/docs/assets/svg/filters.svg#grain')) grayscale(0.6) sepia(0.5) brightness(1.5)",
+				"value": "url('/docs/assets/svg/filters.svg#grain') grayscale(0.6) sepia(0.5) brightness(1.5)",
 				"values": [
 					{
 						"url": "url('/docs/assets/svg/filters.svg#grain')",
@@ -101,7 +101,7 @@
 			{
 				"name": "mist",
 				"description": "",
-				"value": "url(url('/docs/assets/svg/filters.svg#fluffy')) brightness(0.8) saturate(0.8)",
+				"value": "url('/docs/assets/svg/filters.svg#fluffy') brightness(0.8) saturate(0.8)",
 				"values": [
 					{
 						"url": "url('/docs/assets/svg/filters.svg#fluffy')",
