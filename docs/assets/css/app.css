@@ -269,10 +269,11 @@
 	color: #FFF;
 }
 .app__label--range {
+	display: block;
 	position: relative;
 }
 .app__label--range span {
-	bottom: 1.35rem;
+	top: 0.5rem;
 	color: gray;
 	font-size: x-small;
 	position: absolute;
