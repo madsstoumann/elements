@@ -17,6 +17,7 @@ import RangeSlider from './range.mjs';
 export default class CssFilter extends CssApp {
 	constructor(element, settings, presets) {
 		super(element, Object.assign({
+			appType: 'filter',
 			clsDrag: 'app__img--drag',
 			filterFile: '/docs/assets/svg/filters.svg',
 			lblAppHeader: 'CSS Filter Editor',
