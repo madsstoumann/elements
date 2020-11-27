@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Movie Maker</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Castoro&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+	<style>
+		.c-mm {
+			--h: 9;
+			--w: 16;
+			--animdur: 18000ms; /* 3 times the duration */
+			--animtf: ease-out;
+			--dist: clamp(0.75rem, 10vw, 1.5rem);
+			font-size: 1rem;
+			position: relative;
+		}
+		.c-mm::before {
+			content: '';
+			display: block;
+			padding-bottom: calc(var(--h) / var(--w) * 100%);
+		}
+		[data-caption] {
+			--b: var(--dist);
+			--l: var(--dist);
+			--r: initial;
+			--t: initial;
+
+			bottom: var(--b);
+			color: rgba(255, 255, 255, 0.9);
+			font-family: 'Bebas Neue', sans-serif;
+			font-size: clamp(2rem, 10vw, 5rem);
+			left: var(--l);
+			line-height: 1;
+			position: absolute;
+			right: var(--r);
+			top: var(--t);
+		}
+		[data-caption] div {
+			font-family: 'Castoro', serif;
+			font-size: 50%;
+		}
+
+		[data-caption*="bottom"] {
+			--b: var(--dist);
+			--t: auto;
+		}
+		[data-caption*="left"] {
+			--l: var(--dist);
+			--r: auto;
+		}
+		[data-caption*="right"] {
+			--l: auto;
+			--r: var(--dist);
+		}
+		[data-caption*="top"] {
+			--b: auto;
+			--t: var(--dist);
+		}
+
+		.c-mm__frame {
+			--animps: paused;
+			--img-animps: paused;
+			--index: 0;
+			animation: autoplay var(--animdur) infinite;
+			animation-delay: calc((var(--index) * var(--animdur)) / 3);
+			animation-play-state: var(--animps);
+			box-sizing: border-box;
+			height: 100%;
+			margin: 0;
+			opacity: 0;
+			overflow: hidden;
+			padding: 0;
+  		position: absolute;
+			top: 0;
+			width: 100%;
+		}
+
+		/* Alas, we cannot use var() in nth-selector :-(, so we need code for 3-20 items */
+		.c-mm__frame:nth-last-child(3):first-child, 
+		.c-mm__frame:nth-last-child(3):first-child ~ .c-mm__frame {
+			animation-duration: var(--animdur);
+		}
+		.c-mm__frame:nth-last-child(4):first-child, 
+		.c-mm__frame:nth-last-child(4):first-child ~ .c-mm__frame {
+			animation-duration: calc((4/3) * var(--animdur));
+		}
+		.c-mm__frame:nth-last-child(5):first-child, 
+		.c-mm__frame:nth-last-child(5):first-child ~ .c-mm__frame {
+			animation-duration: calc((5/3) * var(--animdur));
+		}
+		.c-mm__frame:nth-last-child(6):first-child, 
+		.c-mm__frame:nth-last-child(6):first-child ~ .c-mm__frame {
+			animation-duration: calc((6/3) * var(--animdur));
+		}
+		.c-mm__frame:nth-last-child(7):first-child, 
+		.c-mm__frame:nth-last-child(7):first-child ~ .c-mm__frame {
+			animation-duration: calc((7/3) * var(--animdur));
+		}
+		.c-mm__frame:nth-last-child(8):first-child, 
+		.c-mm__frame:nth-last-child(8):first-child ~ .c-mm__frame {
+			animation-duration: calc((8/3) * var(--animdur));
+		}
+		.c-mm__frame:nth-last-child(9):first-child, 
+		.c-mm__frame:nth-last-child(9):first-child ~ .c-mm__frame {
+			animation-duration: calc((9/3) * var(--animdur));
+		}
+		.c-mm__frame:nth-last-child(10):first-child, 
+		.c-mm__frame:nth-last-child(10):first-child ~ .c-mm__frame {
+			animation-duration: calc((10/3) * var(--animdur));
+		}
+
+		.c-mm__img { 
+			animation-direction: alternate;
+			animation-duration: calc(var(--animdur) / 1.5);
+			animation-fill-mode: both;
+			animation-iteration-count: infinite;
+			animation-name: var(--animn);
+			animation-play-state: var(--img-animps);
+			animation-timing-function: var(--animtf);
+			height: 100%;
+			object-fit: cover;
+			object-position: var(--x, 50%) var(--y, 50%);
+			position: absolute;
+			top: 0;
+			width: 100%;
+			will-change: transform;
+		 }
+
+		 .c-mm__inner {
+			 height: 100%;
+			 position: absolute;
+			 top: 0;
+			 width: 100%;
+		 }
+
+		.c-mm__play {
+			--size: clamp(3rem, 10vw, 4rem);
+			align-items: center;
+			background: rgba(235,235,235,0.9); 
+			box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+			border-radius: 50%;
+			display: flex;
+			height: var(--size);
+			justify-content: center;
+			position: absolute;
+			bottom: var(--dist);
+			right: var(--dist);
+			user-select: none;
+			width: var(--size);
+			z-index: 199;
+		}
+
+		.c-mm__play:hover {
+			background: rgba(255,255,255,0.9); 
+		}
+
+		[name="slideshow"]:checked ~ .c-mm__inner .c-mm__frame {
+			--animps: running;
+		}
+
+		[name="slideshow"]:not(:checked)  ~ .c-mm__inner .c-mm__frame {
+			--animps: paused;
+		}
+		[name="slideshow"]:not(:checked)  ~ .c-mm__inner .c-mm__frame .c-mm__img {
+			--img-animps: paused;
+		}
+
+		[name="slideshow"]:not(:checked) ~ .c-mm__inner .c-mm__frame:first-of-type {
+			opacity: 1 !important;
+		}
+
+		@keyframes autoplay {
+			0% { --img-animps: running; opacity: 0; z-index: 198;}
+			5% { opacity: 1;  }
+			50% { opacity: 1;}
+			51% { --img-animps: paused;}
+			100% { opacity: 0; z-index: 100;}
+		}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2020-11-25 9:5:10
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+@keyframes kenburns-top{0%{transform:scale(1) translateY(0);transform-origin:50% 16%}100%{transform:scale(1.25) translateY(-15px);transform-origin:top}}
+@keyframes kenburns-top-right{0%{transform:scale(1) translate(0,0);transform-origin:84% 16%}100%{transform:scale(1.25) translate(20px,-15px);transform-origin:right top}}
+@keyframes kenburns-right{0%{transform:scale(1) translate(0,0);transform-origin:84% 50%}100%{transform:scale(1.25) translateX(20px);transform-origin:right}}
+@keyframes kenburns-bottom-right{0%{transform:scale(1) translate(0,0);transform-origin:84% 84%}100%{transform:scale(1.25) translate(20px,15px);transform-origin:right bottom}}
+@keyframes kenburns-bottom{0%{transform:scale(1) translateY(0);transform-origin:50% 84%}100%{transform:scale(1.25) translateY(15px);transform-origin:bottom}}
+@keyframes kenburns-bottom-left{0%{transform:scale(1) translate(0,0);transform-origin:16% 84%}100%{transform:scale(1.25) translate(-20px,15px);transform-origin:left bottom}}
+@keyframes kenburns-left{0%{transform:scale(1) translate(0,0);transform-origin:16% 50%}100%{transform:scale(1.25) translate(-20px,15px);transform-origin:left}}
+@keyframes kenburns-top-left{0%{transform:scale(1) translate(0,0);transform-origin:16% 16%}100%{transform:scale(1.25) translate(-20px,-15px);transform-origin:top left}}
+
+/* EXTERNAL CSS */		
+[data-css-icon] {
+  --icon-size: 1.5rem;
+	--size: 3.75rem;
+  --bdrs: 50%;
+  --c: currentcolor;
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+[data-css-icon] i {
+  align-items: center;
+  border-radius: var(--bdrs);
+  box-sizing: content-box;
+  display: inline-flex;
+  height: var(--size);
+  justify-content: center;
+  position: relative;
+  width: var(--size);
+}
+[data-css-icon] i::after {
+  --cpa: none;
+  --h: var(--icon-size);
+  --w: var(--icon-size);
+  background-color: var(--bgcl);
+  clip-path: var(--cpa);
+  content: "";
+  display: inline-block;
+  height: var(--h);
+  margin: 0;
+  width: var(--w);
+}
+[data-css-icon*="play"] i::after {
+  --bgcl: var(--c);
+  --cpa: polygon(16% 0%,15% 100%,100% 50%);
+}
+[name="slideshow"]:checked + label [data-css-icon*="play"] i::after {
+	--cpa: polygon(40% 0%,0% 0%,0% 100%,40% 100%,40% 0%,60% 0%,100% 0%,100% 100%,60% 100%,60% 0%);
+}
+	
+	</style>
+</head>
+<body>
+
+	<div class="c-mm">
+		<input type="checkbox" id="anim1" name="slideshow" hidden />
+		<label class="c-mm__play" for="anim1"><span data-css-icon="play"><i></i></span></label>
+		<div class="c-mm__inner">
+			<figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:0;">
+				<img class="c-mm__img" src="/docs/assets/img/augusta.JPG" />
+				<figcaption data-caption="bottom left">Beach Memories
+					<div>Summer 2020</div>
+				</figcaption>
+			</figure>
+			<figure class="c-mm__frame" style="--animn:kenburns-top;--index:1;">
+				<img class="c-mm__img" src="/docs/assets/img/filter01.jpg" />
+			</figure>
+			<figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:2;">
+				<img class="c-mm__img" src="/docs/assets/img/filter02.jpg" />
+				<figcaption data-caption="top right">Thailand
+					<div>Bangkok</div>
+				</figcaption>
+			</figure>
+			<figure class="c-mm__frame" style="--animn:kenburns-top;--index:3;--y:20%;"><img class="c-mm__img" src="/docs/assets/img/filter03.jpg" /></figure>
+			<figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:4;--y:20%;"><img class="c-mm__img" src="/docs/assets/img/filter04.jpg" /></figure>
+			<figure class="c-mm__frame" style="--animn:kenburns-top;--index:5;"><img class="c-mm__img" src="/docs/assets/img/filter05.jpg" /></figure>
+			<figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:6;--y:0%"><img class="c-mm__img" src="/docs/assets/img/gallery03.jpg" /></figure>
+			<figure class="c-mm__frame" style="--animn:kenburns-top;--index:7;--y:20%;"><img class="c-mm__img" src="/docs/assets/img/gallery04.jpg" /></figure>
+			<figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:8;"><img class="c-mm__img" src="/docs/assets/img/gallery05.jpg" /></figure>
+			<figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:9;"><img class="c-mm__img" src="/docs/assets/img/gallery06.jpg" /></figure>
+		</div>
+	</div>
+
+
+</body>
+</html>

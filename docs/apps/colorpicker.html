@@ -7,12 +7,13 @@
 	<link href="../assets/css/c-clp.css" rel="stylesheet">
 </head>
 <body>
-	<div data-js="colorpicker"></div>
+	<input type="color" data-js="colorpicker" value="#e66465" />
+	<input type="text" data-js="colorpicker" value="rgba(144,228,253,0.85)" />
 
 	<script type="module">
 		const elements = document.querySelectorAll('[data-js="colorpicker"]');
 			if (elements.length) {
-				import('../assets/js/colortool.mjs')
+				import('../assets/js/colorpicker.mjs')
 				.then(module => {
 					const jsClass = module.default;
 					elements.forEach(element => {

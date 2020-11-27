@@ -2,8 +2,8 @@
  * CSS App
  * @module /assets/js/css-app
  * @requires /assets/js/common
- * @version 0.0.7
- * @summary 17-11-2020
+ * @version 0.0.8
+ * @summary 26-11-2020
  * @description Generic CSS App, extend other CSS apps from this
  */
 
@@ -250,7 +250,9 @@ export default class CssApp {
 			this.elements.presetName.value = preset.name;
 			this.elements.presetDesc.value = preset.description || '';
 			this.preset = {...preset};
-			this.preset.values = [...preset.values];
+			if (preset.values) {
+				this.preset.values = [...preset.values];
+			}
 		}
 	}
 
@@ -295,11 +297,17 @@ export default class CssApp {
 
 	/**
 	* @function setCode
+	* @param rawCSS {Boolean} [false]
 	* @description Updates CSS- and preset-code
 	*/
-	setCode() {
+	setCode(rawCSS = false) {
 		if (this.elements.cssCode) {
-			this.elements.cssCode.innerHTML = `<span>${this.settings.appType}:</span> ${this.preset.value};`;
+			if (rawCSS) {
+				this.elements.cssCode.innerText = this.preset.value;
+			}
+			else {
+				this.elements.cssCode.innerHTML = `<span>${this.settings.appType}:</span> ${this.preset.value};`;
+			}
 		}
 		if (this.elements.presetCode) {
 			const str = JSON.stringify(this.preset, null, '\t');

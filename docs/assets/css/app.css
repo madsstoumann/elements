@@ -201,7 +201,14 @@
 	-webkit-appearance: none; 
 }
 .app__label select {
+	background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M12 7l-4-4-4 4zM4 10l4 4 4-4z"/></svg>');
+	background-position: calc(100% - 0.5rem) 50%;
+	background-repeat: no-repeat;
+	background-size: 1rem;
+	padding: 0 1rem;
+	text-align: center;
 	text-align-last: center;
+	-webkit-appearance: none;
 }
 .app__label textarea {
 	min-height: 4rem;

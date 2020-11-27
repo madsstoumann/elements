@@ -10,11 +10,12 @@
 	background-color: #f7fafc;
 	border: 3px dashed #cbd5e0;
 	border-radius: .25rem;
-
+}
+.app__urlicon-wrapper > div {
+	text-align: center;
 }
 .app__img {
 	background-color: var(--icon-bgc);
-
 	height: 15rem;
 	left: 50%;
 	mask: no-repeat center/var(--icon-w) var(--icon);
@@ -24,38 +25,38 @@
 	width: 15rem;
 }
 
-.app__icon {
+.app__urlicon {
 	background-color: var(--icon-bgc);
 	mask: no-repeat center/var(--icon-w) var(--icon);
 	-webkit-mask: no-repeat center/var(--icon-w) var(--icon);
 }
-.app__icon code {
+.app__urlicon code {
 	display: block;
 	font-size:x-small;
 }
 
-.app__icon--xs {
+.app__urlicon--xs {
 	height: 1em;
 	width: 1em;
 }
-.app__icon--s {
+.app__urlicon--s {
 	height: 2em;
 	width: 2em;
 }
-.app__icon--m {
+.app__urlicon--m {
 	height: 2.25em;
 	width: 2.25em;
 }
-.app__icon--l {
+.app__urlicon--l {
 	height: 3em;
 	width: 3em;
 }
-.app__icon--xl {
+.app__urlicon--xl {
 	height: 4em;
 	width: 4em;
 }
 
-.app__icon-wrapper {
+.app__urlicon-wrapper {
 	align-items: baseline;
 	display: flex;
 	justify-content: space-between;
@@ -88,6 +89,6 @@
 	pointer-events: none;
 	width: 24px;
 }
-.app__img:hover, .app__icon:hover {
+.app__img:hover, .app__urlicon:hover {
 	background-color: var(--icon-bgc--hover);
 }
