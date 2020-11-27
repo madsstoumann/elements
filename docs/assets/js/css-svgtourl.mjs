@@ -14,7 +14,7 @@ export default class SvgToUrl extends CssApp {
 		super(element, Object.assign({
 			clsDrag: 'app__img--drag',
 			lblAppHeader: 'SVG to <code>url()</code>',
-			lblAppIntro: 'This tool will generate code for a CSS <code>url()</code> from a SVG-file. You can remove unnecessary clutter from the SVG by choosing an import option: <code>deep</code>, <code>light</code> or <code>keep</code>, before clicking on  “Upload” — or dragging an SVG into the preview-area. Try the <code>keep</code>-preset, if the SVG is not imported.',
+			lblAppIntro: 'This tool will generate code for a CSS <code>url()</code> from a SVG-file. You can remove unnecessary clutter from the SVG by choosing an import option: <code>deep</code>, <code>light</code> or <code>keep</code>, before clicking on  “Upload” — or dragging an SVG into the preview-area. Try the <code>keep</code>-preset, if the SVG is not imported. The tool does NOT re-write points, use <a href="https://jakearchibald.github.io/svgomg/">SVGOMG</a> for that.',
 			lblCode: 'Generated code',
 			lblFullCode: 'Original code',
 			lblSVGCode: 'SVG code',
