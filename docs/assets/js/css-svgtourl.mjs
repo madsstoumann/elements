@@ -38,7 +38,6 @@ export default class SvgToUrl extends CssApp {
 		reader.onload = (e) => {
 			const xml = e.target.result;
 			const svg = this.svgClean(xml);
-			// super.resetPreset();
 			this.preset.value = `url('data:image/svg+xml,${svg}');`
 			this.setPreset(xml, svg);
 			this.elements.filedrop.value = '';
@@ -223,8 +222,7 @@ export default class SvgToUrl extends CssApp {
 					<div class="app__fieldset">
 						<label class="app__label"><textarea data-elm="presetDesc" data-lpignore="true"></textarea>${this.settings.lblPresetDesc}</label>
 					</div>
-					<div class="app__fieldset app__button-group">
-						<button type="button" class="app__button app__button--reset" data-elm="resetPreset">${this.settings.lblReset}</button>
+					<div class="app__fieldset">
 						<button type="button" class="app__button" data-elm="addPreset">${this.settings.lblAddPreset}</button>
 					</div>
 				</div>
