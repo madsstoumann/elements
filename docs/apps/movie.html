@@ -36,7 +36,7 @@
   bottom: var(--b);
   color: rgba(255, 255, 255, 0.9);
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2rem, 10vw, 5rem);
+  font-size: clamp(1rem, 10vw, 4rem);
   left: var(--l);
   line-height: 1;
   position: absolute;
@@ -236,9 +236,9 @@ summary::-webkit-details-marker { display: none; }
   box-sizing: border-box;
   color: #FFF;
   font-family: 'Smythe', cursive;
-  font-size: 6rem;
+  font-size: clamp(1rem, 10vw, 5rem);
   height: 100%;
-  padding: 4rem;
+  padding: clamp(0.5rem, 10vw, 2rem);
   text-align: center;
   width: 100%;
 }
@@ -247,7 +247,7 @@ summary::-webkit-details-marker { display: none; }
 	filter: url(#noise) sepia(1) grayscale(0.6) brightness(0.7) contrast(1.05);
 }
 [data-filter*="grainy"] img {
- animation-duration: 1s !important;
+ /* animation-duration: 1s !important; */
 }
 
 [data-filter*="grainy"]::after {
@@ -340,36 +340,87 @@ a, p {  color: silver }
     </details>
     <div class="c-mm__inner">
 
-      <figure data-filter="grainy" class="c-mm__frame" style="--animn:shake;--index:0;">
-        <img class="c-mm__img" src="/docs/assets/img/augusta.JPG" />
-        <figcaption data-caption="bottom left">Lanzarote
-          <div>Summer 2015</div>
-        </figcaption>
+      <figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:0;">
+        <img class="c-mm__img" src="/docs/assets/img/movie/01.jpg" />
+        <figcaption data-caption="bottom left">Holiday Memories<div>Bornholm</div></figcaption>
       </figure>
 
-      <figure data-filter="grainy text" class="c-mm__frame" style="--animn:kenburns-top;--index:1;">
+      <figure class="c-mm__frame" style="--animn:kenburns-top;--index:1;">
+        <img class="c-mm__img" src="/docs/assets/img/movie/02.jpg" />
+        <figcaption data-caption="bottom left">Rocky Beach</figcaption>
+      </figure>
+
+      <figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:2;">
+        <img class="c-mm__img" src="/docs/assets/img/movie/03.jpg" />
+        <figcaption data-caption="top right">Opal Lake </figcaption>
+      </figure>
+
+      <figure class="c-mm__frame" style="--animn:kenburns-top;--index:3;">
+        <img class="c-mm__img" src="/docs/assets/img/movie/04.jpg" />
+        <figcaption data-caption="bottom left">Melsted</figcaption>
+      </figure>
+
+      <figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:4;">
+        <img class="c-mm__img" src="/docs/assets/img/movie/05.jpg" />
+        <figcaption data-caption="top right">Bigfoot<div>Stone Edition</div></figcaption>
+      </figure>
+
+      <figure class="c-mm__frame" style="--animn:kenburns-top;--index:5;">
+        <img class="c-mm__img" src="/docs/assets/img/movie/06.jpg" />
+        <figcaption data-caption="top left">Hammer Lake<div>Opal Lake</div></figcaption>
+      </figure>
+
+      <figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:6;">
+        <img class="c-mm__img" src="/docs/assets/img/movie/07.jpg" />
+        <figcaption data-caption="bottom left">Wild Garlic</figcaption>
+      </figure>
+
+      <figure class="c-mm__frame" style="--animn:kenburns-top;--index:7;">
+        <img class="c-mm__img" src="/docs/assets/img/movie/08.jpg" />
+        <figcaption data-caption="top right">Wall Of Rock</figcaption>
+      </figure>
+
+      <figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:8;">
+        <img class="c-mm__img" src="/docs/assets/img/movie/09.jpg" />
+        <figcaption data-caption="bottom left">Coastal Path<div>Gudhjem</div></figcaption>
+      </figure>
+
+      <figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:9;">
+        <img class="c-mm__img" src="/docs/assets/img/movie/10.jpg" />
+        <figcaption data-caption="bottom left">Sunset At Bokul<div>Gudhjem</div></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <br />&nbsp;
+
+  <div class="c-mm">
+    <details>
+      <summary class="c-mm__play"><span data-css-icon="play"><i></i></span></summary>
+      <span hidden></span>
+    </details>
+    <div class="c-mm__inner">
+      <figure data-filter="grainy text" class="c-mm__frame" style="--animn:kenburns-top;--index:0;">
       <figcaption>
         »The Story of the Web«
-        <div>Tim Berners-Lee</div>
+        <div>Silent Movie</div>
       </figcaption>
       </figure>
-
-      <!-- <figure class="c-mm__frame" style="--animn:kenburns-top;--index:1;">
-        <img class="c-mm__img" src="/docs/assets/img/filter01.jpg" />
-      </figure> -->
-      <figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:2;">
-        <img class="c-mm__img" src="/docs/assets/img/filter02.jpg" />
-        <figcaption data-caption="top right">Thailand
-          <div>Bangkok</div>
+      <figure data-filter="grainy" class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:1;">
+        <img class="c-mm__img" src="/docs/assets/img/movie-01.jpg" />
+        <figcaption data-caption="bottom left">
+          <div>At a reactor, far far away &hellip;</div>
         </figcaption>
       </figure>
-      <figure class="c-mm__frame" style="--animn:kenburns-top;--index:3;--y:20%;"><img class="c-mm__img" src="/docs/assets/img/filter03.jpg" /></figure>
-      <figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:4;--y:20%;"><img class="c-mm__img" src="/docs/assets/img/filter04.jpg" /></figure>
-      <figure class="c-mm__frame" style="--animn:kenburns-top;--index:5;"><img class="c-mm__img" src="/docs/assets/img/filter05.jpg" /></figure>
-      <figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:6;--y:0%"><img class="c-mm__img" src="/docs/assets/img/gallery03.jpg" /></figure>
-      <figure class="c-mm__frame" style="--animn:kenburns-top;--index:7;--y:20%;"><img class="c-mm__img" src="/docs/assets/img/gallery04.jpg" /></figure>
-      <figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:8;"><img class="c-mm__img" src="/docs/assets/img/gallery05.jpg" /></figure>
-      <figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:9;"><img class="c-mm__img" src="/docs/assets/img/gallery06.jpg" /></figure>
+      <figure data-filter="grainy text" class="c-mm__frame" style="--animn:kenburns-top;--index:2;">
+        <figcaption>
+          »A Web! A Worldwide Web!«
+          <div>— said Tim Berners-Lee!</div>
+        </figcaption>
+        </figure>
+        <figure data-filter="grainy" class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:3;">
+          <img class="c-mm__img" src="/docs/assets/img/Tim-Berners-Lee.jpg" />
+        </figure>
     </div>
     <audio src="/docs/assets/audio/onion_capers.mp3" hidden></audio>
   </div>
@@ -385,10 +436,15 @@ a, p {  color: silver }
     </filter>
   </svg>
 
-  <!-- <script>
-    const element = document.querySelector('.c-mm details');
-    const audio = document.querySelector('.c-mm audio');
-    element.addEventListener('toggle', () => { element.open ? audio.play() : audio.pause(); })
-  </script> -->
+  <script>
+    // const elements = document.querySelectorAll('.c-mm');
+    // elements.forEach(element => {
+    //   const details = element.querySelector('.c-mm details');
+    //   const audio = element.querySelector('.c-mm audio');
+    //   if (details && audio) {
+    //     details.addEventListener('toggle', () => { details.open ? audio.play() : audio.pause(); })
+    //   }
+    // })
+  </script>
 </body>
 </html>
