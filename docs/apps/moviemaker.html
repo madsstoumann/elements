@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Movie Maker</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/app-moviemaker.css" rel="stylesheet">
+</head>
+<body>
+	<div data-js="moviemaker"
+		data-api-url="http://localhost:3000/movie/"
+		data-lbl-app-header="Movie Maker">
+	</div>
+	<script type="module">
+		const elements = document.querySelectorAll('[data-js="moviemaker"]');
+			if (elements.length) {
+				import('../assets/js/movie-maker.mjs')
+				.then(module => {
+					const jsClass = module.default;
+					elements.forEach(element => {
+						new jsClass(element, element.dataset, presets);
+						element.addEventListener('eventAddPreset', (event) => { console.log(JSON.parse(event.detail)); });
+						element.addEventListener('eventDelPreset', (event) => { console.warn(JSON.parse(event.detail)); });
+					});
+				})
+			}
+
+		/* Default presets for localhost demo / or when REST API fails */
+		const presets = [
+			{
+				"name": "Sample Movie",
+				"value": "",
+				"values": [
+					{
+						"animation": "kenburns-bottom-left",
+						"caption": "Lanzarote",
+						"filter": "",
+						"position": "bottom left",
+						"src": "/docs/assets/img/augusta.jpg",
+						"subcaption": "Summer 2015"
+					},
+					{
+						"animation": "kenburns-top",
+						"caption": "",
+						"filter": "",
+						"position": "",
+						"src": "/docs/assets/img/filter01.jpg",
+						"subcaption": ""
+					},
+					{
+						"animation": "kenburns-top-left",
+						"caption": "Thailand",
+						"filter": "",
+						"position": "",
+						"src": "/docs/assets/img/filter02.jpg",
+						"subcaption": ""
+					},
+					{
+						"animation": "shake",
+						"caption": "The Story of the Web",
+						"filter": "",
+						"position": "",
+						"src": "",
+						"subcaption": ""
+					}
+
+				]
+			}
+		]
+	</script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Halftone Editor</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link href="../assets/css/app-halftone.css" rel="stylesheet">
+</head>
+<body>
+	<div data-js="halftone"
+		data-api-url="http://localhost:3000/filter/"
+		data-lbl-app-header="Halftone Editor">
+	</div>
+	<script type="module">
+		const elements = document.querySelectorAll('[data-js="halftone"]');
+			if (elements.length) {
+				import('../assets/js/css-halftone.mjs')
+				.then(module => {
+					const jsClass = module.default;
+					elements.forEach(element => {
+						new jsClass(element, element.dataset, presets);
+						element.addEventListener('eventAddPreset', (event) => { console.log(JSON.parse(event.detail)); });
+						element.addEventListener('eventDelPreset', (event) => { console.warn(JSON.parse(event.detail)); });
+					});
+				})
+			}
+
+		/* Default presets for localhost demo / or when REST API fails */
+		const presets = [
+			{
+				"name": "manga",
+				"value": "",
+				"values": [
+					{
+						"background": "#FFFF00",
+						"cyan-dot-size": 15,
+						"cyan-dot-density": 75,
+						"cyan-dot-angle": 40,
+						"magenta-dot-size": 15,
+						"cyan-dot-density": 50,
+						"cyan-dot-angle": 60,
+						"yellow-dot-size": 0,
+						"black-dot-size": 0
+					}
+				]
+			},
+			{
+				"name": "watchmen",
+				"value": "",
+				"values": [
+					{
+						"background": "#000000",
+						"print-order": "ymck",
+						"cyan-dot-size": 0,
+						"cyan-dot-density": 50,
+						"cyan-dot-angle": 15,
+						"magenta-dot-size": 0,
+						"magenta-dot-density": 50,
+						"magenta-dot-angle": 75,
+						"yellow-dot-size": 16,
+						"yellow-dot-density": 50,
+						"yellow-dot-angle": 35,
+						"black-dot-size": 0,
+						"black-dot-density": 50,
+						"black-dot-angle": 45
+					}
+				]
+			},
+			{
+				"name": "cloth",
+				"value": "",
+				"values": [
+					{
+						"background": "#FF00FF",
+						"print-order": "ymck",
+						"cyan-dot-size": 12,
+						"cyan-dot-density": 50,
+						"cyan-dot-angle": 15,
+						"magenta-dot-size": 0,
+						"magenta-dot-density": 20,
+						"magenta-dot-angle": 75,
+						"yellow-dot-size": 5,
+						"yellow-dot-density": 20,
+						"yellow-dot-angle": 15,
+						"black-dot-size": 0,
+						"black-dot-density": 20,
+						"black-dot-angle": 45
+					}
+				]
+			},
+			{
+				"name": "bubbles",
+				"value": "",
+				"values": [
+					{
+						"background": "#FF00FF",
+						"print-order": "ymck",
+						"cyan-dot-size": 20,
+						"cyan-dot-density": 50,
+						"cyan-dot-angle": 25,
+						"magenta-dot-size": 0,
+						"magenta-dot-density": 39,
+						"magenta-dot-angle": 0,
+						"yellow-dot-size": 0,
+						"yellow-dot-density": 25,
+						"yellow-dot-angle": 0,
+						"black-dot-size": 10,
+						"black-dot-density": 50,
+						"black-dot-angle": 75
+					}
+				]
+			},
+			{
+				"name": "circles",
+				"value": "",
+				"values": [
+					{
+						"background": "#000000",
+						"print-order": "ymck",
+						"cyan-dot-size": 10,
+						"cyan-dot-density": 50,
+						"cyan-dot-angle": 15,
+						"magenta-dot-size": 10,
+						"magenta-dot-density": 50,
+						"magenta-dot-angle": 75,
+						"yellow-dot-size": 10,
+						"yellow-dot-density": 50,
+						"yellow-dot-angle": 0,
+						"black-dot-size": 0,
+						"black-dot-density": 50,
+						"black-dot-angle": 45
+					}
+				]
+			},
+			{
+				"name": "micro",
+				"value": "",
+				"values": [
+					{
+						"background": "#00FFFF",
+						"print-order": "ymck",
+						"cyan-dot-size": 0,
+						"cyan-dot-density": 45,
+						"cyan-dot-angle": 15,
+						"magenta-dot-size": 5,
+						"magenta-dot-density": 45,
+						"magenta-dot-angle": 75,
+						"yellow-dot-size": 5,
+						"yellow-dot-density": 45,
+						"yellow-dot-angle": 0,
+						"black-dot-size": 5,
+						"black-dot-density": 45,
+						"black-dot-angle": 65
+					}
+				]
+			},
+			{
+				"name": "newspaper",
+				"value": "",
+				"values": [
+					{
+						"background": "",
+						"print-order": "ymck",
+						"cyan-dot-size": 0,
+						"cyan-dot-density": 50,
+						"cyan-dot-angle": 15,
+						"magenta-dot-size": 0,
+						"magenta-dot-density": 50,
+						"magenta-dot-angle": 75,
+						"yellow-dot-size": 0,
+						"yellow-dot-density": 50,
+						"yellow-dot-angle": 0,
+						"black-dot-size": 3,
+						"black-dot-density": 15,
+						"black-dot-angle": 45
+					}
+				]
+			}
+		]
+	</script>
+</body>
+</html>

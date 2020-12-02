@@ -48,7 +48,12 @@
 	--rng-output-c: #444;
 	float: right;
 	left: auto;
+	position: relative !important;
 	text-align: right;
+	top: 1em !important;
+}
+.app .c-rng--output {
+	margin-bottom: 0;
 }
 .app__button {
 	background: rgb(238,238,238);

@@ -2,8 +2,8 @@
  * CSS App
  * @module /assets/js/css-app
  * @requires /assets/js/common
- * @version 0.0.8
- * @summary 26-11-2020
+ * @version 0.1.0
+ * @summary 01-12-2020
  * @description Generic CSS App, extend other CSS apps from this
  */
 
@@ -34,7 +34,7 @@ export default class CssApp {
 
 	/**
 	* @function addPreset
-	* @description Adds a new  preset
+	* @description Adds a new preset
 	*/
 	async addPreset() {
 		if (this.elements.presetName.value) {
@@ -131,7 +131,7 @@ export default class CssApp {
 		return this.presets.findIndex(obj => { return obj.name === key });
 	}
 
-		/**
+	/**
 	* @function handleClick
 	* @param {Event} event
 	* @description Handle main form clicks.

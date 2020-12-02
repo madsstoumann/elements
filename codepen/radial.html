@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Radial Range</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<style>
+	body { background: white; padding: 2rem; }
+	.r { 
+		background-color: darkslategray;
+		background-image: conic-gradient(cornflowerblue 0deg, cornflowerblue 70deg, #d9d9d9 70deg, #d9d9d9 360deg);
+		border-radius: 50%;
+		
+		/* clip-path:url(#circle); */
+		height: 10rem;
+		position: relative;
+		width: 10rem;
+	}
+	.r::before {
+		background-color: white;
+		border-radius: 50%;
+		content: "";
+		height: 6rem;
+		left: 2rem;
+		width: 6rem;
+		position: absolute;
+		top: 2rem;
+	}
+	.r::after {
+		background-color: white;
+		border: 2px solid cornflowerblue;
+		border-radius: 50%;
+		box-sizing: border-box;
+		content: "";
+		height: 2.25rem;
+		left: 77.5%;
+		position: absolute;
+		top: 29%;
+		width: 2.25rem;
+	}
+</style>
+<body>
+
+
+	<div class="r"></div>
+
+	<svg>
+    <defs>
+        <clipPath id="circle">
+            <path d="M-45,0a45,45 0 1,0 90,0a45,45 0 1,0 -90,0" />
+        </clipPath>
+    </defs>
+</svg>
+</body>
+</html>

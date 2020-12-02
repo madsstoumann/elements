@@ -26,7 +26,33 @@ figcaption { display: block; width: 100%;}
 /* figure::after { background-color: #101010; content: ""; display: block; position: absolute; padding-bottom: 100%; top: 0; width: 100%; height: 100%; } */
 /* figcaption { position: absolute; font-size: 2rem;  z-index: 1; padding: 2rem; text-align: center; } */
 svg { fill: #FFF; width: 70%; }
-#noisy2 { filter: url(#noise) sepia(1) grayscale(0.2) brightness(0.8);  }
+
+#noisy2 {
+	animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both infinite;
+	filter: url(#noise) sepia(1) grayscale(0.2) brightness(0.8);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(1px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(1px, 0, 0);
+  }
+}
+
 </style>
 </head>
 <body>
@@ -60,6 +86,10 @@ svg { fill: #FFF; width: 70%; }
 </filter>
 </svg>
 
+
+Onion Capers Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 3.0 License
+http://creativecommons.org/licenses/by/3.0/
 
 </body>
 </html>

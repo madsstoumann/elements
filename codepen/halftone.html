@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Halftone Creator</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<style>
+	:root {
+		--cyan: #00FFFF;
+		--magenta: #FF00FF;
+		--yellow: #FFFF00;
+		--black: #000000;
+
+		--dot-angle: 0deg;
+		--dot-bgc: transparent;
+		--dot-c: var(--cyan);
+		--dot-density: 100px;
+		--dot-size: 35px;
+	}
+	.halftone { 
+		height: 100vh;
+		left: 0;
+		position: absolute;
+		overflow: hidden;
+		top: 0;
+		width: 100vw;
+	}
+	.halftone__wrapper {
+		height: 100vh;
+		position: relative;
+		overflow: hidden;
+		width: 100vw;
+	}
+	.halftone::after {
+		background-color: var(--dot-bgc);
+		background-image:
+			radial-gradient(var(--dot-c) var(--dot-size), transparent var(--dot-size));
+  	background-position: 0 0;
+		background-size: var(--dot-density) var(--dot-density);
+		content: "";
+		height: 200%;
+		left: -50%;
+		position: absolute;
+    top: -50%;
+		transform: rotate(var(--dot-angle));
+		width: 200%;
+		z-index: -1;
+	}
+
+</style>
+<body>
+	<div class="halftone__wrapper">
+		<div class="halftone" style="--dot-c:var(--cyan);--dot-angle:0deg;--dot-bgc:yellow;--dot-size:25px;"></div>
+		<div class="halftone" style="--dot-c:var(--magenta);--dot-angle:35deg;--dot-size:10px;"></div>
+		<!-- <div class="halftone" style="--dot-c:var(--yellow);--dot-angle:95deg;--dot-size:10px;"></div> -->
+		<div class="halftone" style="--dot-c:var(--black);--dot-angle:105deg;--dot-size:20px;"></div>
+	</div>
+
+
+
+</body>
+</html>
