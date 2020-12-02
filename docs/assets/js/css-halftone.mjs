@@ -18,7 +18,7 @@ export default class CssHalftone extends CssApp {
 			lblAppHeader: 'CMYK Halftone Editor',
 			lblAppIntro: 'I used to edit a fanzine about comics, and would buy letraset screentone-sheets in order to create shades/tones and colors. Today, it\'s a cool retro-effect! I\'ve tried to mimick the printing process, with one layer for <strong>C</strong>yan, <strong>M</strong>agenta, <strong>Y</strong>ellow and blac<strong>K</strong>. To hide a color, set the dot-size to zero. <a href="https://en.wikipedia.org/wiki/Halftone">Halftone on Wikipedia</a>.',
 			presetEntry: {
-				background: '',
+				background: '#000000',
 				'print-order': 'ymck',
 				'cyan-dot-size': 10,
 				'cyan-dot-density': 50,
@@ -29,7 +29,7 @@ export default class CssHalftone extends CssApp {
 				'yellow-dot-size': 10,
 				'yellow-dot-density': 50,
 				'yellow-dot-angle': 0,
-				'black-dot-size': 10,
+				'black-dot-size': 0,
 				'black-dot-density': 50,
 				'black-dot-angle': 45
 			}
