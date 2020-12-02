@@ -138,7 +138,7 @@ export default class CssHalftone extends CssApp {
 
 					<label class="app__label">
 						<select data-elm="print-order">
-							<option value="cmyk">print-order: C M Y K</option>
+							<option value="cmyk" disabled>print-order: C M Y K</option>
 							<option value="ymck" selected>print-order: Y M C K</option>
 						</select>
 					</label>
