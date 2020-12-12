@@ -144,43 +144,43 @@ export default class CssHalftone extends CssApp {
 					</label>
 
 					<label class="app__label--range"><span>Cyan Dot Size</span>
-						<input type="range" class="c-rng" min="0" max="45" value="10" step="1" data-elm="cyan-dot-size" data-suffix="px" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="45" value="10" step="1" data-elm="cyan-dot-size" data-suffix="px" data-range="output"/>
 					</label>
 					<label class="app__label--range"><span>Cyan Dot Density</span>
-						<input type="range" class="c-rng" min="10" max="300" value="50" data-elm="cyan-dot-density" data-suffix="px" data-range-output=":true" />
+						<input type="range" class="c-rng" min="10" max="300" value="50" data-elm="cyan-dot-density" data-suffix="px" data-range="output"/>
 					</label>
 					<label class="app__label--range"><span>Cyan Dot Angle</span>
-						<input type="range" class="c-rng" min="0" max="360" value="15" data-elm="cyan-dot-angle" data-suffix="deg" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="360" value="15" data-elm="cyan-dot-angle" data-suffix="deg" data-range="output"/>
 					</label>
 
 					<label class="app__label--range"><span>Magenta Dot Size</span>
-						<input type="range" class="c-rng" min="0" max="45" value="10" step="1" data-elm="magenta-dot-size" data-suffix="px" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="45" value="10" step="1" data-elm="magenta-dot-size" data-suffix="px" data-range="output"/>
 					</label>
 					<label class="app__label--range"><span>Magenta Dot Density</span>
-						<input type="range" class="c-rng" min="10" max="300" value="50" data-elm="magenta-dot-density" data-suffix="px" data-range-output=":true" />
+						<input type="range" class="c-rng" min="10" max="300" value="50" data-elm="magenta-dot-density" data-suffix="px" data-range="output"/>
 					</label>
 					<label class="app__label--range"><span>Magenta Dot Angle</span>
-						<input type="range" class="c-rng" min="0" max="360" value="75" data-elm="magenta-dot-angle" data-suffix="deg" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="360" value="75" data-elm="magenta-dot-angle" data-suffix="deg" data-range="output"/>
 					</label>
 
 					<label class="app__label--range"><span>Yellow Dot Size</span>
-						<input type="range" class="c-rng" min="0" max="45" value="10" step="1" data-elm="yellow-dot-size" data-suffix="px" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="45" value="10" step="1" data-elm="yellow-dot-size" data-suffix="px" data-range="output"/>
 					</label>
 					<label class="app__label--range"><span>Yellow Dot Density</span>
-						<input type="range" class="c-rng" min="10" max="300" value="50" data-elm="yellow-dot-density" data-suffix="px" data-range-output=":true" />
+						<input type="range" class="c-rng" min="10" max="300" value="50" data-elm="yellow-dot-density" data-suffix="px" data-range="output"/>
 					</label>
 					<label class="app__label--range"><span>Yellow Dot Angle</span>
-						<input type="range" class="c-rng" min="0" max="360" value="0" data-elm="yellow-dot-angle" data-suffix="deg" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="360" value="0" data-elm="yellow-dot-angle" data-suffix="deg" data-range="output"/>
 					</label>
 
 					<label class="app__label--range"><span>Black Dot Size</span>
-						<input type="range" class="c-rng" min="0" max="45" value="10" step="1" data-elm="black-dot-size" data-suffix="px" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="45" value="10" step="1" data-elm="black-dot-size" data-suffix="px" data-range="output"/>
 					</label>
 					<label class="app__label--range"><span>Black Dot Density</span>
-						<input type="range" class="c-rng" min="10" max="300" value="50" data-elm="black-dot-density" data-suffix="px" data-range-output=":true" />
+						<input type="range" class="c-rng" min="10" max="300" value="50" data-elm="black-dot-density" data-suffix="px" data-range="output"/>
 					</label>
 					<label class="app__label--range"><span>Black Dot Angle</span>
-						<input type="range" class="c-rng" min="0" max="360" value="45" data-elm="black-dot-angle" data-suffix="deg" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="360" value="45" data-elm="black-dot-angle" data-suffix="deg" data-range="output"/>
 					</label>
 					
 					<div class="app__fieldset">

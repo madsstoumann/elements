@@ -247,31 +247,31 @@ export default class CssFilter extends CssApp {
 					${this.templatePreviewImg(this.settings.previewImages)}
 
 					<label class="app__label--range"><span>${this.settings.lblBlur}</span>
-						<input type="range" class="c-rng" min="0" max="10" value="0" step="0.1" name="blur" data-elm="blur" data-suffix="px" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="10" value="0" step="0.1" name="blur" data-elm="blur" data-suffix="px" data-range="output" />
 					</label>
 					<label class="app__label--range"><span>${this.settings.lblBrightness}</span>
-						<input type="range" class="c-rng" min="0" max="3" value="1" step="0.1" name="brightness" data-elm="brightness" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="3" value="1" step="0.1" name="brightness" data-elm="brightness" data-range="output" />
 					</label>
 					<label class="app__label--range"><span>${this.settings.lblContrast}</span>
-						<input type="range" class="c-rng" min="0" max="3" value="1" step="0.1" name="contrast" data-elm="contrast" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="3" value="1" step="0.1" name="contrast" data-elm="contrast" data-range="output" />
 					</label>
 					<label class="app__label--range"><span>${this.settings.lblGrayscale}</span>
-						<input type="range" class="c-rng" min="0" max="1" value="0" step="0.01" name="grayscale" data-elm="grayscale" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="1" value="0" step="0.01" name="grayscale" data-elm="grayscale" data-range="output" />
 					</label>
 					<label class="app__label--range"><span>${this.settings.lblHueRotate}</span>
-						<input type="range" class="c-rng" min="0" max="360" value="0" name="hue-rotate" data-elm="hue-rotate" data-suffix="deg" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="360" value="0" name="hue-rotate" data-elm="hue-rotate" data-suffix="deg" data-range="output" />
 					</label>
 					<label class="app__label--range"><span>${this.settings.lblInvert}</span>
-						<input type="range" class="c-rng" min="0" max="1" value="0" step="0.01" name="invert" data-elm="invert" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="1" value="0" step="0.01" name="invert" data-elm="invert" data-range="output" />
 					</label>
 					<label class="app__label--range"><span>${this.settings.lblOpacity}</span>
-						<input type="range" class="c-rng" min="0" max="1" value="1" step="0.01" name="opacity" data-elm="opacity" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="1" value="1" step="0.01" name="opacity" data-elm="opacity" data-range="output" />
 					</label>
 					<label class="app__label--range"><span>${this.settings.lblSaturate}</span>
-						<input type="range" class="c-rng" min="0" max="3" value="1" step="0.1" name="saturate" data-elm="saturate" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="3" value="1" step="0.1" name="saturate" data-elm="saturate" data-range="output" />
 					</label>
 					<label class="app__label--range"><span>${this.settings.lblSepia}</span>
-						<input type="range" class="c-rng" min="0" max="1" step="0.01" value="0" name="sepia" data-elm="sepia" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="1" step="0.01" value="0" name="sepia" data-elm="sepia" data-range="output" />
 					</label>
 
 					<div class="app__fieldset app__fieldset--topspace">

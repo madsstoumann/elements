@@ -1,8 +1,8 @@
 /**
  * ColorLib
  * @module colorlib.mjs
- * @version 0.9.10
- * @summary 17-03-2020
+ * @version 0.9.20
+ * @summary 11-12-2020
  * @author Mads Stoumann
  * @description Color-functions
  */
@@ -19,26 +19,26 @@ export function brightness(r, g, b) {
 	return parseInt(((r*299)+(g*587)+(b*114))/1000, 10);
 }
 
-function cmyk2rgb(c, m, y, k, normalized){
-	c = (c / 100);
-	m = (m / 100);
-	y = (y / 100);
-	k = (k / 100);
+export function cmyk2rgb(C, M, Y, K, normalized){
+	let c = (C / 100);
+	let m = (M / 100);
+	let y = (Y / 100);
+	let k = (K / 100);
 	
 	c = c * (1 - k) + k;
 	m = m * (1 - k) + k;
 	y = y * (1 - k) + k;
 	
-	var r = 1 - c;
-	var g = 1 - m;
-	var b = 1 - y;
+	let r = 1 - c;
+	let g = 1 - m;
+	let b = 1 - y;
 	
-	if(!normalized){
+	if (!normalized) {
 			r = Math.round(255 * r);
 			g = Math.round(255 * g);
 			b = Math.round(255 * b);
 	}
-	
+
 	return {
 			r: r,
 			g: g,
@@ -52,11 +52,6 @@ export function contrast(rgb1, rgb2) {
 	var brightest = Math.max(lum1, lum2);
 	var darkest = Math.min(lum1, lum2);
 	return (brightest + 0.05) / (darkest + 0.05);
-	/*
-contrast([255, 255, 255], [255, 255, 0]); // 1.074 for yellow
-contrast([255, 255, 255], [0, 0, 255]); // 8.592 for blue
-// minimal recommended contrast ratio is 4.5, or 3 for larger font-sizes
-	*/
 }
 
 /**

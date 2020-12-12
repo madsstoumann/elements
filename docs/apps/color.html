@@ -4,24 +4,192 @@
 	<title>CSS Color Editor</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-	<link href="../assets/css/c-clp.css" rel="stylesheet">
+	<link href="../assets/css/app-color.css" rel="stylesheet">
 </head>
 <body>
-	<div data-js="colorpicker"></div>
+	<div 
+		data-app-icon="../assets/svg/cssapp.svg#color"
+		data-app-type=""
+		data-js="color"
+		data-lbl-app-header="CSS Color &amp; Gradient Editor">
+	</div>
 
 	<script type="module">
-		const elements = document.querySelectorAll('[data-js="colorpicker"]');
+		const elements = document.querySelectorAll('[data-js="color"]');
 			if (elements.length) {
-				import('../assets/js/colortool.mjs')
+				import('../assets/js/css-color.mjs')
 				.then(module => {
 					const jsClass = module.default;
 					elements.forEach(element => {
-						new jsClass(element, element.dataset);
+						new jsClass(element, element.dataset, presets);
 						element.addEventListener('eventAddColor', (event) => { console.log(JSON.parse(event.detail)); });
 						element.addEventListener('eventDelColor', (event) => { console.warn(JSON.parse(event.detail)); });
 					});
 				})
 			}
+
+
+					/* Default presets for localhost demo / or when REST API fails */
+	  const presets = [
+    {
+      "name": "solid-color",
+      "type": "color",
+      "value": "#6495ED",
+      "values": []
+    },
+    {
+      "name": "solid-alpha",
+      "type": "color",
+      "value": "hsla(219, 79%, 66%, 0.5)",
+      "values": []
+    },
+    {
+      "name": "linear-gradient",
+      "angle": 90,
+      "type": "linear-gradient",
+      "value": "linear-gradient(90deg,rgb(28, 182, 224),rgb(0, 8, 81))",
+      "values": [
+          {
+            "color": "rgb(28, 182, 224)",
+            "stop": ""
+          },
+          {
+            "color": "rgb(0, 8, 81)",
+            "stop": ""
+          }
+        ]
+      },
+      {
+      "name": "repeating-radial-gradient",
+      "type": "repeating-radial-gradient",
+      "angle": 65,
+      "value": "repeating-radial-gradient(rgb(255, 0, 0) 0,#ff0000 10px,rgb(255, 255, 255) 10px,rgb(255, 255, 255) 20px)",
+      "values": [
+        {
+          "color": "rgb(255, 0, 0)",
+          "stop": "0"
+        },
+        {
+          "color": "#ff0000",
+          "stop": "10px"
+        },
+        {
+          "color": "rgb(255, 255, 255)",
+          "stop": "10px"
+        },
+        {
+          "color": "rgb(255, 255, 255)",
+          "stop": "20px"
+        }
+      ]
+    },
+			{
+      "name": "repeating-linear-gradient",
+      "angle": 65,
+      "type": "repeating-linear-gradient",
+			"value": "repeating-linear-gradient(65deg,rgb(255, 0, 0) 0,#ff0000 10px,rgb(255, 255, 255) 10px,rgb(255, 255, 255) 20px)",
+			"values": [
+          {
+            "color": "rgb(255, 0, 0)",
+            "stop": "0px"
+          },
+          {
+            "color": "rgb(255, 0, 0)",
+            "stop": "10px"
+          },
+          {
+            "color": "rgb(255, 255, 255)",
+            "stop": "10px"
+          },
+          {
+            "color": "rgb(255, 255, 255)",
+            "stop": "20px"
+          }
+        ]
+			},
+			{
+      "name": "conic-gradient",
+      "type": "conic-gradient",
+			"value": "conic-gradient(rgb(215, 103, 176),rgb(215, 103, 176) 16%,rgb(26, 118, 89) 16%,rgb(26, 118, 89) 33%,rgb(122, 85, 64) 33%,rgb(122, 85, 64) 50%,rgb(49, 157, 215) 50%,rgb(49, 157, 215) 66%,rgb(246, 126, 51) 66%,rgb(246, 126, 51) 82%,rgb(246, 194, 51) 82%,rgb(246, 194, 51))",
+			"values": [
+          {
+            "color": "rgb(215, 103, 176)",
+            "stop": ""
+          },
+          {
+            "color": "rgb(215, 103, 176)",
+            "stop": "16%"
+          },
+          {
+            "color": "rgb(26, 118, 89)",
+            "stop": "16%"
+          },
+          {
+            "color": "rgb(26, 118, 89)",
+            "stop": "33%"
+          },
+          {
+            "color": "rgb(122, 85, 64)",
+            "stop": "33%"
+          },
+          {
+            "color": "rgb(122, 85, 64)",
+            "stop": "50%"
+          },
+          {
+            "color": "rgb(49, 157, 215)",
+            "stop": "50%"
+          },
+          {
+            "color": "rgb(49, 157, 215)",
+            "stop": "66%"
+          },
+          {
+            "color": "rgb(246, 126, 51)",
+            "stop": "66%"
+          },
+          {
+            "color": "rgb(246, 126, 51)",
+            "stop": "82%"
+          },
+          {
+            "color": "rgb(246, 194, 51)",
+            "stop": "82%"
+          },
+          {
+            "color": "rgb(246, 194, 51)",
+            "stop": ""
+          }
+        ]
+      },
+      {
+      "name": "pac-man",
+      "type": "conic-gradient",
+			"value": "conic-gradient(rgb(255, 213, 0),rgb(255, 213, 0) 12.5%,rgb(0, 0, 0) 12.5%,rgb(0, 0, 0) 32.5%,rgb(255, 213, 0) 32.5%)",
+			"values": [
+          {
+            "color": "rgb(255, 213, 0)",
+            "stop": ""
+          },
+          {
+            "color": "rgb(255, 213, 0)",
+            "stop": "15%"
+          },
+          {
+            "color": "rgb(0, 0, 0)",
+            "stop": "15%"
+          },
+          {
+            "color": "rgb(0, 0, 0)",
+            "stop": "35%"
+          },
+          {
+            "color": "rgb(255, 213, 0)",
+            "stop": "35%"
+          }
+        ]
+      }
+		]
 	</script>
 </body>
 </html>

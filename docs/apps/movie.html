@@ -8,7 +8,7 @@
 
 <style>
  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Castoro&family=Smythe&display=swap'); 
-.c-mm {
+ .c-mm {
   --h: 9;
   --w: 16;
   --z: 100; /* z-index begin */
@@ -31,7 +31,7 @@
   --t: initial;
 
   bottom: var(--b);
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95);
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(1rem, 10vw, 4rem);
   left: var(--l);
@@ -57,6 +57,7 @@
 [data-caption*="right"] {
   --l: auto;
   --r: var(--dist);
+  text-align: right;
 }
 [data-caption*="top"] {
   --b: auto;
@@ -262,10 +263,9 @@ summary::-webkit-details-marker { display: none; }
       right: -2px;
       top: 2px;
     }
+    img { filter: grayscale(1); }
   }
 }
-body { font-family: system-ui, sans-serif; padding: 1rem }
-p {  color: silver }
 
 /* FILTERS */
 [data-filter*="text"] figcaption {
@@ -282,8 +282,8 @@ p {  color: silver }
   background-size: 50%;
   box-sizing: border-box;
   color: #FFF;
-  font-family: 'Smythe', cursive;
-  font-size: clamp(1rem, 10vw, 5rem);
+  font-family: 'Smythe', serif;
+  font-size: clamp(1rem, 9vw, 5rem);
   height: 100%;
   padding: clamp(0.5rem, 10vw, 2rem);
   text-align: center;
@@ -293,6 +293,9 @@ p {  color: silver }
 [data-filter*="grainy"] {  
 	filter: url(#noise) sepia(1) grayscale(0.6) brightness(0.7) contrast(1.05);
 }
+[data-filter*="grainy"] figcaption { 
+  font-family: 'Smythe', serif;
+} 
 
 [data-filter*="grainy"]::after {
   box-shadow: inset 0px 0px 250px #000;
@@ -319,16 +322,15 @@ p {  color: silver }
   }
 }
 
+/* DEMO */
+body { font-family: system-ui, sans-serif; margin: 0 auto; max-width: 54rem; padding: 1rem }
+a, p {  color: silver; font-size: small; }
+
 </style>
 </head>
 <body>
-
+<!--
   <div class="c-mm">
-    <!--
-      Use checkbox-hack:
-      <input type="checkbox" id="anim1" name="slideshow" hidden />
-      <label class="c-mm__play" for="anim1"><span data-css-icon="play"><i></i></span></label> 
-    -->
     <details>
       <summary class="c-mm__play"><span data-css-icon="play"><i></i></span></summary>
       <span hidden></span>
@@ -388,8 +390,7 @@ p {  color: silver }
   </div>
 
   <p>The &lt;details&gt;-tag is here used to play/pause the slideshow, using it's [open]-state (and :not([open])) to set two CSS Custom Properties, controlling the "animation-play-state" of both the overall slideshow and the animations of the individual slides.</p>
-
-  <br />&nbsp;
+-->
 
   <div class="c-mm">
     <details>
@@ -397,32 +398,85 @@ p {  color: silver }
       <span hidden></span>
     </details>
     <div class="c-mm__inner">
-      <figure data-filter="grainy text" class="c-mm__frame" style="--animn:kenburns-top;--index:0;">
-      <figcaption>
-        »The Story of the Web«
-        <div>Silent Movie</div>
-      </figcaption>
-      </figure>
-      <figure data-filter="grainy" class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:1;">
-        <img class="c-mm__img" src="/docs/assets/img/movie-01.jpg" />
-        <figcaption data-caption="bottom left">
-          <div>At a reactor, far far away &hellip;</div>
-        </figcaption>
-      </figure>
-      <figure data-filter="grainy text" class="c-mm__frame" style="--animn:kenburns-top;--index:2;">
+      <figure data-filter="grainy text" class="c-mm__frame" style="--animn:none;--index:0;">
         <figcaption>
-          »A Web! A Worldwide Web!«
-          <div>— said Tim Berners-Lee!</div>
+          »The Boy Who Loved Comics«
+          <div>A Personal Story</div>
         </figcaption>
-        </figure>
-        <figure data-filter="grainy" class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:3;">
-          <img class="c-mm__img" src="/docs/assets/img/Tim-Berners-Lee.jpg" />
-        </figure>
+      </figure>
+
+      <figure data-filter="grainy" class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:1;">
+        <img class="c-mm__img" src="https://elements.stoumann.dk/assets/img/silent/mads01.jpg" />
+        <figcaption data-caption="bottom left">
+          When I was 12 &hellip;
+          <div>I drew comics all day long</div>
+        </figcaption>
+      </figure>
+
+      <figure data-filter="grainy text" class="c-mm__frame" style="--animn:none;--index:2;">
+        <figcaption>
+          I Met All My Heroes!
+          <div>True Legends of Comics!</div>
+        </figcaption>
+      </figure>
+
+      <figure data-filter="grainy" class="c-mm__frame" style="--animn:kenburns-top;--index:3;">
+        <img class="c-mm__img" src="https://elements.stoumann.dk/assets/img/silent/mads02.jpg" />
+        <figcaption data-caption="bottom left">
+          André Franquin
+          <div>Creator of Gaston Lagaffe</div>
+        </figcaption>
+      </figure>
+
+      <figure data-filter="grainy" class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:4;">
+        <img class="c-mm__img" src="https://elements.stoumann.dk/assets/img/silent/mads03.png" />
+        <figcaption data-caption="bottom left">
+           Carl Barks
+          <div>Disney Legend</div>
+        </figcaption>
+      </figure>
+
+      <figure data-filter="grainy" class="c-mm__frame" style="--animn:kenburns-bottom;--index:5;">
+        <img class="c-mm__img" src="https://elements.stoumann.dk/assets/img/silent/mads04.png" />
+        <figcaption data-caption="top right">
+           Stan »The Man« Lee
+          <div>Marvel Legend</div>
+        </figcaption>
+      </figure>
+
+      <figure data-filter="grainy text" class="c-mm__frame" style="--animn:none;--index:6;">
+        <figcaption>
+          I Became A Graphic Designer!
+          <div>&hellip; And Comic Book Letterer!</div>
+        </figcaption>
+      </figure>
+
+      <figure data-filter="grainy" class="c-mm__frame" style="--animn:kenburns-top;--index:7;">
+        <img class="c-mm__img" src="https://elements.stoumann.dk/assets/img/silent/mads05.jpg" />
+        <figcaption data-caption="top left">
+           Danish Marvel and DC
+           <div>»Beetle Bailey« and others &hellip;</div>
+        </figcaption>
+      </figure>
+
+      <figure data-filter="grainy" class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:8;">
+        <img class="c-mm__img" src="https://elements.stoumann.dk/assets/img/silent/mads06.jpg" />
+      </figure>
+
+      <figure data-filter="grainy text" class="c-mm__frame" style="--animn:none;--index:9;">
+        <figcaption>
+          Today I'm A Front-End Developer!
+          <div>(But I still love comics!)</div>
+        </figcaption>
+      </figure>
+
     </div>
-    <audio src="/docs/assets/audio/onion_capers.mp3" hidden></audio>
+    <audio src="https://elements.stoumann.dk/assets/audio/onion_capers.mp3" hidden loop></audio>
   </div>
 
-  <!-- <p><strong>CREDITS:</strong> All photos from <a href="https://www.pexels.com">pexels.com</a></p> -->
+  <p>
+    <strong>Music Creadits:</strong> »Onion Capers« Kevin MacLeod (incompetech.com). Licensed under Creative Commons: <a href="http://creativecommons.org/licenses/by/3.0">By Attribution 3.0 License</a>
+  </p>
 
   <svg>
     <filter id="noise">
@@ -434,14 +488,14 @@ p {  color: silver }
   </svg>
 
   <script>
-    // const elements = document.querySelectorAll('.c-mm');
-    // elements.forEach(element => {
-    //   const details = element.querySelector('.c-mm details');
-    //   const audio = element.querySelector('.c-mm audio');
-    //   if (details && audio) {
-    //     details.addEventListener('toggle', () => { details.open ? audio.play() : audio.pause(); })
-    //   }
-    // })
+    const elements = document.querySelectorAll('.c-mm');
+    elements.forEach(element => {
+      const details = element.querySelector('.c-mm details');
+      const audio = element.querySelector('.c-mm audio');
+      if (details && audio) {
+        details.addEventListener('toggle', () => { details.open ? audio.play() : audio.pause(); })
+      }
+    })
   </script>
 </body>
 </html>

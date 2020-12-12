@@ -2,8 +2,8 @@
  * CSS App
  * @module /assets/js/css-app
  * @requires /assets/js/common
- * @version 0.1.0
- * @summary 01-12-2020
+ * @version 0.1.5
+ * @summary 11-12-2020
  * @description Generic CSS App, extend other CSS apps from this
  */
 
@@ -18,6 +18,7 @@ export default class CssApp {
 			eventAddPreset: 'eventAddPreset',
 			eventDelPreset: 'eventDelPreset',
 			lblAddPreset: 'Add or overwrite preset',
+			lblAppIntro: '',
 			lblCSSCode: 'CSS code',
 			lblPresetCode: 'Preset code',
 			lblOverwrite: 'Overwrite existing preset?',

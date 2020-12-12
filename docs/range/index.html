@@ -5,28 +5,34 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<link href="../assets/css/c-rng.css" rel="stylesheet">
-
+	<style>
+			body { font-family: ui-sansserif, system-ui, sans-serif; margin: 0 auto; padding: 1rem; max-width: 40rem; }
+	</style>
 </head>
 <body>
-	<input type="range" class="c-rng" min="0" max="100" value="50" data-js="range" data-range-labels data-range-output=":true" />
-	<input type="range" class="c-rng c-rng--grey" min="-50" max="100" value="-15" data-js="range" data-range-labels data-range-output=":true" />
-	<input type="range" class="c-rng c-rng--pink" min="0" max="100" value="50" data-js="range" />
+	<input type="range" class="c-rng" min="0" max="100" value="40" data-range="labels output" data-ticks="5" data-modifier="c-rng--labels-above" />
+	<input type="range" class="c-rng c-rng--grey" min="-50" max="100" value="-10" data-range="labels output" data-ticks="5" data-modifier="c-rng--ticks-above" />
+	<input type="range" class="c-rng c-rng--pink" min="0" max="100" value="50" data-range data-ticks="5" data-modifier="c-rng--ticks-full"  />
 
 	<div class="c-rng__multi">
-		<input type="range" class="c-rng" min="0" max="100" value="20" data-js="range" data-range-output=":true" data-range-type="lower" data-range-diff="5" />
-		<input type="range" class="c-rng" min="0" max="100" value="80" data-js="range" data-range-output=":true" data-range-type="upper" data-range-diff="5" />
+		<input type="range" class="c-rng" min="0" max="100" value="20" data-range="output lower" data-ticks="10" />
+		<input type="range" class="c-rng" min="0" max="100" value="80" data-range="output upper" />
 	</div>
 
-	<input type="range" class="c-rng c-rng--hue" min="0" max="360" value="0" data-js="range" />
+	<input type="range" class="c-rng c-rng--hue" min="0" max="360" value="110" data-range="output" />
 
 	<div class="c-rng--icons">
 		<i data-icon="mute"></i>
-		<input type="range" class="c-rng c-rng--grey" min="-50" max="100" value="-15" data-js="range" />
+		<input type="range" class="c-rng c-rng--grey" min="0" max="100" value="50" data-range="" data-ticks="10" />
 		<i data-icon="audio"></i>
 	</div>
 
+	<input type="range" class="c-rng" min="0" max="360" step="1" value="75" data-range="circular" />
+	<input type="range" class="c-rng" min="0" max="100" step="1" value="82" data-range="circular" data-modifier="c-rng--tomato" />
+	<input type="range" class="c-rng" min="0" max="150" step="1" value="50" data-range="circular" data-modifier="c-rng--darkcyan" />
+
 	<script type="module">
-		const elements = document.querySelectorAll('[data-js="range"]');
+		const elements = document.querySelectorAll('[data-range]');
 			if (elements.length) {
 				import('../assets/js/range.mjs')
 				.then(module => {

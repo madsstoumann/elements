@@ -164,22 +164,22 @@ export default class CssTransform extends CssApp {
 
 				<div class="app__controls">
 					<label class="app__label--range"><span>${this.settings.lblScale}</span>
-						<input type="range" class="c-rng" min="0.1" max="3" value="1" step="0.1" data-elm="scale" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0.1" max="3" value="1" step="0.1" data-elm="scale" data-range="output" />
 					</label>
 					<label class="app__label--range"><span>${this.settings.lblRotate}</span>
-						<input type="range" class="c-rng" min="0" max="360" value="0" step="1" data-elm="rotate" data-suffix="deg" data-range-output=":true" />
+						<input type="range" class="c-rng" min="0" max="360" value="0" step="1" data-elm="rotate" data-suffix="deg" data-range="output" />
 					</label>
 					<label class="app__label--range"><span>${this.settings.lblTranslateX}</span>
-						<input type="range" class="c-rng" min="-100" max="100" value="0" step="1" data-elm="translateX" data-suffix="px" data-range-output=":true" />
+						<input type="range" class="c-rng" min="-100" max="100" value="0" step="1" data-elm="translateX" data-suffix="px" data-range="output" />
 					</label>
 					<label class="app__label--range"><span>${this.settings.lblTranslateY}</span>
-						<input type="range" class="c-rng" min="-100" max="100" value="0" step="1" data-elm="translateY" data-suffix="px" data-range-output=":true" />
+						<input type="range" class="c-rng" min="-100" max="100" value="0" step="1" data-elm="translateY" data-suffix="px" data-range="output" />
 					</label>
 					<label class="app__label--range"><span>${this.settings.lblSkewX}</span>
-						<input type="range" class="c-rng" min="-90" max="90" value="0" step="1" data-elm="skewX" data-suffix="deg" data-range-output=":true" />
+						<input type="range" class="c-rng" min="-90" max="90" value="0" step="1" data-elm="skewX" data-suffix="deg" data-range="output" />
 					</label>
 					<label class="app__label--range"><span>${this.settings.lblSkewY}</span>
-						<input type="range" class="c-rng" min="-90" max="90" value="0" step="1" data-elm="skewY" data-suffix="deg" data-range-output=":true" />
+						<input type="range" class="c-rng" min="-90" max="90" value="0" step="1" data-elm="skewY" data-suffix="deg" data-range="output" />
 					</label>
 
 					<div class="app__fieldset app__fieldset--topspace">

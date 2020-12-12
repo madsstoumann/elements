@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <title>Radial Range</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<style>
+  :root {
+    --i-check: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 2.5l-8.5 8.5-3.5-3.5-1.5 1.5 5 5 10-10z"></path></svg>');
+    --i-error: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M16 0c-8.837 0-16 7.163-16 16s7.163 16 16 16 16-7.163 16-16-7.163-16-16-16zM18 26h-4v-4h4v4zM18 18h-4v-12h4v12z"></path></svg>');
+  }
+
+  body { font-family: ui-sans-serif, system-ui, sans-serif; padding: 2rem; }
+  
+  .c-fld {
+    align-items: center;
+    border: 1px solid #777;
+    border-radius: .25rem;
+    display: flex;
+    max-width: 30rem;
+  }
+  .c-fld:focus-within {
+    border-color: cornflowerblue;
+  }
+  i {
+    --ico-bgc: transparent;
+    --ico: var(--i-error);
+    --ico-sz: 1.25rem;
+    background-color: var(--ico-bgc);
+    display: inline-block;
+    height: var(--ico-sz);
+    margin: 0 .75rem;
+    mask: no-repeat center/var(--ico-sz) var(--ico);
+    -webkit-mask: no-repeat center/var(--ico-sz) var(--ico);
+    width: var(--ico-sz);
+  }
+  input {
+    border: 0;
+    border-radius: inherit;
+    font-size: 1rem;
+    padding: 0.75rem;
+    width: 90%;
+  }
+  input::placeholder {
+    color: silver;
+  }
+  input:focus {
+    outline: none;
+  }
+  label {
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  label abbr {
+    color: maroon;
+  }
+  label em {
+    color: darkgray;
+    font-size: small;
+    font-style: normal;
+  }
+  [hidden] { display: none; }
+
+  /* If input is required and placeholder is NOT shown, it has a value. If that value is INVALID, change icon */
+input:required:not(:placeholder-shown):invalid + i {
+  --ico-bgc: firebrick;
+}
+/* If input is required and placeholder is NOT shown, it has a value. If that value is VALID, change icon */
+input:required:not(:placeholder-shown):valid + i {
+  --ico-bgc: green;
+  --ico: var(--i-check);
+}
+/* If input is required and placeholder is NOT shown, it has a value. If that value is INVALID, show error-text */
+input:required:not(:placeholder-shown):invalid ~ .error,
+input:required:not(:placeholder-shown):invalid ~ .error {
+  display: block;
+}
+  </style>
+  <body>
+
+
+<label for="phone">
+  <strong>Required. Icon change on :valid :invalid</strong>
+  <abbr title="Field is required">*</abbr>
+  <em>Type min. 6 digits</em>
+</label>
+
+<div class="c-fld">
+  <input
+    id="phone"
+    inputmode="numeric"
+    maxlength="10"
+    minlength="6"
+    name="phone"
+    pattern="\d+"
+    placeholder="10203040" 
+    type="text"
+    required>
+  <i aria-hidden="true"></i>
+</div>
+
+</body>
+</html>
