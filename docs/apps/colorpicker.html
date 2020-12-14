@@ -5,21 +5,24 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<link href="../assets/css/c-clp.css" rel="stylesheet">
+	<style>
+		[data-colorpicker] { border: 1px solid #BBB; border-radius: .25rem; padding: .5rem; width: 15rem; }
+	</style>
 </head>
 <body>
-	<input type="color" data-js="colorpicker" value="#e66465" />
-	<input type="text" data-js="colorpicker" value="rgba(144,228,253,0.85)" />
+	<input type="text" data-colorpicker="rgb" value="rgba(144,228,253,0.65)" /><br />&nbsp;<br />
+	<input type="text" data-colorpicker="micro" />
+	<input type="text" data-colorpicker="alpha" value="#445566" />
 
 	<script type="module">
-		const elements = document.querySelectorAll('[data-js="colorpicker"]');
+		const elements = document.querySelectorAll('[data-colorpicker]');
 			if (elements.length) {
 				import('../assets/js/colorpicker.mjs')
 				.then(module => {
 					const jsClass = module.default;
 					elements.forEach(element => {
+						element.addEventListener('eventSetColor', (event) => { console.log(event.detail); });
 						new jsClass(element, element.dataset);
-						element.addEventListener('eventAddColor', (event) => { console.log(JSON.parse(event.detail)); });
-						element.addEventListener('eventDelColor', (event) => { console.warn(JSON.parse(event.detail)); });
 					});
 				})
 			}
