@@ -43,8 +43,8 @@
 	text-align: right;
 }
 [data-cp-display="full"] nav { margin-top: 0.5rem; }
-[data-cp-display="alpha"] [data-elm="selected"] { height: 2.75rem; }
-[data-cp-display="alpha"], [data-cp-display="micro"] { max-width: 20rem; }
+[data-cp-display="micro"] [data-elm="selected"] { height: 2.75rem; }
+[data-cp-display="micro"], [data-cp-display="mini"] { max-width: 20rem; }
 [data-cp-inner] {
 	display: flex;
 	justify-content: space-between;

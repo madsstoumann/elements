@@ -6,13 +6,50 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<link href="../assets/css/c-clp.css" rel="stylesheet">
 	<style>
-		[data-colorpicker] { border: 1px solid #BBB; border-radius: .25rem; padding: .5rem; width: 15rem; }
+		/* DEMO ONLY */
+		body { display: flex; font-family: ui-sans-serif, system-ui, sans-serif;  flex-wrap: wrap;  padding: 1rem; }
+		[data-colorpicker] { border: 1px solid #BBB; border-radius: .25rem; margin-right: 1rem; padding: .5rem; width: 15rem; -webkit-appearance: none; }
+		label strong { display: block; font-size: small; margin: .5rem 0; }
+		code { background: lightgrey; padding: 0 0.15rem; }
+		details { color: #555; flex: 0 0 100%; line-height: 1.6; margin: 1rem 0; }
 	</style>
 </head>
 <body>
-	<input type="text" data-colorpicker="rgb" value="rgba(144,228,253,0.65)" /><br />&nbsp;<br />
-	<input type="text" data-colorpicker="micro" />
-	<input type="text" data-colorpicker="alpha" value="#445566" />
+	<label><strong>Full</strong>
+		<input type="text" data-colorpicker="rgb" value="rgba(144,228,253,0.65)" />
+	</label>
+	<label><strong>Mini</strong>
+		<input type="text" data-colorpicker="mini" />
+	</label>
+	<label><strong>Micro (no alpha)</strong>
+		<input type="text" data-colorpicker="micro cmyk" value="#445566" />
+	</label>
+
+	<details>
+		<summary>How to use:</summary>
+		<p>
+			On an <code>input</code>-tag with <code>type</code> set to <code>text</code> or <code>color</code>, add <code>data-colorpicker</code> with optional options.<br />
+			Output-formats are: cmyk, hex (default), hsl and rgb. Size-formats are: full (default), mini and micro (same as mini, but without alpha-channel).
+		</p>
+		<p>
+			<strong>Examples:</strong><br />
+			<code>data-colorpicker=""</code> (full, hex)<br />
+			<code>data-colorpicker="rgb mini"</code><br />
+			<code>data-colorpicker="cmyk micro"</code>
+		</p>
+		<p>
+			<strong>Keyboard Shortcuts, input/trigger:</strong><br />
+			<code>ArrowDown</code>: Open ColorPicker<br />
+			<code>Escape</code>: Close ColorPicker<br />
+		</p>
+		<p>
+			<strong>Keyboard Shortcuts, ColorPicker:</strong><br />
+			<code>Arrow Keys</code>: Change value on selected element<br />
+			<code>Enter</code>: Close ColorPicker, set color<br />
+			<code>Escape</code>: Close ColorPicker, do NOT set color<br />
+			<code>Tab</code>: Go to next input
+		</p>
+	</details>
 
 	<script type="module">
 		const elements = document.querySelectorAll('[data-colorpicker]');
@@ -20,9 +57,11 @@
 				import('../assets/js/colorpicker.mjs')
 				.then(module => {
 					const jsClass = module.default;
-					elements.forEach(element => {
+					elements.forEach((element, index) => {
 						element.addEventListener('eventSetColor', (event) => { console.log(event.detail); });
 						new jsClass(element, element.dataset);
+						/* FOR DEMO ONLY: SHOW FIRST COLORPICKER */
+						if (index === 0) { element.nextElementSibling.dataset.cp = true; }
 					});
 				})
 			}

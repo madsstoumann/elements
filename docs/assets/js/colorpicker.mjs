@@ -2,8 +2,8 @@
  * ColorPicker
  * @module /assets/js/colorpicker
  * @requires /assets/js/colorlib
- * @version 0.0.6
- * @summary 14-12-2020
+ * @version 0.0.7
+ * @summary 15-12-2020
  * @description Color Picker
  * @example
  * <input type="color|text" data-colorpicker="rgba" />
@@ -107,8 +107,8 @@ export default class ColorPicker {
 		if (this.settings.colorpicker.includes('cmyk')) { this.output = 'cmyk'; }
 		if (this.settings.colorpicker.includes('hsl')) { this.output = 'hsl'; }
 		if (this.settings.colorpicker.includes('rgb')) { this.output = 'rgb'; }
-		if (this.settings.colorpicker.includes('alpha')) { this.display = 'alpha'; }
 		if (this.settings.colorpicker.includes('micro')) { this.display = 'micro'; }
+		if (this.settings.colorpicker.includes('mini')) { this.display = 'mini'; }
 
 		this.app = document.createElement('div');
 		this.app.dataset.cp = false;
@@ -250,7 +250,7 @@ export default class ColorPicker {
 					<label>
 						<input type="range" class="c-rng" min="0" max="100" value="50" data-elm="lightness" data-suffix="%" aria-label="${this.settings.lblLightness}" />
 					</label>
-					<label ${this.display === 'alpha' ? ` hidden` : ''}>
+					<label ${this.display === 'micro' ? ` hidden` : ''}>
 						<input type="range" class="c-rng" min="0" max="1" step="0.01" value="1" data-elm="alpha" aria-label="${this.settings.lblAlpha}" ${this.display === 'alpha' ? ` disabled` : ''} />
 					</label>
 				</div>
