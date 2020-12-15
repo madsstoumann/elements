@@ -52,6 +52,19 @@ export default class ColorPicker {
 
 	/**
 	* @function handleInput
+	* @param {Node} element
+	* @description Handle main form input. Triggers when a user moves a range-slider or changes an input value.
+	*/
+	handleBlur(element) {
+		if (!this.app.contains(element)) {
+			if (element !== this.trigger) {
+				this.toggle(false);
+			}
+		}
+	}
+
+	/**
+	* @function handleInput
 	* @param {Event} event
 	* @description Handle main form input. Triggers when a user moves a range-slider or changes an input value.
 	*/
@@ -120,11 +133,7 @@ export default class ColorPicker {
 		this.elements = {};
 		this.app.querySelectorAll(`[data-elm]`).forEach(elm => {
 			this.elements[elm.dataset.elm] = elm;
-			elm.addEventListener('blur', (event) => {
-				if (!this.app.contains(event.relatedTarget)) {
-					this.toggle(false);
-				}
-			});
+			elm.addEventListener('blur', (event) => { this.handleBlur(event.relatedTarget)});
 		});
 
 		/* Add eventListeners */
