@@ -2,7 +2,7 @@
  * ColorPicker
  * @module /assets/js/colorpicker
  * @requires /assets/js/colorlib
- * @version 0.0.7
+ * @version 0.0.9
  * @summary 15-12-2020
  * @description Color Picker
  * @example
@@ -103,6 +103,7 @@ export default class ColorPicker {
 		this.output = 'hex';
 		this.trigger = element;
 		this.trigger.setAttribute('readonly', 'readonly');
+		this.update = this.settings.colorpicker.includes('update');
 
 		if (this.settings.colorpicker.includes('cmyk')) { this.output = 'cmyk'; }
 		if (this.settings.colorpicker.includes('hsl')) { this.output = 'hsl'; }
@@ -110,13 +111,20 @@ export default class ColorPicker {
 		if (this.settings.colorpicker.includes('micro')) { this.display = 'micro'; }
 		if (this.settings.colorpicker.includes('mini')) { this.display = 'mini'; }
 
+
 		this.app = document.createElement('div');
-		this.app.dataset.cp = false;
+		this.app.dataset.cp = 'wrapper';
+		this.app.dataset.cpShow = false;
 		this.app.innerHTML = this.template();
 		this.bindOutsideClick = this.clickOutside.bind(this);
 		this.elements = {};
 		this.app.querySelectorAll(`[data-elm]`).forEach(elm => {
 			this.elements[elm.dataset.elm] = elm;
+			elm.addEventListener('blur', (event) => {
+				if (!this.app.contains(event.relatedTarget)) {
+					this.toggle(false);
+				}
+			});
 		});
 
 		/* Add eventListeners */
@@ -124,6 +132,7 @@ export default class ColorPicker {
 			if (event.key === 'Enter') {this.setTrigger()}
 			if (event.key === 'Escape') {this.toggle(false)}
 		});
+
 		this.elements.app.addEventListener('input', this.handleInput.bind(this));
 		this.elements.cancel.addEventListener('click', () => {return this.toggle(false)})
 		this.elements.ok.addEventListener('click', () => {return this.setTrigger()})
@@ -135,7 +144,7 @@ export default class ColorPicker {
 
 		this.trigger.parentNode.insertBefore(this.app, this.trigger.nextSibling);
 		this.setColorFromTrigger();
-		this.setTrigger();
+		this.setValue();
 	}
 
 /**
@@ -200,6 +209,7 @@ export default class ColorPicker {
 
 		this.elements.luminance.value = brightness(r, g, b) || 0;
 		this.rgba = `rgba(${this.elements.rgbR.value},${this.elements.rgbG.value},${this.elements.rgbB.value},${this.elements.rgbA.value})`;
+		this.textColor = this.elements.luminance.value < 128 ? '#FFF' : '#000';
 
 		switch(this.output) {
 			case 'cmyk': value = `device-cmyk(${this.elements.cmyC.value}%,${this.elements.cmyM.value}%,${this.elements.cmyY.value}%,${this.elements.cmyK.value}%)`; break;
@@ -208,6 +218,14 @@ export default class ColorPicker {
 			default: value = this.elements.hex.value; break;
 		}
 		this.value = value;
+
+		if (this.update) {
+			this.setTrigger(true);
+		}
+		if (this.display !== 'full' && !this.update) {
+			this.elements.selected.innerText = this.elements.hex.value;
+			this.elements.selected.style.setProperty(`--cp-c`,`${this.textColor}`);
+		}
 	}
 
 	/**
@@ -221,14 +239,23 @@ export default class ColorPicker {
 
 	/**
 	* @function setTrigger
+	* @param {Boolean} open
+	* @description Sets trigger value to selected color, sends event, close ColorPicker
+	*/
+	setTrigger(open = false){
+		this.setValue();
+		this.trigger.dispatchEvent(new CustomEvent(this.settings.eventSetColor, { detail: this.value }));
+		if (!open) { this.toggle(false); }
+	}
+
+	/**
+	* @function setValue
 	* @description Sets trigger value to selected color
 	*/
-	setTrigger(){
+	setValue() {
 		this.trigger.value = this.value;
 		this.trigger.style.setProperty(`--cp-bgc`,`${this.rgba}`);
-		this.trigger.style.setProperty(`--cp-c`,`${this.elements.luminance.value < 128 ? '#FFF' : '#000'}`);
-		this.trigger.dispatchEvent(new CustomEvent(this.settings.eventSetColor, { detail: this.value }));
-		this.toggle(false);
+		this.trigger.style.setProperty(`--cp-c`,`${this.textColor}`);
 	}
 
 	/**
@@ -241,8 +268,8 @@ export default class ColorPicker {
 			<label aria-label="${this.settings.lblHue}">
 				<input type="range" class="c-rng" min="0" max="360" value="0" data-elm="hue" />
 			</label>
-			<div data-cp-inner>
-				<div>
+			<div data-cp="inner">
+				<div data-cp="ranges${this.update ? `-update`:''}">
 					${this.display === 'full' ? `<div data-elm="selected"></div>` : ''}
 					<label>
 						<input type="range"class="c-rng" min="0" max="100" value="100" data-elm="saturation" data-suffix="%" aria-label="${this.settings.lblSaturation}" />
@@ -254,36 +281,36 @@ export default class ColorPicker {
 						<input type="range" class="c-rng" min="0" max="1" step="0.01" value="1" data-elm="alpha" aria-label="${this.settings.lblAlpha}" ${this.display === 'alpha' ? ` disabled` : ''} />
 					</label>
 				</div>
-				<div>
+				<div data-cp="inputs">
 					<div ${this.display === 'full' ? `` : ` hidden`}>
-						<fieldset ${this.display === 'full' ? `` : ` disabled`}>
+						<fieldset data-cp="fieldset" ${this.display === 'full' ? `` : ` disabled`}>
 							<label><input type="number" min="0" max="255" size="3" data-elm="rgbR" />R</label>
 							<label><input type="number" min="0" max="255" size="3" data-elm="rgbG" />G</label>
 							<label><input type="number" min="0" max="255" size="3" data-elm="rgbB" />B</label>
 							<label><input type="number" min="0" max="1" step="0.01" size="3" data-elm="rgbA" />A</label>
 						</fieldset>
-						<fieldset ${this.display === 'full' ? `` : ` disabled`}>
+						<fieldset data-cp="fieldset" ${this.display === 'full' ? `` : ` disabled`}>
 							<label><input type="number" min="0" max="360" size="3" data-elm="hslH" />H</label>
 							<label><input type="number" min="0" max="100" size="3" data-elm="hslS" />S</label>
 							<label><input type="number" min="0" max="100" size="3" data-elm="hslL" />L</label>
 							<label><input type="number" min="0" max="1" step="0.01" size="3" data-elm="hslA" />A</label>
 						</fieldset>
-						<fieldset ${this.display === 'full' ? `` : ` disabled`}>
+						<fieldset data-cp="fieldset" ${this.display === 'full' ? `` : ` disabled`}>
 							<label><input type="number" min="0" max="100" size="3" data-elm="cmyC" />C</label>
 							<label><input type="number" min="0" max="100" size="3" data-elm="cmyM" />M</label>
 							<label><input type="number" min="0" max="100" size="3" data-elm="cmyY" />Y</label>
 							<label><input type="number" min="0" max="100" size="3" data-elm="cmyK" />K</label>
 						</fieldset>
-						<fieldset ${this.display === 'full' ? `` : ` disabled`}>
+						<fieldset data-cp="fieldset" ${this.display === 'full' ? `` : ` disabled`}>
 							<label><input type="text" data-elm="hex" size="9" />HEX/A</label>
 							<label><input type="text" data-elm="luminance" size="3" readonly />${this.settings.lblBrightness}</label>
 						</fieldset>
 						<div class="u-hidden" data-elm="sample"></div>
 					</div>
-					${this.display === 'full' ? `` : `<div data-elm="selected"></div>`}
-					<nav>
-						<button type="button" data-elm="cancel">${this.settings.lblCancel}</button>
-						<button type="button" data-elm="ok">${this.settings.lblOK}</button>
+					${this.display === 'full' ? '' : `<div data-elm="selected" ${this.update ? ' hidden' : ''}></div>`}
+					<nav data-cp="nav" ${this.update ? ' hidden' : ''}>
+						<button type="button" data-elm="cancel" ${this.update ? ' disabled' : ''}>${this.settings.lblCancel}</button>
+						<button type="button" data-elm="ok" ${this.update ? ' disabled' : ''}>${this.settings.lblOK}</button>
 					</nav>
 				</div>
 			</div>
@@ -302,12 +329,12 @@ export default class ColorPicker {
 			this.app.style.left = `${rect.left}px`;
 			this.app.style.top = `${rect.bottom}px`;
 			this.setColorFromTrigger();
-			this.app.dataset.cp = true;
+			this.app.dataset.cpShow = true;
 			this.elements.hue.focus();
 		}
 		else {
 			document.removeEventListener('click', this.bindOutsideClick);
-			this.app.dataset.cp = false;
+			this.app.dataset.cpShow = false;
 			this.trigger.focus();
 		}
 	}

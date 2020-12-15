@@ -4,8 +4,8 @@
  * @requires /assets/js/css-app
  * @requires /assets/colorpicker
  * @requires /assets/js/common
- * @version 0.1.3
- * @summary 01-11-2020
+ * @version 0.1.4
+ * @summary 15-12-2020
  * @description box-shadow, filter: drop-shadow and text-shadow editor
  * @example
  * <div data-js="[box/drop/text]-shadow" data-app-type="[box/drop/text]-shadow">
@@ -118,7 +118,7 @@ export default class CssShadows extends CssApp {
 			return;
 		}
 		if (event.type === 'eventSetColor') {
-			value = event.detail.rgba;
+			value = event.detail;
 		}
 
 		this.preset.values[index][key] = value;
@@ -187,7 +187,7 @@ export default class CssShadows extends CssApp {
 
 		this.elements.shadows.innerHTML = obj.values.map((preset, index) => { return this.templateShadowEntry(preset, index)}).join('');
 
-		colors = this.elements.shadows.querySelectorAll(`[data-js="colorpicker"]`);
+		colors = this.elements.shadows.querySelectorAll(`[data-colorpicker]`);
 		colors.forEach(color => {
 			new ColorPicker(color, color.dataset);
 			color.addEventListener('eventSetColor', (event) => { this.handleInput(event) })
@@ -277,7 +277,7 @@ export default class CssShadows extends CssApp {
 			<label class="app__label"><input type="number" size="3" value="${shadow.y}" data-elm="y" data-index="${index}" />${this.settings.lblOffsetY}</label>
 			<label class="app__label"><input type="number" size="3" value="${shadow.blur}" data-elm="blur" data-index="${index}" />${this.settings.lblBlur}</label>
 			${this.settings.appType === 'box-shadow' ? `<label class="app__label"><input type="number" size="3" value="${shadow.spread}" data-elm="spread" data-index="${index}" />${this.settings.lblSpread}</label>` : ''}
-			<label class="app__label app__label--auto"><input type="text" data-elm="color" data-index="${index}" data-js="colorpicker" data-value-format="rgb" value="${shadow.color}" readonly />${this.settings.lblColor}</label>
+			<label class="app__label app__label--auto"><input type="text" data-elm="color" data-index="${index}" data-colorpicker="mini rgb update" value="${shadow.color}" />${this.settings.lblColor}</label>
 			<label class="app__label app__label--del"><button type="button" data-elm="delEntry" data-index="${index}" aria-label="">${this.settings.lblDelete}</button>del</label>
 		</div>`
 	}

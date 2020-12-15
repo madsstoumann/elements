@@ -189,7 +189,8 @@
 	text-align: center;
 }
 .app__label button,
-.app__label input:not([type="checkbox"]),
+/* .app__label input:not([type="checkbox"]), */
+.app__label input:not([type="range"]),
 .app__label select,
 .app__label textarea {
 	border: var(--app-inp-brd);
