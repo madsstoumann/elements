@@ -3,7 +3,7 @@
  * @module /assets/js/filtermaker
 
  * @version 0.0.1
- * @summary 12-05-2020
+ * @summary 16-12-2020
  * @description 
  * @example
  * <div data-js="transform">
@@ -15,15 +15,16 @@ import AutoSuggest from './autosuggest.mjs';
 import RangeSlider from './range.mjs';
 
 export default class CssFont extends CssApp {
-	constructor(element, settings) {
+	constructor(element, settings, presets) {
 		super(element, Object.assign({
 			lblAppHeader: 'CSS Transform Editor',
+			lblAppIntro: '',
 			lblFontSearch: 'Search Google Fonts',
 			lblFontSize: 'Preview size',
 			lblSpecimen: 'The quick brown fox jumps over the lazy dog',
 			urlFontList: '',
 			urlVariableList: '',
-		}, settings));
+		}, settings), presets);
 
 		this.init()
 	}
@@ -36,7 +37,7 @@ export default class CssFont extends CssApp {
 		await super.init();
 
 		if (this.elements.fontSize) {
-			this.elements.fontSize.__range = new RangeSlider(this.elements.fontSize, this.elements.fontSize.dataset)
+			this.elements.fontSize.__range = new RangeSlider(this.elements.fontSize, this.elements.fontSize.dataset);
 		}
 
 		if (this.elements.fontList) {
@@ -49,6 +50,28 @@ export default class CssFont extends CssApp {
 				this.elements.fontInfo.innerHTML = this.templateFontInfo(this.font);
 				console.log(this.font);
 			});
+		}
+	}
+
+
+		/**
+	* @function loadPreset
+	* @paramn {Node} element
+	* @description Loads preset / overwrites preset
+	*/
+	loadPreset(element) {
+		/* If element exists, load preset - otherwise `reset` to default values */
+		if (element) {
+			super.loadPreset(element);
+
+			const obj = {...this.settings.presetEntry, ...this.preset.values[0]};
+
+		Object.entries(obj).forEach(arr => {
+			const [key, value] = [...arr];
+			this.elements.app.style.setProperty(`--${key}`,`${value}`);
+			
+		});
+
 		}
 	}
 
@@ -70,7 +93,7 @@ export default class CssFont extends CssApp {
 		:wght@${this.font.variants.map(variant => { return variant }).join(';')}
 		*/
 		this.setStyleLink(`https://fonts.googleapis.com/css2?family=${font.family.replace(' ', '+')}`);
-		this.elements.app.style.setProperty(`--font-family`,`${font.family}, ${font.category}`);
+		this.elements.app.style.setProperty(`--fontFamily`,`${font.family}, ${font.category}`);
 	}
 
 	/**
@@ -80,7 +103,11 @@ export default class CssFont extends CssApp {
 	template() {
 		return `
 		<form class="app" data-elm="app">
-			<strong class="app__header">${this.settings.lblAppHeader}</strong>
+		<strong class="app__header">
+		${this.settings.appIcon ? `	<svg class="app__icon"><use href="${this.settings.appIcon}" /></svg>` : ''}
+			${this.settings.lblAppHeader}
+		</strong>
+		<p class="app__text">${this.settings.lblAppIntro}</p>
 			<div data-elm="fontSpecimen">${this.settings.lblSpecimen}</div>
 			<div data-elm="fontSizes"></div>
 			<div class="app__edit">
@@ -105,7 +132,7 @@ export default class CssFont extends CssApp {
 					</div>
 
 					<label class="app__label--range"><span>${this.settings.lblFontSize}</span>
-						<input type="range" class="c-rng" min="8" max="112" value="32" step="1" data-elm="fontSize" data-suffix="px" data-range-output=":true" />
+						<input type="range" class="c-rng" min="8" max="112" value="32" step="1" data-elm="fontSize" data-suffix="px" data-range="output" />
 					</label>
 
 					<div class="app__fieldset app__fieldset--topspace">
@@ -139,9 +166,9 @@ export default class CssFont extends CssApp {
 	templateFontInfo(font) {
 		return `
 				<strong>category:</strong> ${font.category}<br />
+				<strong>family:</strong> ${font.family}<br />
 				<strong>last-modified:</strong> ${font.lastModified}<br />
-				<strong>version:</strong> ${font.version}<br />
-		
+				<strong>version:</strong> ${font.version}
 		`
 	}
 

@@ -3,7 +3,7 @@
  * @module /assets/js/filtermaker
 
  * @version 0.0.3
- * @summary 17-05-2020
+ * @summary 16-12-2020
  * @description 
  * @example
  * <div data-js="transform">
@@ -13,7 +13,7 @@ import CssApp from './css-app.mjs';
 import RangeSlider from './range.mjs';
 
 export default class CssTransform extends CssApp {
-	constructor(element, settings) {
+	constructor(element, settings, presets) {
 		super(element, Object.assign({
 			lblAppHeader: 'CSS Transform Editor',
 			lblPreviewText: 'transform',
@@ -31,7 +31,7 @@ export default class CssTransform extends CssApp {
 				skewX: 0,
 				skewY: 0
 			},
-		}, settings));
+		}, settings), presets);
 
 		this.init()
 	}
@@ -156,7 +156,11 @@ export default class CssTransform extends CssApp {
 	template() {
 		return `
 		<form class="app" data-elm="app">
-			<strong class="app__header">${this.settings.lblAppHeader}</strong>
+			<strong class="app__header">
+			${this.settings.appIcon ? `	<svg class="app__icon"><use href="${this.settings.appIcon}" /></svg>` : ''}
+				${this.settings.lblAppHeader}
+			</strong>
+			<p class="app__text">${this.settings.lblAppIntro}</p>
 			<div class="app__edit">
 				<div class="app__preview">
 					<div class="app__preview-inner">${this.settings.lblPreviewText}</div>
@@ -199,7 +203,7 @@ export default class CssTransform extends CssApp {
 				<summary class="app__summary"><span>${this.settings.lblPresets}</span></summary>
 				<div class="app__panel" data-elm="presets"></div>
 			</details>
-			<details class="app__details">
+			<details class="app__details" open>
 				<summary class="app__summary"><span>${this.settings.lblCSSCode}</span></summary>
 				<div class="app__code" data-elm="cssCode"></div>
 			</details>

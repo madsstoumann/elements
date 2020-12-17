@@ -9,7 +9,7 @@
  */
 import CssApp from './css-app.mjs';
 export default class ImageComponent extends CssApp {
-	constructor(element, settings) {
+	constructor(element, settings, presets) {
 		super(element, Object.assign({
 			clsDrag: 'app__img--drag',
 			lblAddBreakpoint: 'Add breakpoint',
@@ -62,7 +62,7 @@ export default class ImageComponent extends CssApp {
 			decoding: ['auto', 'async', 'sync'],
 			loading: ['auto', 'eager', 'lazy'],
 			units: ['%', 'ch', 'cm', 'em', 'ex', 'in', 'mm', 'pc', 'pt', 'px', 'q', 'rem', 'vw', 'vh', 'vmin', 'vmax']
-		}, settings));
+		}, settings), presets);
 
 		this.init();
 	}
@@ -353,7 +353,11 @@ export default class ImageComponent extends CssApp {
 	template() {
 		return `
 		<form class="app" data-elm="app">
-			<strong class="app__header">${this.settings.lblAppHeader}</strong>
+		<strong class="app__header">
+		${this.settings.appIcon ? `	<svg class="app__icon"><use href="${this.settings.appIcon}" /></svg>` : ''}
+			${this.settings.lblAppHeader}
+		</strong>
+		<p class="app__text">${this.settings.lblAppIntro}</p>
 			<div class="app__edit">
 				<div class="app__preview">
 					<strong class="app__subheader">Basic image info</strong>

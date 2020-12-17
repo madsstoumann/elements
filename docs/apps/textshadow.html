@@ -9,9 +9,9 @@
 <body>
 
 	<div data-js="text-shadow"
+		data-app-icon="../assets/svg/cssapp.svg#textshadow"
 		data-app-type="text-shadow"
-		data-lbl-app-header="CSS &lt;code&gt;text-shadow&lt;/code&gt; Editor"
-		data-url-presets="../assets/data/presets-text-shadow.json">
+		data-lbl-app-header="CSS &lt;code&gt;text-shadow&lt;/code&gt; Editor">
   </div>
 
 	<script type="module">
@@ -21,12 +21,43 @@
 				.then(module => {
 					const jsClass = module.default;
 					elements.forEach(element => {
-						new jsClass(element, element.dataset);
+						new jsClass(element, element.dataset, presets);
 						element.addEventListener('eventAddPreset', (event) => { console.log(JSON.parse(event.detail)); });
 						element.addEventListener('eventDelPreset', (event) => { console.warn(JSON.parse(event.detail)); });
 					});
 				})
 			}
+
+			
+		/* Default preset/s, if REST API fails */
+		const presets = [
+		{
+			"name": "stack",
+			"deletable": false,
+			"value": "8px 8px 0px rgba(110, 110, 110, 1), 16px 16px 0px rgba(145, 145, 145, 1), 24px 24px 0px rgba(205, 205, 205, 1)",
+			"values":
+			[
+				{
+					"blur": 0,
+					"color": "rgba(110, 110, 110, 1)",
+					"x": 8,
+					"y": 8
+				},
+				{
+					"blur": 0,
+					"color": "rgba(145, 145, 145, 1)",
+					"x": 16,
+					"y": 16
+				},
+				{
+					"blur": 0,
+					"color": "rgba(205, 205, 205, 1)",
+					"x": 24,
+					"y": 24
+				}
+			]
+		}
+	];
 	</script>
 </body>
 </html>

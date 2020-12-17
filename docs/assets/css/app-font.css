@@ -2,12 +2,12 @@
 @import 'c-inp.css';
 @import 'c-rng.css';
 .app {
-  --font-family: 'Arial',system-ui, sans-serif;
+  --fontFamily: ui-sans-serif, system-ui, sans-serif;
   --fontSize: 32px;
 }
 
 [data-elm="fontSpecimen"] {
-  font-family: var(--font-family);
+  font-family: var(--fontFamily);
   font-size: var(--fontSize);
   line-height: 1.4;
   overflow: hidden;
@@ -28,7 +28,7 @@
 }
 
 [data-elm="fontSizes"] {
-  font-family: var(--font-family);
+  font-family: var(--fontFamily);
   font-size: 1.5rem;
   margin-top: 1rem;
 }

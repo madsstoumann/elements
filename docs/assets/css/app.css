@@ -356,6 +356,24 @@
 	white-space: nowrap;
  }
 
+ .app__theme-btn {
+	 align-items: center;
+	 background-color:  #EEE;
+	 border-radius: 0.25rem;
+	 color: #333;
+	 display: flex;
+	 font-family: ui-monospace, monospace;
+	 margin: 0 0 0.5rem 0;
+	 padding: 0.25rem 0.5rem;
+	 text-decoration: none;
+ }
+ .app__theme-btn:hover {
+	background-color:  #CCC;
+ }
+ .app__theme-btn svg {
+	 margin-right: 0.25rem;
+ }
+
 .u-hidden, [hidden] {
 	clip: rect(1px 1px 1px 1px);
 	clip: rect(1px, 1px, 1px, 1px);

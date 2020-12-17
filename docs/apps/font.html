@@ -9,7 +9,8 @@
 <body>
 
 	<div data-js="font"
-		data-app-type="font"
+	data-app-icon="../assets/svg/cssapp.svg#font"
+		data-app-type="font-family"
 		data-lbl-app-header="CSS &lt;code&gt;font-family&lt;/code&gt; Explorer"
 		data-url-presets="../assets/data/presets-font.json"
 		data-url-font-list="../assets/data/google-fonts.json"
@@ -18,17 +19,92 @@
 
 	<script type="module">
 		const elements = document.querySelectorAll('[data-js="font"]');
-			if (elements.length) {
-				import('../assets/js/css-font.mjs')
-				.then(module => {
-					const jsClass = module.default;
-					elements.forEach(element => {
-						new jsClass(element, element.dataset);
-						element.addEventListener('eventAddFont', (event) => { console.log(JSON.parse(event.detail)); });
-						element.addEventListener('eventDelFont', (event) => { console.warn(JSON.parse(event.detail)); });
-					});
-				})
-			}
+		if (elements.length) {
+			import('../assets/js/css-font.mjs')
+			.then(module => {
+				const jsClass = module.default;
+				elements.forEach(element => {
+					new jsClass(element, element.dataset, presets);
+					element.addEventListener('eventAddFont', (event) => { console.log(JSON.parse(event.detail)); });
+					element.addEventListener('eventDelFont', (event) => { console.warn(JSON.parse(event.detail)); });
+				});
+			})
+		}
+		/* Default preset/s, if REST API fails */
+		const presets = [
+		{
+			"name": "cursive",
+			"value": "cursive",
+			"values": [
+				{
+					'fontFamily': 'cursive'
+				}
+			]
+		},
+		{
+			"name": "emoji",
+			"value": "emoji",
+			"values": [
+				{
+					'fontFamily': 'emoji'
+				}
+			]
+		},
+		{
+			"name": "fantasy",
+			"value": "fantasy",
+			"values": [
+				{
+					'fontFamily': 'fantasy'
+				}
+			]
+		},
+		{
+			"name": "system-ui",
+			"value": "system-ui, sans-serif",
+			"values": [
+				{
+					'fontFamily': 'system-ui, sans-serif'
+				}
+			]
+		},
+		{
+			"name": "ui-monospace",
+			"value": "ui-monospace, monospace",
+			"values": [
+				{
+					'fontFamily': 'ui-monospace, monospace'
+				}
+			]
+		},
+		{
+			"name": "ui-rounded",
+			"value": "ui-rounded",
+			"values": [
+				{
+					'fontFamily': 'ui-rounded'
+				}
+			]
+		},
+		{
+			"name": "ui-sans-serif",
+			"value": "ui-sans-serif, sans-serif",
+			"values": [
+				{
+					'fontFamily': 'ui-sans-serif, sans-serif'
+				}
+			]
+		},
+		{
+			"name": "ui-serif",
+			"value": "ui-serif, serif",
+			"values": [
+				{
+					'fontFamily': 'ui-serif, serif'
+				}
+			]
+		}
+	];
 	</script>
 </body>
 </html>

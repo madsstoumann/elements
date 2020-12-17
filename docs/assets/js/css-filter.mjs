@@ -229,7 +229,11 @@ export default class CssFilter extends CssApp {
 	template() {
 		return `
 		<form class="app" data-elm="app">
-			<strong class="app__header">${this.settings.lblAppHeader}</strong>
+			<strong class="app__header">
+			${this.settings.appIcon ? `	<svg class="app__icon"><use href="${this.settings.appIcon}" /></svg>` : ''}
+				${this.settings.lblAppHeader}
+			</strong>
+			<p class="app__text">${this.settings.lblAppIntro}</p>
 			<div class="app__edit">
 				<div class="app__preview">
 					<figure class="app__img-wrapper">
