@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Radial Range</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<style>
+
+#circle{
+			position: relative;
+			width: 300px;
+			height: 300px;
+			border-radius: 50%;
+			background: #000;
+		}
+		
+		#circle-in{
+			position: absolute;
+			top: 35px;
+			left: 35px;
+			width: 230px;
+			height: 230px;
+			border-radius: 50%;
+			background: #fff;
+		}
+		
+		#picker{
+			background:tomato;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			height: 30px;
+			margin-top: -15px;
+			transform: rotate(var(--angle));
+			width: 50%;
+
+            transform-origin: center left;
+		}
+		
+		#picker-circle{
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			background: #fff;
+			margin: 0 3px 0 auto;
+			cursor: move;
+		}
+	body { 
+		background: white; padding: 2rem; }
+	.r { 
+		background-color: silver;
+		/* background-image: conic-gradient(cornflowerblue 0deg, cornflowerblue 70deg, #d9d9d9 70deg, #d9d9d9 360deg); */
+		border-radius: 50%;
+		
+		/* clip-path:url(#circle); */
+		height: 10rem;
+		position: relative;
+		width: 10rem;
+	}
+	.r::before {
+		background-color: white;
+		border-radius: 50%;
+		content: "";
+		height: 6rem;
+		left: 2rem;
+		width: 6rem;
+		position: absolute;
+		top: 2rem;
+	}
+	.r::after {
+		background-color: white;
+		border: 2px solid cornflowerblue;
+		border-radius: 50%;
+		box-sizing: border-box;
+		content: "";
+		height: 2.5rem;
+		left: calc(50% - 1.25rem);
+		position: absolute;
+		top: 0;
+		width: 2.5rem;
+	}
+
+	.c-rng {
+		--rng-w: 8rem;  
+		--rng-thumb-w: 2rem;
+		--rng-track-w: var(--rng-w) - var(--rng-thumb-w);
+		--value: 1;
+		background-color: silver;
+		border-radius: 50%;
+	height: var(--rng-w);
+	/* transform: rotate(calc(1deg * var(--value))); */
+	width: var(--rng-w);
+}
+
+.c-rng::-webkit-slider-runnable-track {
+/* background: yellow; */
+	background-size: 100%;
+	box-sizing: border-box;
+}
+.c-rng,
+.c-rng::-webkit-slider-runnable-track,
+.c-rng::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.c-rng::-webkit-slider-thumb {
+	background-color: green;
+	pointer-events: none;
+	border-radius: 50%;
+	display: none;
+	/* box-shadow: var(--rng-thumb-bxsh); */
+	cursor: ew-resize;
+  height: var(--rng-thumb-w);  
+	/* margin-top: calc(0px - ((var(--rng-thumb-h) - var(--rng-h)) / 2)); */
+	/* position: relative; */
+	/* transform: translateX(calc((var(--rng-track-w) / 360)) * var(--value)); */
+	/* transform: translateX(var(--thumb)); */
+	width: var(--rng-thumb-w);
+	
+}
+
+.c-rng--circular {
+	position: relative;
+	height: 8rem;
+	width: 8rem;
+}
+.c-rng--circular output {
+	background:tomato;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			height: 30px;
+			margin-top: -15px;
+			transform: rotate(var(--angle));
+			width: 50%;
+
+            transform-origin: center left;
+}
+</style>
+<body>
+
+	<div id="circle">
+		<!-- <div id="circle-in"></div> -->
+		<div id="picker">
+			<!-- <div id="picker-circle"> -->
+			</div>
+		</div>
+	</div>	
+	<!-- <div class="r"></div> -->
+	
+		<input class="c-rng" type="range" min="0" max="360" value="0" />
+
+	
+
+	<svg>
+    <defs>
+        <clipPath id="circle">
+            <path d="M-45,0a45,45 0 1,0 90,0a45,45 0 1,0 -90,0" />
+        </clipPath>
+    </defs>
+</svg>
+
+<script>
+	// const range = document.querySelector('input');
+	// range.addEventListener('input', () => {
+	// 	range.style.setProperty('--value', `${range.valueAsNumber}`);
+	// 	range.style.setProperty('--thumb', `${((96/360) * range.valueAsNumber) * -1}px`);
+	// })
+
+	class CircularRangeSlider {
+		constructor(element, settings) {
+			this.settings = Object.assign({
+				clsWrapper: 'c-rng--circular'
+			}, settings);
+			this.initRange(element);
+		}
+		initRange(range) {
+			const rect = range.getBoundingClientRect();
+			this.center = {
+				x: rect.left + rect.width / 2,
+				y: rect.top + rect.height / 2
+			}
+			this.output = document.createElement('output');
+			const wrapper = document.createElement('div');
+			range.parentNode.insertBefore(wrapper, range);
+			wrapper.classList.add(this.settings.clsWrapper);
+			wrapper.appendChild(this.output);
+			wrapper.appendChild(range);
+
+			this.output.addEventListener('pointerdown', (event) => {
+				event.preventDefault();
+				this.pointerMove(event);
+				this.output.addEventListener('pointermove', this.pointerMove);
+				this.output.addEventListener('pointerup', this.pointerUp);
+			});
+		}
+
+		pointerDown(event) { console.log(event)
+			event.preventDefault();
+			this.pointerMove(event);
+			this.output.addEventListener('pointermove', this.pointerMove);
+			this.output.addEventListener('pointerup', this.pointerUp);
+		}
+
+		pointerMove(event) {
+			this.output.style.setProperty('--angle', `${this.rotate(event.pageX, event.pageY)}deg`);
+		}
+
+		rotate(x, y) {
+			const X = x - this.center.x;
+			const Y = y - this.center.y;
+			return Math.atan2(Y, X) * 180 / Math.PI;
+		}
+	}
+
+	/* INIT */
+	const ranges = document.querySelectorAll('input');
+	ranges.forEach(range => {
+		new CircularRangeSlider(range, range.dataset);
+	});
+
+
+	var circle = document.getElementById('circle'),
+				picker = document.getElementById('picker'),
+				rect = circle.getBoundingClientRect(),
+				
+				center = {
+					x: rect.left + rect.width / 2,
+					y: rect.top + rect.height / 2
+				},
+
+                
+				rotate = function(x, y){
+					var deltaX = x - center.x,
+						deltaY = y - center.y,
+						angle = Math.atan2(deltaY, deltaX) * 180 / Math.PI
+					return angle
+				},
+				
+				// DRAGSTART
+				mousedown = function(event){
+					event.preventDefault()
+					// document.body.style.cursor = 'move'
+					mousemove(event)
+					picker.addEventListener('pointermove', mousemove)
+					picker.addEventListener('pointerup', mouseup)
+				},
+			
+				// DRAG
+				mousemove = function(event){
+					picker.style.setProperty('--angle', `${rotate(event.pageX, event.pageY)}deg`);
+				},
+			
+				// DRAGEND
+				mouseup = function(){
+					picker.removeEventListener('pointerup', mouseup)
+					picker.removeEventListener('pointermove', mousemove)
+				}
+
+			// DRAG START
+			picker.addEventListener('pointerdown', mousedown)
+</script>
+</body>
+</html>

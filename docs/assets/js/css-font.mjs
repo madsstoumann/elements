@@ -2,16 +2,16 @@
  * CssTransform module.
  * @module /assets/js/filtermaker
 
- * @version 0.0.1
- * @summary 16-12-2020
+ * @version 0.0.2
+ * @summary 18-12-2020
  * @description 
  * @example
  * <div data-js="transform">
  * https://developers.google.com/fonts/docs/css2?hl=da
  */
 
-import CssApp from './css-app.mjs';
 import AutoSuggest from './autosuggest.mjs';
+import CssApp from './css-app.mjs';
 import RangeSlider from './range.mjs';
 
 export default class CssFont extends CssApp {
@@ -53,8 +53,7 @@ export default class CssFont extends CssApp {
 		}
 	}
 
-
-		/**
+	/**
 	* @function loadPreset
 	* @paramn {Node} element
 	* @description Loads preset / overwrites preset
@@ -71,7 +70,6 @@ export default class CssFont extends CssApp {
 			this.elements.app.style.setProperty(`--${key}`,`${value}`);
 			
 		});
-
 		}
 	}
 

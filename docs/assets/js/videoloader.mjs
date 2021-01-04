@@ -1,41 +1,36 @@
 /**
  * VideoLoader module.
  * @module /assets/js/video
- * @version 1.1.11
- * @summary 05-11-2020
+ * @version 1.1.12
+ * @summary 02-01-2021
  * @description Video-handling
  */
 import { insertScript } from './common/insertscript.mjs';
 export default class VideoLoader {
-	constructor(settings, json) {
+	constructor(settings) {
 		this.settings = Object.assign({
 			intersectionRatio: 0.75,
 			youtubeAPI: 'https://www.youtube.com/player_api'
 		}, settings);
-		this.init(json);
+		this.init();
 	}
 
 	/**
 	 * @function init
-	 * @param {Object} json
-	 * @description Init videos
+	 * @description Init 
 	*/
-	init(json) {
-		/*TODO: Create method to load more videos dynamically, incl. IO and YoiTube onReady */
-		if (json) {
-			json.forEach(video => {
-				document.body.insertAdjacentHTML('beforeEnd', video.src.includes('mp4') ? this.tmplVideo(video, 'video/mp4') : this.tmplVideoIframe(video));
-			});
-		}
+	init() {
+		/* Inject YouTube API-script */
 		insertScript(this.settings.youtubeAPI);
+
+		/* Check for saveData */
+		this.saveData = false;
+		if ('connection' in navigator && (navigator.connection.saveData === true)) {
+			this.saveData = true;
+		}
 
 		/* Add eventListeners */
 		window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady.bind(this);
-
-		document.querySelectorAll('[data-video-play]').forEach(button => {
-			button.addEventListener('click', (event) => { this.toggleVideo(event) });
-		});
-	
 		document.addEventListener("visibilitychange", () => { if (document.hidden) this.pauseVideo(); });
 
 		/* Add IntersectionObserver */
@@ -43,20 +38,48 @@ export default class VideoLoader {
 			entries.forEach((entry) => {
 				if (entry.isIntersecting) {
 					const video = entry.target.querySelector('iframe, video');
-					if (entry.intersectionRatio < 0.75) {
+					if (entry.intersectionRatio < this.settings.intersectionRatio) {
 						this.pauseVideo(video);
 					}
 					else {
-						this.playVideo(video);
+						if (entry.target.dataset.video === 'autoplay') {
+							this.playVideo(video);
+						}
 					}
 				}
 			});
 		}, {
-			threshold: [0, 0.75]
+			threshold: [0, this.settings.intersectionRatio]
 		});
 
-		document.querySelectorAll(`[data-video="autoplay"]`).forEach((element) => {
+		this.loadVideos();
+		this.loadButtons();
+	}
+
+		/**
+	 * @function loadButtons
+	 * @param {String} selector
+	 * @description Add eventListener to play/pause buttons
+	*/
+	loadButtons(selector = `[data-video-play]:not([data-video-loaded])`) {
+		document.querySelectorAll(selector).forEach(button => {
+			button.addEventListener('click', (event) => { this.toggleVideo(event) });
+			/* Prevent button from being selected again, if new videos are loaded dynamically */
+			button.dataset.videoLoaded = '';
+		});
+	}
+
+	/**
+	 * @function loadVideos
+	 * @param {String} selector
+	 * @description Add video-elements to IntersectionObserver.
+	*/
+	loadVideos(selector = `[data-video="autoplay"]:not([data-video-loaded])`) {
+		if (this.saveData) { return; }
+		document.querySelectorAll(selector).forEach((element) => {
 			this.IO.observe(element);
+			/* Prevent video from being selected again, if new videos are loaded dynamically */
+			element.dataset.videoLoaded = '';
 		});
 	}
 
@@ -79,10 +102,10 @@ export default class VideoLoader {
 	/**
 	 * @function oYouTubePlayerReady
 	 * @param {Event} event
-	 * @description Set a property on YouTube-iframe with the (inner) player as reference
+	 * @description Set a property on YouTube-iframe with the (inner) player as reference. This is (as per January 2021), the "h"-property.
 	*/
 	onYouTubePlayerReady(event) {
-		event.target.f.__VIDEO_PLAYER = event.target;
+		event.target.h.__VIDEO_PLAYER = event.target;
 	}
 
 	/**
@@ -93,10 +116,10 @@ export default class VideoLoader {
 	onYouTubePlayerStateChange(event) {
 		/* Native YouTube play-button pressed */
 		if (event.data === 1) {
-			if (window.__VIDEO_PLAYING !== event.target.f) {
+			if (window.__VIDEO_PLAYING !== event.target.h) {
 				this.pauseVideo();
 			}
-			window.__VIDEO_PLAYING = event.target.f;
+			window.__VIDEO_PLAYING = event.target.h;
 		};
 	}
 
@@ -105,6 +128,7 @@ export default class VideoLoader {
 	 * @description Pauses a video
 	*/
 	pauseVideo() {
+		if (window.__VIDEO_PLAYING === undefined) { return; }
 		const video = window.__VIDEO_PLAYING;
 		if (video) {
 			video.tagName === 'VIDEO' ? video.pause() : video?.__VIDEO_PLAYER?.pauseVideo();
@@ -119,61 +143,16 @@ export default class VideoLoader {
 	playVideo(video) {
 		if (video) {
 			video.tagName === 'VIDEO' ? video.play() : video?.__VIDEO_PLAYER?.playVideo();
+			console.log(window.__VIDEO_PLAYING)
+			if (!video?.__VIDEO_PLAYER) return;
 			window.__VIDEO_PLAYING = video;
 		}
 	}
 
 	/**
-	 * @function tmplVideo
-	 * @param {Node} video
-	 * @param {String} type
-	 * @description Renders a <video>-tag
-	 * Control autoplay from JavScript InterSection Observer, instead of ${video.autoplay ? ` autoplay`:''}
-	*/
-	tmplVideo(video, type) {
-		return `
-		<div data-video="${video.autoplay ? 'autoplay':''}">
-			<video
-				${video.controls ? ` controls`:''}
-				${video.fullscreen ? ` data-hide-fullscreen`:''}
-				${video.loop ? ` loop`:''}
-				${video.mute ? ` muted`:''}
-				${video.playsinline ? ` playsinline`:''}
-				preload="${video.preload ? 'auto':'none'}">
-				<source src="${video.src}" type="${type}">
-			</video>
-			${video.poster ? `
-				<img data-video-poster src="${video.poster}" alt="${video.title}" />
-				<button data-video-play type="button">PLAY</button>`:''}
-		</div>`
-	}
-
-	/**
-	 * @function tmplVideoIframe
-	 * @param {Node} video
-	 * @description Renders an iframe with video (YouTube or Vimeo). If video has either autoplay or poster, the `enablejsapi=1` will be set
-	*/
-	tmplVideoIframe(video) {
-		return `
-		<div data-video="${video.autoplay ? 'autoplay':''}">
-			<iframe
-				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-				allowfullscreen
-				frameborder="0"
-				loading="${video.preload ? 'eager' : 'lazy'}"
-				src="${video.src}?${video.controls ? `controls=1`:''}${video.fullscreen ? `&amp;fs=1`:''}${video.lang ? `&amp;hl=${video.lang}`:''}${video.loop ? `&amp;loop=1`:''}${video.mute ? `&amp;mute=1`:''}${video.playsinline ? `&amp;playsinline=1`:''}&amp;enablejsapi=1"
-				title="${video.title}">
-			</iframe>
-			${video.poster ? `
-				<img data-video-poster src="${video.poster}" alt="${video.title}" />
-				<button data-video-play type="button">PLAY</button>`:''}
-		</div>`
-	}
-
-	/**
 	 * @function toggleVideo
 	 * @param {Event} event
-	 * @description Handles clcicks on custom play-buttons
+	 * @description Handles clicks on custom play-buttons
 	*/
 	toggleVideo(event) {
 		const button = event.target;
@@ -181,16 +160,30 @@ export default class VideoLoader {
 		const video = button.parentNode.querySelector('[data-video] iframe, [data-video] video');
 
 		if (poster && video) {
-			button.hidden = true;
-			poster.hidden = true;
 			this.pauseVideo();
-			this.playVideo(video);
+
+			// TODO
+			const keep = button.dataset.videoPlay.includes('keep');
+			const hideButton = button.dataset.videoPlay.includes('hide-button');
+
+			if ('playing' in button.dataset) {
+				delete button.dataset.playing;
+				if (keep) { poster.hidden = false; }
+			}
+			else {
+				if (hideButton) { button.hidden = true; }
+				button.dataset.playing = '';
+				poster.hidden = true;
+				this.playVideo(video);
+			}
 		}
 
-		// video.addEventListener('ended', function videoEnded() {
-		// 	button.hidden = false;
-		// 	poster.hidden = false;
-		// 	video.removeEventListener('ended', videoEnded);
-		// });
+		/* Re-show poster and play-button, when video is done */
+		video.addEventListener('ended', function videoEnded() {
+			delete button.dataset.playing;
+			button.hidden = false;
+			poster.hidden = false;
+			video.removeEventListener('ended', videoEnded);
+		});
 	}
 }

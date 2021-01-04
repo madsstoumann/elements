@@ -9,23 +9,36 @@
 <body>
 
 	<div data-js="unit"
-		data-app-type="Unit"
-		data-url-presets="../assets/data/presets-unit.json">
+		data-app-icon="../assets/svg/cssapp.svg#unit"
+		data-app-type="">
 	</div>
 
 	<script type="module">
 		const elements = document.querySelectorAll('[data-js="unit"]');
 			if (elements.length) {
-				import('../assets/js/unit.mjs')
+				import('../assets/js/css-unit.mjs')
 				.then(module => {
 					const jsClass = module.default;
 					elements.forEach(element => {
-						new jsClass(element, element.dataset);
+						new jsClass(element, element.dataset, presets);
 						element.addEventListener('eventAddPreset', (event) => { console.log(JSON.parse(event.detail)); });
 						element.addEventListener('eventDelPreset', (event) => { console.warn(JSON.parse(event.detail)); });
 					});
 				})
 			}
+			const presets = [
+			{
+				"name": "gap",
+				"deletable": false,
+				"value": "1rem",
+				"values": [
+						{
+							"value": 1,
+							"unit": "rem"
+						}
+					]
+				}	
+			]
 	</script>
 </body>
 </html>

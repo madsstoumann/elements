@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <title>Play/Pause Animations: Zero Time With Checkbox Hack</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>
+    body {
+      font-family: ui-sans-serif, sysetm-ui, sans-serif;
+      padding: 2rem;
+    }
+    .chk {
+      align-items: center;
+      cursor: pointer;
+      display: inline-flex;
+      user-select: none;
+    }
+    .chk::before {
+      --ico-check: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 2.5l-8.5 8.5-3.5-3.5-1.5 1.5 5 5 10-10z" fill="white"></path></svg>');
+      background: silver var(--ico-check) center center/70% no-repeat;
+      border-radius: 0.25rem;
+      display: inline-block;
+      content: '';
+      height: 1.25rem;
+      margin-inline-end: 0.25rem;
+      width: 1.25rem;
+    }
+    .hidden {
+      clip: rect(1px 1px 1px 1px);
+      clip: rect(1px, 1px, 1px, 1px);
+      clip-path: inset(1px);
+      display: block;
+      height: 1px;
+      overflow: hidden; 
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
+    .circle {
+      --bgc: cornflowerblue;
+      --w: 150px;
+      align-items: center;
+      background-color: var(--bgc);
+      border-radius: 50%;
+      color: #FFF;
+      display: flex;
+      height: var(--w);
+      justify-content: center;
+      margin-bottom: 1rem;
+      width: var(--w);
+    }
+    .a-pulse {
+      --animdur: 0s;
+      --animn: pulse;
+      will-change: transform;
+    }
+    .a-slide {
+      --animdur: 0s;
+      --animn: slide;
+    }
+    [data-animation] {
+      animation: var(--animn, none) var(--animdur, 0s) var(--animtf, linear) var(--animdel, 0s) var(--animic, infinite) var(--animdir, alternate) var(--animfm, none) var(--animps, running);
+    }
+
+    /* STATE */
+    [data-animation-pause]:checked ~ [data-animation] {
+      --animdur: 3s;
+    }
+
+    [data-animation-pause]:checked + label::before {
+      background-color: cornflowerblue;
+    }
+
+    /* KEYFRAMES */
+    @keyframes opacity {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.6;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      25% {
+        transform: scale(.9);
+      }
+      50% {
+        transform: scale(1);
+      }
+      75% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    @keyframes slide {
+      from { margin-left: 0%; }
+      to { margin-left: calc(100% - var(--w, 150px)); }
+  }
+  </style>
+</head>
+<body>
+  <h1>Play/pause CSS animations with `animation-duration`</h1>
+  <p>You shold NOT use this method, it's an example for an upcoming article!</p>
+  <input type="checkbox" data-animation-pause id="css-toggle" class="hidden" />
+  <label for="css-toggle" class="chk">Toggle animation-duration (0 to 3s)</label>
+  <div class="circle a-slide" data-animation="stop">I will play/pause</div>
+  <div class="circle a-slide" data-animation="once" style="--bgc:tomato;--animdel:250ms;">I will play/pause</div>
+  <div class="circle a-slide" data-animation="slow" style="--bgc:tan;--animdel:500ms;">I will play/pause</div>
+  <div class="circle a-slide" data-animation style="--bgc:orange;--animdel:750ms;">I will play/pause</div>
+  <div class="circle a-pulse" data-animation="alternate" style="--bgc:purple;">I will play/pause</div>
+</body>
+</html>

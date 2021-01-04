@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <title>Play/Pause Animations: Slideshow</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+
+<style>
+ @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Castoro&family=Smythe&display=swap'); 
+ .c-mm {
+  --h: 9;
+  --w: 16;
+  --z: 100; /* z-index begin */
+  --animdur: 18000ms; /* 3 times the duration */
+  --animtf: ease-out;
+  --dist: clamp(0.75rem, 10vw, 1.5rem);
+  --slides: 20;
+  font-size: 1rem;
+  position: relative;
+}
+.c-mm::before {
+  content: '';
+  display: block;
+  padding-bottom: calc(var(--h) / var(--w) * 100%);
+}
+[data-caption] {
+  --b: var(--dist);
+  --l: var(--dist);
+  --r: initial;
+  --t: initial;
+
+  bottom: var(--b);
+  color: rgba(255, 255, 255, 0.95);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1rem, 10vw, 4rem);
+  left: var(--l);
+  line-height: 1;
+  position: absolute;
+  right: var(--r);
+  top: var(--t);
+}
+[data-caption] div,
+[data-filter] div {
+  font-family: 'Castoro', serif;
+  font-size: 50%;
+}
+
+[data-caption*="bottom"] {
+  --b: var(--dist);
+  --t: auto;
+}
+[data-caption*="left"] {
+  --l: var(--dist);
+  --r: auto;
+}
+[data-caption*="right"] {
+  --l: auto;
+  --r: var(--dist);
+  text-align: right;
+}
+[data-caption*="top"] {
+  --b: auto;
+  --t: var(--dist);
+}
+
+.c-mm__frame {
+  --animps: paused;
+  --img-animps: paused;
+  --index: 0;
+  animation: autoplay var(--animdur) infinite;
+  animation-delay: calc((var(--index) * var(--animdur)) / 3);
+  animation-play-state: var(--animps);
+  box-sizing: border-box;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+/* Alas, we cannot use var() in nth-selector :-(, so we need code for 3-20 items */
+.c-mm__frame:nth-last-child(3):first-child, 
+.c-mm__frame:nth-last-child(3):first-child ~ .c-mm__frame {
+  animation-duration: var(--animdur);
+}
+.c-mm__frame:nth-last-child(4):first-child, 
+.c-mm__frame:nth-last-child(4):first-child ~ .c-mm__frame {
+  animation-duration: calc((4/3) * var(--animdur));
+}
+.c-mm__frame:nth-last-child(5):first-child, 
+.c-mm__frame:nth-last-child(5):first-child ~ .c-mm__frame {
+  animation-duration: calc((5/3) * var(--animdur));
+}
+.c-mm__frame:nth-last-child(6):first-child, 
+.c-mm__frame:nth-last-child(6):first-child ~ .c-mm__frame {
+  animation-duration: calc((6/3) * var(--animdur));
+}
+.c-mm__frame:nth-last-child(7):first-child, 
+.c-mm__frame:nth-last-child(7):first-child ~ .c-mm__frame {
+  animation-duration: calc((7/3) * var(--animdur));
+}
+.c-mm__frame:nth-last-child(8):first-child, 
+.c-mm__frame:nth-last-child(8):first-child ~ .c-mm__frame {
+  animation-duration: calc((8/3) * var(--animdur));
+}
+.c-mm__frame:nth-last-child(9):first-child, 
+.c-mm__frame:nth-last-child(9):first-child ~ .c-mm__frame {
+  animation-duration: calc((9/3) * var(--animdur));
+}
+.c-mm__frame:nth-last-child(10):first-child, 
+.c-mm__frame:nth-last-child(10):first-child ~ .c-mm__frame {
+  animation-duration: calc((10/3) * var(--animdur));
+}
+
+.c-mm__img { 
+  animation-direction: alternate;
+  animation-duration: calc(var(--animdur) / 1.5);
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+  animation-name: var(--animn);
+  animation-play-state: var(--img-animps);
+  animation-timing-function: var(--animtf);
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--x, 50%) var(--y, 50%);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  will-change: transform;
+}
+
+.c-mm__inner {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.c-mm__play {
+  --size: clamp(3rem, 10vw, 4rem);
+  align-items: center;
+  background: rgba(235,235,235,0.9); 
+  box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 50%;
+  display: flex;
+  height: var(--size);
+  justify-content: center;
+  position: absolute;
+  bottom: var(--dist);
+  right: var(--dist);
+  user-select: none;
+  width: var(--size);
+  z-index: calc(var(--z) + var(--slides) + 1); 
+}
+
+.c-mm__play:hover {
+  background: rgba(255,255,255,0.9); 
+}
+
+/* CHECKBOX-HACK STATE */
+[name="slideshow"]:checked ~ .c-mm__inner .c-mm__frame {
+  --animps: running;
+  --img-animps: running;
+}
+[name="slideshow"]:not(:checked)  ~ .c-mm__inner .c-mm__frame {
+  --animps: paused;
+  --img-animps: paused !important;
+}
+[name="slideshow"]:not(:checked) ~ .c-mm__inner .c-mm__frame:first-of-type {
+  opacity: 1;
+}
+[name="slideshow"]:checked + label [data-css-icon*="play"] i::after {
+  --cpa: polygon(40% 0%,0% 0%,0% 100%,40% 100%,40% 0%,60% 0%,100% 0%,100% 100%,60% 100%,60% 0%);
+}
+
+/* DETAILS STATE */
+details[open] ~ .c-mm__inner .c-mm__frame {
+  --animps: running;
+  --img-animps: running;
+}
+details:not([open])  ~ .c-mm__inner .c-mm__frame {
+  --animps: paused;
+  --img-animps: paused !important;
+}
+details:not([open]) ~ .c-mm__inner .c-mm__frame:first-of-type {
+  opacity: 1;
+}
+details[open] summary [data-css-icon*="play"] i::after {
+  --cpa: polygon(40% 0%,0% 0%,0% 100%,40% 100%,40% 0%,60% 0%,100% 0%,100% 100%,60% 100%,60% 0%);
+}
+summary::marker { display: none; }
+summary::-webkit-details-marker { display: none; }
+
+@keyframes autoplay {
+  0.1% { --img-animps: running; opacity: 0; z-index: calc(var(--z) + var(--slides)) }
+  5% { opacity: 1 }
+  50% { opacity: 1 }
+  51% { --img-animps: paused }
+  100% { opacity: 0; z-index: var(--z) }
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2020-11-25 9:5:10
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+@keyframes kenburns-top{0%{transform:scale(1) translateY(0);transform-origin:50% 16%}100%{transform:scale(1.25) translateY(-15px);transform-origin:top}}
+@keyframes kenburns-top-right{0%{transform:scale(1) translate(0,0);transform-origin:84% 16%}100%{transform:scale(1.25) translate(20px,-15px);transform-origin:right top}}
+@keyframes kenburns-right{0%{transform:scale(1) translate(0,0);transform-origin:84% 50%}100%{transform:scale(1.25) translateX(20px);transform-origin:right}}
+@keyframes kenburns-bottom-right{0%{transform:scale(1) translate(0,0);transform-origin:84% 84%}100%{transform:scale(1.25) translate(20px,15px);transform-origin:right bottom}}
+@keyframes kenburns-bottom{0%{transform:scale(1) translateY(0);transform-origin:50% 84%}100%{transform:scale(1.25) translateY(15px);transform-origin:bottom}}
+@keyframes kenburns-bottom-left{0%{transform:scale(1) translate(0,0);transform-origin:16% 84%}100%{transform:scale(1.25) translate(-20px,15px);transform-origin:left bottom}}
+@keyframes kenburns-left{0%{transform:scale(1) translate(0,0);transform-origin:16% 50%}100%{transform:scale(1.25) translate(-20px,15px);transform-origin:left}}
+@keyframes kenburns-top-left{0%{transform:scale(1) translate(0,0);transform-origin:16% 16%}100%{transform:scale(1.25) translate(-20px,-15px);transform-origin:top left}}
+
+/* FROM CSS-ICONS-PEN, slightly modified */		
+[data-css-icon] {
+  --icon-size: 1.5rem;
+  --size: 3.75rem;
+  --bdrs: 50%;
+  --c: currentcolor;
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+[data-css-icon] i {
+  align-items: center;
+  border-radius: var(--bdrs);
+  box-sizing: content-box;
+  display: inline-flex;
+  height: var(--size);
+  justify-content: center;
+  position: relative;
+  width: var(--size);
+}
+[data-css-icon] i::after {
+  --cpa: none;
+  --h: var(--icon-size);
+  --w: var(--icon-size);
+  background-color: var(--bgcl);
+  clip-path: var(--cpa);
+  content: "";
+  display: inline-block;
+  height: var(--h);
+  margin: 0;
+  width: var(--w);
+}
+[data-css-icon*="play"] i::after {
+  --bgcl: var(--c);
+  --cpa: polygon(16% 0%,15% 100%,100% 50%);
+}
+
+/* SAFARI HACK */
+@media not all and (min-resolution:.001dpcm) { 
+  @supports (-webkit-appearance:none) {
+    summary [data-css-icon] i {
+      right: -2px;
+      top: 2px;
+    }
+    img { filter: grayscale(1); }
+  }
+}
+
+/* DEMO */
+body { font-family: system-ui, sans-serif; margin: 0 auto; max-width: 54rem; padding: 1rem }
+a, p {  color: silver; font-size: small; }
+
+</style>
+</head>
+<body>
+
+  <div class="c-mm">
+    <details>
+      <summary class="c-mm__play"><span data-css-icon="play"><i></i></span></summary>
+      <span hidden></span>
+    </details>
+    <div class="c-mm__inner">
+
+      <figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:0;">
+        <img class="c-mm__img" src="https://elements.stoumann.dk/assets/img/movie/01.jpg" />
+        <figcaption data-caption="bottom left">Holiday Memories<div>Bornholm</div></figcaption>
+      </figure>
+
+      <figure class="c-mm__frame" style="--animn:kenburns-top;--index:1;">
+        <img class="c-mm__img" src="https://elements.stoumann.dk/assets/img/movie/02.jpg" />
+        <figcaption data-caption="bottom left">Rocky Beach</figcaption>
+      </figure>
+
+      <figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:2;">
+        <img class="c-mm__img" src="https://elements.stoumann.dk/assets/img/movie/03.jpg" />
+        <figcaption data-caption="top right">Opal Lake </figcaption>
+      </figure>
+
+      <figure class="c-mm__frame" style="--animn:kenburns-top;--index:3;">
+        <img class="c-mm__img" src="https://elements.stoumann.dk/assets/img/movie/04.jpg" />
+        <figcaption data-caption="bottom left">Melsted</figcaption>
+      </figure>
+
+      <figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:4;">
+        <img class="c-mm__img" src="https://elements.stoumann.dk/assets/img/movie/05.jpg" />
+        <figcaption data-caption="top right">Bigfoot<div>Stone Edition</div></figcaption>
+      </figure>
+
+      <figure class="c-mm__frame" style="--animn:kenburns-top;--index:5;">
+        <img class="c-mm__img" src="https://elements.stoumann.dk/assets/img/movie/06.jpg" />
+        <figcaption data-caption="top left">Hammer Lake<div>Opal Lake</div></figcaption>
+      </figure>
+
+      <figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:6;">
+        <img class="c-mm__img" src="https://elements.stoumann.dk/assets/img/movie/07.jpg" />
+        <figcaption data-caption="bottom left">Wild Garlic</figcaption>
+      </figure>
+
+      <figure class="c-mm__frame" style="--animn:kenburns-top;--index:7;">
+        <img class="c-mm__img" src="https://elements.stoumann.dk/assets/img/movie/08.jpg" />
+        <figcaption data-caption="top right">Wall Of Rock</figcaption>
+      </figure>
+
+      <figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:8;">
+        <img class="c-mm__img" src="https://elements.stoumann.dk/assets/img/movie/09.jpg" />
+        <figcaption data-caption="bottom left">Coastal Path<div>Gudhjem</div></figcaption>
+      </figure>
+
+      <figure class="c-mm__frame" style="--animn:kenburns-bottom-left;--index:9;">
+        <img class="c-mm__img" src="https://elements.stoumann.dk/assets/img/movie/10.jpg" />
+        <figcaption data-caption="bottom left">Sunset At Bokul<div>Gudhjem</div></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <p>The &lt;details&gt;-tag is here used to play/pause the slideshow, using it's [open]-state (and :not([open])) to set two CSS Custom Properties, controlling the "animation-play-state" of both the overall slideshow and the animations of the individual slides.</p>
+
+
+</body>
+</html>

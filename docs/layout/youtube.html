@@ -1,71 +1,232 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 <head>
-	<title>Loading Videos</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-	<meta name="description" content="Put your description here.">
+  <title>Loading Videos</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Put your description here.">
 
-	<meta http-equiv="Content-Security-Policy" content="
-		default-src;
-		script-src 'self' ajax.cloudflare.com unpkg.com *.youtube.com *.ytimg.com 'unsafe-inline' 'unsafe-eval' ;
-		style-src 'self' 'unsafe-inline';
-		img-src 'self' *.ytimg.com data:;
-		font-src;
-		connect-src 'self';
-		media-src 'self';
-		object-src 'none';
-		child-src 'self';
-		frame-src *.youtube.com *.vimeo.com;
-		form-action;
-		base-uri;
-		manifest-src 'self';">
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src;
+    script-src 'self' ajax.cloudflare.com unpkg.com *.youtube.com *.ytimg.com 'unsafe-inline' 'unsafe-eval' ;
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' *.ytimg.com data:;
+    font-src;
+    connect-src 'self';
+    media-src 'self';
+    object-src 'none';
+    child-src 'self';
+    frame-src *.youtube.com *.vimeo.com;
+    form-action;
+    base-uri;
+    manifest-src 'self';">
 
-		<style>
-			[data-hide-fullscreen]::-webkit-media-controls-fullscreen-button {
-				display: none !important;
-			}
-			[data-video] > iframe,
-			[data-video] > video,
-			[data-video-poster] {
-				height: 100%;
-				object-fit: cover;
-				position: absolute;
-				width: 100%;
-			}
-			[data-video] {
-				--h: 9;
-				--w: 16;
-				margin: 0;
-				position: relative;
-				padding: 0;
-				width: 100%;
-			}
-			[data-video]::after {
-				content: "";
-				display: block;
-				padding-bottom: calc(100% * (var(--h) / var(--w)));
-			}
-			[data-video-play] {
-				left: 50%;
-				position: absolute;
-				top: 50%;
-				transform: translate(-50%, -50%);
-			}
-		</style>
-	</head>
-	<body>
+    <style>
+      [data-hide-fullscreen]::-webkit-media-controls-fullscreen-button {
+        display: none !important;
+      }
+      [data-video] > iframe,
+      [data-video] > video,
+      [data-video-poster] {
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        width: 100%;
+      }
+      [data-video] {
+        --h: 9;
+        --w: 16;
+        margin: 0;
+        position: relative;
+        padding: 0;
+        width: 100%;
+      }
+      [data-video]::after {
+        content: "";
+        display: block;
+        padding-bottom: calc(100% * (var(--h) / var(--w)));
+      }
+      [data-video-play] {
+        --bgc: rgba(255, 255, 255, 0.9);
+        --c: #444;
+        --cpa: polygon(16% 0%,15% 100%,100% 50%);
+        --size: 4rem;
+        align-items: center;
+        background-color: var(--bgc);
+        border: 0;
+        border-radius: 50%;
+        display: flex;
+        height: var(--size);
+        justify-content: center;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: var(--size);
+      }
+      [data-video-play]::after {
+        background-color: var(--c);
+        clip-path: var(--cpa);
+        content: '';
+        display: inline-block;
+        height: calc(var(--size) / 2);
+        width: calc(var(--size) / 2);
+      }
+      [data-video-play][data-playing] {
+        --cpa: polygon(40% 0%,0% 0%,0% 100%,40% 100%,40% 0%,60% 0%,100% 0%,100% 100%,60% 100%,60% 0%);
+        opacity: 0.5;
+      }
+      [data-video-play][hidden] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+<script type="module">
 
-		<script type="module">
-			(async () => {
-				const videos = await (await fetch('../assets/data/videos.json')).json();
-				import('../assets/js/videoloader.mjs')
-				.then(module => {
-					const jsClass = module.default;
-					new jsClass('', videos);
-				});
-			})();
-		</script>
+/* Sample Content */
+const videos = [
+  {
+    "autoplay": false,
+    "controls": false,
+    "fullscreen": false,
+    "lang": "lt", 
+    "loop": false,
+    "mute": false,
+    "playsinline": true,
+    "poster": "../assets/img/coffee-light-large.jpg",
+    "posteroptions": "hide-button",
+    "preload": false,
+    "src": "https://www.youtube.com/embed/GNuG-5m4Ud0",
+    "title": ""
+  },
+  {
+    "autoplay": true,
+    "controls": false,
+    "fullscreen": false,
+    "lang": "da", 
+    "loop": false,
+    "mute": true,
+    "playsinline": true,
+    "poster": "",
+    "preload": false,
+    "src": "https://www.youtube.com/embed/PWbsEWNOtpw",
+    "title": ""
+  },
+  {
+    "autoplay": false,
+    "controls": false,
+    "fullscreen": false,
+    "lang": "da", 
+    "loop": false,
+    "mute": true,
+    "playsinline": true,
+    "poster": "",
+    "preload": false,
+    "src": "https://www.youtube.com/embed/qm0IfG1GyZU",
+    "title": ""
+  },
+  {
+    "autoplay": false,
+    "controls": false,
+    "fullscreen": false,
+    "lang": "da", 
+    "loop": false,
+    "mute": true,
+    "playsinline": true,
+    "poster": "",
+    "preload": false,
+    "src": "https://player.vimeo.com/video/336812660",
+    "title": ""
+  },
+  {
+    "autoplay": true,
+    "controls": false,
+    "fullscreen": false,
+    "lang": "da", 
+    "loop": false,
+    "mute": true,
+    "playsinline": true,
+    "poster": "",
+    "preload": false,
+    "src": "../assets/video/food.mp4",
+    "title": ""
+  },
+  {
+    "autoplay": false,
+    "controls": false,
+    "fullscreen": false,
+    "lang": "da", 
+    "loop": false,
+    "mute": true,
+    "playsinline": true,
+    "poster": "../assets/img/coffee-dark-large.jpg",
+    "posteroptions": "keep",
+    "preload": false,
+    "src": "../assets/video/food.mp4",
+    "title": ""
+  }
+]
+/**
+ * @function tmplVideo
+ * @param {Node} video
+ * @param {String} type
+ * @description Renders a <video>-tag
+ * Control autoplay from JavScript InterSection Observer, instead of ${video.autoplay ? ` autoplay`:''}
+*/
+function tmplVideo(video, type) {
+return `
+<div data-video="${video.autoplay ? 'autoplay':''}">
+  <video
+    ${video.controls ? ` controls`:''}
+    ${video.fullscreen ? ` data-hide-fullscreen`:''}
+    ${video.loop ? ` loop`:''}
+    ${video.mute ? ` muted`:''}
+    ${video.playsinline ? ` playsinline`:''}
+    preload="${video.preload ? 'auto':'none'}">
+    <source src="${video.src}" type="${type}">
+  </video>
+  ${video.poster ? `
+    <img data-video-poster src="${video.poster}" alt="${video.title}" />
+    <button data-video-play="${video.posteroptions ? video.posteroptions:''}" type="button" aria-label="play"></button>`:''}
+</div>`
+}
 
-	</body>
+/**
+ * @function tmplVideoIframe
+ * @param {Node} video
+ * @description Renders an iframe with video (YouTube or Vimeo). If video has either autoplay or poster, the `enablejsapi=1` will be set
+*/
+function tmplVideoIframe(video) {
+return `
+<div data-video="${video.autoplay ? 'autoplay':''}">
+  <iframe
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    frameborder="0"
+    loading="${video.preload ? 'eager' : 'lazy'}"
+    src="${video.src}?${video.controls ? `controls=1`:''}${video.fullscreen ? `&amp;fs=1`:''}${video.lang ? `&amp;hl=${video.lang}`:''}${video.loop ? `&amp;loop=1`:''}${video.mute ? `&amp;mute=1`:''}${video.playsinline ? `&amp;playsinline=1`:''}&amp;enablejsapi=1"
+    title="${video.title}">
+  </iframe>
+  ${video.poster ? `
+    <img data-video-poster src="${video.poster}" alt="${video.title}" />
+    <button data-video-play="${video.posteroptions ? video.posteroptions:''}" type="button" aria-label="play"></button>`:''}
+</div>`
+}
+
+/* Render sample videos */
+videos.forEach(video => {
+  document.body.insertAdjacentHTML('beforeEnd', video.src.includes('mp4') ? tmplVideo(video, 'video/mp4') : tmplVideoIframe(video));
+});
+
+/* Import and run VideoLoader */
+import('../assets/js/videoloader.mjs')
+.then(module => {
+  const jsClass = module.default;
+  new jsClass();
+});
+
+</script>
+
+  </body>
 </html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <title>Play/Pause Animations: Checkbox Hack</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>
+body {
+  font-family: ui-sans-serif, sysetm-ui, sans-serif;
+  margin: 0 auto;
+  max-width: 20rem;
+  padding: 2rem;
+}
+
+.a-timer {
+  --bgc: lightslategray;
+  --counter: '0%';
+  animation: timer 5s linear infinite;
+  background-color: var(--bgc);
+  height: 15rem;
+  position: relative;
+  width: 15rem;
+}
+.a-timer::after {
+  align-items: center;
+  background-color: silver;
+  border-radius: 50%;
+  content: var(--counter);
+  display: inline-flex;
+  height: 5rem;
+  justify-content: center;
+  position: absolute;
+  right: 5rem;
+  top: 5rem;
+  width: 5rem;
+}
+
+/* KEYFRAMES */
+@keyframes timer {
+  0% {
+    --bgc: lightslategray;
+    --counter: '0%';
+  }
+  20% {
+    --bgc: darkslategray;
+    --counter: '20%';
+  }
+  40% {
+    --bgc: slateblue;
+    --counter: '40%';
+  }
+  60% {
+    --bgc: deepskyblue;
+    --counter: '60%';
+  }
+  80% {
+    --bgc: lavender;
+    --counter: '80%';
+  }
+  100% {
+    --bgc: orange;
+    --counter: '100%';
+  }
+}
+
+/*
+
+@property --o {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+CSS.registerProperty({
+      name: "--o",
+      syntax: "<number>",
+      initialValue: 0,
+      inherits: "false"
+   });
+*/
+
+  </style>
+</head>
+<body>
+  <div class="a-timer"></div>
+</body>
+</html>

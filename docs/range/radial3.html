@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Radial Range</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<style>
+	body { background: white; padding: 2rem; }
+	
+
+.c-rng {
+	--rng-w: 8rem;  
+	--rng-thumb-w: 2rem;
+
+	background-color: silver;
+	border-radius: 50%;
+	height: var(--rng-w);
+	position: relative;
+	width: var(--rng-w);
+}
+.c-rng::after {
+	background-color: white;
+	border-radius: 50%;
+	content: '';
+	display: block;
+	height: calc(var(--rng-w) - (var(--rng-thumb-w) * 2));
+	left: var(--rng-thumb-w);
+	position: absolute;
+	top: var(--rng-thumb-w);
+	width: calc(var(--rng-w) - (var(--rng-thumb-w) * 2));
+}
+
+.c-rng::-webkit-slider-runnable-track {
+	background: transparent;
+	background-size: 100%;
+	box-sizing: border-box;
+}
+.c-rng,
+.c-rng::-webkit-slider-runnable-track,
+.c-rng::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.c-rng::-webkit-slider-thumb {
+	background-color: tomato;
+	pointer-events: none;
+	border-radius: 50%;
+	display: block;
+	cursor: ew-resize;
+  height: var(--rng-thumb-w);  
+	position: relative;
+	width: var(--rng-thumb-w);
+	z-index: 1;
+}
+
+</style>
+<body>
+
+<input class="c-rng" type="range" min="0" max="100" value="0"  />
+
+
+</body>
+</html>

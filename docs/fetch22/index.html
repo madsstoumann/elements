@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <title>fetch22</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>
+
+body {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  margin: 1rem auto;
+  max-width: 60rem;
+}
+button {
+  font-family: ui-monospace, monospace;
+  padding: 0.25rem 0.5rem;
+}
+
+.app__code {
+  background-color: #1e1e1e;
+  border-radius: .5rem;
+  color: #b5cea8;
+  flex: 0 0 100%;
+  font-family: monospace;
+  font-size: small;
+  max-height: 20rem;
+  min-height: 5rem;
+  overflow-y: scroll;
+  padding: 0.5rem;
+  resize: none;
+  tab-size: 2;
+  width: 100%;
+  word-break: break-all;
+}
+.code--boolean { color: deepskyblue; }
+.code--key { color: lightblue; }
+.code--null { color: lightcoral; }
+.code--number { color: lightgreen; }
+.code--string {	color: lightsalmon; white-space: initial;}
+
+</style>
+</head>
+<body>
+
+<h1>fetch22()</h1>
+
+<button type="button" id="fetchJson">get json</button>
+<button type="button" id="fetchDawa">get json custom callback</button>
+<button type="button" id="fetchSvg">svg to data-url</button>
+<button type="button" id="fetchCustom">get &lt;symbol&gt; from id</button>
+<button type="button" id="fetchTimeout">timeout</button>
+<button type="button" id="fetch404">404</button>
+<button type="button" id="fetchCustomError">custom error</button>
+<pre class="app__code" id="console">$ result of fetch22() will be shown here</pre>
+<pre class="app__code" id="code">$ code will be shown here</pre>
+
+<p>fetch22() extends the fetch() init-object with:
+  <ul>
+    <li><strong>callback(true|false)</strong> : function to call when fetch starts(true) and ends(false)</li>
+    <li><strong>errorHandler(error)</strong> : custom function to run if an error occurs</li>
+    <li><strong>errorList</strong> : Array of status-codes to manually trigger errors</li>
+    <li><strong>parser(response)</strong> : custom function to parse the <em>response</em>, default will use <code>.json()</code> or <code>.text()</code>, depending on <em>response content-type</em></li>
+    <li><strong>parserArgs</strong> : Array of extra arguments to send to the custom parser after <em>response</em></li>
+    <li><strong>timeout</strong> : period in miliseconds to allow before a <em>Timeout Error</em>. Default is 9999ms</li>
+  </ul>
+</p>
+<p>
+  Open the regular <code>console</code> in order to see the custom callback-functions, error-handlers etc.
+</p>
+
+<script type="module">
+
+import fetch22 from 'https://assets.stoumann.dk/js/fetch22.mjs';
+
+/* For demo */
+function consoleLog(response, element = document.getElementById('console')) {
+  const str = typeof response === 'string' ? response : JSON.stringify(response, null, '\t');
+  element.innerHTML = syntaxHighlight(str);
+}
+
+/* Custom parsers */
+async function getSymbolFromSVG(response, id) {
+  const text = await response.text();
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(text, "text/xml");
+  const svg = doc.getElementById(id);
+  consoleLog(svg.outerHTML.toString());
+}
+
+async function svgToDataUrl(response) {
+  const svg = await response.text();
+  const svgDataUrl = `data:image/svg+xml;base64,${btoa(svg)}`
+  console.log('%c ', `
+    background: url(${ svgDataUrl }) no-repeat;
+    padding: 0 0 100px 100px;`);
+  consoleLog(svgDataUrl);
+}
+
+/* Custom error */
+function handleError(error) {
+  console.error(`%c ${error.name} %c ${error.message} %c ${error.status} `, "background:#333333 ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff", "background:orange ; padding: 1px; color: #222", "background:#ccc ; padding: 1px; border-radius: 0 3px 3px 0;  color: #222");
+  consoleLog(error);
+}
+
+/* Custom start / stop */
+function startStop(bool) {
+  if (bool) {
+    console.log(`%c fetch22 %c START `, "background:#333333 ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff", "background:green ; padding: 1px; color: #FFF");
+  }
+  else {
+    console.log(`%c fetch22 %c STOP `, "background:#333333 ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff", "background:firebrick ; padding: 1px; color: #FFF");
+  }
+}
+
+/* Syntax Highlight */
+function syntaxHighlight(str) {
+	let json = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+	return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+		let cls = 'code--number';
+		if (/^"/.test(match)) {
+			if (/:$/.test(match)) {
+				cls = 'code--key';
+			} else {
+				cls = 'code--string';
+			}
+		} else if (/true|false/.test(match)) {
+			cls = 'code--boolean';
+		} else if (/null/.test(match)) {
+			cls = 'code--null';
+		}
+		return `<span class="${cls}">${match}</span>`;
+	});
+}
+
+/* Examples */
+document.getElementById('fetchDawa').addEventListener('click', () => {
+  fetch22('//dawa.aws.dk/adresser/autocomplete?side=1&per_side=10&q=parkvej', {
+    callback: startStop,
+    mode: 'cors',
+    timeout: 3000
+  }).then(data => {
+    consoleLog(data);
+  });
+  consoleLog(`
+  fetch22('//dawa.aws.dk/adresser/autocomplete?side=1&per_side=10&q=parkvej', {
+    callback: startStop,
+    mode: 'cors',
+    timeout: 3000
+  }).then(data => {
+    consoleLog(data);
+  })
+  `, document.getElementById('code'))
+})
+
+document.getElementById('fetchJson').addEventListener('click', () => {
+  fetch22('https://jsonplaceholder.typicode.com/albums/?_limit=10&q=lorem', {
+    mode: 'cors',
+    timeout: 3000
+  }).then(data => {
+    consoleLog(data);
+  });
+  consoleLog(`
+  fetch22('https://jsonplaceholder.typicode.com/albums/?_limit=10&q=lorem', {
+    mode: 'cors',
+    timeout: 3000
+  }).then(data => {
+    consoleLog(data);
+  })
+  `, document.getElementById('code'))
+})
+
+document.getElementById('fetch404').addEventListener('click', () => {
+  fetch22('//httpstat.us/404', {
+    errorHandler: consoleLog,
+    mode: 'cors'
+  });
+  consoleLog(`
+  fetch22('//httpstat.us/404', {
+    errorHandler: consoleLog,
+    mode: 'cors'
+  })
+  `, document.getElementById('code'))
+})
+
+document.getElementById('fetchTimeout').addEventListener('click', () => {
+  fetch22('//httpstat.us/200?sleep=300', {
+    errorHandler: consoleLog,
+    mode: 'cors',
+    timeout: 200
+  });
+  consoleLog(`
+  fetch22('//httpstat.us/200?sleep=300', {
+    errorHandler: consoleLog,
+    mode: 'cors',
+    timeout: 200
+  })
+  `, document.getElementById('code'))
+})
+
+document.getElementById('fetchCustomError').addEventListener('click', () => {
+  fetch22('//httpstat.us/529', {
+    errorHandler: handleError,
+    mode: 'cors',
+  });
+  consoleLog(`
+  /* See the REAL console as well: Custom Error outputs there */
+  fetch22('//httpstat.us/529', {
+    errorHandler: handleError,
+    mode: 'cors'
+  });
+  `, document.getElementById('code'))
+})
+
+document.getElementById('fetchSvg').addEventListener('click', () => {
+  fetch22('https://assets.stoumann.dk/svg/layoutblock.svg', {
+    errorHandler: consoleLog,
+    mode: 'cors',
+    parser: svgToDataUrl
+  });
+  consoleLog(`
+  /* See the REAL console as well! */
+  fetch22('https://assets.stoumann.dk/svg/layoutblock.svg', {
+    errorHandler: consoleLog,
+    mode: 'cors',
+    parser: svgToDataUrl
+  })
+  `, document.getElementById('code'))
+})
+
+document.getElementById('fetchCustom').addEventListener('click', () => {
+  fetch22('https://assets.stoumann.dk/svg/icons.svg', {
+    errorHandler: consoleLog,
+    mode: 'cors',
+    parser: getSymbolFromSVG,
+    parserArgs: ['icon-check']
+  });
+  consoleLog(`
+  fetch22('https://assets.stoumann.dk/svg/icons.svg', {
+    errorHandler: consoleLog,
+    mode: 'cors',
+    parser: getSymbolFromSVG,
+    parserArgs: ['icon-check']
+  });
+  `, document.getElementById('code'));
+})
+</script>
+</body>
+</html>

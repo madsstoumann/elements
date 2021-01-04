@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<title>Radial Range</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<style>
+
+	.c-rng--circular {
+		--circle-bgc: #FFF;
+		--circle-size: 300px;
+		--track-bgc: silver;
+		--track-fill: cornflowerblue;
+		--thumb-size: 40px;
+
+		--gradient-start: 0deg;
+		--gradient-end: 0deg;
+
+		background-image: conic-gradient(var(--track-bgc) 0, var(--track-bgc) var(--gradient-start), var(--track-fill) var(--gradient-start), var(--track-fill) var(--gradient-end), var(--track-bgc) var(--gradient-end), var(--track-bgc));
+		border-radius: 50%;
+		height: var(--circle-size);
+		position: relative;
+		width: var(--circle-size);
+	}
+	.c-rng--circular::before {
+		background-color: var(--circle-bgc);
+		border-radius: 50%;
+		content: "";
+		display: block;
+		height: calc(var(--circle-size) - (var(--thumb-size) * 2));
+		left: var(--thumb-size);
+		position: absolute;
+		top: var(--thumb-size);
+		width: calc(var(--circle-size) - (var(--thumb-size) * 2));
+	}
+	.c-rng--circular-output {
+		background: transparent;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		height: var(--thumb-size);
+		margin-top: calc(var(--thumb-size) / -2);
+		transform: rotate(var(--angle));
+		transform-origin: center left;
+		width: 50%;
+	}
+	.c-rng--circular-output::before {
+		background-color: var(--thumb-bgc, #FFF);
+		border: var(--thumb-bdw, 2px) solid var(--track-fill);
+		border-radius: 50%;
+		box-sizing: border-box;
+		content: "";
+		cursor: ew-resize;
+		display: inline-block;
+		height: var(--thumb-size);
+		position: absolute;
+		right: 0;
+		width: var(--thumb-size);
+	}
+
+		/* .c-rng--circular-output:focus {
+			outline: 3px solid blue;
+		} */
+
+	body { 
+		background: white; padding: 2rem; }
+
+</style>
+<body>
+
+	<!-- <div id="circle" class="c-rng--circular">
+		<input class="c-rng" type="range" min="0" max="360" value="90" hidden />
+		<div id="picker" class="c-rng--circular-output"></div>
+	</div>	 -->
+
+	<input class="c-rng" data-range="" id="hello" type="range" min="0" max="180" step="2" value="90" />
+
+<script>
+
+	/* INIT */
+	const ranges = document.querySelectorAll('[data-range]');
+	ranges.forEach(range => {
+		CircularRangeSlider(range);
+	});
+
+	function CircularRangeSlider(range) {
+		const output = h('output', { class: 'c-rng--circular-output', for: range.id, tabindex: 0 });
+		const wrapper = h('div', { class: 'c-rng--circular' }, [output]);
+		const minMax = range.max-0 - range.min-0;
+
+		range.parentNode.insertBefore(wrapper, range);
+		// range.hidden = true;
+		const offset = -90;
+
+		wrapper.style.setProperty('--angle', `${offset}deg`);
+
+		const rect = wrapper.getBoundingClientRect(),
+		center = {
+			x: rect.left + rect.width / 2,
+			y: rect.top + rect.height / 2
+		},
+		keyDown = (event) => {
+			switch(event.key) {
+				case 'ArrowLeft': case 'ArrowDown': range.stepDown(); break;
+				case 'ArrowRight': case 'ArrowUp': range.stepUp(); console.log(range.value); break;
+				default: break;
+			}
+		}
+		onInput = (event) => {
+			console.log('input')
+		}
+		rotate = (x, y) => {
+			const X = x - center.x, Y = y - center.y;
+			let angle = Math.atan2(Y, X) * 180 / Math.PI;
+			// var test =  Math.atan2(Y,X) + (Math.PI / 2);
+			// var percent = test / (Math.PI * 2) * 100;
+			// if(percent < 0) percent = 100 + percent;
+			// console.log(percent)
+			return angle;
+		},
+		pointerDown = () => output.addEventListener('pointermove', pointerMove),
+		pointerMove = (event) => {
+			let angle = rotate(event.pageX, event.pageY);
+			
+			let gradientEnd = angle - offset;
+				if (gradientEnd < 0) {
+					gradientEnd = gradientEnd + 360;
+			}
+			const value = Math.ceil((gradientEnd / 360) * minMax, 10);
+			if (value > minMax) {
+				// do something
+			}
+			// wrapper.style.setProperty('--gradient-start', `${gradientStart}deg`);
+			wrapper.style.setProperty('--angle', `${angle}deg`);
+			wrapper.style.setProperty('--gradient-end', `${gradientEnd}deg`);
+		},
+		pointerUp = () => output.removeEventListener('pointermove', pointerMove);
+		output.addEventListener('keydown', keyDown);
+		output.addEventListener('pointerdown', pointerDown);
+		output.addEventListener('pointerup', pointerUp);
+		range.addEventListener('change', onInput);
+	}
+	
+
+
+
+
+	
+function h(type, attributes, children = []) {
+	const element = document.createElement(type);
+	for (let key in attributes) {
+		element.setAttribute(key, attributes[key]);
+	}
+	if (children.length) {
+		children.forEach(child => {
+			if (typeof child === 'string') {
+				element.appendChild(document.createTextNode(child));
+			} else {
+				element.appendChild(child);
+			}
+		});
+	}
+	return element;
+}
+</script>
+</body>
+</html>

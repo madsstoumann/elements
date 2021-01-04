@@ -4,20 +4,19 @@
 	<title>Responsive Image</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-	<link href="../assets/css/app-image.css" rel="stylesheet">
+	<link href="../assets/css/app-responsive.css" rel="stylesheet">
 </head>
 <body>
-	<div data-js="image-component"
-	data-app-icon="../assets/svg/cssapp.svg#responsive"
+	<div data-js="responsive"
+	  data-app-icon="../assets/svg/cssapp.svg#responsive"
 		data-app-type=""
-		data-lbl-app-header="Responsive Image Configurator"
-		data-url-presets="../assets/data/presets-picture.json">
+		data-lbl-app-header="Responsive Image Configurator">
 	</div>
 
 	<script type="module">
-		const elements = document.querySelectorAll('[data-js="image-component"]');
+		const elements = document.querySelectorAll('[data-js="responsive"]');
 		if (elements.length) {
-			import('../assets/js/image-component.mjs')
+			import('../assets/js/app-responsive.mjs')
 			.then(module => {
 				const jsClass = module.default;
 				elements.forEach(element => {
@@ -53,7 +52,7 @@
               "unit": "vw"
             }
           ],
-          "path": "../assets/img/",
+          "path": "https://your.cdn/img/",
           "scaler": [
             250,
             450,

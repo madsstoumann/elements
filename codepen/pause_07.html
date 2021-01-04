@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <title>Play/Pause Animations</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>
+    body {
+      font-family: ui-sans-serif, sysetm-ui, sans-serif;
+      margin: 0 auto;
+      max-width: 60rem;
+      padding: 2rem;
+    }
+    .circle {
+      --bgc: cornflowerblue;
+      --w: 150px;
+      align-items: center;
+      background-color: var(--bgc);
+      border-radius: 50%;
+      color: #FFF;
+      display: inline-flex;
+      height: var(--w);
+      justify-content: center;
+      margin: 0 0.5rem;
+      width: var(--w);
+    }
+    .circle__wrapper {
+      align-items: flex-end;
+      background-color: silver;
+      display: flex;
+      justify-content: center;
+      min-height: 20rem;
+      position: relative;
+    }
+    .circle__wrapper::after {
+      content: var(--counter, '0%');
+      display: inline-block;
+      font-size: 200%;
+      font-weight: 700;
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+    }
+    .a-bounce {
+      --animdur: 1.5s;
+      --animfm: both;
+      --animn: bounce;
+      --animtf: cubic-bezier(0.280, 0.840, 0.420, 1);
+      will-change: transform;
+    }
+    .a-timer {
+      --animps-1: ;
+      --animps-2: ;
+      --animps-3: ;
+      --animps-4: ;
+      --animps-5: ;
+      animation: timer 10s linear 1s infinite normal both running;
+    }
+
+    [data-animation] {
+      animation: var(--animn, none) var(--animdur, 0s) var(--animtf, linear) var(--animdel, 0s) var(--animic, infinite) var(--animdir, alternate) var(--animfm, none) var(--animps, paused);
+    }
+    [data-animation="1"] {
+      --animps: var(--animps-1);
+    }
+    [data-animation="2"] {
+      --animps: var(--animps-2);
+      --bgc: tomato;
+    }
+    [data-animation="3"] {
+      --animps: var(--animps-3);
+      --bgc: tan;
+    }
+    [data-animation="4"] {
+      --animps: var(--animps-4);
+      --bgc: orange;
+    }
+    [data-animation="5"] {
+      --animps: var(--animps-5);
+      --bgc: purple;
+    }
+
+    /* KEYFRAMES */
+    @keyframes timer {
+      0% {
+        --animps-1: paused;
+        --animps-2: paused;
+        --animps-3: paused;
+        --animps-4: paused;
+        --animps-5: paused;
+      }
+      0.01% {
+        --animps-1: running;
+        --counter: '0%';
+      }
+      20% {
+        --animps-1: paused;
+        --animps-2: running;
+        --counter: '20%';
+      }
+      40% {
+        --animps-2: paused;
+        --animps-3: running;
+        --counter: '40%';
+      }
+      60% {
+        --animps-3: paused;
+        --animps-4: running;
+        --counter: '60%';
+      }
+      80% {
+        --animps-4: paused;
+        --animps-5: running;
+        --counter: '80%';
+      }
+      100% {
+        --animps-5: paused;
+        --counter: '100%';
+      }
+    }
+
+    @keyframes bounce {
+      0%   { transform: scale(1,1)      translateY(0); }
+      10%  { transform: scale(1.1,.9)   translateY(0); }
+      30%  { transform: scale(.9,1.1)   translateY(-100px); }
+      50%  { transform: scale(1.05,.95) translateY(0); }
+      57%  { transform: scale(1,1)      translateY(-7px); }
+      64%  { transform: scale(1,1)      translateY(0); }
+      100% { transform: scale(1,1)      translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Play/pause secondary CSS animations from @keyframes</h1>
+  <div class="circle__wrapper a-timer">
+    <div class="circle a-bounce" data-animation="1">starts at 0%</div>
+    <div class="circle a-bounce" data-animation="2">starts at 20%</div>
+    <div class="circle a-bounce" data-animation="3">starts at 40%</div>
+    <div class="circle a-bounce" data-animation="4">starts at 60%</div>
+    <div class="circle a-bounce" data-animation="5">starts at 80%</div>
+  </div>
+</body>
+</html>

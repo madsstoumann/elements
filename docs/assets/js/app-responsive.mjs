@@ -1,14 +1,14 @@
 /**
  * ImageComponent module.
- * @module /image-component.mjs
- * @version 0.0.6
- * @summary 14-09-2020
+ * @module /app-responsive.mjs
+ * @version 0.0.7
+ * @summary 17-12-2020
  * @description Generate code for responsive <picture>
  * @example
  * <div data-js="image-component">
  */
 import CssApp from './css-app.mjs';
-export default class ImageComponent extends CssApp {
+export default class ResponsiveImage extends CssApp {
 	constructor(element, settings, presets) {
 		super(element, Object.assign({
 			clsDrag: 'app__img--drag',

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <title>Play/Pause Animations: IntersectionObserver</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>
+    body {
+      font-family: ui-sans-serif, sysetm-ui, sans-serif;
+      margin: 0 auto;
+      max-width: 60rem;
+      padding: 1rem 2rem;
+    }
+    .circle {
+      --bgc: cornflowerblue;
+      --w: 150px;
+      align-items: center;
+      background-color: var(--bgc);
+      border-radius: 50%;
+      color: #FFF;
+      display: flex;
+      height: var(--w);
+      justify-content: center;
+      margin-bottom: 1rem;
+      width: var(--w);
+    }
+    .a-pulse {
+      --animdur: 1s;
+      --animn: pulse;
+      will-change: transform;
+    }
+    .a-slide {
+      --animdur: 3s;
+      --animn: slide;
+    }
+    [data-animation] {
+      animation: var(--animn, none) var(--animdur, 0s) var(--animtf, linear) var(--animdel, 0s) var(--animic, infinite) var(--animdir, alternate) var(--animfm, none) var(--animps, running);
+    }
+
+    /* REDUCED MOTION */
+    @media (prefers-reduced-motion) {
+      [data-animation="alternate"] {
+        --animdur: 4s;
+        --animn: opacity;
+      }
+      [data-animation="once"] {
+        --animic: 1;
+      }
+      [data-animation="slow"] {
+        --animdur: 10s;
+      }
+    }
+
+    /* KEYFRAMES */
+    @keyframes opacity {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.6;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      25% {
+        transform: scale(.9);
+      }
+      50% {
+        transform: scale(1);
+      }
+      75% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    @keyframes slide {
+      from { margin-left: 0%; }
+      to { margin-left: calc(100% - var(--w, 150px)); }
+    }
+
+    .dummy {background-color: silver; font-size: 200%; height: 100vh; margin: 2rem 0; padding: 2rem;}
+    .code { background-color: #222; color: #EEE; position: fixed; bottom: 0; font-family: ui-monospace, monospace; left: 0; padding: 2rem; width: 100%; }
+  </style>
+</head>
+<body>
+  <h1>Play/pause CSS animations with IntersectionObserver</h1>
+  <p>
+    In this demo, all CSS animations are paused by default. Scroll (slowly!) downwards, and watch the info-bar at the bottom.<br />
+    An element will animate, if minimum 75% of it is in the viewport.<br />
+    Try enabling "Reduced motion / Show animations" in your OS, refresh the page, and watch the changes!
+  </p>
+  <div class="dummy">Dummy content, scroll down for animations</div>
+  <div class="circle a-slide" data-animation="stop">One</div>
+  <div class="circle a-slide" data-animation="once" style="--bgc:tomato;--animdel:250ms;">Two</div>
+  <div class="circle a-slide" data-animation="slow" style="--bgc:tan;--animdel:500ms;">Three</div>
+  <div class="circle a-slide" data-animation style="--bgc:orange;--animdel:750ms;">Four</div>
+  <div class="circle a-pulse" data-animation="alternate" style="--bgc:purple;">Five</div>
+  <div class="dummy">Dummy content</div>
+  <footer class="code" id="code">Animation info will be shown here.</footer>
+
+  <script>
+    const IO = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const state = (entry.intersectionRatio >= 0.75) ? 'running' : 'paused';
+          code.innerText = `${entry.target.innerText}, ratio: ${entry.intersectionRatio} (${state})`;
+          entry.target.style.setProperty('--animps', state);
+        }
+      });
+    }, {
+      threshold: [0.25, 0.75]
+    });
+
+    const codeText = document.getElementById('#code');
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const elements = mediaQuery?.matches ? document.querySelectorAll(`[data-animation]:not([data-animation="stop"]`) : document.querySelectorAll('[data-animation]');
+
+    elements.forEach(animation => {
+      IO.observe(animation);
+    });
+
+  </script>
+</body>
+
+</html>
