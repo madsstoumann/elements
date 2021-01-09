@@ -101,6 +101,10 @@
 			<line x1="10.2" y1="6.3" x2="16" y2="20" />
 			<polyline points="5 20 11 4 13 4 20 20" />
 		</symbol>
+		<symbol id="polygon" viewBox="0 0 24 24">
+  		<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  		<path d="M10.5 20.4l-6.9 -6.9c-.781 -.781 -.781 -2.219 0 -3l6.9 -6.9c.781 -.781 2.219 -.781 3 0l6.9 6.9c.781 .781 .781 2.219 0 3l-6.9 6.9c-.781 .781 -2.219 .781 -3 0z" />
+		</symbol>
 		<symbol id="theme" viewBox="0 0 24 24">
 			<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 			<rect x="4" y="4" width="6" height="6" rx="1" />

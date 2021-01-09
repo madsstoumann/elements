@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <title>Polygonia</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="BMI Calculator">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>
+*,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;margin:0;padding:0}html{background:rgba(0,0,0,.5)}body{font:large "Roboto",sans-serif;max-width:1280px;margin:0 auto}h1{font-size:2.5rem;margin:1% 0 4% 1%;font-weight:300;line-height:100%;color:#00b0ca}details{margin:5% 0}details summary::-webkit-details-marker{margin-left:1%}summary{outline:none;cursor:pointer;background:#00b0ca;border-radius:.25rem;padding:1%;color:#fff}button,fieldset,input,legend,select,textarea{font-family:inherit;font-size:1rem;font-weight:400;border:1px solid #aaa;border-radius:.25em}button,legend{padding:1em;color:#fff;border:0;background:#00b0ca}fieldset{margin:1% 0;padding:1rem}form{width:100%;min-height:50em;margin:1% auto;padding:0 1% 1% 1%;border:1px solid #aaa;background:#fff;box-shadow:0 .5em .75em rgba(0,0,0,.25)}input,select,textarea{height:2.5em;width:100%;padding:.5rem}label{display:inline-block;padding:.5em 0;vertical-align:top}output{float:right;color:#d3d3d3}textarea{resize:vertical}.canvas-wrapper,.svg-wrapper{width:73%;float:right;margin-left:1%}.delete{color:#d94a39;margin-left:1em}.green-button{background-color:#196533}.polygon-edit{width:26%;float:left}.polygon-edit ul{margin:2.5% 0 0 10%}.polygon-edit li{padding:2.5% 0;cursor:pointer}.red-button{background-color:#d94a39}.svg-code-wrapper{clear:both}.svg-code{padding:0;min-height:10em;tab-size:2;font-family:Inconsolata,monospace;width:100%;color:green;border:0}#polygon-canvas,#polygon-svg{overflow:auto}
+  </style>
+</head>
+<body>
+
+	<form class="polygon-creator" onchange="updatePolygon();" oninput="pw.value=pwr.valueAsNumber;ps.value=psr.valueAsNumber;pi.value=pir.valueAsNumber;">
+	<fieldset class="polygon-edit">
+	<legend>Edit Polygon</legend>
+	<details open>
+	<summary>Basic Settings</summary>
+	<label for="nWidth">Width</label>
+	<output for="nWidth" name="pw">650</output>
+	<input type="range" id="nWidth" name="pwr" min="50" max="650" value="400" />
+	<label for="nPolygonSides">Sides</label>
+	<output for="nPolygonSides" name="ps">5</output>
+	<input type="range" id="nPolygonSides" name="psr" min="2" max="100" value="5" />
+	<label for="nInset">Inset</label>
+	<output for="nInset" name="pi">50</output>
+	<input type="range" id="nInset" name="pir" min="0" max="100" value="50" />
+	</details>
+	<details>
+	<summary>Line Options</summary>
+	<label for="nLineWidth">Line Width</label>
+	<input type="number" id="nLineWidth" min="1" max="50" value="10" />
+	<label for="sLineJoinType">Line Join Type</label>
+	<select id="sLineJoinType">
+	<option>bevel</option>
+	<option selected>miter</option>
+	<option>round</option>
+	</select>
+	<label for="sLineColor">Line Color</label>
+	<input type="color" id="sLineColor" />
+	</details>
+	<details>
+	<summary>Color Options</summary>
+	<label for="sFillColor1">Fill Color</label>
+	<input type="color" id="sFillColor1" />
+	<label for="sFillColor2">Additional Color Stop</label>
+	<input type="color" id="sFillColor2" />
+	<label for="sGradientDir">Gradient Direction</label>
+	<select id="sGradientDir">
+	<option value="top" selected="selected">top-down</option>
+	<option value="left">left-right</option>
+	</select>
+	<label for="sFillType">Fill Type</label>
+	<select id="sFillType">
+	<option value="1">linear</option>
+	<option value="0" selected>none</option>
+	<option value="2">radial</option>
+	</select>
+	</details>
+	<details>
+	<summary>Shadow Options</summary>
+	<label for="sShadowColor">Shadow Color</label>
+	<input type="color" id="sShadowColor" />
+	<label for="nShadowBlur">Shadow Blur</label>
+	<input type="number" id="nShadowBlur" min="0" value="0" />
+	<label for="nShadowOffsetX">Shadow Offset X</label>
+	<input type="number" id="nShadowOffsetX" min="0" value="0" />
+	<label for="nShadowOffsetY">Shadow Offset Y</label>
+	<input type="number" id="nShadowOffsetY" min="0" value="0" />
+	</details>
+	<details>
+	<summary>Text &amp; Font</summary>
+	<label for="sText">Text</label>
+	<textarea id="sText"></textarea>
+	<label for="sTextColor">Text Color</label>
+	<input type="color" id="sTextColor" value="#ffffff" />
+	<label for="sTextFont">Font</label>
+	<select id="sTextFont">
+	<option selected>Arial</option>
+	<option>Arial Black</option>
+	<option>Charcoal</option>
+	<option>Comic Sans MS</option>
+	<option>Courier New</option>
+	<option>Geneva</option>
+	<option>Georgia</option>
+	<option>Helvetica</option>
+	<option>Impact</option>
+	<option>Lucida Console</option>
+	<option>Lucida Grande</option>
+	<option>Lucida Sans Unicode</option>
+	<option>Palatino</option>
+	<option>Tahoma</option>
+	<option>Times New Roman</option>
+	<option>Trebuchet MS</option>
+	<option>Verdana</option>
+	</select>
+	<label for="nTextSize">Font Size</label>
+	<input type="number" id="nTextSize" min="6" value="72" />
+	<label for="nTextOffX">Font Offset X</label>
+	<input type="number" id="nTextOffX" min="0" value="0" />
+	<label for="nTextOffY">Font Offset Y</label>
+	<input type="number" id="nTextOffY" min="0" value="0" />
+	<details>
+	<summary>Text Shadow Options</summary>
+	<label for="sTextShadowColor">Shadow Color</label>
+	<input type="color" id="sTextShadowColor" />
+	<label for="nTextShadowBlur">Shadow Blur</label>
+	<input type="number" id="nTextShadowBlur" min="0" value="0" />
+	<label for="nTextShadowOffsetX">Shadow Offset X</label>
+	<input type="number" id="nTextShadowOffsetX" min="0" value="0" />
+	<label for="nTextShadowOffsetY">Shadow Offset Y</label>
+	<input type="number" id="nTextShadowOffsetY" min="0" value="0" />
+	</details>
+	</details>
+	<details open>
+	<summary>Saved Polygons</summary>
+	<ul class="polygon-list"></ul>
+	</details>
+	<button type="button" class="green-button" onclick="savePolygon();">Save Polygon</button>
+	</fieldset>
+	<fieldset class="canvas-wrapper">
+	<legend>Canvas</legend>
+	<div id="polygon-canvas"></div>
+	</fieldset>
+	<fieldset class="svg-wrapper">
+	<legend>SVG</legend>
+	<div id="polygon-svg"></div>
+	</fieldset>
+	<fieldset class="svg-code-wrapper">
+	<legend>SVG Code</legend>
+	<textarea class="svg-code"></textarea>
+	</fieldset>
+	<button type="reset" class="red-button" onclick="resetApp();">Start over</button>
+	<button type="button" onclick="canvasToImg();" class="green-button">Generate PNG</button>
+	</form>
+
+<script>
+ function Polygon(d) {
+    var f, k, e, h = document.createElement("canvas"), b = h.getContext("2d"), l, c, g = "", a = {
+        oWrapper: "",
+        nWidth: 250,
+        nPolygonSides: 5,
+        nInset: 50,
+        nLineWidth: 10,
+        sLineJoinType: "miter",
+        sLineColor: "black",
+        sFillColor1: "black",
+        sFillColor2: "white",
+        sGradientDir: "top",
+        sFillType: "0",
+        sText: "",
+        sTextAlign: "left",
+        sTextColor: "white",
+        sTextFont: "Impact",
+        nTextSize: 72,
+        nTextOffX: 0,
+        nTextOffY: 0,
+        sShadowColor: "",
+        nShadowBlur: 0,
+        nShadowOffsetX: 0,
+        nShadowOffsetY: 0,
+        sTextShadowColor: "",
+        nTextShadowBlur: 0,
+        nTextShadowOffsetX: 0,
+        nTextShadowOffsetY: 0
+    };
+    if (d)
+        for (e in d)
+            d.hasOwnProperty(e) && (a[e] = d[e]);
+    d = a.nWidth / 2;
+    f = a.nPolygonSides;
+    k = a.nInset;
+    c = -.5 * Math.PI;
+    e = [];
+    var p = Math.PI / f, q, m, n;
+    k = (1 - k / 100) * d * Math.cos(p);
+    for (q = 0; q < f; q++)
+        m = d * Math.cos(c),
+        n = d * Math.sin(c),
+        e.push([m, n]),
+        c += p,
+        m = k * Math.cos(c),
+        n = k * Math.sin(c),
+        e.push([m, n]),
+        c += p;
+		k = e.length;
+		console.log(e)
+    h.width = a.nWidth + 4 * a.nLineWidth + 2 * a.nShadowOffsetY;
+    h.height = a.nWidth + 4 * a.nLineWidth + 2 * a.nShadowOffsetY;
+    b.translate(h.width / 2, h.height / 2);
+    b.beginPath();
+    c = '<svg height="' + h.height + '" width="' + h.width + '">\n\t<polygon transform="translate(' + (d + a.nLineWidth) + " " + (d + a.nLineWidth) + ')" points="';
+    for (f = 0; f < k; f++)
+        c += e[f][0].toFixed(2) + "," + e[f][1].toFixed(2) + " ",
+        0 === f ? b.moveTo(e[f][0], e[f][1]) : b.lineTo(e[f][0], e[f][1]);
+    c += '" stroke="' + a.sLineColor + '" stroke-width="' + a.nLineWidth / 2 + '" stroke-linecap="' + ("miter" === a.sLineJoinType ? "square" : "bevel" === a.sLineJoinType ? "butt" : "round") + '"';
+    b.closePath();
+    b.lineWidth = a.nLineWidth;
+    b.lineJoin = a.sLineJoinType;
+    b.strokeStyle = a.sLineColor;
+    b.stroke();
+    a.sShadowColor && (b.shadowColor = a.sShadowColor,
+    b.shadowBlur = a.nShadowBlur,
+    b.shadowOffsetX = a.nShadowOffsetX,
+    b.shadowOffsetY = a.nShadowOffsetY);
+    switch (a.sFillType) {
+    case "0":
+        b.fillStyle = a.sFillColor1;
+        c += ' fill="' + b.fillStyle + '"';
+        break;
+    case "1":
+        l = "top" === a.sGradientDir ? b.createLinearGradient(0, -d, 0, d) : b.createLinearGradient(-d, 0, d, 0);
+        b.fillStyle = l;
+        c += ' fill="url(#grad1)"';
+        g += '\n<defs>\n\t<linearGradient id="grad1" x1="0%" y1="0%" ' + ("top" === a.sGradientDir ? 'x2="0%" y2="100%"' : 'x2="100%" y2="0%"') + ">";
+        break;
+    case "2":
+        l = b.createRadialGradient(0, 0, 0, 0, 0, d),
+        b.fillStyle = l,
+        c += ' fill="url(#grad1)"',
+        g += '\n<defs>\n\t<radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">'
+    }
+    l && (l.addColorStop(0, a.sFillColor1),
+    l.addColorStop(1, a.sFillColor2),
+    g += '\n\t\t<stop offset="0%" style="stop-color:' + a.sFillColor1 + ';stop-opacity:1" />',
+    g += '\n\t\t<stop offset="100%" style="stop-color:' + a.sFillColor2 + ';stop-opacity:1" />',
+    g += "\n\t" + ("1" === a.sFillType ? "</linearGradient>" : "</radialGradient>") + "\n</defs>");
+    b.fill();
+    a.sTextShadowColor && (b.shadowColor = a.sTextShadowColor,
+    b.shadowBlur = a.nTextShadowBlur,
+    b.shadowOffsetX = a.nTextShadowOffsetX,
+    b.shadowOffsetY = a.nTextShadowOffsetY);
+    a.sText && (b.lineWidth = 0,
+    b.fillStyle = a.sTextColor,
+    b.font = a.nTextSize + "px " + a.sTextFont,
+    b.textAlign = a.sTextAlign,
+    b.fillText(a.sText, a.nTextOffX - d, a.nTextOffY),
+    g += '\n<text transform="translate(0 ' + (d + a.nLineWidth) + ')" fill="' + a.sTextColor + '" font-size="' + a.nTextSize + '" font-family="' + a.sTextFont + '" x="' + a.nTextOffX + '" y="' + a.nTextOffY + '">' + a.sText + "</text>");
+    c += " />\n" + g + "\n</svg>";
+    a.oWrapper.innerHTML = "";
+    a.oWrapper.appendChild(h);
+    return c
+}
+window.Polygon = Polygon;
+
+var Gallery = {
+    __poly4G: '{"nTextShadowOffsetY":5,"nTextShadowOffsetX":5,"nTextShadowBlur":10,"sTextShadowColor":"#000000","nTextOffY":30,"nTextOffX":55,"nTextSize":100,"sTextFont":"Impact","sTextColor":"#ffffff","sText":"4G","nShadowOffsetY":0,"nShadowOffsetX":0,"nShadowBlur":0,"sShadowColor":"#000000","sFillType":"1","sGradientDir":"top","sFillColor2":"#2d0059","sFillColor1":"#8000ff","sLineColor":"#000000","sLineJoinType":"miter","nLineWidth":0,"nInset":0,"nPolygonSides":4,"nWidth":221}',
+    __polyBlueStar: '{"nTextShadowOffsetY":0,"nTextShadowOffsetX":0,"nTextShadowBlur":0,"sTextShadowColor":"#000000","nTextOffY":0,"nTextOffX":0,"nTextSize":72,"sTextFont":"Arial","sTextColor":"#ffffff","sText":"","nShadowOffsetY":0,"nShadowOffsetX":0,"nShadowBlur":0,"sShadowColor":"#000000","sFillType":"1","sGradientDir":"left","sFillColor2":"#8cdaff","sFillColor1":"#0080ff","sLineColor":"#000000","sLineJoinType":"round","nLineWidth":0,"nInset":50,"nPolygonSides":5,"nWidth":400}',
+    __polySun: '{"nTextShadowOffsetY":0,"nTextShadowOffsetX":0,"nTextShadowBlur":0,"sTextShadowColor":"#000000","nTextOffY":16,"nTextOffX":183,"nTextSize":48,"sTextFont":"Arial","sTextColor":"#ffff00","sText":"\u2600","nShadowOffsetY":0,"nShadowOffsetX":0,"nShadowBlur":75,"sShadowColor":"#ffff00","sFillType":"0","sGradientDir":"top","sFillColor2":"#000000","sFillColor1":"#000000","sLineColor":"#ff8000","sLineJoinType":"round","nLineWidth":1,"nInset":100,"nPolygonSides":51,"nWidth":400}',
+    __polyYinYang: '{"nTextShadowOffsetY":0,"nTextShadowOffsetX":0,"nTextShadowBlur":0,"sTextShadowColor":"#000000","nTextOffY":75,"nTextOffX":125,"nTextSize":250,"sTextFont":"Impact","sTextColor":"#000000","sText":"\u262f","nShadowOffsetY":0,"nShadowOffsetX":0,"nShadowBlur":0,"sShadowColor":"#000000","sFillType":"2","sGradientDir":"left","sFillColor2":"#2b1500","sFillColor1":"#ffc68c","sLineColor":"#000000","sLineJoinType":"miter","nLineWidth":10,"nInset":17,"nPolygonSides":22,"nWidth":426}'
+}, aElements = document.querySelector(".polygon-creator").elements, i, nLen = aElements.length, oCode = document.querySelector(".svg-code"), oList = document.querySelector(".polygon-list"), oSettings = {}, oWrapper = document.querySelector("#polygon-canvas"), oWrapperSVG = document.querySelector("#polygon-svg"), sActiveName = "", sPreFix = "__poly", sCurrent = "__current", sID;
+for (i = nLen; i--; )
+    (sID = aElements[i].id) && (oSettings[sID] = aElements[i]);
+for (i in Gallery)
+    window.localStorage.setItem(i, Gallery[i]);
+function updatePolygon() {
+    var a = {}, b;
+    for (b in oSettings)
+        oSettings.hasOwnProperty(b) && (a[b] = "range" === oSettings[b].type || "number" === oSettings[b].type ? oSettings[b].value - 0 : oSettings[b].value);
+    window.localStorage.setItem(sCurrent, JSON.stringify(a));
+    a.oWrapper = oWrapper;
+    oCode.value = Polygon(a);
+    oWrapperSVG.innerHTML = oCode.value
+}
+function canvasToImg() {
+    window.open(oWrapper.querySelector("canvas").toDataURL("image/png"))
+}
+function createList(a, b) {
+    var c, d = "";
+    if (a && b) {
+        for (c in b)
+            c !== sCurrent && c.substr(0, 6) === sPreFix && (d += "<li><em onclick=\"loadPolygon('" + c + "');\">" + c.replace(sPreFix, "") + '</em><span class="delete" onclick="deletePolygon(\'' + c + "');\">[delete]</span></li>\n");
+        a.innerHTML = d
+    }
+}
+function loadPolygon(a) {
+    var b = window.localStorage.getItem(a), c;
+    if (b)
+        for (c in sActiveName = a.replace(sPreFix, ""),
+        a = JSON.parse(b),
+        oSettings)
+            oSettings.hasOwnProperty(c) && (oSettings[c].value = a[c]);
+    updatePolygon()
+}
+function deletePolygon(a) {
+    window.localStorage.removeItem(a);
+    createList(oList, window.localStorage)
+}
+function resetApp() {
+    window.localStorage.removeItem(sCurrent);
+    window.location.href = window.location.href
+}
+function savePolygon() {
+    var a = prompt("Name your Polygon", sActiveName);
+    "" !== a && (sActiveName = a,
+    window.localStorage.setItem(sPreFix + a, window.localStorage.getItem(sCurrent)),
+    createList(oList, window.localStorage))
+}
+createList(oList, window.localStorage);
+loadPolygon(sCurrent);
+
+
+</script>
+</body>
+</html>	

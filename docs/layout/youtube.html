@@ -5,10 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Put your description here.">
-
+  <!--  'unsafe-eval' -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src;
-    script-src 'self' ajax.cloudflare.com unpkg.com *.youtube.com *.ytimg.com 'unsafe-inline' 'unsafe-eval' ;
+    script-src 'self' ajax.cloudflare.com unpkg.com *.youtube.com *.ytimg.com *.vimeo.com 'unsafe-inline' ;
     style-src 'self' 'unsafe-inline';
     img-src 'self' *.ytimg.com data:;
     font-src;
@@ -27,6 +27,7 @@
       }
       [data-video] > iframe,
       [data-video] > video,
+      [data-video-play],
       [data-video-poster] {
         height: 100%;
         object-fit: cover;
@@ -37,8 +38,8 @@
         --h: 9;
         --w: 16;
         margin: 0;
-        position: relative;
         padding: 0;
+        position: relative;
         width: 100%;
       }
       [data-video]::after {
@@ -47,38 +48,52 @@
         padding-bottom: calc(100% * (var(--h) / var(--w)));
       }
       [data-video-play] {
-        --bgc: rgba(255, 255, 255, 0.9);
-        --c: #444;
+        --bgc: rgba(0, 0, 0, 0.7);
+        --bgc-hover: red;
+        --c: rgba(255, 255, 255, 0.9);
         --cpa: polygon(16% 0%,15% 100%,100% 50%);
-        --size: 4rem;
-        align-items: center;
-        background-color: var(--bgc);
+        --h: 4rem;
+        --w: 4rem;
+
+        background: transparent;
         border: 0;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+      }
+      [data-video-play]::before {
+        background-color: var(--bgc);
         border-radius: 50%;
-        display: flex;
-        height: var(--size);
-        justify-content: center;
+        content: '';
+        height: var(--h);
         left: 50%;
         position: absolute;
         top: 50%;
         transform: translate(-50%, -50%);
-        width: var(--size);
+        width: var(--w);
       }
       [data-video-play]::after {
         background-color: var(--c);
         clip-path: var(--cpa);
         content: '';
         display: inline-block;
-        height: calc(var(--size) / 2);
-        width: calc(var(--size) / 2);
+        height: calc(var(--h) / 2.5);
+        width: calc(var(--h) / 2.5);
       }
       [data-video-play][data-playing] {
         --cpa: polygon(40% 0%,0% 0%,0% 100%,40% 100%,40% 0%,60% 0%,100% 0%,100% 100%,60% 100%,60% 0%);
         opacity: 0.5;
       }
+      [data-video]:hover [data-video-play] {
+        --bgc: var(--bgc-hover);
+      }
       [data-video-play][hidden] {
         display: none;
       }
+
+      /* For demo */
+      body { font-family: ui-sans-serif, system-ui, sans-serif; padding: 2rem; }
+      [data-video] { margin-bottom: 20rem; }
     </style>
   </head>
   <body>
@@ -98,7 +113,20 @@ const videos = [
     "posteroptions": "hide-button",
     "preload": false,
     "src": "https://www.youtube.com/embed/GNuG-5m4Ud0",
-    "title": ""
+    "title": "YouTube Video with Custom Poster and Play-button"
+  },
+  {
+    "autoplay": true,
+    "controls": false,
+    "fullscreen": false,
+    "lang": "da", 
+    "loop": false,
+    "mute": true,
+    "playsinline": true,
+    "poster": "",
+    "preload": false,
+    "src": "../assets/video/food.mp4",
+    "title": "mp4-video - Will autoplay"
   },
   {
     "autoplay": true,
@@ -111,7 +139,7 @@ const videos = [
     "poster": "",
     "preload": false,
     "src": "https://www.youtube.com/embed/PWbsEWNOtpw",
-    "title": ""
+    "title": "YouTube Video - Will autoplay when fully visible"
   },
   {
     "autoplay": false,
@@ -134,22 +162,9 @@ const videos = [
     "loop": false,
     "mute": true,
     "playsinline": true,
-    "poster": "",
+    "poster": "../assets/img/coffee-dark-large.jpg",
     "preload": false,
     "src": "https://player.vimeo.com/video/336812660",
-    "title": ""
-  },
-  {
-    "autoplay": true,
-    "controls": false,
-    "fullscreen": false,
-    "lang": "da", 
-    "loop": false,
-    "mute": true,
-    "playsinline": true,
-    "poster": "",
-    "preload": false,
-    "src": "../assets/video/food.mp4",
     "title": ""
   },
   {
@@ -164,7 +179,7 @@ const videos = [
     "posteroptions": "keep",
     "preload": false,
     "src": "../assets/video/food.mp4",
-    "title": ""
+    "title": "mp4-video with Custom Poster and Play-button"
   }
 ]
 /**
@@ -176,6 +191,7 @@ const videos = [
 */
 function tmplVideo(video, type) {
 return `
+<h2>${video.title}</h2>
 <div data-video="${video.autoplay ? 'autoplay':''}">
   <video
     ${video.controls ? ` controls`:''}
@@ -199,13 +215,14 @@ return `
 */
 function tmplVideoIframe(video) {
 return `
+<h2>${video.title}</h2>
 <div data-video="${video.autoplay ? 'autoplay':''}">
   <iframe
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen
     frameborder="0"
     loading="${video.preload ? 'eager' : 'lazy'}"
-    src="${video.src}?${video.controls ? `controls=1`:''}${video.fullscreen ? `&amp;fs=1`:''}${video.lang ? `&amp;hl=${video.lang}`:''}${video.loop ? `&amp;loop=1`:''}${video.mute ? `&amp;mute=1`:''}${video.playsinline ? `&amp;playsinline=1`:''}&amp;enablejsapi=1"
+    src="${video.src}?controls=${video.controls ? 1:0}${video.fullscreen ? `&amp;fs=1`:''}${video.lang ? `&amp;hl=${video.lang}`:''}${video.loop ? `&amp;loop=1`:''}${video.mute ? `&amp;mute=1`:''}${video.playsinline ? `&amp;playsinline=1`:''}&amp;modestbranding=1;&amp;enablejsapi=1&amp;api=1"
     title="${video.title}">
   </iframe>
   ${video.poster ? `
