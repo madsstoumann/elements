@@ -1,8 +1,8 @@
 /**
  * Polygon Module.
  * @module /assets/js/halftone
- * @version 0.1.1
- * @summary 09-01-2021
+ * @version 0.1.2
+ * @summary 10-01-2021
  * @description 
  * @example
  * <div data-js="polygon">
@@ -17,7 +17,7 @@ export default class AppPolygon extends CssApp {
 		super(element, Object.assign({
 			appType: 'clip-path',
 			lblAppHeader: 'Polygon to <code>clip-path</code> & <code>SVG</code>',
-			lblAppIntro: 'Create equal-sided polygons as both clip-path and svg. From a triangle to a hectogon.',
+			lblAppIntro: 'Create equal-sided polygons as both clip-path and svg. From a triangle to a hectogon.<br /><strong>Inset</strong> inserts a point on the middle of a polygon-side, which can be dragged inwards.',
 			lblSVGCode: 'SVG code',
 			presetEntry: {
 				animationinset: 50,
@@ -150,7 +150,7 @@ export default class AppPolygon extends CssApp {
 	* @description Transform an array of coords to SVG points
 	*/
 	polygonToSVG(coords) {
-		return `&lt;svg viewBox="0 0 100 100" &gt;&lt;polygon points="${coords.map(p => p.join(',')).join(' ')}" /&gt;&lt;svg&gt;`.replaceAll('.00','');
+		return `&lt;svg viewBox="0 0 100 100"&gt;&lt;polygon points="${coords.map(p => p.join(',')).join(' ')}" /&gt;&lt;svg&gt;`.replaceAll('.00','');
 	}
 
 	/**
@@ -207,7 +207,7 @@ export default class AppPolygon extends CssApp {
 						</figure>
 						<header>
 							<strong class="app__subheader">Animation preview</strong>
-							<p class="app__text">Hover to see animation between <strong>Animation Inset</strong> and original <strong>Inset</strong>.</p>
+							<p class="app__text">Hover to see animation between <strong>Animation Inset</strong> and original <strong>Inset</strong>. On touch-devices, click on the shape and outside to simulate :hover</p>
 						</header>
 					</div>
 
