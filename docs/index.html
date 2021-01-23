@@ -14,7 +14,7 @@
 	<main>
 		<h1 class="sr-only">Mads Stoumann - Welcome</h1>
 		<label class="c-rng--hsl-label" aria-label="Change the color-palette of the website">
-			<input type="range" class="c-rng" min="0" max="360" value="197" oninput="document.documentElement.style.setProperty('--h', this.valueAsNumber)">
+			<input type="range" class="c-rng" min="0" max="360" value="197" disabled>
 		</label>
 		<label class="c-a11y" for="a11y" aria-label="Toggle High Contrast B/W Theme">
 			<svg class="c-ico c-ico--a11y"><use xlink:href="#icon-palette"></use></svg>
@@ -163,5 +163,12 @@
 			</linearGradient>
 		</defs>
 	</svg>
+
+	<script>
+		const range = document.querySelector('.c-rng');
+		range.disabled = false;
+		range.addEventListener('input', () => document.documentElement.style.setProperty('--h', range.valueAsNumber));
+		window.addEventListener('hashchange', () => setTimeout(() => window.scrollTo(0,0), 10));
+	</script>
 </body>
 </html>	

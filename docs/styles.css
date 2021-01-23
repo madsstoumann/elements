@@ -222,6 +222,11 @@ main {
 	appearance: none;
 }
 
+.c-rng[disabled] {
+	height: 0;
+	opacity: 0;
+}
+
 .c-spot {
 	--bgc: var(--c1);
 	--c: var(--c9);
