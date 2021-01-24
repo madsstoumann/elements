@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 <head>
-  <title>Stoumann DEMO</title>
+  <title>Mads Stoumann's Website</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<meta name="description" content="This is the personal website of Mads Stoumann">
@@ -14,10 +14,14 @@
 	<main>
 		<h1 class="sr-only">Mads Stoumann - Welcome</h1>
 		<label class="c-rng--hsl-label" aria-label="Change the color-palette of the website">
-			<input type="range" class="c-rng" min="0" max="360" value="197" disabled>
+			<input type="range" class="c-rng c-rng--hue" id="hue" min="0" max="360" value="197" oninput="document.documentElement.style.setProperty('--h', this.valueAsNumber)" />
 		</label>
 		<label class="c-a11y" for="a11y" aria-label="Toggle High Contrast B/W Theme">
 			<svg class="c-ico c-ico--a11y"><use xlink:href="#icon-palette"></use></svg>
+		</label>
+		<input class="sr-only" type="checkbox" id="grid" name="grid" />
+		<label class="c-grid__label" for="grid" aria-label="Toggle Generated Colors">
+			<svg class="c-grid__ico"><use xlink:href="#icon-colorgrid"></use></svg>
 		</label>
 
 		<div class="c-nav">
@@ -25,65 +29,65 @@
 				<defs>
 					<path id="curve" d="M 25, 50 a 25,25 0 1,1 50,0 a 25,25 0 1,1 -50,0" />
 				</defs>
-				<a href="/#madsstoumann" class="c-nav__item c-nav__item--r1" aria-label="Mads Stoumann">
-					<circle cx="50" cy="50" r="50" />
-					<text dy="-21.25" dx="0">
+				<a href="/#madsstoumann" class="c-nav__item" aria-label="Mads Stoumann">
+					<circle cx="50" cy="50" r="50" fill="var(--c1)" />
+					<text dy="-21.25" dx="0" fill="var(--c8)">
 						<textPath class="c-nav__text--xs" xlink:href="#curve" textLength="30%">Mads Stoumann</textPath>
 						<textPath class="c-nav__text--xl" xlink:href="#curve" textLength="30%" startOffset="15.5%">Mads Stoumann</textPath>
 					</text>
 				</a>
-				<a href="/#graphicdesign" class="c-nav__item c-nav__item--r2" aria-label="Graphic Design">
-					<circle cx="50" cy="50" r="45" />
-					<text dy="-16.25" dx="0">
+				<a href="/#graphicdesign" class="c-nav__item" aria-label="Graphic Design">
+					<circle cx="50" cy="50" r="45" fill="var(--c2)" />
+					<text dy="-16.25" dx="0" fill="var(--c7)">
 						<textPath class="c-nav__text--xs" xlink:href="#curve" textLength="30%">Graphic Design</textPath>
 						<textPath class="c-nav__text--xl" xlink:href="#curve" textLength="28%" startOffset="16.25%">Graphic Design</textPath>
 					</text>
 				</a>
-				<a href="/#programming" class="c-nav__item c-nav__item--r3" aria-label="Programming">
-					<circle cx="50" cy="50" r="40" />
-					<text dy="-11.25" dx="0">
+				<a href="/#programming" class="c-nav__item" aria-label="Programming">
+					<circle cx="50" cy="50" r="40" fill="var(--c3)" />
+					<text dy="-11.25" dx="0" fill="var(--c6)">
 						<textPath class="c-nav__text--xs" xlink:href="#curve" textLength="30%">Programming</textPath>
 						<textPath class="c-nav__text--xl" xlink:href="#curve" textLength="26%" startOffset="17%">Programming</textPath>
 					</text>
 				</a>
-				<a href="/#appsstuff" class="c-nav__item c-nav__item--r4" aria-label="Apps & Stuff">
-					<circle cx="50" cy="50" r="35" />
-					<text dy="-6.25" dx="0">
-						<textPath class="c-nav__text--xs" xlink:href="#curve" textLength="30%">Apps & Stuff</textPath>
-						<textPath class="c-nav__text--xl" xlink:href="#curve" textLength="24%" startOffset="18%">Apps & Stuff</textPath>
+				<a href="/#appsmusic" class="c-nav__item" aria-label="Apps & Music">
+					<circle cx="50" cy="50" r="35" fill="var(--c4)" />
+					<text dy="-6.25" dx="0" fill="var(--c7)">
+						<textPath class="c-nav__text--xs" xlink:href="#curve" textLength="30%">Apps & Music</textPath>
+						<textPath class="c-nav__text--xl" xlink:href="#curve" textLength="24%" startOffset="18%">Apps & Music</textPath>
 					</text>
 				</a>
-				<a href="/#webdesign" class="c-nav__item c-nav__item--r5" aria-label="Web Design">
-					<circle cx="50" cy="50" r="30" />
-					<text dy="-1.25" dx="0">
+				<a href="/#webdesign" class="c-nav__item" aria-label="Web Design">
+					<circle cx="50" cy="50" r="30" fill="var(--c5)" />
+					<text dy="-1.25" dx="0" fill="var(--c2)">
 						<textPath class="c-nav__text--xs" xlink:href="#curve" textLength="30%">Web ⁜ Design</textPath>
 						<textPath class="c-nav__text--xl" xlink:href="#curve" textLength="22%" startOffset="18.25%">Web Design</textPath>
 					</text>
 				</a>
-				<a href="/#articles" class="c-nav__item c-nav__item--r6" aria-label="Articles">
-					<circle cx="50" cy="50" r="25" />
-					<text dy="3.75" dx="0">
+				<a href="/#articles" class="c-nav__item" aria-label="Articles">
+					<circle cx="50" cy="50" r="25" fill="var(--c6)" />
+					<text dy="3.75" dx="0" fill="var(--c2)">
 						<textPath class="c-nav__text--xs" xlink:href="#curve" textLength="30%">Articles</textPath>
 						<textPath class="c-nav__text--xl" xlink:href="#curve" textLength="20%" startOffset="19%">Articles</textPath>
 					</text>
 				</a>
-				<a href="/#news" class="c-nav__item c-nav__item--r7" aria-label="News">
-					<circle cx="50" cy="50" r="20" />
-					<text dy="8.75" dx="0">
+				<a href="/#news" class="c-nav__item" aria-label="News">
+					<circle cx="50" cy="50" r="20" fill="var(--c7)" />
+					<text dy="8.75" dx="0" fill="var(--c3)">
 						<textPath class="c-nav__text--xs" xlink:href="#curve" textLength="30%">N • e • w • s</textPath>
 						<textPath class="c-nav__text--xl" xlink:href="#curve" textLength="16%" startOffset="20%">News</textPath>
 					</text>
 				</a>
-				<a href="https://codepen.io/stoumann" class="c-nav__item c-nav__item--r8" aria-label="Codepen">
-					<circle cx="50" cy="50" r="15" />
-					<text dy="13.75" dx="0">
+				<a href="https://codepen.io/stoumann" class="c-nav__item" aria-label="Codepen">
+					<circle cx="50" cy="50" r="15" fill="var(--c8)" />
+					<text dy="13.75" dx="0" fill="var(--c2)">
 						<textPath class="c-nav__text--xs" xlink:href="#curve" textLength="30%">Codepen</textPath>
 						<textPath class="c-nav__text--xl" xlink:href="#curve" textLength="147%" startOffset="3%">Codepen Demos & Collections ⁜</textPath>
 					</text>
 				</a>
-				<a href="https://twitter.com/madsstoumann" class="c-nav__item c-nav__item--r9" aria-label="Twitter">
-					<circle cx="50" cy="50" r="10" />
-					<path transform="scale(0.6) translate(72, 72)" d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+				<a href="https://twitter.com/madsstoumann" class="c-nav__item" aria-label="Twitter">
+					<circle cx="50" cy="50" r="10" fill="var(--c9)" />
+					<path fill="var(--c8)" transform="scale(0.6) translate(72, 72)" d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
 				</a>
 			</svg>
 		</div>
@@ -113,9 +117,10 @@
 			<p>For the <em>Danish Medicines Agency</em>, I've developed two applications: One for tracking the storage-location of specific medicine applications, and one for calculating patterns in symptoms for vaccines.</p>
 		</article>
 
-		<article class="c-spot c-spot--r4" id="appsstuff">
+		<article class="c-spot c-spot--r4" id="appsmusic">
 			<a class="c-spot__close" href="#" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
-			<h2 class="c-spot__headline">Apps & Stuff</h2>
+			<h2 class="c-spot__headline">Apps & Music</h2>
+			<p>I love synthesizers, and I've played them since I was 12 years old. You can listen to some of my stuff at <a href="https://soundcloud.com/mads-stoumann">Soundcloud</a>.</p>
 			<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt quasi unde ratione hic inventore assumenda quaerat facilis veritatis magni nesciunt labore, aliquam laboriosam optio quam totam, architecto voluptatum natus dolorum quidem deleniti repudiandae sed laborum.</p>
 		</article>
 
@@ -136,6 +141,31 @@
 			<h2 class="c-spot__headline">News</h2>
 			<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt quasi unde ratione hic inventore assumenda quaerat facilis veritatis magni nesciunt labore, aliquam laboriosam optio quam totam, architecto voluptatum natus dolorum quidem deleniti repudiandae sed laborum.</p>
 		</article>
+
+		<div class="c-grid">
+			<div class="c-grid__item"><span>Primary</span></div>
+			<div class="c-grid__item"><span>Triad 2</span></div>
+			<div class="c-grid__item"><span>Analogous 1</span></div>
+			<div class="c-grid__item"><span>Analogous 2</span></div>
+			<div class="c-grid__item"><span>Rect</span></div>
+			<div class="c-grid__item"><span>Square 1</span></div>
+			<div class="c-grid__item"><span>Square 2</span></div>
+			<div class="c-grid__item"><span>Split Comp. 1</span></div>
+			<div class="c-grid__item"><span>Split Comp. 2</span></div>
+			<div class="c-grid__item"><span>Triad 1</span></div>
+			<div class="c-grid__item"><span>Complimentary</span></div>
+			<div class="c-grid__item"><span>Shade 2</span></div>
+			<div class="c-grid__item"><span>Shade 5</span></div>
+			<div class="c-grid__item"><span>Shade 3</span></div>
+			<div class="c-grid__item"><span>Tint 1</span></div>
+			<div class="c-grid__item"><span>Tint 2</span></div>
+			<div class="c-grid__item"><span>Shade 9</span></div>
+			<div class="c-grid__item"><span>Shade 7</span></div>
+			<div class="c-grid__item c-grid__item--range">
+				<input type="range" class="c-rng c-rng--saturation" min="0" max="100" value="92" oninput="document.documentElement.style.setProperty('--s', `${this.value}%`)" />
+				<input type="range" class="c-rng c-rng--lightness" min="0" max="100" value="61" oninput="document.documentElement.style.setProperty('--l', `${this.value}%`)" />
+			</div>
+		</div>
 	</main>
 
 	<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;">
@@ -154,6 +184,17 @@
 		<symbol id="icon-readmore" viewBox="0 0 16 16">
 			<path d="M0 8c0 4.418 3.582 8 8 8s8-3.582 8-8-3.582-8-8-8-8 3.582-8 8zM9 3v5.5l2-2 1.5 1.5-4.5 4.5-4.5-4.5 1.5-1.5 2 2v-5.5h2z"></path>
 		</symbol>
+		<symbol id="icon-colorgrid" viewBox="0 0 11 11">
+			<rect fill="var(--c-prm)" height="3" width="3" />
+			<rect fill="var(--c-com)" height="3" width="3" x="4" />
+			<rect fill="var(--c-an1)" height="3" width="3" x="8" />
+			<rect fill="var(--c-an2)" height="3" width="3" y="4" />
+			<rect fill="var(--c-rc1)" height="3" width="3" x="4" y="4" />
+			<rect fill="var(--c-sc1)" height="3" width="3" x="8" y="4" />
+			<rect fill="var(--c-sc2)" height="3" width="3" y="8" />
+			<rect fill="var(--c-tr1)" height="3" width="3" x="4" y="8" />
+			<rect fill="var(--c-tr2)" height="3" width="3" x="8" y="8" />
+		</symbol>
 		<defs>
 			<linearGradient id="rainbow">
 				<stop offset="5%" stop-color="hsl(0, 50%, 50%)" />
@@ -165,10 +206,8 @@
 	</svg>
 
 	<script>
-		const range = document.querySelector('.c-rng');
-		range.disabled = false;
-		range.addEventListener('input', () => document.documentElement.style.setProperty('--h', range.valueAsNumber));
-		window.addEventListener('hashchange', () => setTimeout(() => window.scrollTo(0,0), 10));
+		grid.addEventListener('click', () => document.body.classList.toggle('body-fixed', grid.checked));
+		window.addEventListener('hashchange', () => setTimeout(() => window.scrollTo(0,0), 20));
 	</script>
 </body>
 </html>	
