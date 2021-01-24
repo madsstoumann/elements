@@ -508,12 +508,12 @@ main {
 }
 
 /* Modifiers: Inherit Ring Color From Circle */
-.c-spot--r2 { --bgc: var(--c2); --c: var(--c7); } 
-.c-spot--r3 { --bgc: var(--c3); --c: var(--c6); } 
-.c-spot--r4 { --bgc: var(--c4); --c: var(--c7); } 
-.c-spot--r5 { --bgc: var(--c5); --c: var(--c2); } 
-.c-spot--r6 { --bgc: var(--c6); --c: var(--c2); } 
-.c-spot--r7 { --bgc: var(--c7); --c: var(--c2); } 
+.c-spot--r2 { --bgc: var(--c2); --c: var(--c8); } 
+.c-spot--r3 { --bgc: var(--c3); --c: var(--c8); } 
+.c-spot--r4 { --bgc: var(--c4); --c: var(--c9); } 
+.c-spot--r5 { --bgc: var(--c5); --c: var(--c1); } 
+.c-spot--r6 { --bgc: var(--c6); --c: var(--c1); } 
+.c-spot--r7 { --bgc: var(--c7); --c: var(--c1); } 
 
 /* State */
 [name="a11y"]:checked + main {
@@ -636,7 +636,7 @@ main {
 
 	.c-spot p {
 		margin: 0 auto;
-		max-width: 60%;
+		max-width: 75%;
 	}
 }
 

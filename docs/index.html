@@ -120,20 +120,24 @@
 		<article class="c-spot c-spot--r4" id="appsmusic">
 			<a class="c-spot__close" href="#" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
 			<h2 class="c-spot__headline">Apps & Music</h2>
-			<p>I love synthesizers, and I've played them since I was 12 years old. You can listen to some of my stuff at <a href="https://soundcloud.com/mads-stoumann">Soundcloud</a>.</p>
-			<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt quasi unde ratione hic inventore assumenda quaerat facilis veritatis magni nesciunt labore, aliquam laboriosam optio quam totam, architecto voluptatum natus dolorum quidem deleniti repudiandae sed laborum.</p>
+			<p>I love to create small editors and apps. This <a href="https://codepen.io/collection/XLakJY">Codepen Collection</a> contains a bunch of small CSS-editors, I'm currently working on &hellip; more to come! On a larger scale, I've created <em>Logifront</em>, an app for complex form-logic — and <em>OneBlock</em>, a visual editor for CMS-systems (at Valtech, it has been implemented in epiServer-solutions).</p>
+			<p>I also love synthesizers, and I've played them since I was 12 years old. You can listen to some of my stuff at <a href="https://soundcloud.com/mads-stoumann">Soundcloud</a>.</p>
 		</article>
 
 		<article class="c-spot c-spot--r5" id="webdesign">
 			<a class="c-spot__close" href="#" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
 			<h2 class="c-spot__headline">Web Design</h2>
-			<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt quasi unde ratione hic inventore assumenda quaerat facilis veritatis magni nesciunt labore, aliquam laboriosam optio quam totam, architecto voluptatum natus dolorum quidem deleniti repudiandae sed laborum.</p>
+			<p>I made my first website in 1995. It amazes me how much has changed — and yet — how much is still the same. I don't think HTML, CSS or JavaScript will be replaced with other languages in the foreseeable future.</p>
+			<hr />
+			<p>In th early days, I mostly worked on e-commerce websites and small marketing websites for a wide rage of clients. At Valtech, I'm lucky to work on global sites, with interesting challenges.</p>
 		</article>
 
 		<article class="c-spot c-spot--r6" id="articles">
 			<a class="c-spot__close" href="#" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
 			<h2 class="c-spot__headline">Articles</h2>
-			<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt quasi unde ratione hic inventore assumenda quaerat facilis veritatis magni nesciunt labore, aliquam laboriosam optio quam totam, architecto voluptatum natus dolorum quidem deleniti repudiandae sed laborum.</p>
+			<p>I love to write about technology. I used to have my own blog, but after I discovered <em>dev.to</em>, I switched to that. It's such an intuitive platform, and you can find all my articles <a href="https://dev.to/madsstoumann">here</a></p>
+			<hr />
+			<p>Recently, I wrote a large article about <em>How to Play and Pause CSS Animations with CSS Custom Properties</em> for <a href="https://css-tricks.com/how-to-play-and-pause-css-animations-with-css-custom-properties/">CSS-tricks</a></p>
 		</article>
 
 		<article class="c-spot c-spot--r7" id="news">
@@ -208,6 +212,14 @@
 	<script>
 		grid.addEventListener('click', () => document.body.classList.toggle('body-fixed', grid.checked));
 		window.addEventListener('hashchange', () => setTimeout(() => window.scrollTo(0,0), 20));
+
+		/* TMP: Fix #links, when hosting locally */
+		if (location.href.includes('127.0.0.1')) {
+			const tmp = document.querySelectorAll('.c-nav__item');
+			tmp.forEach(link => {
+				link.href.baseVal = link.href.baseVal.replace('/#', '#')
+			});
+		}
 	</script>
 </body>
 </html>	
