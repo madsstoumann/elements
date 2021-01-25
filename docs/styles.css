@@ -287,6 +287,10 @@ main {
 	display: flex;
 }
 
+.c-grid__item--range label {
+	flex: 1;
+}
+
 .c-grid__ico {
 	height: 2.25rem;
 	width: 2.25rem;
