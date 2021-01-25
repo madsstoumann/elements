@@ -6,11 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Put your description here.">
   <!--  'unsafe-eval' -->
+
   <meta http-equiv="Content-Security-Policy" content="
     default-src;
-    script-src 'self' ajax.cloudflare.com unpkg.com *.youtube.com *.ytimg.com *.vimeo.com 'unsafe-inline' ;
+    script-src 'self' *.youtube.com *.vimeo.com 'unsafe-inline' ;
     style-src 'self' 'unsafe-inline';
-    img-src 'self' *.ytimg.com data:;
+    img-src 'self' img.youtube.com data:;
     font-src;
     connect-src 'self';
     media-src 'self';
@@ -53,13 +54,16 @@
         --c: rgba(255, 255, 255, 0.9);
         --cpa: polygon(16% 0%,15% 100%,100% 50%);
         --h: 4rem;
+        --o: 0.95;
         --w: 4rem;
 
         background: transparent;
         border: 0;
         cursor: pointer;
         display: grid;
+        opacity: var(--o);
         place-items: center;
+        transition: opacity .5s ease-in-out;
       }
       [data-video-play]::before {
         background-color: var(--bgc);
@@ -82,10 +86,44 @@
       }
       [data-video-play][data-playing] {
         --cpa: polygon(40% 0%,0% 0%,0% 100%,40% 100%,40% 0%,60% 0%,100% 0%,100% 100%,60% 100%,60% 0%);
-        opacity: 0.5;
+        --o: 0;
       }
       [data-video]:hover [data-video-play] {
         --bgc: var(--bgc-hover);
+        --o: 0.95;
+      }
+
+      [data-video-pip] {
+        --bgc: rgba(255, 255, 255, 0.7);
+        --c: rgba(0, 0, 0, 0.9);
+        --ico: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke="black" fill="none"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11 19h-6a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v4" /><rect x="14" y="14" width="7" height="5" rx="1" /><line x1="7" y1="9" x2="11" y2="13" /><path d="M8 13h3v-3" /></svg>');
+        --ico-w: 3rem;
+        --w: 4rem;
+
+        background: var(--bgc);
+        border: 0;
+        border-radius: 50%;
+        bottom: 1rem;
+        cursor: pointer;
+        display: grid;
+        height: var(--w);
+        opacity: var(--o);
+        place-items: center;
+        position: absolute;
+        right: 1rem;
+        width: var(--w);
+      }
+      [data-video-pip]::after {
+        background-color: var(--c);
+        content: "";
+        display: block;
+        height: var(--ico-w);
+        mask: no-repeat center center/var(--ico-w) var(--ico);
+        -webkit-mask: no-repeat center center/var(--ico-w) var(--ico);
+        width: var(--ico-w);
+      }
+      [data-video-pip][data-pip] {
+        --ico: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke="black" fill="none"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11 19h-6a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v4" /><rect x="14" y="14" width="7" height="5" rx="1" /><line x1="7" y1="9" x2="11" y2="13" /><path d="M7 12v-3h3" /></svg>');
       }
       [data-video-play][hidden] {
         display: none;
@@ -97,36 +135,42 @@
     </style>
   </head>
   <body>
+
 <script type="module">
 
 /* Sample Content */
 const videos = [
   {
     "autoplay": false,
-    "controls": false,
+    "controls": true,
     "fullscreen": false,
-    "lang": "lt", 
+    "height": 1,
+    "lang": "da", 
     "loop": false,
     "mute": false,
+    "pip": false,
     "playsinline": true,
-    "poster": "../assets/img/coffee-light-large.jpg",
-    "posteroptions": "hide-button",
+    "poster": "https://img.youtube.com/vi/GNuG-5m4Ud0/hqdefault.jpg",
+    "posterhide": true,
     "preload": false,
     "src": "https://www.youtube.com/embed/GNuG-5m4Ud0",
-    "title": "YouTube Video with Custom Poster and Play-button"
+    "title": "YouTube Video with Custom Poster and Play-button",
+    "width": 1
   },
   {
     "autoplay": true,
     "controls": false,
     "fullscreen": false,
     "lang": "da", 
-    "loop": false,
+    "loop": true,
     "mute": true,
+    "pip": true,
     "playsinline": true,
-    "poster": "",
+    "poster": "../assets/img/coffee-dark-large.jpg",
+    "posterhide": true,
     "preload": false,
     "src": "../assets/video/food.mp4",
-    "title": "mp4-video - Will autoplay"
+    "title": "mp4-video - Will autoplay, poster will be hidden"
   },
   {
     "autoplay": true,
@@ -135,53 +179,69 @@ const videos = [
     "lang": "da", 
     "loop": false,
     "mute": true,
+    "pip": false,
     "playsinline": true,
     "poster": "",
+    "posterhide": false,
     "preload": false,
     "src": "https://www.youtube.com/embed/PWbsEWNOtpw",
     "title": "YouTube Video - Will autoplay when fully visible"
   },
   {
     "autoplay": false,
-    "controls": false,
-    "fullscreen": false,
+    "controls": true,
+    "fullscreen": true,
     "lang": "da", 
     "loop": false,
-    "mute": true,
-    "playsinline": true,
+    "mute": false,
+    "pip": false,
+    "playsinline": false,
     "poster": "",
+    "posterhide": false,
     "preload": false,
     "src": "https://www.youtube.com/embed/qm0IfG1GyZU",
-    "title": ""
+    "title": "Regular YouTube embed"
   },
   {
     "autoplay": false,
-    "controls": false,
+    "controls": true,
     "fullscreen": false,
     "lang": "da", 
     "loop": false,
     "mute": true,
+    "pip": false,
     "playsinline": true,
     "poster": "../assets/img/coffee-dark-large.jpg",
+    "posterhide": false,
     "preload": false,
     "src": "https://player.vimeo.com/video/336812660",
-    "title": ""
+    "title": "Vimeo-video with custom poster"
   },
   {
     "autoplay": false,
     "controls": false,
     "fullscreen": false,
+    "height": 1,
     "lang": "da", 
     "loop": false,
     "mute": true,
+    "pip": true,
     "playsinline": true,
     "poster": "../assets/img/coffee-dark-large.jpg",
-    "posteroptions": "keep",
-    "preload": false,
-    "src": "../assets/video/food.mp4",
-    "title": "mp4-video with Custom Poster and Play-button"
+    "posterhide": false,
+    "preload": true,
+    "src": "../assets/video/field.mp4",
+    "title": "mp4-video with Custom Poster and Play-button",
+    "width": 1
   }
 ]
+
+/* Global Consts */
+const PLAY = 'Play';
+const PAUSE = 'Pause';
+const PIP_ON = 'Enable picture-in-picture';
+const PIP_OFF = 'Disable picture-in-picture';
+
 /**
  * @function tmplVideo
  * @param {Node} video
@@ -192,19 +252,23 @@ const videos = [
 function tmplVideo(video, type) {
 return `
 <h2>${video.title}</h2>
-<div data-video="${video.autoplay ? 'autoplay':''}">
+<div data-video="${video.autoplay ? 'autoplay':''}" style="--h:${video.height || 9};--w:${video.width || 16};">
   <video
     ${video.controls ? ` controls`:''}
-    ${video.fullscreen ? ` data-hide-fullscreen`:''}
+    ${video.fullscreen ? '':` data-hide-fullscreen`}
     ${video.loop ? ` loop`:''}
     ${video.mute ? ` muted`:''}
     ${video.playsinline ? ` playsinline`:''}
+    data-video-options="${video.controls ? 'controls':''}${video.posterhide ? ' posterhide':''}"
     preload="${video.preload ? 'auto':'none'}">
     <source src="${video.src}" type="${type}">
   </video>
   ${video.poster ? `
     <img data-video-poster src="${video.poster}" alt="${video.title}" />
-    <button data-video-play="${video.posteroptions ? video.posteroptions:''}" type="button" aria-label="play"></button>`:''}
+    <button data-video-play="${PLAY}" data-video-pause="${PAUSE}"
+      type="button" aria-label="${PLAY}"></button>`:''}
+    ${video.pip ? `
+    <button data-video-pip="${PIP_ON}" data-video-pipoff="${PIP_OFF}" type="button" aria-label="${PIP_ON}"></button>`:''}
 </div>`
 }
 
@@ -216,10 +280,11 @@ return `
 function tmplVideoIframe(video) {
 return `
 <h2>${video.title}</h2>
-<div data-video="${video.autoplay ? 'autoplay':''}">
+<div data-video="${video.autoplay ? 'autoplay':''}" style="--h:${video.height || 9};--w:${video.width || 16};">
   <iframe
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
+    ${video.fullscreen ? 'allowfullscreen':''}
+    data-video-options="${video.controls ? 'controls':''}${video.posterhide ? ' posterhide':''}"
     frameborder="0"
     loading="${video.preload ? 'eager' : 'lazy'}"
     src="${video.src}?controls=${video.controls ? 1:0}${video.fullscreen ? `&amp;fs=1`:''}${video.lang ? `&amp;hl=${video.lang}`:''}${video.loop ? `&amp;loop=1`:''}${video.mute ? `&amp;mute=1`:''}${video.playsinline ? `&amp;playsinline=1`:''}&amp;modestbranding=1;&amp;enablejsapi=1&amp;api=1"
@@ -227,7 +292,7 @@ return `
   </iframe>
   ${video.poster ? `
     <img data-video-poster src="${video.poster}" alt="${video.title}" />
-    <button data-video-play="${video.posteroptions ? video.posteroptions:''}" type="button" aria-label="play"></button>`:''}
+    <button data-video-play="${PLAY}" data-video-pause="${PAUSE}" type="button" aria-label="${PLAY}"></button>`:''}
 </div>`
 }
 

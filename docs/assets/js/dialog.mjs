@@ -2,21 +2,21 @@
  * Dialog module.
  * @module /assets/js/dialog
  * @requires /assets/js/common
- * @version 1.1.0
- * @summary 16-04-2020
+ * @version 1.1.1
+ * @summary 22-12-2020
  * @author Mads Stoumann
- * @description Custom versions of alert, confirm and prompt, using <dialog>
+ * @description Custom versions of `alert`, `confirm` and `prompt`, using `<dialog>`
  */
 
-import { h, uuid } from './common.mjs';
-
+import { h } from './common/h.mjs';
+import { uuid } from './common/uuid.mjs';
 export default class Dialog {
 	constructor(settings = {}) {
 		this.settings = Object.assign(
 			{
 				accept: 'OK',
 				cancel: 'Cancel',
-				close: `✕<span class="c-ttp">Close</span>`,
+				close: `✕`,
 				element: '',
 				headline: '',
 				headlineTag: 'h2',
@@ -27,13 +27,13 @@ export default class Dialog {
 				value: '',
 				clsAccept: 'c-btn',
 				clsCancel: 'c-btn c-btn--ui',
-				clsClose: 'c-dialog__close c-btn c-btn--circle c-btn--ui c-ttp__wrapper',
-				clsDialog: 'c-dialog',
-				clsHeadline: 'c-hdl c-hdl--small',
-				clsInput: 'c-inp',
-				clsMessage: 'c-dialog__message',
-				clsNav: 'c-dialog__nav',
-				clsNoSupport: 'c-dialog--nosupport',
+				clsClose: 'c-dlg__close c-btn c-btn--circle c-btn--ui',
+				clsDialog: 'c-dlg',
+				clsHeadline: 'c-dlg__headline',
+				clsInput: 'c-dlg__input',
+				clsMessage: 'c-dlg__message',
+				clsNav: 'c-dlg__nav',
+				clsNoSupport: 'c-dlg--nosupport',
 				soundAccept: '',
 				soundCancel: '',
 				soundPopup: '',

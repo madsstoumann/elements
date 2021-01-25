@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <title>CSP</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Put your description here.">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src;
+    script-src 'self' 'unsafe-inline';
+    style-src 'self' fonts.googleapis.com 'unsafe-inline';
+    img-src 'self' *.ytimg.com data:;
+    font-src fonts.gstatic.com;
+    connect-src 'self';
+    media-src 'self';
+    object-src 'none';
+    child-src 'self';
+    frame-src *.youtube.com;
+    form-action;
+    base-uri;
+    manifest-src 'self';">
+	</head>
+	<style>
+		body { font-family: Roboto, sans-serif; }
+	</style>
+  <body>
+
+		<h1>Hello World</h1>
+
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/mH0OxGc9-iY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  </body>
+</html>

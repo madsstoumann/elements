@@ -5,8 +5,12 @@
  * @description Adds script-block
  */
 export function insertScript(src, async = true) {
-	const script = document.createElement('script');
-	script.async = async;
-	script.src = src;
-	document.head.appendChild(script);
+	return new Promise((resolve, reject) => {
+		const script = document.createElement('script');
+		script.src = src;
+		script.async = async;
+		script.onload = script.onreadystate = () => { resolve(src); }
+		script.onerror = (err) => { reject(err)};
+		document.head.appendChild(script);
+	})
 }

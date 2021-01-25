@@ -218,7 +218,7 @@ export default class AppPolygon extends CssApp {
 						<input type="range" class="c-rng" min="0" max="99" value="10" data-elm="inset" data-range="output"/>
 					</label>
 					<label class="app__label--range"><span>Animation Inset</span>
-						<input type="range" class="c-rng" min="1" max="99" value="50" data-elm="animationinset" data-range="output"/>
+						<input type="range" class="c-rng" min="0" max="99" value="50" data-elm="animationinset" data-range="output"/>
 					</label>
 					<label class="app__label app__label--auto"><input type="text" data-elm="color" data-colorpicker="mini rgb update" value="rgba(74,112,201,1)" />Color</label>
 

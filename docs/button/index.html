@@ -4,21 +4,24 @@
 	<title>Button</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-	<link href="../assets/css/demo.css" rel="stylesheet">
+	<!-- <link href="../assets/css/demo.css" rel="stylesheet"> -->
 	<link href="../assets/css/c-btn.css" rel="stylesheet">
-	<link href="../assets/css/c-ico.css" rel="stylesheet">
-	<link href="../assets/css/c-lnk.css" rel="stylesheet">
-	<link href="../assets/css/c-ttp.css" rel="stylesheet">
+	<!-- <link href="../assets/css/c-ico.css" rel="stylesheet"> -->
+	<!-- <link href="../assets/css/c-lnk.css" rel="stylesheet"> -->
+	<!-- <link href="../assets/css/c-ttp.css" rel="stylesheet"> -->
 	<style>
 		/* Styles for demo only */
 		button { margin: .25rem; }
 		fieldset { border: 0; margin-bottom: 1rem; }
-		legend { font-family: sans-serif; font-weight: 500; }
+		legend { font-family: ui-monospace, monospace; font-weight: 500; }
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #222; color: #EEE; }
+		}
 	</style>
 </head>
 <body>
 	<fieldset>
-		<legend>Default</legend>
+		<legend>c-btn</legend>
 		<button type="button" class="c-btn">Default</button>
 		<button type="button" class="c-btn c-btn--active">Active</button>
 		<button type="button" class="c-btn" disabled>Disabled</button>
@@ -27,7 +30,7 @@
 	</fieldset>
 
 	<fieldset>
-		<legend>Modifier: Green</legend>
+		<legend>c-btn c-btn--green</legend>
 		<button type="button" class="c-btn c-btn--green">Default</button>
 		<button type="button" class="c-btn c-btn--green c-btn--active">Active</button>
 		<button type="button" class="c-btn c-btn--green" disabled>Disabled</button>
@@ -36,7 +39,7 @@
 	</fieldset>
 
 	<fieldset>
-		<legend>Modifier: Red</legend>
+		<legend>c-btn c-btn--red</legend>
 		<button type="button" class="c-btn c-btn--red">Default</button>
 		<button type="button" class="c-btn c-btn--red c-btn--active">Active</button>
 		<button type="button" class="c-btn c-btn--red" disabled>Disabled</button>
@@ -45,7 +48,7 @@
 	</fieldset>
 
 	<fieldset>
-		<legend>Modifier: Grey</legend>
+		<legend>c-btn c-btn--grey</legend>
 		<button type="button" class="c-btn c-btn--grey">Default</button>
 		<button type="button" class="c-btn c-btn--grey c-btn--active">Active</button>
 		<button type="button" class="c-btn c-btn--grey" disabled>Disabled</button>
@@ -54,7 +57,7 @@
 	</fieldset>
 
 	<fieldset>
-		<legend>Modifier: Outline</legend>
+		<legend>c-btn c-btn--outline</legend>
 		<button type="button" class="c-btn c-btn--outline">Default</button>
 		<button type="button" class="c-btn c-btn--outline c-btn--active">Active</button>
 		<button type="button" class="c-btn c-btn--outline" disabled>Disabled</button>
@@ -63,7 +66,7 @@
 	</fieldset>
 
 	<fieldset>
-		<legend>Modifier: Outline + Green</legend>
+		<legend>c-btn c-btn--outline c-btn--green</legend>
 		<button type="button" class="c-btn c-btn--outline c-btn--green">Default</button>
 		<button type="button" class="c-btn c-btn--outline c-btn--green c-btn--active">Active</button>
 		<button type="button" class="c-btn c-btn--outline c-btn--green" disabled>Disabled</button>
@@ -72,7 +75,7 @@
 	</fieldset>
 
 	<fieldset>
-		<legend>Modifier: Outline + Red</legend>
+		<legend>c-btn c-btn--outline c-btn--red</legend>
 		<button type="button" class="c-btn c-btn--outline c-btn--red">Default</button>
 		<button type="button" class="c-btn c-btn--outline c-btn--red c-btn--active">Active</button>
 		<button type="button" class="c-btn c-btn--outline c-btn--red" disabled>Disabled</button>
@@ -81,7 +84,7 @@
 	</fieldset>
 
 	<fieldset>
-		<legend>Modifier: Outline + Grey</legend>
+		<legend>c-btn c-btn--outline c-btn--grey</legend>
 		<button type="button" class="c-btn c-btn--outline c-btn--grey">Default</button>
 		<button type="button" class="c-btn c-btn--outline c-btn--grey c-btn--active">Active</button>
 		<button type="button" class="c-btn c-btn--outline c-btn--grey" disabled>Disabled</button>
@@ -90,14 +93,14 @@
 	</fieldset>
 
 	<fieldset>
-			<legend>Modifier: Link</legend>
-			<button type="button" class="c-lnk">Default</button>
-			<button type="button" class="c-lnk c-lnk--active">Active</button>
-			<button type="button" class="c-btn c-btn--link" disabled>Disabled</button>
-			<button type="button" class="c-lnk c-lnk--focus">Focus</button>
-			<button type="button" class="c-lnk c-lnk--hover">Hover</button>
-		</fieldset>
-
+		<legend>c-btn c-btn--link</legend>
+		<button type="button" class="c-btn c-btn--link">Default</button>
+		<button type="button" class="c-btn c-btn--link c-btn--active">Active</button>
+		<button type="button" class="c-btn c-btn--link c-btn--link" disabled>Disabled</button>
+		<button type="button" class="c-btn c-btn--link c-btn--focus">Focus</button>
+		<button type="button" class="c-btn c-btn--link c-btn--hover">Hover</button>
+	</fieldset>
+<!--
 	<fieldset>
 		<legend>Pattern: Button With Icon</legend>
 		<button type="button" class="c-btn">
@@ -147,7 +150,7 @@
 			<span class="c-ttp">Close</span>
 		</button>
 	</fieldset>
-
+-->
 	<!-- <div style="display:flex;">
 		<button type="button" class="c-btn c-btn--red">Fix me now!</button>
 		<button type="button" class="c-btn">

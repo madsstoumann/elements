@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <title>Pacman</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>
+		body { background-color: #222; padding: 2rem; }
+    .pacman {
+			/* animation: pacman .5s linear infinite; */
+      background: conic-gradient(
+        #ffc905 55deg, transparent 0 125deg,#ffc905 0
+      );
+			border-radius: 50%;;
+      height: 300px;
+			position: relative;
+			width: 300px;
+    }
+		.pacman::after {
+			background-color: #222;
+			border-radius: 50%;
+			content: '';
+			display: block;
+			height: 35px;
+			position: absolute;
+			right: 125px;
+			top: 50px;
+			width: 35px;
+		}
+		@keyframes pacman {
+			0%, 50% {
+				background: conic-gradient(#ffc905 55deg, transparent 0 125deg,#ffc905 0);
+			}
+			50% {
+				background: conic-gradient(#ffc905 55deg, #ffc905 0);
+			}
+		}
+	</style>
+</head>
+<body>
+  <div class="pacman"></div>
+</body>
+</html>	

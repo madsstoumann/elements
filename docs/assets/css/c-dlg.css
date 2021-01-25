@@ -1,7 +1,7 @@
 /**
  * c-dlg.css
- * @version 1.0.50
- * @summary 14-01-2020
+ * @version 1.0.51
+ * @summary 22-12-2020
  * @author Mads Stoumann
  * @description Stylesheet for Dialogs
 	Variables are concatinated from: 
@@ -11,13 +11,13 @@
 	- modifier (:active, :disabled, :focus, :hover)
 	More on emmett: https://docs.emmet.io/cheat-sheet/
 */
-@import 'config.css';
+/* @import 'c-btn.css'; */
 
-.c-dialog {
+.c-dlg {
 	--dlg-backdrop: rgba(0, 0, 0, 0.5);
 	--dlg-bdc: transparent;
 	--dlg-bdc--dark: #FFF;
-	--dlg-bdrs: var(--u-150);
+	--dlg-bdrs: 0.25rem;
 	--dlg-bds: solid;
 	--dlg-bdw: 0px;
 	--dlg-bdw--dark: 1px;
@@ -27,13 +27,13 @@
 	--dlg-bxsh--sz: 0 20px 40px;
 	--dlg-c: var(--c-txt);
 	--dlg-c--dark: var(--c-txt--dark);
-	--dlg-close-m: var(--u-200);
-	--dlg-ff: var(--f-body, sans-serif);
-	--dlg-fz: var(--f-fz-500, 1rem);
+	--dlg-close-m: 0.5rem;
+	--dlg-ff: ui-sans-serif, system-ui, sans-serif;
+	--dlg-fz: 1rem;
 	--dlg-mw: 25rem;
-	--dlg-nav-mil: var(--u-300);
-	--dlg-nav-m: var(--u-400) 0 0 0; 
-	--dlg-p: var(--u-400);
+	--dlg-nav-mil: 1rem;
+	--dlg-nav-m: 1.5rem 0 0 0; 
+	--dlg-p: 1.5rem;
 	--dlg-w: calc(100vw - 1rem);
 
 	background-color: var(--dlg-bgc);
@@ -51,23 +51,23 @@
 	max-width: var(--dlg-mw);
 	width: var(--dlg-w);
 }
-.c-dialog::backdrop {
+.c-dlg::backdrop {
 	/* Chrome Bug: Cannot be set from CSS Custom Prop: --dlg-backdrop :-( */
 	background: rgba(0, 0, 0, 0.5);
 }
-.c-dialog__close {
+.c-dlg__close {
 	inset-inline-end: var(--dlg-close-m);
 	position: absolute;
 	top: var(--dlg-close-m);
 }
-.c-dialog__nav {
+.c-dlg__nav {
 	margin: var(--dlg-nav-m);
 	text-align: end;
 }
-.c-dialog__nav button:first-of-type {
+.c-dlg__nav button:first-of-type {
 	margin-inline-end: var(--dlg-nav-mil);
 }
-.c-dialog--nosupport {
+.c-dlg--nosupport {
 	box-shadow: 0 0 0 9999px var(--dlg-backdrop);
 	display: block;
 	left: 50%;
@@ -75,13 +75,13 @@
 	top: 50%;
 	transform: translateX(-50%);
 }
-.c-dialog--nosupport[hidden] {
+.c-dlg--nosupport[hidden] {
 	display: none;
 }
 
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
-	.c-dialog {
+	.c-dlg {
 		--dlg-bdc: var(--dlg-bdc--dark);
 		--dlg-bdw: var(--dlg-bdw--dark);
 		--dlg-bgc: var(--dlg-bgc--dark);
@@ -91,19 +91,19 @@
 
 /* Fix for Edge: Delete when moved to Chromium */
 @supports not (inset-inline-end: 0) {
-	.c-dialog__close {
+	.c-dlg__close {
 		right: var(--dlg-close-m);
 	}
-	.c-dialog__nav {
+	.c-dlg__nav {
 		text-align: right;
 	}
-	.c-dialog__nav button:first-of-type {
+	.c-dlg__nav button:first-of-type {
 		margin-right: var(--dlg-nav-mil);
 	}
 }
 /* Fix for Firefox: Delete when Dialog implemented fully */
 @supports (-moz-appearance: meterbar) {
-	.c-dialog {
+	.c-dlg {
 		left: 0;
 		transform: translateY(-50%);
 	}

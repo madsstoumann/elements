@@ -11,55 +11,57 @@
 	- modifier (:active, :disabled, :focus, :hover)
 	More on emmett: https://docs.emmet.io/cheat-sheet/
 */
-@import 'config.css';
+/* @import 'config.css'; */
+
+
 
 .c-btn {
 	/* Custom Properties */
 	--btn-ai: center;
-	--btn-bdc: var(--c-blue-600);
-	--btn-bdw: var(--u-125, 2px);
-	--btn-bdrs: var(--u-175, 0.375rem);
-	--btn-bgc: var(--c-blue-600);
+	--btn-bdc: hsl(201, 79%, 46%);
+	--btn-bdw: 0.125rem;
+	--btn-bdrs: 0.375rem;
+	--btn-bgc: hsl(201, 79%, 46%);
 	--btn-bxsh: transparent;
 	--btn-bxsh--sz: 0 0 0 0.2rem;
-	--btn-c: var(--c-blue-50);
+	--btn-c: hsl(195, 100%, 100%);
 	--btn-cur: pointer;
-	--btn-ff: var(--f-body, sans-serif);
+	--btn-ff: ui-sans-serif, system-ui, sans-serif;
 	--btn-fl: none;
-	--btn-fz: var(--u-300, 1.25rem);
+	--btn-fz: 1rem;
 	--btn-fw: 400;
-	--btn-ico-mis: var(--u-175);
+	--btn-ico-mis: 0.375rem;
 	--btn-lh: 1;
 	--btn-ol: none;
-	--btn-p-lr: var(--u-500, 2rem);
-	--btn-p-tb: var(--u-275, 0.875rem);
-	--btn-trsdu: var(--a-tm-200);
+	--btn-p-lr: 2rem;
+	--btn-p-tb: 0.875rem;
+	--btn-trsdu: 200ms;
 	--btn-trstf: ease-in-out; 
 	--btn-w: auto;
 
 	/* Active */
-	--btn-bdc--act: var(--c-blue-600);
-	--btn-bgc--act: var(--c-blue-600);
-	--btn-bxsh--act: var(--btn-bxsh--sz) var(--c-blue-400);
-	--btn-c--act: var(--c-blue-50);
+	--btn-bdc--act: hsl(201, 79%, 46%);
+	--btn-bgc--act: hsl(201, 79%, 46%);
+	--btn-bxsh--act: var(--btn-bxsh--sz) hsl(197, 92%, 61%);
+	--btn-c--act: hsl(195, 100%, 100%);
 
 	/* Disabled */
-	--btn-bdc--dis: var(--c-grey-100);
-	--btn-bgc--dis: var(--c-grey-100);
+	--btn-bdc--dis: transparent;
+	--btn-bgc--dis:  hsl(201, 50%, 90%);
 	--btn-bxsh--dis: none;
-	--btn-c--dis: var(--c-grey-300);
+	--btn-c--dis: hsl(211, 13%, 65%);
 
 	/* Focus */
-	--btn-bdc--foc: var(--c-blue-600);
-	--btn-bgc--foc: var(--c-blue-600);
-	--btn-bxsh--foc: var(--btn-bxsh--sz) var(--c-blue-400);
-	--btn-c--foc: var(--c-blue-50);
+	--btn-bdc--foc: hsl(201, 79%, 46%);
+	--btn-bgc--foc: hsl(201, 79%, 46%);
+	--btn-bxsh--foc: var(--btn-bxsh--sz) hsl(197, 92%, 61%);
+	--btn-c--foc: hsl(195, 100%, 100%);
 
 	/* Hover */
 	--btn-bdc--hov: transparent;
-	--btn-bgc--hov: var(--c-blue-800);
+	--btn-bgc--hov: hsl(203, 87%, 34%);
 	--btn-bxsh--hov: none;
-	--btn-c--hov: var(--c-blue-50);
+	--btn-c--hov: hsl(195, 100%, 100%);
 
 	align-items: var(--btn-ai);
 	background-color: var(--btn-bgc);
@@ -133,43 +135,46 @@
 
 /* Modifers: Color Variants */
 .c-btn--green {
-	--btn-bdc: var(--c-green-500);
-	--btn-bdc--act: var(--c-green-500);
-	--btn-bdc--foc: var(--c-green-500);
-	--btn-bgc: var(--c-green-500);
-	--btn-bgc--act: var(--c-green-500);
-	--btn-bgc--foc: var(--c-green-500);
-	--btn-bgc--hov: var(--c-green-800);
-	--btn-bxsh--act: var(--btn-bxsh--sz) var(--c-green-300);
-	--btn-bxsh--foc: var(--btn-bxsh--sz) var(--c-green-300);
-	--btn-c: var(--c-green-50);
-	--btn-c--hov: var(--c-green-50);
+	--btn-bdc: hsl(162, 63%, 41%);
+	--btn-bdc--act: hsl(162, 63%, 41%);
+	--btn-bdc--foc: hsl(162, 63%, 41%);
+	--btn-bgc: hsl(162, 63%, 41%);
+	--btn-bgc--act: hsl(162, 63%, 41%);
+	--btn-bgc--dis: hsl(162, 50%, 90%);
+	--btn-bgc--foc: hsl(162, 63%, 41%);
+	--btn-bgc--hov: hsl(168, 80%, 23%);
+	--btn-bxsh--act: var(--btn-bxsh--sz) hsl(158, 58%, 62%);
+	--btn-bxsh--foc: var(--btn-bxsh--sz) hsl(158, 58%, 62%);
+	--btn-c: hsl(152, 68%, 100%);
+	--btn-c--hov: hsl(152, 68%, 100%);
 }
 .c-btn--grey {
-	--btn-bdc: var(--c-grey-500);
-	--btn-bdc--act: var(--c-grey-500);
-	--btn-bdc--foc: var(--c-grey-500);
-	--btn-bgc: var(--c-grey-500);
-	--btn-bgc--act: var(--c-grey-500);
-	--btn-bgc--foc: var(--c-grey-500);
-	--btn-bgc--hov: var(--c-grey-800);
-	--btn-bxsh--act: var(--btn-bxsh--sz) var(--c-grey-300);
-	--btn-bxsh--foc: var(--btn-bxsh--sz) var(--c-grey-300);
-	--btn-c: var(--c-grey-50);
-	--btn-c--hov: var(--c-grey-50);
+	--btn-bdc: hsl(211, 12%, 43%);
+	--btn-bdc--act: hsl(211, 12%, 43%);
+	--btn-bdc--foc: hsl(211, 12%, 43%);
+	--btn-bgc: hsl(211, 12%, 43%);
+	--btn-bgc--act: hsl(211, 12%, 43%);
+	--btn-bgc--dis: hsl(214, 15%, 91%);
+	--btn-bgc--foc: hsl(211, 12%, 43%);
+	--btn-bgc--hov: hsl(209, 20%, 25%);
+	--btn-bxsh--act: var(--btn-bxsh--sz) hsl(214, 15%, 91%);
+	--btn-bxsh--foc: var(--btn-bxsh--sz) hsl(214, 15%, 91%);
+	--btn-c: hsl(216, 33%, 97%);
+	--btn-c--hov: hsl(216, 33%, 97%);
 }
 .c-btn--red {
-	--btn-bdc: var(--c-red-500);
-	--btn-bdc--act: var(--c-red-500);
-	--btn-bdc--foc: var(--c-red-500);
-	--btn-bgc: var(--c-red-500);
-	--btn-bgc--act: var(--c-red-500);
-	--btn-bgc--foc: var(--c-red-500);
-	--btn-bgc--hov: var(--c-red-700);
-	--btn-bxsh--act: var(--btn-bxsh--sz) var(--c-red-300);
-	--btn-bxsh--foc: var(--btn-bxsh--sz) var(--c-red-300);
-	--btn-c: var(--c-red-50);
-	--btn-c--hov: var(--c-red-50);
+	--btn-bdc: hsl(356, 75%, 53%);
+	--btn-bdc--act: hsl(356, 75%, 53%);
+	--btn-bdc--foc: hsl(356, 75%, 53%);
+	--btn-bgc: hsl(356, 75%, 53%);
+	--btn-bgc--act: hsl(356, 75%, 53%);
+	--btn-bgc--dis: hsl(356, 50%, 90%);
+	--btn-bgc--foc: hsl(356, 75%, 53%);
+	--btn-bgc--hov: hsl(352, 90%, 35%);
+	--btn-bxsh--act: var(--btn-bxsh--sz) hsl(360, 91%, 69%);
+	--btn-bxsh--foc: var(--btn-bxsh--sz) hsl(360, 91%, 69%);
+	--btn-c: hsl(360, 100%, 100%);
+	--btn-c--hov: hsl(360, 100%, 100%);
 }
 
 /* Modifiers: Style */
@@ -184,8 +189,8 @@
 }
 .c-btn--link {
 	--btn-bdc: transparent;
-	--btn-bdc--act: var(--c-grey-100);
-	--btn-bdc--foc: var(--c-grey-100);
+	--btn-bdc--act: hsl(214, 15%, 91%);
+	--btn-bdc--foc: hsl(214, 15%, 91%);
 	--btn-bgc: transparent;
 	--btn-bgc--act: transparent;
 	--btn-bgc--dis: transparent;
@@ -193,11 +198,10 @@
 	--btn-bgc--hov: transparent;
 	--btn-bxsh--act: none;
 	--btn-bxsh--foc: none;
-	--btn-c: var(--c-link);
-	--btn-c--act: var(--c-link);
-	--btn-c--foc: var(--c-link);
-	--btn-c--hov: var(--c-link);
-	cursor: pointer;
+	--btn-c: hsl(203, 87%, 34%);
+	--btn-c--act: hsl(203, 87%, 34%);
+	--btn-c--foc: hsl(203, 87%, 34%);
+	--btn-c--hov: hsl(203, 87%, 34%);
 }
 .c-btn--link:not(:disabled):hover {
 	text-decoration: underline;
@@ -211,7 +215,6 @@
 	--btn-bdc--hov: var(--btn-bdc--foc);
 }
 .c-btn--outline {
-	--btn-bdc--dis: var(--c-grey-300);
 	--btn-bgc: transparent;
 	--btn-bgc--act: transparent;
 	--btn-bgc--foc: transparent;
@@ -220,49 +223,49 @@
 	--btn-c--act: var(--btn-bdc);
 	--btn-c--foc: var(--btn-bdc);
 }
-.c-btn--ui {
-	--btn-bdc: var(--c-grey-100);
+/* .c-btn--ui {
+	--btn-bdc: hsl(214, 15%, 91%);
 	--btn-bgc: transparent;
-	--btn-bgc--hov: var(--c-grey-100);
+	--btn-bgc--hov: hsl(214, 15%, 91%);
 	--btn-c: var(--c-txt);
 	--btn-c--hov: var(--c-txt);
 }
 .c-btn--ui.c-btn--circle {
 	--btn-bdc: transparent;
-}
+} */
 
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
 	.c-btn {
-		--btn-bdc: var(--c-blue-100);
-		--btn-bdc--act: var(--c-blue-100);
-		--btn-bdc--dis: var(--c-grey-100);
-		--btn-bdc--foc: var(--c-blue-100);
-		--btn-bdc--hov: var(--c-blue-100);
-		--btn-bgc--dis: var(--c-grey-300);
-		--btn-bgc--hov: var(--c-blue-800);
-		--btn-c--dis: var(--c-grey-500);
+		--btn-bdc: hsl(195, 100%, 85%);
+		--btn-bdc--act: hsl(195, 100%, 85%);
+		--btn-bdc--dis: hsl(214, 15%, 91%);
+		--btn-bdc--foc: hsl(195, 100%, 85%);
+		--btn-bdc--hov: hsl(195, 100%, 85%);
+		--btn-bgc--dis: hsl(214, 15%, 91%);
+		--btn-bgc--hov: hsl(203, 87%, 34%);
+		--btn-c--dis: hsl(211, 12%, 43%);
 	}
 	.c-btn--green {
-		--btn-bdc: var(--c-green-100);
-		--btn-bdc--act: var(--c-green-100);
-		--btn-bdc--foc: var(--c-green-100);
-		--btn-bdc--hov: var(--c-green-100);
-		--btn-bgc--hov: var(--c-green-800);
+		--btn-bdc: hsl(154, 75%, 87%);
+		--btn-bdc--act: hsl(154, 75%, 87%);
+		--btn-bdc--foc: hsl(154, 75%, 87%);
+		--btn-bdc--hov: hsl(154, 75%, 87%);
+		--btn-bgc--hov: hsl(168, 80%, 23%);
 	}
 	.c-btn--grey {
-		--btn-bdc: var(--c-grey-100);
-		--btn-bdc--act: var(--c-grey-100);
-		--btn-bdc--foc: var(--c-grey-100);
-		--btn-bdc--hov: var(--c-grey-100);
-		--btn-bgc--hov: var(--c-grey-800);
+		--btn-bdc: hsl(214, 15%, 91%);
+		--btn-bdc--act: hsl(214, 15%, 91%);
+		--btn-bdc--foc: hsl(214, 15%, 91%);
+		--btn-bdc--hov: hsl(214, 15%, 91%);
+		--btn-bgc--hov: hsl(168, 80%, 23%);
 	}
 	.c-btn--red {
-		--btn-bdc: var(--c-red-100);
-		--btn-bdc--act: var(--c-red-100);
-		--btn-bdc--foc: var(--c-red-100);
-		--btn-bdc--hov: var(--c-red-100);
-		--btn-bgc--hov: var(--c-red-700);
+		--btn-bdc: hsl(338, 100%, 86%);
+		--btn-bdc--act: hsl(338, 100%, 86%);
+		--btn-bdc--foc: hsl(338, 100%, 86%);
+		--btn-bdc--hov: hsl(338, 100%, 86%);
+		--btn-bgc--hov: hsl(352, 90%, 35%);
 	}
 	.c-btn--link {
 		--btn-bdc: transparent;
@@ -275,14 +278,14 @@
 		--btn-c--foc: var(--c-link--dark);
 		--btn-c--hov: var(--c-link--dark);
 	}
-	.c-btn--ui {
+	/* .c-btn--ui {
 		--btn-bdc: transparent;
 		--btn-bdc--hov: transparent;
 		--btn-bgc: transparent;
-		--btn-bgc--hov: var(--c-grey-700);
+		--btn-bgc--hov: hsl(166, 72%, 28%);
 		--btn-c: var(--c-txt--dark);
 		--btn-c--hov: var(--c-txt--dark);
-	}
+	} */
 }
 
 /* Pattern: Button Text, when used with Icon */
