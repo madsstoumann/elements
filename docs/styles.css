@@ -1,6 +1,11 @@
-/*
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-*/
+@font-face {
+	font-family: 'Montserrat';
+	font-style: normal;
+	font-weight: 400;
+	src: local(''),
+			 url('assets/fonts/montserrat-v15-latin-regular.woff2') format('woff2'),
+			 url('assets/fonts/montserrat-v15-latin-regular.woff') format('woff');
+}
 :root {
 	--h: 197;
 	--s: 92%;
@@ -73,7 +78,7 @@
 }
 
 html {
-  height: -webkit-fill-available;
+	height: -webkit-fill-available;
 }
 
 body {
@@ -418,7 +423,7 @@ main {
 	box-shadow: var(--rng-thumb-bxsh);
 	color: #000;
 	cursor: ew-resize;
-  height: var(--rng-thumb-h);  
+	height: var(--rng-thumb-h);  
 	margin-top: calc(0px - ((var(--rng-thumb-h) - var(--rng-h)) / 2));
 	position: relative;
 	width: var(--rng-thumb-w);
@@ -430,7 +435,7 @@ main {
 	border-radius: var(--rng-thumb-bdrs);
 	box-shadow: var(--rng-thumb-bxsh);
 	cursor: ew-resize;
-  height: var(--rng-thumb-h);  
+	height: var(--rng-thumb-h);  
 	margin-top: calc(0px - ((var(--rng-thumb-h) - var(--rng-h)) / 2));
 	position: relative;
 	width: var(--rng-thumb-w);
@@ -665,18 +670,18 @@ main {
 
 .sr-only {
 	clip: rect(0 0 0 0); 
-  clip-path: inset(50%);
+	clip-path: inset(50%);
 	height: 1px;
 	left: 0;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap; 
-  width: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap; 
+	width: 1px;
 }
 
 /* HACKS: TEMP: FIX FOR FIREFOX */
 @-moz-document url-prefix() {
-  .c-nav__item text {
+	.c-nav__item text {
 		display: none;
-  }
+	}
 }

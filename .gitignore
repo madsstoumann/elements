@@ -21,6 +21,6 @@ yarn-error.log*
 *.sln
 
 # Fonts
-*.eot
-*.woff
-*.woff2
+# *.eot
+# *.woff
+# *.woff2
