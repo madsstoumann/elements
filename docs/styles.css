@@ -6,6 +6,7 @@
 			 url('assets/fonts/montserrat-v15-latin-regular.woff2') format('woff2'),
 			 url('assets/fonts/montserrat-v15-latin-regular.woff') format('woff');
 }
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap'); */
 :root {
 	--h: 197;
 	--s: 92%;
@@ -475,13 +476,13 @@ main {
 .c-spot {
 	--bgc: var(--c1);
 	--c: var(--c9);
-	
+
 	background-color: var(--bgc);
 	box-sizing: border-box;
 	color: var(--c);
 	font-size: clamp(1.2rem, 1.0615rem + 0.6154vw, 1.8rem);
 	height: 100vh;
-	opacity: 0.97;
+	opacity: 0.2;
 	overflow-x: hidden;
 	overflow-y: auto;
 	position: fixed;
@@ -489,7 +490,7 @@ main {
 	top: 0;
 	transform: scaleY(0);
 	transform-origin: 50% -100vw;
-	transition: transform .5s ease-in-out;
+	transition: all .8s cubic-bezier(.47, 1.64, .41, .8);
 	width: 100%;
 	z-index: 1;
 }
@@ -522,6 +523,7 @@ main {
 }
 
 .c-spot:target {
+	opacity: 0.97;
 	transform: scaleY(1);
 }
 
