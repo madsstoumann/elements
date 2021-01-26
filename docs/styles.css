@@ -384,7 +384,7 @@ main {
 	--rng-w: 100%;
 	--rng-thumb-bdrs: 50%;
 	--rng-thumb-bgc: transparent;
-	--rng-thumb-bxsh: inset 0 0 0 0.125rem var(--c0);
+	--rng-thumb-bxsh: inset 0 0 0 0.125rem rgba(255, 255, 255, 0.8);
 	--rng-thumb-bxsh--focus: inset 0 0 0 0.125rem var(--c0), 0 0 0 0.125rem  rgba(255, 255, 255, 0.8);
 	--rng-thumb-h: 2rem;
 	--rng-thumb-w: 2rem;
@@ -665,6 +665,12 @@ main {
 
 	.c-spot {
 		left: calc((100vw - var(--maw)) / 2);
+	}
+}
+
+@media (min-width: 1448px) {
+	:root {
+		--maw: 1400px;
 	}
 }
 

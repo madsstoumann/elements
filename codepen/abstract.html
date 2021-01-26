@@ -68,7 +68,9 @@
 }
 
 body {
+  height: -webkit-fill-available;
   margin: 0;
+  min-height: 100vh;
   padding: 0;
 }
 
@@ -76,144 +78,278 @@ body {
   bottom: 0;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(11, 1fr);
-  height: 100%;
-  left: 0;
-  position: fixed;
-  right: 0;
-  top: var(--rng-h);
-  transition: left 0.3s ease-in;
-  width: 100vw;
-  z-index: 10;
+  grid-template-rows: repeat(13, minmax(var(--rng-h), auto));
+  height: calc(100% - var(--rng-h));
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: var(--rng-h);
+	width: 100vw;
+}
+
+.c-grid__export {
+	background: transparent;
+	border: 0;
+	bottom: 1.5rem;
+	position: absolute;
+	right: 1.5rem;
+}
+
+.c-grid__export svg {
+	fill: var(--c-prm);
+  height: 3.5rem;
+  width: 3.5rem;
 }
 
 .c-grid__item {
-  font-size: xx-small;
-  margin: 0;
-  padding: 0;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+	font-size: xx-small;
+	margin: 0;
+	padding: 0;
+	position: relative;
 }
 
 .c-grid__item span {
-  background-color: var(--c1);
-  color: var(--c9);
-  display: inline-block;
-  line-height: 1;
-  opacity: 0.5;
-  padding: 0.5em 0.65em;
+	background-color: var(--c1);
+	color: var(--c9);
+	display: inline-block;
+	line-height: 1;
+	opacity: 0.5;
+	padding: 0.5em 0.65em;
 }
 
 .c-grid__item:nth-of-type(1) {
-  background-color: var(--c-prm);
-  grid-column: 1/5;
-  grid-row: 1/4;
+	background-color: var(--c-prm);
+	grid-column: 1/5;
+	grid-row: 1/4;
 }
 
 .c-grid__item:nth-of-type(2) {
-  background-color: var(--c-tr2);
-  grid-column: 5/7;
-  grid-row: 1/3;
+	background-color: var(--c-tr2);
+	grid-column: 5/7;
+	grid-row: 1/3;
 }
 
 .c-grid__item:nth-of-type(3) {
-  background-color: var(--c-an1);
-  grid-column: 5/6;
-  grid-row: 3/4;
+	background-color: var(--c-an1);
+	grid-column: 5/6;
+	grid-row: 3/4;
 }
 
 .c-grid__item:nth-of-type(4) {
-  background-color: var(--c-an2);
-  grid-column: 6/7;
-  grid-row: 3/4;
+	background-color: var(--c-an2);
+	grid-column: 6/7;
+	grid-row: 3/4;
 }
 
 .c-grid__item:nth-of-type(5) {
-  background-color: var(--c-rc1);
-  grid-column: 1/3;
-  grid-row: 4/5;
+	background-color: var(--c-rc1);
+	grid-column: 1/3;
+	grid-row: 4/5;
 }
 
 .c-grid__item:nth-of-type(6) {
-  background-color: var(--c-sq1);
-  grid-column: 3/5;
-  grid-row: 4/5;
+	background-color: var(--c-sq1);
+	grid-column: 3/5;
+	grid-row: 4/5;
 }
 
 .c-grid__item:nth-of-type(7) {
-  background-color: var(--c-sq2);
-  grid-column: 5/7;
-  grid-row: 4/5;
+	background-color: var(--c-sq2);
+	grid-column: 5/7;
+	grid-row: 4/5;
 }
 
 .c-grid__item:nth-of-type(8) {
-  background-color: var(--c-sc1);
-  grid-column: 1/3;
-  grid-row: 5/7;
+	background-color: var(--c-sc1);
+	grid-column: 1/3;
+	grid-row: 5/7;
 }
 
 .c-grid__item:nth-of-type(9) {
-  background-color: var(--c-sc2);
-  grid-column: 1/2;
-  grid-row: 7/8;
+	background-color: var(--c-sc2);
+	grid-column: 1/2;
+	grid-row: 7/8;
 }
 
 .c-grid__item:nth-of-type(10) {
-  background-color: var(--c-tr1);
-  grid-column: 2/3;
-  grid-row: 7/8;
+	background-color: var(--c-tr1);
+	grid-column: 2/3;
+	grid-row: 7/8;
 }
 
 .c-grid__item:nth-of-type(11) {
-  background-color: var(--c-com);
-  grid-column: 3/7;
-  grid-row: 5/8;
+	background-color: var(--c-com);
+	grid-column: 3/7;
+	grid-row: 5/8;
 }
 
 .c-grid__item:nth-of-type(12) {
-  background-color: var(--c-sh2);
-  grid-column: 1/2;
-  grid-row: 8/9;
+	background-color: var(--c-sh1);
+	grid-column: 1/2;
+	grid-row: 8/9;
 }
 
 .c-grid__item:nth-of-type(13) {
-  background-color: var(--c-sh5);
-  grid-column: 2/3;
-  grid-row: 8/9;
+	background-color: var(--c-sh2);
+	grid-column: 2/3;
+	grid-row: 8/9;
 }
 
 .c-grid__item:nth-of-type(14) {
-  background-color: var(--c-sh3);
-  grid-column: 3/5;
-  grid-row: 8/10;
+	background-color: var(--c-sh3);
+	grid-column: 3/4;
+	grid-row: 8/9;
 }
 
 .c-grid__item:nth-of-type(15) {
-  background-color: var(--c-tn3);
-  grid-column: 5/7;
-  grid-row: 8/10;
+	background-color: var(--c-sh4);
+	grid-column: 4/5;
+	grid-row: 8/9;
 }
 
 .c-grid__item:nth-of-type(16) {
-  background-color: var(--c-tn6);
-  grid-column: 1/3;
-  grid-row: 9/10;
+	background-color: var(--c-sh5);
+	grid-column: 5/6;
+	grid-row: 8/9;
 }
 
 .c-grid__item:nth-of-type(17) {
-  background-color: var(--c-sh9);
-  grid-column: 1/4;
-  grid-row: 10/10;
+	background-color: var(--c-sh6);
+	grid-column: 1/2;
+	grid-row: 9/10;
 }
 
 .c-grid__item:nth-of-type(18) {
-  background-color: var(--c-sh7);
-  grid-column: 4/7;
-  grid-row: 10/10;
+	background-color: var(--c-sh7);
+	grid-column: 2/3;
+	grid-row: 9/10;
 }
 
 .c-grid__item:nth-of-type(19) {
-  background-color: var(--c-prm);
-  grid-column: 1/7;
-  grid-row: 11/11;
+	background-color: var(--c-sh8);
+	grid-column: 3/4;
+	grid-row: 9/10;
+}
+
+.c-grid__item:nth-of-type(20) {
+	background-color: var(--c-sh9);
+	grid-column: 4/5;
+	grid-row: 9/10;
+}
+
+.c-grid__item:nth-of-type(21) {
+	background-color: var(--c-tn1);
+	grid-column: 6/7;
+	grid-row: 8/9;
+}
+
+.c-grid__item:nth-of-type(22) {
+	background-color: var(--c-tn2);
+	grid-column: 1/3;
+	grid-row: 10/11;
+}
+
+.c-grid__item:nth-of-type(23) {
+	background-color: var(--c-tn3);
+	grid-column: 3/5;
+	grid-row: 10/11;
+}
+
+.c-grid__item:nth-of-type(24) {
+	background-color: var(--c-tn4);
+	grid-column: 5/6;
+	grid-row: 10/11;
+}
+
+.c-grid__item:nth-of-type(25) {
+	background-color: var(--c-tn5);
+	grid-column: 6/7;
+	grid-row: 10/11;
+}
+
+.c-grid__item:nth-of-type(26) {
+	background-color: var(--c-tn6);
+	grid-column: 5/6;
+	grid-row: 9/10;
+}
+
+.c-grid__item:nth-of-type(27) {
+	background-color: var(--c-tn7);
+	grid-column: 6/7;
+	grid-row: 9/10;
+}
+
+.c-grid__item:nth-of-type(28) {
+	background-color: var(--c-tn8);
+	grid-column: 1/2;
+	grid-row: 11/12;
+}
+
+.c-grid__item:nth-of-type(29) {
+	background-color: var(--c-tn9);
+	grid-column: 1/2;
+	grid-row: 12/13;
+}
+
+.c-grid__item:nth-of-type(30) {
+	background-color: var(--c1);
+	grid-column: 2/3;
+	grid-row: 11/13;
+}
+
+.c-grid__item:nth-of-type(31) {
+	background-color: var(--c2);
+	grid-column: 3/4;
+	grid-row: 11/12;
+}
+
+.c-grid__item:nth-of-type(32) {
+	background-color: var(--c3);
+	grid-column: 3/4;
+	grid-row: 12/13;
+}
+
+.c-grid__item:nth-of-type(33) {
+	background-color: var(--c4);
+	grid-column: 4/5;
+	grid-row: 11/12;
+}
+
+.c-grid__item:nth-of-type(34) {
+	background-color: var(--c5);
+	grid-column: 4/5;
+	grid-row: 12/13;
+}
+
+.c-grid__item:nth-of-type(35) {
+	background-color: var(--c6);
+	grid-column: 5/6;
+	grid-row: 11/12;
+}
+
+.c-grid__item:nth-of-type(36) {
+	background-color: var(--c7);
+	grid-column: 5/6;
+	grid-row: 12/13;
+}
+
+.c-grid__item:nth-of-type(37) {
+	background-color: var(--c8);
+	grid-column: 6/7;
+	grid-row: 11/12;
+}
+
+.c-grid__item:nth-of-type(38) {
+	background-color: var(--c9);
+	grid-column: 6/7;
+	grid-row: 12/13;
+}
+
+.c-grid__item:nth-of-type(39) {
+	background-color: var(--c1);
+	grid-column: 1/7;
+	grid-row: 13/14;
 }
 
 .c-grid__item--range {
@@ -321,24 +457,51 @@ body {
 <main>
   <input type="range" class="c-rng c-rng--hue" id="hue" min="0" max="360" value="197" oninput="document.documentElement.style.setProperty('--h', this.valueAsNumber)" />
   <div class="c-grid">
-    <div class="c-grid__item"><span>Primary</span></div>
-    <div class="c-grid__item"><span>Triad 2</span></div>
-    <div class="c-grid__item"><span>Analogous 1</span></div>
-    <div class="c-grid__item"><span>Analogous 2</span></div>
-    <div class="c-grid__item"><span>Rect</span></div>
-    <div class="c-grid__item"><span>Square 1</span></div>
-    <div class="c-grid__item"><span>Square 2</span></div>
-    <div class="c-grid__item"><span>Split Comp. 1</span></div>
-    <div class="c-grid__item"><span>Split Comp. 2</span></div>
-    <div class="c-grid__item"><span>Triad 1</span></div>
-    <div class="c-grid__item"><span>Complimentary</span></div>
-    <div class="c-grid__item"><span>Shade 2</span></div>
-    <div class="c-grid__item"><span>Shade 5</span></div>
-    <div class="c-grid__item"><span>Shade 3</span></div>
-    <div class="c-grid__item"><span>Tint 3</span></div>
-    <div class="c-grid__item"><span>Tint 6</span></div>
-    <div class="c-grid__item"><span>Shade 9</span></div>
-    <div class="c-grid__item"><span>Shade 7</span></div>
+    <div class="c-grid">
+      <div class="c-grid__item"><span>Primary</span></div>
+      <div class="c-grid__item"><span>Triad 2</span></div>
+      <div class="c-grid__item"><span>Analogous 1</span></div>
+      <div class="c-grid__item"><span>Analogous 2</span></div>
+      <div class="c-grid__item"><span>Rect</span></div>
+      <div class="c-grid__item"><span>Square 1</span></div>
+      <div class="c-grid__item"><span>Square 2</span></div>
+      <div class="c-grid__item"><span>Split Comp. 1</span></div>
+      <div class="c-grid__item"><span>Split Comp. 2</span></div>
+      <div class="c-grid__item"><span>Triad 1</span></div>
+      <div class="c-grid__item"><span>Complimentary</span>
+        <button type="button" class="c-grid__export" id="export" aria-label="export">
+          <svg class="c-ico"><use xlink:href="#icon-download"></use></svg>
+        </button>
+      </div>
+      <div class="c-grid__item"><span>Shade 1</span></div>
+      <div class="c-grid__item"><span>Shade 2</span></div>
+      <div class="c-grid__item"><span>Shade 3</span></div>
+      <div class="c-grid__item"><span>Shade 4</span></div>
+      <div class="c-grid__item"><span>Shade 5</span></div>
+      <div class="c-grid__item"><span>Shade 6</span></div>
+      <div class="c-grid__item"><span>Shade 7</span></div>
+      <div class="c-grid__item"><span>Shade 8</span></div>
+      <div class="c-grid__item"><span>Shade 9</span></div>
+
+      <div class="c-grid__item"><span>Tint 1</span></div>
+      <div class="c-grid__item"><span>Tint 2</span></div>
+      <div class="c-grid__item"><span>Tint 3</span></div>
+      <div class="c-grid__item"><span>Tint 4</span></div>
+      <div class="c-grid__item"><span>Tint 5</span></div>
+      <div class="c-grid__item"><span>Tint 6</span></div>
+      <div class="c-grid__item"><span>Tint 7</span></div>
+      <div class="c-grid__item"><span>Tint 8</span></div>
+      <div class="c-grid__item"><span>Tint 9</span></div>
+      
+      <div class="c-grid__item"><span>Palette 1</span></div>
+      <div class="c-grid__item"><span>Palette 2</span></div>
+      <div class="c-grid__item"><span>Palette 3</span></div>
+      <div class="c-grid__item"><span>Palette 4</span></div>
+      <div class="c-grid__item"><span>Palette 5</span></div>
+      <div class="c-grid__item"><span>Palette 6</span></div>
+      <div class="c-grid__item"><span>Palette 7</span></div>
+      <div class="c-grid__item"><span>Palette 8</span></div>
+      <div class="c-grid__item"><span>Palette 9</span></div>
     <div class="c-grid__item c-grid__item--range">
       <input type="range" class="c-rng c-rng--saturation" min="0" max="100" value="92" oninput="document.documentElement.style.setProperty('--s', `${this.value}%`)" />
       <input type="range" class="c-rng c-rng--lightness" min="0" max="100" value="61" oninput="document.documentElement.style.setProperty('--l', `${this.value}%`)" />
@@ -346,6 +509,33 @@ body {
   </div>
 </main>
 
+<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;">
+  <symbol id="icon-download" viewBox="0 0 16 16">
+    <path d="M13.922 5.626c-0.051-2.011-1.695-3.626-3.717-3.626-1.184 0-2.239 0.555-2.92 1.418-0.382-0.494-0.98-0.812-1.652-0.812-1.153 0-2.088 0.936-2.088 2.089 0 0.101 0.007 0.199 0.021 0.296-0.175-0.032-0.356-0.049-0.54-0.049-1.672-0-3.027 1.356-3.027 3.029s1.355 3.029 3.027 3.029h1.434l3.539 3.664 3.539-3.664 1.742-0c1.502-0.003 2.719-1.222 2.719-2.726 0-1.283-0.886-2.358-2.078-2.648zM8 13l-3-3h2v-3h2v3h2l-3 3z"></path>
+  </symbol>
+</svg>
+
+  <script>
+
+/* Click on the cloud-icon to download current styles */
+document.getElementById('export').addEventListener('click', () => {
+  let css = '';
+  const cells = document.querySelectorAll('.c-grid__item');
+  cells.forEach(cell => {
+    if (cell.innerText) {
+      css += `.${cell.innerText.replace(/ /g,'').toLowerCase()} { color: ${window.getComputedStyle(cell).getPropertyValue('background-color')}; }\n`;
+    }
+  });
+  download('styles.css', css);
+});
+
+function download(filename, text) {
+  let elm = document.createElement('a');
+  elm.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  elm.setAttribute('download', filename);
+  elm.click();
+}
+  </script>
 
 </body>
 </html>	
