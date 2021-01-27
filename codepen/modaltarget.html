@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <title>Modal: :target</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>
+
+.c-modal {
+  --i-close: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" fill="none"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>');
+  background-color: rgba(0, 0, 0, .45);
+  color: hsl(162, 10%, 20%);
+  bottom: 0;
+  display: none;
+  left: 0;
+  place-items: center;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+.c-modal:target {
+  display: grid;
+}
+.c-modal__accept {
+  background-color: hsl(162, 50%, 34%);
+  border: 0;
+  border-radius: 0.25rem;
+  color: hsl(162, 68%, 100%);
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+}
+.c-modal__cancel {
+  color: hsl(162, 10%, 40%);
+}
+.c-modal__close {
+  --ico:  var(--i-close);
+  --ico-c: currentColor;
+  --w: 2.5rem;
+  border-radius: 50%;
+  display: grid;
+  height: var(--w);
+  /* inset-inline-end: 1rem; */
+  right: 1rem;
+  place-items: center;
+  position: absolute;
+  top: 1rem;
+  width: var(--w);
+}
+.c-modal__close::after {
+  background-color: var(--ico-c, #000);
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  mask: no-repeat center/var(--ico-w, 2rem) var(--ico);
+  -webkit-mask: no-repeat center/var(--ico-w, 2rem) var(--ico);
+}
+.c-modal__close:focus {
+  background-color: hsl(162, 20%, 95%);
+  outline: none;
+}
+.c-modal__headline {
+  line-height: 1.2;
+  margin: 0 0 .82em 0;
+  width: calc(100% - 2.5rem);
+}
+.c-modal__inner {
+  background-color: #FFF;
+  border-radius: .25rem;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05);
+  max-width: 20rem;
+  padding: 1.25rem;
+  position: relative;
+}
+.c-modal__nav {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;  
+  margin-block-start: 1rem;
+}
+@media (hover: hover) {
+  .c-modal__accept:hover {
+    background-color: hsl(162, 50%, 24%);
+  }
+  .c-modal__close:hover {
+    background-color: hsl(162, 20%, 90%);
+  }
+}
+/* For this demo only */
+body { font-family: ui-sans-serif, system-ui, sans-serif; line-height: 1.6; margin: 2rem auto; max-width: 1000px; }
+p { color: #717171; margin: 2rem 0; }
+  </style>
+</head>
+<body>
+
+<a href="#modal" class="c-modal__accept">Open modal</a>
+<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate, totam. Eius cum, qui dicta dignissimos unde aliquam nihil, voluptate laudantium voluptatibus ex necessitatibus doloribus accusantium maiores eaque? Deleniti repellendus ullam vitae recusandae ad dicta odit, minus nihil eveniet cumque numquam et, illo soluta veritatis ab unde, iure praesentium doloremque. Ratione nesciunt ipsum voluptatum nostrum ut dolores, laudantium totam eos, illo est doloribus libero saepe id deserunt enim maxime quod ex nobis tenetur at alias quaerat esse, eum eaque. Nisi quidem laborum similique maxime dolore nemo ex assumenda laudantium molestias officiis libero optio labore molestiae officia, voluptatem iusto et blanditiis aspernatur dicta quam fuga qui praesentium? Mollitia, soluta quod vel non earum repellendus natus numquam? Dicta recusandae voluptate, reiciendis dolorem earum sapiente pariatur cupiditate excepturi sed corrupti commodi vitae eveniet asperiores provident officia quidem totam doloribus! Voluptas dicta dignissimos nemo quo quaerat nostrum perferendis? Voluptatem voluptatibus temporibus minus non magnam placeat magni excepturi vero fugiat. Nihil aut nisi et a ducimus totam, quisquam ipsa, iusto nobis fugiat vitae nostrum. Sit odio reprehenderit aspernatur quae voluptatem eos rem quas illum, debitis natus eaque iure voluptatum architecto, itaque, maiores repellat? Quasi, iusto saepe consectetur sed delectus earum iure beatae exercitationem minima fuga rerum voluptates fugiat id voluptatem maxime, inventore, porro deserunt reiciendis eaque eveniet esse. Eius harum quia, porro suscipit, recusandae totam atque illum natus assumenda omnis eaque! Laudantium ex soluta modi neque atque, voluptatem deleniti. Nisi, distinctio, harum aspernatur unde quia suscipit ab iste consequuntur possimus neque molestiae voluptas ea asperiores quidem quasi aliquam! Ad a nam consectetur rerum totam fugiat, deleniti possimus, repudiandae molestias, repellendus ut sint. Adipisci aut repellat cupiditate. Facilis, modi! Quod laudantium dicta blanditiis magnam corrupti. Impedit quo provident optio, necessitatibus cumque reiciendis? Doloribus, minus aut. Tempore molestiae, doloribus nam aliquam officiis illo voluptate iure laborum voluptatum corporis libero facilis ipsa maxime, quia error soluta sint eligendi repudiandae pariatur totam. Doloribus aspernatur asperiores distinctio cum, ullam corrupti labore nesciunt quidem cumque eos inventore veniam vero amet blanditiis odio. Commodi, suscipit tempore? Illum, vero in! Nulla praesentium explicabo excepturi ea dolorem voluptatum sunt, voluptatem ut possimus iure asperiores expedita quae, blanditiis nesciunt et similique id iste! Provident corrupti dolores non temporibus adipisci est cum veritatis numquam officiis animi sint sunt aut deleniti, ratione quod doloribus ex commodi velit repellat exercitationem eligendi quaerat accusantium eveniet optio! Natus ducimus architecto incidunt debitis molestias harum repellat temporibus. Earum amet ipsa reprehenderit sapiente similique quibusdam doloribus perferendis maxime possimus perspiciatis veritatis consequuntur deserunt tenetur impedit, laudantium repellat officia labore fugit eum laborum, quo a ipsum magni! Ad enim asperiores odit facere quos illo sint sapiente voluptates, dolore explicabo harum cumque dolorem itaque praesentium deserunt facilis rerum fugit. Quas, consequatur explicabo itaque aperiam expedita repellendus unde, doloremque provident debitis officiis error eligendi corporis in veritatis fuga enim ut soluta libero dolor ab recusandae tempore, totam aut? Quia consequuntur illum ipsa dolores perferendis quis amet numquam velit beatae doloremque, quas nostrum nesciunt doloribus magni iure, porro quibusdam incidunt officiis eveniet, inventore quasi. Corrupti, ipsam consequatur.</p>
+<a href="#modal2" class="c-modal__accept">Open another modal</a>
+<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate, totam. Eius cum, qui dicta dignissimos unde aliquam nihil, voluptate laudantium voluptatibus ex necessitatibus doloribus accusantium maiores eaque? Deleniti repellendus ullam vitae recusandae ad dicta odit, minus nihil eveniet cumque numquam et, illo soluta veritatis ab unde, iure praesentium doloremque. Ratione nesciunt ipsum voluptatum nostrum ut dolores, laudantium totam eos, illo est doloribus libero saepe id deserunt enim maxime quod ex nobis tenetur at alias quaerat esse, eum eaque. Nisi quidem laborum similique maxime dolore nemo ex assumenda laudantium molestias officiis libero optio labore molestiae officia, voluptatem iusto et blanditiis aspernatur dicta quam fuga qui praesentium? Mollitia, soluta quod vel non earum repellendus natus numquam? Dicta recusandae voluptate, reiciendis dolorem earum sapiente pariatur cupiditate excepturi sed corrupti commodi vitae eveniet asperiores provident officia quidem totam doloribus! Voluptas dicta dignissimos nemo quo quaerat nostrum perferendis? Voluptatem voluptatibus temporibus minus non magnam placeat magni excepturi vero fugiat. Nihil aut nisi et a ducimus totam, quisquam ipsa, iusto nobis fugiat vitae nostrum. Sit odio reprehenderit aspernatur quae voluptatem eos rem quas illum, debitis natus eaque iure voluptatum architecto, itaque, maiores repellat? Quasi, iusto saepe consectetur sed delectus earum iure beatae exercitationem minima fuga rerum voluptates fugiat id voluptatem maxime, inventore, porro deserunt reiciendis eaque eveniet esse. Eius harum quia, porro suscipit, recusandae totam atque illum natus assumenda omnis eaque! Laudantium ex soluta modi neque atque, voluptatem deleniti. Nisi, distinctio, harum aspernatur unde quia suscipit ab iste consequuntur possimus neque molestiae voluptas ea asperiores quidem quasi aliquam! Ad a nam consectetur rerum totam fugiat, deleniti possimus, repudiandae molestias, repellendus ut sint. Adipisci aut repellat cupiditate. Facilis, modi! Quod laudantium dicta blanditiis magnam corrupti. Impedit quo provident optio, necessitatibus cumque reiciendis? Doloribus, minus aut. Tempore molestiae, doloribus nam aliquam officiis illo voluptate iure laborum voluptatum corporis libero facilis ipsa maxime, quia error soluta sint eligendi repudiandae pariatur totam. Doloribus aspernatur asperiores distinctio cum, ullam corrupti labore nesciunt quidem cumque eos inventore veniam vero amet blanditiis odio. Commodi, suscipit tempore? Illum, vero in! Nulla praesentium explicabo excepturi ea dolorem voluptatum sunt, voluptatem ut possimus iure asperiores expedita quae, blanditiis nesciunt et similique id iste! Provident corrupti dolores non temporibus adipisci est cum veritatis numquam officiis animi sint sunt aut deleniti, ratione quod doloribus ex commodi velit repellat exercitationem eligendi quaerat accusantium eveniet optio! Natus ducimus architecto incidunt debitis molestias harum repellat temporibus. Earum amet ipsa reprehenderit sapiente similique quibusdam doloribus perferendis maxime possimus perspiciatis veritatis consequuntur deserunt tenetur impedit, laudantium repellat officia labore fugit eum laborum, quo a ipsum magni! Ad enim asperiores odit facere quos illo sint sapiente voluptates, dolore explicabo harum cumque dolorem itaque praesentium deserunt facilis rerum fugit. Quas, consequatur explicabo itaque aperiam expedita repellendus unde, doloremque provident debitis officiis error eligendi corporis in veritatis fuga enim ut soluta libero dolor ab recusandae tempore, totam aut? Quia consequuntur illum ipsa dolores perferendis quis amet numquam velit beatae doloremque, quas nostrum nesciunt doloribus magni iure, porro quibusdam incidunt officiis eveniet, inventore quasi. Corrupti, ipsam consequatur.</p>
+
+<div class="c-modal" id="modal">
+  <div class="c-modal__inner">
+    <h2 class="c-modal__headline">Are you sure?</h2>
+    <a href="#" class="c-modal__close" aria-label="Close modal"></a>
+    <div class="c-modal__content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit reiciendis eos aliquid iure, quis, mollitia dolorem consequatur doloribus commodi rem cumque, dignissimos beatae quidem.</div>
+    <div class="c-modal__nav">
+      <a href="#" class="c-modal__cancel">Cancel</a>
+      <a href="#" class="c-modal__accept">Accept</a>
+      <!-- <button type="button" class="c-modal__accept">Accept</button> -->
+    </div>
+  </div>
+</div>
+
+<div class="c-modal" id="modal2">
+  <div class="c-modal__inner">
+    <h2 class="c-modal__headline">You really need to be certain!</h2>
+    <a href="#" class="c-modal__close" aria-label="Close modal"></a>
+    <div class="c-modal__content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit reiciendis eos aliquid iure, quis, mollitia dolorem consequatur doloribus commodi rem cumque, dignissimos beatae quidem.</div>
+    <div class="c-modal__nav">
+      <a href="#" class="c-modal__cancel">Cancel</a>
+      <a href="#" class="c-modal__accept">Accept</a>
+      <!-- <button type="button" class="c-modal__accept">Accept</button> -->
+    </div>
+  </div>
+</div>
+<!--
+
+const FOCUSABLE = 'button,[href],select,textarea,input:not([type="hidden"]),[tabindex]:not([tabindex="-1"])';
+window.addEventListener('hashchange', (event) => {
+  const hash = location.hash;
+  /* '#' is different from just '#' */
+  if (hash.length > 1) {
+    const modal = document.getElementById(hash.substr(1));
+    if (modal) {
+      /* If modal exists, add keydown-listener, set __f-property as an array of focusable elements */
+      modal.addEventListener('keydown', keyHandler);
+      modal.__f = [...modal.querySelectorAll(FOCUSABLE)];
+      /* Set focus on first focusable element */
+      modal.__f[0].focus();
+    }
+  }
+  else {
+    /* If hash change to just '#', find previous (old) id, remove event, and focus on link, that triggered the modal */
+    const [o, oldID] = event.oldURL.split('#');
+    if (oldID) {
+      document.getElementById(oldID).removeEventListener('keydown', keyHandler);
+      document.querySelector(`[href="#${oldID}"]`).focus();
+    }
+  }
+});
+
+function keyHandler(event) {
+  /* We just want to listen to Tab- and Escape-keystrokes. If Tab, prevent default behaviour */
+  if (event.key === 'Tab') {
+    event.preventDefault();
+    /* Get array-length of focusable elements */
+    const len =  this.__f.length - 1;
+    /* Find current elements index in array of focusable elements */
+    let index = this.__f.indexOf(event.target);
+    /* If shift-key is pressed, decrease index, otherwise increase index */
+    index = event.shiftKey ? index-1 : index+1;
+    /* Check boundaries. If index is smaller than 0, set it to len, and vice versa, so focus "cycles" in modal */
+    if (index < 0) index = len;
+    if (index > len) index = 0;
+    /* Set focus on element matching new index */
+    this.__f[index].focus();
+  }
+  /* Set hash to '#' === "Close Modal", when Escape is pressed */
+  if (event.key === 'Escape') location.hash = '#';
+}
+
+-->
+<script>
+// 642 bytes => 411 bytes gzipped
+// let D=document,F='button,[href],select,textarea,input:not([type="hidden"]),[tabindex]:not([tabindex="-1"])';function K(e){if("Tab"===e.key){e.preventDefault();let t=this.__f.length-1,n=this.__f.indexOf(e.target);(n=e.shiftKey?n-1:n+1)<0&&(n=t),n>t&&(n=0),this.__f[n].focus()}"Escape"===e.key&&(location.hash="#")}addEventListener("hashchange",e=>{let t=location.hash;if(t.length>1){let e=D.getElementById(t.substr(1));e&&(e.addEventListener("keydown",K),e.__f=[...e.querySelectorAll(F)],e.__f[0].focus())}else{let[t,n]=e.oldURL.split("#");n&&(D.getElementById(n).removeEventListener("keydown",K),D.querySelector(`[href="#${n}"]`).focus())}});
+
+// Only with href-selector: 361 bytes =>
+let D=document;function K(e){if("Tab"===e.key){e.preventDefault();let t=this.__f.length-1,n=this.__f.indexOf(e.target);(n=e.shiftKey?n-1:n+1)<0&&(n=t),n>t&&(n=0),this.__f[n].focus()}"Escape"===e.key&&(location.hash="#")}addEventListener("hashchange",e=>{let t=location.hash;if(t.length>1){let e=D.getElementById(t.substr(1));e&&(e.addEventListener("keydown",K),e.__f=[...e.querySelectorAll('[href]')],e.__f[0].focus())}else{let[t,n]=e.oldURL.split("#");n&&(D.getElementById(n).removeEventListener("keydown",K),D.querySelector(`[href="#${n}"]`).focus())}});
+
+/* Manually trigger hashchange, if any modals are "open" on load */
+// window.dispatchEvent(new HashChangeEvent("hashchange"));
+
+/* Open a specific modal */
+location.hash = 'modal';
+</script>
+</body>
+</html>	

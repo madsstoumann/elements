@@ -10,17 +10,79 @@
 <body>
 	<input class="sr-only" type="checkbox" id="a11y" name="a11y" />
 	<main>
+
 		<h1 class="sr-only">Mads Stoumann - Welcome</h1>
+
 		<label class="c-rng--hsl-label" aria-label="Change the color-palette of the website">
-			<input type="range" class="c-rng c-rng--hue" id="hue" min="0" max="360" value="197" oninput="document.documentElement.style.setProperty('--h', this.valueAsNumber)" />
+			<input type="range" class="c-rng c-rng--hue" id="h" min="0" max="360" value="197" />
 		</label>
+
 		<label class="c-a11y" for="a11y" aria-label="Toggle High Contrast B/W Theme">
 			<svg class="c-ico c-ico--a11y"><use xlink:href="#icon-palette"></use></svg>
 		</label>
-		<input class="sr-only" type="checkbox" id="grid" name="grid" />
-		<label class="c-grid__label" for="grid" aria-label="Toggle Generated Colors">
+
+		<input class="sr-only" type="checkbox" id="g" name="grid" />
+		<label class="c-grid__label" for="g" aria-label="Toggle Generated Colors">
 			<svg class="c-grid__ico"><use xlink:href="#icon-colorgrid"></use></svg>
 		</label>
+
+		<article class="c-spot" id="madsstoumann">
+			<a class="c-spot__close" href="#" tabindex="-1" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
+			<h2 class="c-spot__headline">Mads Stoumann</h2>
+			<p>Hi, I'm Mads.<br />Thanks for stopping by! I'm a web developer, graphic designer, type designer, musician, comicbook-geek, LEGO-collector, food lover  &hellip; as well as husband and father, located just south of Copenhagen, Denmark.</p>
+			<hr />
+			<p>I work as a Technical Director at Valtech. <br />Get in touch:</p>
+			<a href="http://linkedin.com/in/madsstoumann" tabindex="-1" rel="noopener noreferrer" aria-label="LinkedIn"><svg class="c-ico"><use xlink:href="#icon-linkedin"></use></svg></a>
+			<a href="https://github.com/madsstoumann" tabindex="-1" rel="noopener noreferrer" aria-label="GitHub"><svg class="c-ico"><use xlink:href="#icon-github"></use></svg></a>
+		</article>
+
+		<article class="c-spot c-spot--r2" id="graphicdesign">
+			<a class="c-spot__close" href="#" tabindex="-1" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
+			<h2 class="c-spot__headline">Graphic Design</h2>
+			<p>As a graphic designer, I've been lettering, coloring, layouting and designing hundreds and hundreds of comics, books and magazines. I've designed the typefaces used for the Nordic <em>Spirou-</em> and <em>Gaston Lagaffe-</em>comics, created ads, logos, brochures, toy-wrappings &hellip; and much more.</p><hr />
+			<p>With a group of friends, I co-founded what is today Denmarks largest comicbook-publisher:<br />Forlaget Zoom.</p>
+		</article>
+
+		<article class="c-spot c-spot--r3" id="programming">
+			<a class="c-spot__close" href="#" tabindex="-1" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
+			<h2 class="c-spot__headline">Pro&shy;gramming</h2>
+			<p>I've worked quite a lot with relational databases and the T-SQL-language. My backend-skills are limited to <em>Visual Basic</em> &mdash; I definitely feel more comfortable with JavaScript!</p>
+			<hr />
+			<p>For the <em>Danish Medicines Agency</em>, I've developed two applications: One for tracking the storage-location of specific medicine applications, and one for calculating patterns in symptoms for vaccines.</p>
+		</article>
+
+		<article class="c-spot c-spot--r4" id="appsmusic">
+			<a class="c-spot__close" href="#" tabindex="-1" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
+			<h2 class="c-spot__headline">Apps & Music</h2>
+			<p>I love to create small editors and apps. This <a href="https://codepen.io/collection/XLakJY" tabindex="-1">Codepen Collection</a> contains a bunch of small CSS-editors, I'm currently working on &hellip; more to come! On a larger scale, I've created <em>Logifront</em>, an app for complex form-logic — and <em>OneBlock</em>, a visual editor for CMS-systems (it has been implemented in epiServer-solutions).</p>
+			<p>I also love synthesizers, and I've played them since I was 12 years old.<br />You can listen to some of my stuff at <a href="https://soundcloud.com/mads-stoumann" tabindex="-1">Soundcloud</a>.</p>
+		</article>
+
+		<article class="c-spot c-spot--r5" id="webdesign">
+			<a class="c-spot__close" href="#" tabindex="-1" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
+			<h2 class="c-spot__headline">Web Design</h2>
+			<p>I made my first website in 1995. It amazes me how much has changed — and yet — how much is still the same. I don't think HTML, CSS or JavaScript will be replaced with other languages in the foreseeable future.</p>
+			<hr />
+			<p>In th early days, I mostly worked on e-commerce websites and small marketing websites for a wide range of clients. These days, I'm lucky to work on global sites, with interesting challenges.</p>
+		</article>
+
+		<article class="c-spot c-spot--r6" id="articles">
+			<a class="c-spot__close" href="#" tabindex="-1" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
+			<h2 class="c-spot__headline">Articles</h2>
+			<p>I love to write about technology. I used to have my own blog, but after I discovered <em>dev.to</em>, I never looked back. It's such an intuitive platform, and you can <a href="https://dev.to/madsstoumann" tabindex="-1">find all my articles here</a></p>
+			<hr />
+			<p>Recently, I wrote a large article about <em>How to Play and Pause CSS Animations with CSS Custom Properties</em> for <a href="https://css-tricks.com/how-to-play-and-pause-css-animations-with-css-custom-properties/" tabindex="-1">CSS-tricks</a></p>
+		</article>
+
+		<article class="c-spot c-spot--r7" id="news">
+			<a class="c-spot__close" href="#" tabindex="-1" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
+			<h2 class="c-spot__headline">News</h2>
+			<p>I'm currently working on the next version of <em>OneBlock</em> for Valtech.</p>
+			<hr />
+			<p>For new articles, check my page at <a href="https://dev.to/madsstoumann" tabindex="-1">dev.to</a></p>
+			<hr />
+			<p>For my latest code-examples, check my <a href="https://codepen.io/stoumann/pens/public" tabindex="-1">public page</a> at Codepen</p>
+		</article>
 
 		<div class="c-nav">
 			<svg class="c-nav__inner" viewBox="0 0 100 100">
@@ -90,64 +152,6 @@
 			</svg>
 		</div>
 
-		<article class="c-spot" id="madsstoumann">
-			<a class="c-spot__close" href="#" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
-			<h2 class="c-spot__headline">Mads Stoumann</h2>
-			<p>Hi, I'm Mads.<br />Thanks for stopping by! I'm a web developer, graphic designer, type designer, musician, comicbook-geek, LEGO-collector, food lover  &hellip; as well as husband and father, located just south of Copenhagen, Denmark.</p>
-			<hr />
-			<p>I work as a Technical Director at Valtech. <br />Get in touch:</p>
-			<a href="http://linkedin.com/in/madsstoumann" rel="noopener noreferrer" aria-label="LinkedIn"><svg class="c-ico"><use xlink:href="#icon-linkedin"></use></svg></a>
-			<a href="https://github.com/madsstoumann" rel="noopener noreferrer" aria-label="GitHub"><svg class="c-ico"><use xlink:href="#icon-github"></use></svg></a>
-		</article>
-
-		<article class="c-spot c-spot--r2" id="graphicdesign">
-			<a class="c-spot__close" href="#" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
-			<h2 class="c-spot__headline">Graphic Design</h2>
-			<p>As a graphic designer, I've been lettering, coloring, layouting and designing hundreds and hundreds of comics, books and magazines. I've designed the typefaces used for the Nordic <em>Spirou-</em> and <em>Gaston Lagaffe-</em>comics, created ads, logos, brochures, toy-wrappings &hellip; and much more.</p><hr />
-			<p>With a group of friends, I co-founded what is today Denmarks largest comicbook-publisher:<br />Forlaget Zoom.</p>
-		</article>
-
-		<article class="c-spot c-spot--r3" id="programming">
-			<a class="c-spot__close" href="#" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
-			<h2 class="c-spot__headline">Pro&shy;gramming</h2>
-			<p>I've worked quite a lot with relational databases and the T-SQL-language. My backend-skills are limited to <em>Visual Basic</em> &mdash; I definitely feel more comfortable with JavaScript!</p>
-			<hr />
-			<p>For the <em>Danish Medicines Agency</em>, I've developed two applications: One for tracking the storage-location of specific medicine applications, and one for calculating patterns in symptoms for vaccines.</p>
-		</article>
-
-		<article class="c-spot c-spot--r4" id="appsmusic">
-			<a class="c-spot__close" href="#" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
-			<h2 class="c-spot__headline">Apps & Music</h2>
-			<p>I love to create small editors and apps. This <a href="https://codepen.io/collection/XLakJY">Codepen Collection</a> contains a bunch of small CSS-editors, I'm currently working on &hellip; more to come! On a larger scale, I've created <em>Logifront</em>, an app for complex form-logic — and <em>OneBlock</em>, a visual editor for CMS-systems (it has been implemented in epiServer-solutions).</p>
-			<p>I also love synthesizers, and I've played them since I was 12 years old.<br />You can listen to some of my stuff at <a href="https://soundcloud.com/mads-stoumann">Soundcloud</a>.</p>
-		</article>
-
-		<article class="c-spot c-spot--r5" id="webdesign">
-			<a class="c-spot__close" href="#" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
-			<h2 class="c-spot__headline">Web Design</h2>
-			<p>I made my first website in 1995. It amazes me how much has changed — and yet — how much is still the same. I don't think HTML, CSS or JavaScript will be replaced with other languages in the foreseeable future.</p>
-			<hr />
-			<p>In th early days, I mostly worked on e-commerce websites and small marketing websites for a wide range of clients. These days, I'm lucky to work on global sites, with interesting challenges.</p>
-		</article>
-
-		<article class="c-spot c-spot--r6" id="articles">
-			<a class="c-spot__close" href="#" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
-			<h2 class="c-spot__headline">Articles</h2>
-			<p>I love to write about technology. I used to have my own blog, but after I discovered <em>dev.to</em>, I never looked back. It's such an intuitive platform, and you can <a href="https://dev.to/madsstoumann">find all my articles here</a></p>
-			<hr />
-			<p>Recently, I wrote a large article about <em>How to Play and Pause CSS Animations with CSS Custom Properties</em> for <a href="https://css-tricks.com/how-to-play-and-pause-css-animations-with-css-custom-properties/">CSS-tricks</a></p>
-		</article>
-
-		<article class="c-spot c-spot--r7" id="news">
-			<a class="c-spot__close" href="#" aria-label="Close overlay"><svg class="c-ico"><use xlink:href="#icon-close"></use></svg></a>
-			<h2 class="c-spot__headline">News</h2>
-			<p>I'm currently working on the next version of <em>OneBlock</em> for Valtech.</p>
-			<hr />
-			<p>For new articles, check my page at <a href="https://dev.to/madsstoumann">dev.to</a></p>
-			<hr />
-			<p>For my latest code-examples, check my <a href="https://codepen.io/stoumann/pens/public">public page</a> at Codepen</p>
-		</article>
-
 		<div class="c-grid">
 			<div class="c-grid__item"><span>Primary</span></div>
 			<div class="c-grid__item"><span>Triad 2</span></div>
@@ -169,10 +173,10 @@
 			<div class="c-grid__item"><span>Shade 7</span></div>
 			<div class="c-grid__item c-grid__item--range">
 				<label aria-label="Change the saturation">
-					<input type="range" class="c-rng c-rng--saturation" min="0" max="100" value="92" oninput="document.documentElement.style.setProperty('--s', `${this.value}%`)" />
+					<input type="range" class="c-rng c-rng--saturation" min="0" max="100" value="92" id="s" tabindex="-1" />
 				</label>
 				<label aria-label="Change the lightness">
-					<input type="range" class="c-rng c-rng--lightness" min="0" max="100" value="61" oninput="document.documentElement.style.setProperty('--l', `${this.value}%`)" />
+					<input type="range" class="c-rng c-rng--lightness" min="0" max="100" value="61" id="l" tabindex="-1" />
 				</label>
 			</div>
 		</div>
@@ -216,8 +220,51 @@
 	</svg>
 
 	<script>
-		grid.addEventListener('click', () => document.body.classList.toggle('body-fixed', grid.checked));
-		window.addEventListener('hashchange', () => setTimeout(() => window.scrollTo(0,0), 20));
+		g.addEventListener('click', () => document.body.classList.toggle('bf', g.checked));
+		h.addEventListener('input', () => P('--h', h.valueAsNumber));
+		s.addEventListener('input', () => P('--s', `${s.value}%`));
+		l.addEventListener('input', () => P('--l', `${l.value}%`));
+
+		const F = 'button, [href], select, textarea, input:not([type="hidden"]), [tabindex]';
+		window.addEventListener('hashchange', (e) => {
+			const [n, N] = e.newURL.split('#');
+			const [o, O] = e.oldURL.split('#');
+
+			if (N) {
+				const m = document.getElementById(N);
+				if (m) {
+					document.body.addEventListener('click', B.bind(m));
+					m.addEventListener('keydown', K);
+					m.__f = [...m.querySelectorAll(F)];
+					m.__f[0].focus();
+				}
+			}
+			if (O) {
+				document.body.removeEventListener('click', B);
+				document.getElementById(O).removeEventListener('keydown', K);
+				document.querySelector(`[href="#${O}"]`).focus();
+			}
+			setTimeout(() => window.scrollTo(0,0), 10);
+		});
+
+		function B(e) {
+			if (!this.contains(e.target)) location.hash = '#';
+		}
+
+		function K(e) {
+			if (e.key === 'Tab') {
+				e.preventDefault();
+				const l =  this.__f.length - 1;
+				let x = this.__f.indexOf(e.target);
+				x = e.shiftKey ? x-1 : x+1;
+				if (x < 0) x = l;
+				if (x > l) x = 0;
+				this.__f[x].focus();
+			}
+			if (e.key === 'Escape') location.hash = '#';
+		}
+
+		const P = (k,v) =>  document.documentElement.style.setProperty(k, v);
 
 		/* TMP: Fix #links, when hosting locally */
 		if (location.href.includes('127.0.0.1')) {
