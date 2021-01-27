@@ -242,7 +242,7 @@
 			if (O) {
 				document.body.removeEventListener('click', B);
 				document.getElementById(O).removeEventListener('keydown', K);
-				document.querySelector(`[href="#${O}"]`).focus();
+				document.querySelector(`[href*="#${O}"]`).focus();
 			}
 			setTimeout(() => window.scrollTo(0,0), 10);
 		});
