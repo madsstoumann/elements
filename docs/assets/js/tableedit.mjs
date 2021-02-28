@@ -3,8 +3,8 @@
  * @module /assets/js/tableedit
  * @requires /assets/js/common
  * @requires /assets/js/keyhandler
- * @version 1.2.6
- * @summary 27-11-2019
+ * @version 1.2.8
+ * @summary 13-02-2021
  * @description Adds keyboard-navigation, editor, searchable options etc. to <table>
  * @example
  * <table data-js="editTable" data-api-get="/api/table">
@@ -21,7 +21,7 @@ export default class TableEdit {
 			clsPagination: 'c-pg',
 			clsSearchInput: 'c-table__search-input',
 			clsSearchLabel: 'c-table__search-label',
-			clsTable: 'c-table',
+			
 			clsTopWrapper: 'c-table__search-wrapper',
 			clsInnerWrapper: 'c-table__inner',
 			apiGet: '',
@@ -77,6 +77,8 @@ export default class TableEdit {
 		}
 
 		if (this.settings.addWrapper) {
+			// TODO!!! 
+
 			/* Add inner wrapper and move caption outside of table */
 			if (this.table.caption) {
 				let caption = this.table.caption.outerHTML.toString();
@@ -84,9 +86,15 @@ export default class TableEdit {
 				this.table.insertAdjacentHTML('beforebegin', caption);
 				this.table.caption.hidden = true;
 			}
-			this.wrapper = h('div', { class: this.settings.clsInnerWrapper });
-			this.table.parentNode.replaceChild(this.wrapper, this.table);
-			this.wrapper.appendChild(this.table);
+			if (table.parentNode?.hasAttribute('data-table-inner')) {
+				this.wrapper = table.parentNode;
+				console.log('wrapper exists');
+			}
+			else {
+				this.wrapper = h('div', { 'data-table-inner': '' });
+				this.table.parentNode.replaceChild(this.wrapper, this.table);
+				this.wrapper.appendChild(this.table);
+			}
 		}
 
 		/* Add topWrapper, if either itemsPerPage or Search is enabled */
@@ -107,9 +115,7 @@ export default class TableEdit {
 		/* Fetch locale, for localeSorting, default to: en-US */
 		[this.locale, this.region] = (
 			this.table.getAttribute('lang') ||
-			document.documentElement.getAttribute('lang') ||
-			'en-US'
-		).split('-');
+			document.documentElement.getAttribute('lang') || 'en-US').split('-');
 
 		/* If data-table-data contains data, create table from them */
 		if (this.settings.tableData) {
@@ -307,7 +313,8 @@ export default class TableEdit {
 					this.bindSortable(event.target);
 				}
 			});
-			col.firstElementChild.insertAdjacentHTML('beforeend', this.settings.sortIcon);
+			// col.firstElementChild.insertAdjacentHTML('beforeend', this.settings.sortIcon);
+			// col.insertAdjacentHTML('beforeend', this.settings.sortIcon);
 		});
 	}
 

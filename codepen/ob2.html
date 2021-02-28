@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <title>OB2</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>
+
+body {
+	margin: 0;
+}
+.h {
+    height: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 0;
+}
+
+.icon {
+stroke-width: 1.5;
+stroke: currentColor;
+fill: none;
+height: 2rem;
+stroke-linecap: round;
+stroke-linejoin: round;
+width: 2rem;
+}
+
+button {
+	background-color: transparent;
+	border: 0;
+	color: inherit;
+	display: grid;
+	font-size: inherit;
+	place-items: center;
+}
+
+.sr {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+/* STATE */
+[data-ob="grid"]:checked ~ [data-ob="wrapper"] {
+	--main-bgi: linear-gradient(to right, var(--main-grid-c) 1px, transparent 1px), linear-gradient(to bottom, var(--main-grid-c) 1px, transparent 1px);
+}
+[data-ob="header"] input:checked + [data-ob="label"] {
+	background-color: hsl(220, 76%, 48%);
+	color: hsl(220, 76%, 98%);
+}
+[data-ob="devices"] input:checked + [data-ob="label"] {
+	color: hsl(220, 0%, 3%);
+}
+
+[data-ob="layers"] input:checked + [data-ob="label"] {
+	background-color: var(--layers-bgc-focus);
+	color: hsl(220, 0%, 98%);
+}
+
+input:focus-visible + [data-ob="label"],
+[data-ob="label"]:focus-visible {
+	box-shadow: inset 0 0 0 2px hsl(200, 3%, 70%);
+}
+
+[data-ob="label"]:focus {
+	outline: none;
+} 
+[data-ob="menu"][open] > [data-ob="label"] {
+	color: hsl(200, 76%, 75%);
+}
+
+
+[data-ob="wrapper"] {
+	--gap: 0.75em;
+
+	--bdc: hsl(200, 0%, 15%);
+
+	--tool-bgc: hsl(200, 0%, 21%);
+	--tool-c: hsl(200, 0%, 75%);
+	--tool-p: 0.25rem;
+
+	--bdrs: 0.25rem;
+	--tool-label-sz: 3.1875rem;
+
+	--layers-bgc-focus: hsl(220, 0%, 41%);
+
+	--main-bgc: hsl(200, 2%, 92%);
+	--main-grid-c: hsl(200, 0%, 80%);
+	--main-grid-size: 16px 16px;
+
+	display: grid;
+	font-family: ui-sans-serif, system-ui, sans-serif;
+	height: 100vh;
+	gap: 0;
+	grid-template-columns: min-content minmax(1rem, 6fr) minmax(10rem, 2fr);
+	grid-template-rows: min-content min-content 1fr min-content;
+}
+
+[data-ob="wrapper"] * {
+	box-sizing: border-box;
+}
+
+[data-ob="editor"],
+[data-ob="footer"],
+[data-ob="header"],
+[data-ob="layers"] {
+	background-color: var(--tool-bgc);
+	color: var(--tool-c);
+	font-size: xx-small;
+}
+
+[data-ob="devices"] {
+	align-items: center;
+	background-color: var(--main-bgc);
+	color: hsl(200, 0%, 60%);
+	display: flex;
+	font-size: xx-small;
+	grid-column: 2 / 3;
+	justify-content: space-around;
+}
+
+[data-ob="editor"] {
+	border-inline-start: 1px solid var(--bdc);
+	font-size: small;
+	grid-column: 3 / 4;
+	grid-row: 2 / 4;
+	padding: var(--gap);
+}
+
+[data-ob="footer"] {
+	border-block-start: 1px solid var(--bdc);
+  grid-column: 1 / -1;
+	padding: var(--gap);
+}
+
+[data-ob="header"] {
+	align-items: center;
+	border-block-end: 1px solid var(--bdc);
+	display: flex;
+	gap: var(--gap);
+  grid-column: 1 / -1;
+	padding: var(--tool-p);
+}
+
+[data-ob="label"] {
+	align-items: center;
+	border-radius: var(--bdrs, 0);
+	display: flex;
+	flex-direction: column;
+	height: var(--tool-label-sz);
+	padding: var(--gap);
+	user-select: none;
+	width: var(--tool-label-sz);
+}
+
+[data-ob="layers"] {
+	align-items: center;
+	border-inline-end: 1px solid var(--bdc);
+	display: flex;
+	flex-direction: column;
+	grid-column: 1 / 2;
+	grid-row: 2 / 4;
+	padding: var(--tool-p);
+}
+
+[data-ob="layers"] label {
+	display: block;
+	width: 100%;
+}
+
+[data-ob="main"] {
+	background-color: var(--main-bgc);
+	background-image: var(--main-bgi, none);
+	background-size: var(--main-grid-size);
+  grid-column: 2 / 3;
+}
+
+[data-ob="preset"] {
+	background-color: transparent;
+	border: 0;
+	margin: 0 var(--gap);
+}
+
+
+
+.preset-color {
+
+border: 1px solid #EEE;
+border-radius: 50%;
+display: inline-block;
+height: 2.5rem;
+margin: 0 0.125rem;
+position: relative;
+width: 2.5rem;
+background: var(--c, red);
+}
+
+[data-ob="menu"] {
+	position: relative;
+}
+[data-ob="menu"] summary::marker {
+	display: none;
+}
+[data-ob="menupanel"] {
+	background:  var(--tool-bgc);
+	/* border-block-start: 1px solid hsl(200, 76%, 75%); */
+	border-radius: 0 0 var(--bdrs) var(--bdrs);
+	color: hsl(200, 0%, 95%);
+	font-size: small;
+	left: 0;
+	min-height: 10rem;
+	min-width: 15rem;
+	padding: var(--gap);
+	position: absolute;
+	top: calc(100% + var(--tool-p) + 1px);
+	z-index: 1;
+}
+
+
+[data-ob="menu"] summary::-webkit-details-marker { display: none; }
+
+
+
+
+
+[data-ob="wysiwyg"] {
+	background-color: #fff;
+	color: #000;
+	display: inline-block;
+	margin: var(--main-grid-size);
+	max-width: calc(100% - 32px);
+	min-width: 320px;
+	overflow:hidden;
+	padding: var(--gap);
+	resize: both;
+}
+
+[data-ob="group"] {
+	font-weight: 600;
+	letter-spacing: 0.01em;
+	margin-bottom: var(--gap);
+	text-transform: uppercase;
+}
+
+	</style>
+</head>
+<body>
+
+<input type="checkbox" id="ob-grid" data-ob="grid" class="sr" checked />
+
+	<div data-ob="wrapper">
+		<header data-ob="header">
+
+			<details data-ob="menu">
+				<summary data-ob="label"><svg class="icon"><use xlink:href="#icon-oblogo"></use></svg>
+					V.2.0.0
+				</summary>
+				<div data-ob="menupanel">
+					About OneBlock
+				</div>
+			</details>
+
+			<label>
+				<input type="radio" name="obtool" class="sr" checked />
+				<span data-ob="label">
+					<svg class="icon"><use xlink:href="#icon-drag-drop"></use></svg>
+					Select
+				</span>
+			</label>
+			<label>
+				<input type="radio" name="obtool" class="sr" />
+				<span data-ob="label">
+					<svg class="icon"><use xlink:href="#icon-edit"></use></svg>
+					Edit
+				</span>
+			</label>
+
+			<details data-ob="menu">
+				<summary data-ob="label"><svg class="icon"><use xlink:href="#icon-settings"></use></svg>
+					Settings
+				</summary>
+				<div data-ob="menupanel">
+					Toggle Options
+				</div>
+			</details>
+
+			<label for="ob-grid">
+				<span data-ob="label">
+					<svg class="icon"><use xlink:href="#icon-layout-grid"></use></svg>
+					Grid
+				</span>
+			</label>
+
+			<label>
+				<input type="checkbox" class="sr" />
+				<span data-ob="label">
+					<svg class="icon"><use xlink:href="#icon-container"></use></svg>
+					Query
+				</span>
+			</label>
+
+			<label>
+				<input data-ob="preset" type="text" placeholder="untitled preset" />
+			</label>
+
+			SAVE  LOAD
+		</header>
+
+		<nav data-ob="devices">
+			<label>
+				<input type="radio" name="obdevices" class="sr" checked />
+				<span data-ob="label">
+					<svg class="icon"><use xlink:href="#icon-device-mobile"></use></svg>400px
+				</span>
+			</label>
+			<label>
+				<input type="radio" name="obdevices" class="sr" />
+				<span data-ob="label">
+					<svg class="icon"><use xlink:href="#icon-device-tablet"></use></svg>768px
+				</span>
+			</label>
+			<label>
+				<input type="radio" name="obdevices" class="sr" />
+				<span data-ob="label">
+					<svg class="icon"><use xlink:href="#icon-device-laptop"></use></svg>1200px
+				</span>
+			</label>
+			<label>
+				<input type="radio" name="obdevices" class="sr" />
+				<span data-ob="label">
+					<svg class="icon"><use xlink:href="#icon-device-desktop"></use></svg>1448px
+				</span>
+			</label>
+	
+			<button><svg class="icon"><use xlink:href="#icon-plus"></use></svg>Add</button>
+			<button><svg class="icon"><use xlink:href="#icon-minus"></use></svg>Remove</button>
+		</nav>
+
+		<main data-ob="main">
+
+			<div data-ob="wysiwyg">
+				<h1>OneBlock</h1>
+			</div>
+
+		</main>
+
+		<aside data-ob="layers">
+			<label>
+				<input type="radio" name="oblayer" class="sr" checked />
+				<span data-ob="label">
+					<svg class="icon"><use xlink:href="#icon-layout"></use></svg>Layout
+				</span>
+			</label>
+			<label>
+				<input type="radio" name="oblayer" class="sr" />
+				<span data-ob="label">
+					<svg class="icon"><use xlink:href="#icon-media"></use></svg>Media
+				</span>
+			</label>
+			<label>
+				<input type="radio" name="oblayer" class="sr" />
+				<span data-ob="label">
+					<svg class="icon"><use xlink:href="#icon-photo"></use></svg>Image
+				</span>
+			</label>
+			<label>
+				<input type="radio" name="oblayer" class="sr" />
+				<span data-ob="label">
+					<svg class="icon"><use xlink:href="#icon-heading"></use></svg>Heading
+				</span>
+			</label>
+			<label>
+				<input type="radio" name="oblayer" class="sr" />
+				<span data-ob="label">
+					<svg class="icon"><use xlink:href="#icon-text"></use></svg>Text
+				</span>
+			</label>
+			<label>
+				<input type="radio" name="oblayer" class="sr" />
+				<span data-ob="label">
+					<svg class="icon"><use xlink:href="#icon-splash"></use></svg>Splash
+				</span>
+			</label>
+			<label>
+				<input type="radio" name="oblayer" class="sr" />
+				<span data-ob="label">
+					<svg class="icon"><use xlink:href="#icon-price"></use></svg>Price
+				</span>
+			</label>
+			<label>
+				<input type="radio" name="oblayer" class="sr" />
+				<span data-ob="label">	
+							<svg class="icon"><use xlink:href="#icon-link"></use></svg>Link
+				</span>
+			</label>
+
+		</aside>
+
+		<aside data-ob="editor">
+			<details open>
+				<summary data-ob="group">Colors</summary>
+				<div>
+					<button class="preset-color"></button>
+					<button class="preset-color" style="--c:linear-gradient(90deg,rgb(28, 182, 224),rgb(0, 8, 81))"></button>
+				</div>
+			</details>
+			
+		</aside>
+		<footer data-ob="footer">&copy; 2021 stoumann | _valtech</footer>
+	</div>
+
+<svg aria-hidden="true" class="h"><title>SVG Symbols</title>
+	<symbol id="icon-grid" viewBox="0 0 32 32">
+		<path d="M0 0v32h32v-32h-32zM30 10h-8v-8h8v8zM12 20v-8h8v8h-8zM20 22v8h-8v-8h8zM10 20h-8v-8h8v8zM12 10v-8h8v8h-8zM22 12h8v8h-8v-8zM10 2v8h-8v-8h8zM2 22h8v8h-8v-8zM22 30v-8h8v8h-8z"></path>
+		</symbol>
+
+		<symbol id="icon-device-laptop" viewBox="0 0 24 24">
+			<line x1="3" y1="19" x2="21" y2="19" />
+			<rect x="5" y="6" width="14" height="10" rx="1" />
+		</symbol>
+		
+		<symbol id="icon-device-desktop" viewBox="0 0 24 24">
+			<rect x="3" y="4" width="18" height="12" rx="1" />
+			<line x1="7" y1="20" x2="17" y2="20" />
+			<line x1="9" y1="16" x2="9" y2="20" />
+			<line x1="15" y1="16" x2="15" y2="20" />
+		</symbol>
+		
+		<symbol id="icon-device-tablet" viewBox="0 0 24 24">
+			<rect x="5" y="3" width="14" height="18" rx="1" />
+			<circle cx="12" cy="17" r="1" />
+		</symbol>
+		
+		<symbol id="icon-device-mobile" viewBox="0 0 24 24">
+			<rect x="7" y="4" width="10" height="16" rx="1" />
+			<line x1="11" y1="5" x2="13" y2="5" />
+			<line x1="12" y1="17" x2="12" y2="17.01" />
+		</symbol>
+
+
+		<symbol id="icon-text" viewBox="0 0 24 24">
+			<line x1="4" y1="6" x2="20" y2="6" />
+			<line x1="4" y1="12" x2="14" y2="12" />
+			<line x1="4" y1="18" x2="18" y2="18" />
+		</symbol>
+
+		<symbol id="icon-lightmode" viewBox="0 0 24 24">
+			<path d="M3 12h1m8 -9v1m8 8h1m-15.4 -6.4l.7 .7m12.1 -.7l-.7 .7" />
+			<path d="M9 16a5 5 0 1 1 6 0a3.5 3.5 0 0 0 -1 3a2 2 0 0 1 -4 0a3.5 3.5 0 0 0 -1 -3" />
+			<line x1="9.7" y1="17" x2="14.3" y2="17" />
+		</symbol>
+
+		<symbol id="icon-layout-grid" viewBox="0 0 24 24">
+			<rect x="4" y="4" width="6" height="6" rx="1" />
+			<rect x="14" y="4" width="6" height="6" rx="1" />
+			<rect x="4" y="14" width="6" height="6" rx="1" />
+			<rect x="14" y="14" width="6" height="6" rx="1" />
+		</symbol>
+
+		<symbol id="icon-edit" viewBox="0 0 24 24">
+			<path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
+			<path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
+			<line x1="16" y1="5" x2="19" y2="8" />
+		</symbol>
+		
+		
+		<symbol id="icon-drag-drop" viewBox="0 0 24 24">
+			<path d="M19 11v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" />
+			<path d="M13 13l9 3l-4 2l-2 4l-3 -9" />
+			<line x1="3" y1="3" x2="3" y2="3.01" />
+			<line x1="7" y1="3" x2="7" y2="3.01" />
+			<line x1="11" y1="3" x2="11" y2="3.01" />
+			<line x1="15" y1="3" x2="15" y2="3.01" />
+			<line x1="3" y1="7" x2="3" y2="7.01" />
+			<line x1="3" y1="11" x2="3" y2="11.01" />
+			<line x1="3" y1="15" x2="3" y2="15.01" />
+		</symbol>
+
+
+		<symbol id="icon-plus" viewBox="0 0 24 24">
+			<circle cx="12" cy="12" r="9" />
+			<line x1="9" y1="12" x2="15" y2="12" />
+			<line x1="12" y1="9" x2="12" y2="15" />
+		</symbol>
+
+		<symbol id="icon-minus" viewBox="0 0 24 24">
+			<circle cx="12" cy="12" r="9" />
+			<line x1="9" y1="12" x2="15" y2="12" />
+		</symbol>
+
+
+		<symbol id="icon-splash" viewBox="0 0 24 24">
+			<line x1="9" y1="15" x2="15" y2="9" />
+			<circle cx="9.5" cy="9.5" r=".5" fill="currentColor" />
+			<circle cx="14.5" cy="14.5" r=".5" fill="currentColor" />
+			<path d="M5 7.2a2.2 2.2 0 0 1 2.2 -2.2h1a2.2 2.2 0 0 0 1.55 -.64l.7 -.7a2.2 2.2 0 0 1 3.12 0l.7 .7a2.2 2.2 0 0 0 1.55 .64h1a2.2 2.2 0 0 1 2.2 2.2v1a2.2 2.2 0 0 0 .64 1.55l.7 .7a2.2 2.2 0 0 1 0 3.12l-.7 .7a2.2 2.2 0 0 0 -.64 1.55v1a2.2 2.2 0 0 1 -2.2 2.2h-1a2.2 2.2 0 0 0 -1.55 .64l-.7 .7a2.2 2.2 0 0 1 -3.12 0l-.7 -.7a2.2 2.2 0 0 0 -1.55 -.64h-1a2.2 2.2 0 0 1 -2.2 -2.2v-1a2.2 2.2 0 0 0 -.64 -1.55l-.7 -.7a2.2 2.2 0 0 1 0 -3.12l.7 -.7a2.2 2.2 0 0 0 .64 -1.55v-1" />
+		</symbol>
+
+		<symbol id="icon-price" viewBox="0 0 24 24">
+			<path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2" />
+			<path d="M14 8h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5m2 0v1.5m0 -9v1.5" />
+		</symbol>
+
+		<symbol id="icon-photo" viewBox="0 0 24 24">
+			<line x1="15" y1="8" x2="15.01" y2="8" />
+			<rect x="4" y="4" width="16" height="16" rx="3" />
+			<path d="M4 15l4 -4a3 5 0 0 1 3 0l5 5" />
+			<path d="M14 14l1 -1a3 5 0 0 1 3 0l2 2" />
+		</symbol>
+		
+		<symbol id="icon-heading" viewBox="0 0 24 24">
+			<path d="M7 12h10" />
+			<path d="M7 4v16" />
+			<path d="M17 4v16" />
+			<path d="M15 20h4" />
+			<path d="M15 4h4" />
+			<path d="M5 20h4" />
+			<path d="M5 4h4" />
+		</symbol>
+
+		<symbol id="icon-link" viewBox="0 0 24 24">
+			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+		</symbol>
+
+		<symbol id="icon-media" viewBox="0 0 24 24">
+			<path d="M11 19h-6a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v4" />
+			<rect x="14" y="14" width="7" height="5" rx="1" />
+		</symbol>
+
+		<symbol id="icon-container" viewBox="0 0 24 24">
+			<path d="M20 4v.01" />
+			<path d="M20 20v.01" />
+			<path d="M20 16v.01" />
+			<path d="M20 12v.01" />
+			<path d="M20 8v.01" />
+			<rect x="8" y="4" width="8" height="16" rx="1" />
+			<path d="M4 4v.01" />
+			<path d="M4 20v.01" />
+			<path d="M4 16v.01" />
+			<path d="M4 12v.01" />
+			<path d="M4 8v.01" />
+		</symbol>
+
+		<symbol id="icon-layout" viewBox="0 0 24 24">
+			<rect x="4" y="4" width="16" height="16" rx="2" />
+			<line x1="9" y1="4" x2="9" y2="20" />
+		</symbol>
+
+		<symbol id="icon-oblogo" viewBox="0 0 24 24">
+			<circle cx="6" cy="12" r="5" fill="tomato"></circle>
+			<line x1="22" y1="6" x2="22" y2="18"/>
+			<line x1="14" y1="6" x2="21" y2="6"/>
+			<line x1="12" y1="12" x2="21" y2="12"/>
+			<line x1="14" y1="18" x2="21" y2="18"/>
+		</symbol>
+
+		<symbol id="icon-menu" viewBox="0 0 24 24">
+			<line x1="4" y1="6" x2="20" y2="6" />
+			<line x1="4" y1="12" x2="20" y2="12" />
+			<line x1="4" y1="18" x2="20" y2="18" />
+		</symbol>
+
+		<symbol id="icon-settings" viewBox="0 0 24 24">
+			<rect x="4" y="8" width="4" height="4" />
+			<line x1="6" y1="4" x2="6" y2="8" />
+			<line x1="6" y1="12" x2="6" y2="20" />
+			<rect x="10" y="14" width="4" height="4" />
+			<line x1="12" y1="4" x2="12" y2="14" />
+			<line x1="12" y1="18" x2="12" y2="20" />
+			<rect x="16" y="5" width="4" height="4" />
+			<line x1="18" y1="4" x2="18" y2="5" />
+			<line x1="18" y1="9" x2="18" y2="20" />
+		</symbol>
+
+	</svg>
+  <script>
+		
+  </script>
+</body>
+</html>	

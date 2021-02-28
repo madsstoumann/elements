@@ -1,48 +1,390 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 <head>
-	<title>Form: Table</title>
+	<title>Table</title>
 	<meta charset="UTF-8">
+	<meta name="description" content="Various tabke-styles" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-	<link href="../assets/css/demo.css" rel="stylesheet">
 	<link href="../assets/css/c-tbl.css" rel="stylesheet">
-
+<style>
+	/* DEMO ONLY */
+	body {
+		font-family: ui-sans-serif, system-ui, sans-serif;
+		margin: 0.5rem;
+	}
+	p {
+		margin: 0.25rem 0 0.75rem 0;
+	}
+	[data-editor],
+	[data-preset-table] {
+		background-color: hsl(220, 20%, 95%);
+		border: 1px solid hsl(220, 20%, 65%);
+		column-count: 1;
+		padding: 0.5rem;
+	}
+	[data-editor-header] {
+		margin-bottom: 0.5rem;
+	}
+	[data-label],
+	[data-preset-table] {
+		break-inside: avoid;
+		font-family: ui-monospace, monospace;
+		font-size: medium;
+		margin-block-end: 0.5rem;
+	}
+	[data-label] strong {
+		font-weight: 400;
+		margin-inline-start: 0.5rem;
+		user-select: none;
+	}
+	[data-label="checkbox"] {
+		align-items: center;
+		display: flex;
+	}
+	[data-label="range"] strong {
+		display: block;
+	}
+	[data-label="range"] [type="range"] {
+		width: 100%;
+	}
+	[data-preset-table] {
+		margin-inline-end: 0.5rem;
+	}
+	@media (min-width: 1024px) {
+		[data-editor] {
+			column-count: 2;
+		}
+	}
+	@media (prefers-color-scheme: dark) {
+		body {
+			background-color: hsl(220, 20%, 20%);
+		}
+		[data-editor] {
+			background-color: hsl(220, 20%, 30%);
+			color: hsl(220, 20%, 90%);
+		}
+		[data-editor-header] {
+			color: hsl(220, 20%, 90%);
+		}
+	}
+</style>
 </head>
 <body>
-	<!-- <table
-		class="c-table c-table--fixed"
-		data-js="tableedit"
-		lang="da-DK"
-		spellcheck="false">
-		<caption class="c-table__caption">
-			<strong class="c-field__label-text">Local table</strong>
-			<em class="c-field__hint">Hardcoded table</em>
-		</caption>
-		<thead>
-			<tr><th><span>Fornavn</span></th><th><span>Efternavn</span></th><th><span>By</span></th></tr>
-		</thead>
-		<tbody>
-			<tr><td>Vitus</td><td>Stoumann</td><td>Ølby</td></tr>
-			<tr><td>Mads</td><td>Larsen</td><td>Allerød</td></tr>
-			<tr><td>Augusta</td><td>Hansen</td><td>Farum</td></tr>
-			<tr><td>Rita</td><td>Sodyte</td><td>Solrød</td></tr>
-		</tbody>
-	</table> -->
 
-	<!-- <table
-		class="c-table c-table--fixed"
+	<div data-table-outer id="outer">
+
+		<div data-table-nav>
+
+			<!-- SEARCH/FILTER TABLE-->
+			<label data-table-search>
+				<input type="search" placeholder="Search table" data-table-input="text" />
+				<svg data-table-icon><use xlink:href="#icon-search"></use></svg>
+			</label>
+
+			<!-- TOGGLE TABLE COLUMNS -->
+			<details data-table-columns>
+				<summary>
+					<span  data-table-button>
+					<svg data-table-icon=""><use xlink:href="#icon-columns"></use></svg>
+					<span>Toggle Columns</span>
+				</span>
+				</summary>
+				<div data-table-dropdown>
+					<label data-table-input="checkbox">
+						<input type="checkbox" class="sr" data-table-col="0" checked />
+						<span>First Name</span>
+					</label>
+					<label data-table-input="checkbox">
+						<input type="checkbox" class="sr" data-table-col="1" checked />
+						<span>Last Name</span>
+					</label>
+					<label data-table-input="checkbox">
+						<input type="checkbox" class="sr" data-table-col="2" checked />
+						<span>Known As</span>
+					</label>
+					<label data-table-input="checkbox">
+						<input type="checkbox" class="sr" data-table-col="3" checked />
+						<span>City</span>
+					</label>
+				</div>
+			</details>
+
+			<!-- EXPORT TABLE DATA TO CSV-->
+			<div data-table-export>
+				<button type="button" data-table-button aria-label="Export CSV">
+					<svg data-table-icon><use xlink:href="#icon-export"></use></svg>
+					<span>Export CSV</span>
+				</button>
+			</div>
+
+			<!-- TABLE LINE DENSITY -->
+			<div data-table-density>
+				<label data-table-size>
+					<input type="radio" class="sr" name="density" data-table-size="xl" />
+					<svg data-table-icon><use xlink:href="#icon-density-sm"></use></svg>
+				</label>
+				<label data-table-size>
+					<input type="radio" class="sr" name="density" data-table-size="md" checked />
+					<svg data-table-icon><use xlink:href="#icon-density-md"></use></svg>
+				</label>
+				<label data-table-size>
+					<input type="radio" class="sr" name="density" data-table-size="md" />
+					<svg data-table-icon><use xlink:href="#icon-density-xl"></use></svg>
+				</label>
+			</div>
+
+		</div>
+
+		<!-- INNER TABLE OVERFLOW/SCROLL WRAPPER-->
+		<div data-table-inner>
+			<table
+				data-table=""
+				id="table"
+				lang="da-DK"
+				spellcheck="false">
+				<!-- <caption>
+					<strong>Superheroes</strong>
+					<em>Hardcoded table</em>
+				</caption> -->
+				<thead>
+					<tr><th><span>First Name</span></th><th><span>Last Name</span></th><th><span>Known As</span></th><th><span>Place</span></th></tr>
+				</thead>
+				<tbody>
+					<tr><td>Bruce</td><td>Wayne</td><td>Batman</td><td>Gotham City</td></tr>
+					<tr><td>Clark</td><td>Kent</td><td>Superman</td><td>Metropolis</td></tr>
+					<tr><td>Tony</td><td>Stark</td><td>Iron Man</td><td>Malibu</td></tr>
+					<tr><td>Peter</td><td>Parker</td><td>Spider-Man</td><td>New York City</td></tr>
+					<tr><td>Matt</td><td>Murdock</td><td>Daredevil</td><td>New York City</td></tr>
+					<tr><td>Diana</td><td>Prince</td><td>Wonder Woman</td><td>Themyscira</td></tr>
+					<tr><td>Steve</td><td>Rogers</td><td>Captain America</td><td>Adams Morgan</td></tr>
+					<tr><td>James</td><td>Howlett</td><td>Wolverine</td><td>Alberta, Canada</td></tr>
+					<tr><td>Frank</td><td>Castle</td><td>Punisher</td><td>New York City</td></tr>
+					<tr><td>Wade</td><td>Wilson</td><td>Deadpool</td><td>Avengers Mansion</td></tr>
+				</tbody>
+			</table>
+		</div>
+
+		<!-- PAGINATION -->
+		<div data-table-pagination>
+			<button data-table-button="flip light">
+				<svg data-table-icon><use xlink:href="#icon-first"></use></svg>
+				<span>First</span>
+			</button>
+			<button data-table-button="flip">
+				<svg data-table-icon><use xlink:href="#icon-prev"></use></svg>
+				<span>Previous</span>
+			</button>
+
+			<label data-table-label>
+				<span>Rows per page</span>
+				<select data-table-input="text dropdown">
+					<option>10</option>
+					<option>25</option>
+					<option>50</option>
+				</select>
+			</label>
+
+			<button data-table-button="flip">
+				<span>Next</span>
+				<svg data-table-icon><use xlink:href="#icon-next"></use></svg>
+			</button>
+			<button data-table-button="flip light">
+				<span>Last</span>
+				<svg data-table-icon><use xlink:href="#icon-last"></use></svg>
+			</button>
+		</div>
+
+	</div>
+
+	<!-- EDITOR-->
+	<h2 data-editor-header>Table Designer</h2>
+	<p>This is only for <strong>styling</strong> tables. The pagination, search, sorting etc. does not work.</p>
+	<form data-editor id="editor">
+		<label data-label="checkbox">
+			<input type="checkbox" id="col-lines" data-elm="table" />
+			<strong>columns: lines</strong>
+		</label>
+		<label data-label="checkbox">
+			<input type="checkbox" id="resizable" data-elm="table" />
+			<strong>columns: resizable</strong>
+		</label>
+		<label data-label="checkbox">
+			<input type="checkbox" id="sortable" data-elm="table" />
+			<strong>columns: sortable</strong>
+		</label>
+		<label data-label="checkbox">
+			<input type="checkbox" id="sticky-first" data-elm="table" />
+			<strong>columns: sticky first</strong>
+		</label>
+		<label data-label="checkbox">
+			<input type="checkbox" id="columns" data-elm="outer" />
+			<strong>columns: toggle visibility</strong>
+		</label>
+		<label data-label="checkbox">
+			<input type="checkbox" id="col-zebra" data-elm="table" />
+			<strong>columns: zebra-style</strong>
+		</label>
+		<hr />
+		<label data-label="checkbox">
+			<input type="checkbox" id="density" data-elm="outer" />
+			<strong>rows: display density</strong>
+		</label>
+		<label data-label="checkbox">
+			<input type="checkbox" id="row-gap" data-elm="table" />
+			<strong>rows: gap between</strong>
+		</label>
+		<label data-label="checkbox">
+			<input type="checkbox" id="row-free" data-elm="table" />
+			<strong>rows: hide lines</strong>
+		</label>
+		<label data-label="checkbox">
+			<input type="checkbox" id="sticky-header" data-elm="table" />
+			<strong>rows: sticky header</strong>
+		</label>
+		<label data-label="checkbox">
+			<input type="checkbox" id="row-zebra" data-elm="table" />
+			<strong>rows: zebra-styling</strong>
+		</label>
+		<hr />
+		<label data-label="checkbox">
+			<input type="checkbox" id="border" data-elm="table" />
+			<strong>table: border around</strong>
+		</label>
+		<label data-label="checkbox">
+			<input type="checkbox" id="gap" data-elm="outer" />
+			<strong>table: gap around</strong>
+		</label>
+		<label data-label="checkbox">
+			<input type="checkbox" id="rounded" data-elm="outer" />
+			<strong>table: rounded corners</strong>
+		</label>
+		<label data-label="checkbox">
+			<input type="checkbox" id="shadow" data-elm="outer" />
+			<strong>table: shadow</strong>
+		</label>
+		<hr />
+		<label data-label="checkbox">
+			<input type="checkbox" id="export" data-elm="outer" />
+			<strong>export to csv</strong>
+		</label>		<label data-label="checkbox">
+			<input type="checkbox" id="pagination" data-elm="outer" />
+			<strong>pagination</strong>
+		</label>
+		<label data-label="checkbox">
+			<input type="checkbox" id="search" data-elm="outer" />
+			<strong>search/filter</strong>
+		</label>
+		<hr />
+		<label data-label="checkbox">
+			<input type="checkbox" id="rtl" data-elm="outer" />
+			<strong>right-to-left</strong>
+		</label>
+		<hr />
+		<label data-label="range">
+			<strong>hue (color)</strong>
+			<input id="--h" type="range" min="1" max="360" value="208" oninput="outer.style.setProperty('--h', `${this.valueAsNumber}`)" />
+		</label>
+		<label data-label="range">
+			<strong>row border-width</strong>
+			<input id="--row-bdw" data-suffix="px" type="range" min="1" max="15" value="1" oninput="outer.style.setProperty('--row-bdw', `${this.valueAsNumber}px`)" />
+		</label>
+		<label data-label="range">
+			<strong>column border-width</strong>
+			<input id="--col-bdw" data-suffix="px" type="range" min="1" max="20" value="1" oninput="outer.style.setProperty('--col-bdw', `${this.valueAsNumber}px`)" />
+		</label>
+		<label data-label="range">
+			<strong>column border-style</strong>
+			<select id="--col-bds" onchange="table.style.setProperty('--col-bds', `${this.value}`)">
+				<option value="none">none</option>
+				<option value="hidden">hidden</option>
+				<option value="dotted">dotted</option>
+				<option value="dashed">dashed</option>
+				<option value="solid"selected>solid</option>
+				<option value="double">double</option>
+				<option value="groove">groove</option>
+				<option value="ridge">ridge</option>
+				<option value="inset">inset</option>
+				<option value="outset">outset</option>
+			</select>
+		</label>
+		<label data-label="range">
+			<strong>row border-style</strong>
+			<select id="--row-bds" onchange="table.style.setProperty('--row-bds', `${this.value}`)">
+				<option value="none">none</option>
+				<option value="hidden">hidden</option>
+				<option value="dotted">dotted</option>
+				<option value="dashed">dashed</option>
+				<option value="solid"selected>solid</option>
+				<option value="double">double</option>
+				<option value="groove">groove</option>
+				<option value="ridge">ridge</option>
+				<option value="inset">inset</option>
+				<option value="outset">outset</option>
+			</select>
+		</label>
+	</form>
+
+	<!-- PRESETS -->
+	<h2 data-editor-header>Presets</h2>
+	<button type="button"
+		data-preset-props="--h:179"
+		data-preset-outer="density search"
+		data-preset-table="border col-lines row-zebra sortable">Light Aqua
+	</button>
+	<button type="button"
+		data-preset-props="--col-bdw:20px --h:290"
+		data-preset-outer=""	
+		data-preset-table="border col-lines row-zebra">Large Columns
+	</button>
+	<button type="button"
+		data-preset-props="--h:200"
+		data-preset-outer="rounded shadow"	
+		data-preset-table="border">Rounded Shadow
+	</button>
+	<button type="button"
+		data-preset-props="--h:230 --row-bdw:2px --col-bdw:2px --col-bds:dotted --row-bds:dotted"
+		data-preset-outer=""	
+		data-preset-table="border col-lines">Dotted
+	</button>
+	<button type="button" id="excel"
+		data-preset-props="--h:130"
+		data-preset-outer="columns density pagination search gap export"	
+		data-preset-table="border col-lines row-zebra sortable">Excel
+	</button>
+	<button type="button"
+		data-preset-props="--h:230 --row-bds:double --row-bdw:6px"
+		data-preset-outer=""	
+		data-preset-table="row-gap row-zebra">Row Gap
+	</button>
+	<button type="button"
+		data-preset-props="--h:253 --row-bds:dashed --row-bdw:2px --col-bds:dashed --col-bdw:2px"
+		data-preset-outer="rounded"	
+		data-preset-table="border col-lines row-zebra">Dashed
+	</button>
+	<button type="button"
+		data-preset-props=""
+		data-preset-outer=""	
+		data-preset-table="">Reset / Light
+	</button>
+
+	<!-- 
+	<button type="button" id="size-sm" data-elm="outer">size-sm</button>
+	<button type="button" id="size-xl" data-elm="outer">size-xl</button> 
+	-->
+<!--
+	<table
+		class="c-tbl c-tbl--fixed c-tbl--zebra"
 		data-js="tableedit"
 		data-table-data=':[["Fornavn", "Efternavn"],["Markus","Hansen"],["Martinus","Hansen"],["Beyonce","Larsen"]]'
 		spellcheck="false">
-		<caption class="c-table__caption">
+		<caption class="c-tbl__caption">
 			<strong class="c-field__label-text">Generated table</strong>
 			<em class="c-field__hint">Data from data-table-data</em>
 		</caption>
-	</table> -->
-
-	<table
-		class="c-tbl c-tbl--fixed"
-		data-js="tableedit"
+	</table>
+-->
+	 <!-- <table
+		data-table="sortable"
 		data-api-get="assets/data/data.json"
 		data-items-per-page=":10"
 		data-cls-inner-wrapper="c-tbl__inner"
@@ -52,33 +394,156 @@
 			<strong class="c-field__label-text">Data from API</strong>
 			<em class="c-field__hint">Array of arrays</em>
 		</caption>
-	</table>
+	</table> -->
 
-	<!-- <table
-		class="c-table c-table--fixed"
+	<!--
+	 <table
+		class="c-tbl c-tbl--fixed"
 		data-js="tableedit"
 		data-api-get="/assets/data/names.json"
 		data-items-per-page=":5"
 		data-searchable=":true"
 		id="names"
 		spellcheck=":false">
-		<caption class="c-table__caption">
+		<caption class="c-tbl__caption">
 			<strong class="c-field__label-text">Data from API</strong>
 			<em class="c-field__hint">Array of objects</em>
 		</caption>
 	</table> -->
 
+	<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<defs>
+			<symbol viewBox="0 0 24 24" id="icon-columns">
+				<line x1="4" y1="6" x2="9.5" y2="6" />
+				<line x1="4" y1="10" x2="9.5" y2="10" />
+				<line x1="4" y1="14" x2="9.5" y2="14" />
+				<line x1="4" y1="18" x2="9.5" y2="18" />
+				<line x1="14.5" y1="6" x2="20" y2="6" />
+				<line x1="14.5" y1="10" x2="20" y2="10" />
+				<line x1="14.5" y1="14" x2="20" y2="14" />
+				<line x1="14.5" y1="18" x2="20" y2="18" />
+			</symbol>
+			<symbol viewBox="0 0 24 24" id="icon-density-sm">
+				<line x1="4" y1="8" x2="20" y2="8" />
+				<line x1="4" y1="16" x2="20" y2="16" />
+			</symbol>
+			<symbol viewBox="0 0 24 24" id="icon-density-md">
+				<line x1="4" y1="6" x2="20" y2="6" />
+				<line x1="4" y1="12" x2="20" y2="12" />
+				<line x1="4" y1="18" x2="20" y2="18" />
+			</symbol>
+			<symbol viewBox="0 0 24 24" id="icon-density-xl">
+				<line x1="4" x2="20" y1="5" y2="5"></line>
+				<line x1="4" x2="20" y1="10" y2="10"></line>
+				<line x1="4" x2="20" y1="15" y2="15"></line>
+				<line x1="4" x2="20" y1="20" y2="20"></line>
+			</symbol>
+			<symbol viewBox="0 0 24 24" id="icon-export">
+				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+				<path d="M11.5 20h-5.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v7.5m-16 -3.5h16m-10 -6v16m4 -1h7m-3 -3l3 3l-3 3" />
+			</symbol>
+			<symbol viewBox="0 0 24 24" id="icon-first">
+				<line x1="10" y1="12" x2="20" y2="12" />
+				<line x1="10" y1="12" x2="14" y2="16" />
+				<line x1="10" y1="12" x2="14" y2="8" />
+				<line x1="4" y1="4" x2="4" y2="20" />
+			</symbol>
+			<symbol viewBox="0 0 24 24" id="icon-last">
+				<line x1="14" y1="12" x2="4" y2="12" />
+				<line x1="14" y1="12" x2="10" y2="16" />
+				<line x1="14" y1="12" x2="10" y2="8" />
+				<line x1="20" y1="4" x2="20" y2="20" />
+			</symbol>
+			<symbol viewBox="0 0 24 24" id="icon-next">
+				<line x1="5" y1="12" x2="19" y2="12" />
+				<line x1="13" y1="18" x2="19" y2="12" />
+				<line x1="13" y1="6" x2="19" y2="12" />
+			</symbol>
+			<symbol viewBox="0 0 24 24" id="icon-prev">
+				<line x1="5" y1="12" x2="19" y2="12" />
+				<line x1="5" y1="12" x2="11" y2="18" />
+				<line x1="5" y1="12" x2="11" y2="6" />
+			</symbol>
+			<symbol viewBox="0 0 24 24" id="icon-search">
+				<circle cx="15" cy="15" r="4" />
+				<path d="M18.5 18.5l2.5 2.5" />
+				<path d="M4 6h16" />
+				<path d="M4 12h4" />
+				<path d="M4 18h4" />
+			</symbol>
+		</defs>
+	</svg>
+
 	<script type="module">
-		const elements = document.querySelectorAll('[data-js*="tableedit"]');
-		if (elements.length) {
-			import('../assets/js/tableedit.mjs')
-			.then(module => {
-				const jsClass = module.default;
-				elements.forEach(element => {
-					new jsClass(element, element.dataset);
-				});
+		const buttons = document.querySelectorAll('[data-elm]');
+		buttons.forEach(button => {
+			button.addEventListener('click', () => {
+				if (button.id === 'rtl') {
+					outer.dir = button.checked ? 'rtl' : 'ltr';
+					return;
+				}
+				const elm = button.dataset.elm === 'table' ? table : outer;
+				const atr = button.dataset.elm === 'table' ? 'data-table' : 'data-table-outer';
+				const arr = elm.getAttribute(atr).split(' ');
+				const index = arr.findIndex(attr => attr === button.id);
+				if (index > -1) {
+					arr.splice(index, 1);
+				}
+				else {
+					arr.push(button.id);
+				}
+				button.classList.toggle('selected', index === -1);
+				elm.setAttribute(atr, arr.join(' '));
 			})
+		})
+
+		const presets = document.querySelectorAll('[data-preset-table]');
+		presets.forEach(preset => {
+			preset.addEventListener('click', () => loadPreset(preset));
+		})
+
+		function loadPreset(elm) {
+			const arr = `${elm.dataset.presetOuter} ${elm.dataset.presetTable}`.split(' ');
+			const props = elm.dataset.presetProps.split(' ');
+			editor.reset();
+			outer.removeAttribute('style');
+			outer.dataset.tableOuter = elm.dataset.presetOuter || '';
+			outer.dir = 'ltr';
+			table.dataset.table = elm.dataset.presetTable || '';
+			arr.forEach(entry => window[entry] ? window[entry].checked = true : '');
+			props.forEach(prop => {
+				const [key, value] = prop.split(':');
+				outer.style.setProperty(key, value);
+				const input = window[key];
+				if (input) {
+					input.value = value.replace(input.dataset.suffix || 'px', '');
+				}
+			});
 		}
+
+		/* Init Demo */
+		loadPreset(excel);
+
+		// const elements = document.querySelectorAll('[data-table]');
+		// if (elements.length) {
+		// 	import('../assets/js/tableedit.mjs')
+		// 	.then(module => {
+		// 		const jsClass = module.default;
+		// 		elements.forEach(element => {
+		// 			new jsClass(element, element.dataset);
+		// 		});
+		// 	})
+		// }
+
+		// function exportTable(table) {
+		// 	let str = [...table.tHead.rows[0].cells].map(cell => cell.innerText).join(',') + '\n';
+		// 	for (let row of table.tBodies[0].rows) {
+		// 		str += [...row.cells].map(cell => `"${cell.innerText}"`).join(',') + '\n';
+		// 	}
+		// 	console.log(str)
+		// }
+
+		// exportTable(editor);
 
 		// const table = document.getElementById('names');
 		// table.addEventListener('delete', (event) => { console.log(event.detail) });

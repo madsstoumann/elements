@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <title>Hourglass</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Playfair+Display+SC&family=Playfair+Display:ital@0;1&display=swap');
+body {
+	--bgc: white;
+	--c: black;
+
+  background-color: var(--c);
+  font-family: 'Playfair Display', serif;
+	font-size: clamp(0.875rem, 0.7395rem + 0.6024vw, 1.125rem);
+  color: black;
+	line-height: 1.6;
+  margin: 0 auto;
+  padding: 0;
+}
+.article {
+	--animdel: 6.5s;
+	--animdur: 10s;
+	--gap: 1rem;
+	--maw: 800px;
+	--side-animdur: 2s;
+	--side-w: 30%;
+
+	background-color: var(--bgc);
+	height: 100vh;
+	margin: 0 auto;
+	max-width: var(--maw);
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+}
+.article__header {
+	animation: 6s ease-out var(--animdel) forwards header;
+	color: var(--c);
+	font-family: 'Abril Fatface', cursive;
+	font-size: clamp(3rem, 1.6446rem + 6.0241vw, 5.5rem);
+	line-height: 1.1;
+	margin: .25em auto 0 auto;
+	max-width: 80%;
+	opacity: 1;
+	position: relative;
+	text-align: center;
+}
+.article__header span {
+	animation: var(--side-animdur) ease-out calc(var(--animdur) + var(--side-animdur)) forwards fade-out;
+	opacity: 1;
+}
+.article__subheader {
+	animation: var(--side-animdur) ease-out calc(var(--animdur) + var(--side-animdur)) forwards fade-in;
+	color: red;
+	font-family: 'Abril Fatface', cursive;
+	font-size: clamp(1.5rem, 0.6867rem + 3.6145vw, 3rem);
+	left: 25%;
+	max-width: 80%;
+	opacity: 0;
+	position: absolute;
+}
+.article__text {
+	animation: var(--animdur) ease-out forwards flow;
+	text-align: justify;
+}
+.bottom {
+	animation: 2ms ease-out var(--animdel) forwards bottom;
+	background-image: linear-gradient(to bottom, transparent, white);
+	bottom: 0;
+	clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
+	height: 50vh;
+	left: 50%;
+	max-width: var(--maw);
+	position: absolute;
+	transform: translateX(-50%);
+	width: 100vw;
+}
+.copy {
+	color: var(--bgc);
+  font-size: xx-small;
+  position: absolute;
+  right: 0.5rem;
+  text-orientation: mixed;
+	transform: translateY(-50%);
+  top: 50%;
+  writing-mode: vertical-lr;
+  white-space: nowrap;
+}
+.left, .right {
+	background-color: var(--c);
+	height: 100vh;
+	shape-margin: var(--gap);
+	width: var(--side-w);
+}
+.left {
+	animation: var(--side-animdur) ease-out var(--animdel) forwards left;
+	clip-path: polygon(0% 0%, 95% 47.5%, 95% 52.5%, 0% 100%);
+	float: left;
+	shape-outside: polygon(0% 0%, 100% 50%, 0% 100%);
+}
+.right {
+	animation: var(--side-animdur) ease-out var(--animdel) forwards right;
+	clip-path: polygon(100% 0%, 5% 47.5%, 5% 52.5%, 100% 100%);
+	float: right;
+	shape-outside: polygon(100% 0%, 0% 50%, 100% 100%);
+}
+
+@keyframes bottom {
+	100% {
+		background: none;
+	}
+}
+@keyframes fade-in {
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes fade-out {
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes flow {
+	100% {
+		padding-top: 100vh;
+	}
+}
+@keyframes header {
+	5% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		color: white;
+		opacity: 1;
+	}
+}
+@keyframes left {
+	100% {
+		clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+		width: 50%;
+	}
+}
+@keyframes right {
+	100% {
+		clip-path: polygon(100% 0%, 0% 0%, 0% 100%, 100% 100%);
+		width: 50%;
+	}
+}
+  </style>
+</head>
+<body>
+
+<article class="article">
+	<div class="left"></div>
+	<div class="right"></div>
+	<div class="bottom"></div>
+	<h1 class="article__header"><span>Running</span> out of time</h1>
+	<h2 class="article__subheader">#climatestrike #fridaysforfuture</h2>
+	<p class="article__text">
+		This is all wrong. I shouldn't be up here. I should be back in school on the other side of the ocean. Yet you all come to us young people for hope. How dare you!
+		You have stolen my dreams and my childhood with your empty words. And yet I'm one of the lucky ones. People are suffering. People are dying. Entire ecosystems are collapsing. We are in the beginning of a mass extinction, and all you can talk about is money and fairy tales of eternal economic growth. How dare you!
+		For more than 30 years, the science has been crystal clear. How dare you continue to look away and come here saying that you're doing enough, when the politics and solutions needed are still nowhere in sight.
+		You say you hear us and that you understand the urgency. But no matter how sad and angry I am, I do not want to believe that. Because if you really understood the situation and still kept on failing to act, then you would be evil. And that I refuse to believe.
+		The popular idea of cutting our emissions in half in 10 years only gives us a 50% chance of staying below 1.5 degrees, and the risk of setting off irreversible chain reactions beyond human control.
+		Fifty percent may be acceptable to you. But those numbers do not include tipping points, most feedback loops, additional warming hidden by toxic air pollution or the aspects of equity and climate justice. They also rely on my generation sucking hundreds of billions of tons of your CO2 out of the air with technologies that barely exist.
+		So a 50% risk is simply not acceptable to us — we who have to live with the consequences.
+		To have a 67% chance of staying below a 1.5 degrees global temperature rise – the best odds given by the [Intergovernmental Panel on Climate Change] – the world had 420 gigatons of CO2 left to emit back on Jan. 1st, 2018. Today that figure is already down to less than 350 gigatons.
+	</p>
+</article>
+<div class="copy">Transcript of Greta Thunberg's Speech At The U.N. Climate Action Summit</div>
+
+</body>
+</html>	

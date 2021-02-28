@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <title>Connect The Dots</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>
+    body {
+      background-color: lightsteelblue;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      margin: 1rem 2rem;
+      padding: 0;
+    }
+    svg {
+      background-color: rgba(255, 255, 255, 0.1);
+      position: absolute;
+      top: 0;
+    }
+    line {
+      display: none;
+      stroke: lightslategray;
+      stroke-linecap: round;
+      stroke-width: 0.25;
+      animation: line 0.3s linear forwards;
+    }
+    circle {
+      cursor: pointer;
+      fill: tomato;
+    }
+    circle[data-index="0"] {
+      fill: seagreen;
+    }
+    text {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 1px;
+      fill: white;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    @keyframes line { 100% { stroke-dashoffset: 0; }}
+  
+  img {
+    opacity: 0.2;
+    max-width: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  .wrapper {
+    position: relative;
+  }
+  </style>
+</head>
+<body>
+<h1>Connect The Dots!</h1>
+<div class="wrapper">
+  <img src="/docs/assets/img/dots/pexels-wewe-yang-4394472.jpg" alt="Secret!" />
+  <svg id="svg" viewBox="0 0 100 100"></svg>
+</div>
+
+
+<!-- Rhino: Fotos af wewe yang fra Pexels-->
+<script>
+
+const coords = [[40,60], [10,10], [5, 50], [75, 25]];
+const line = (x1, x2, y1, y2) => Math.sqrt((x2 -= x1) * x2 + (y2 -= y1) * y2);
+let current = 1;
+
+// coords.forEach((arr, index) => {
+//   const [x, y] = [...arr];
+//   if (index > 0) {
+//     const [x1, y1] = [...coords[index - 1]];
+//     const l = line(x1, x, y1, y);
+//     svg.insertAdjacentHTML('beforeend', `<line x1="${x1}" y1="${y1}" x2="${x}" y2="${y}" stroke-dasharray="${l}" stroke-dashoffset="${l}"></line`);
+//   }
+//   svg.insertAdjacentHTML('beforeend', `<circle r="1" cx="${x}" cy="${y}" data-index="${index}"></circle><text text-anchor="middle" x="${x}" y="${y + 0.33}">${index}</text>`);
+// });
+
+// svg.addEventListener('click', (event) => {
+//   const elm = event.target;
+//   if (elm.nodeName === 'circle') {
+//     if (elm.dataset.index - 0 === current) {
+//       event.target.previousElementSibling.style.display = 'inline-block';
+//       current += 1;
+//     }
+//   }
+// })
+
+svg.addEventListener('click', (event) => {
+  console.log(event.x, event.y)
+});
+</script>
+</body>
+</html>	

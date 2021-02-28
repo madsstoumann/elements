@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+  <title>1950 clip-path</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Playfair+Display+SC&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet"> -->
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Playfair+Display+SC&family=Playfair+Display:ital@0;1&display=swap');
+body {
+  --gap: 1rem;
+  background-color: hsl(55, 60%, 90%);
+  font-family: 'Playfair Display', serif;
+  color: darkslategray;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1200px;
+}
+.article {
+  column-count: 1;
+  column-gap: 3rem;
+  column-rule: 4px dotted #777;
+  font-size: clamp(1rem, 0.8125rem + 0.8333vw, 1.25rem);
+  hyphens: auto;
+  line-height: 1.4;
+  padding: 1rem 2rem;
+  text-align: justify;
+}
+.article::first-line {
+  font-family: 'Playfair Display SC', serif;
+}
+.header {
+  font-family: 'Abril Fatface', cursive;
+  margin: var(--gap);
+  position: relative;
+}
+.header::after {
+  content: "";
+  display: block;
+  padding-bottom: 72.5%;
+}
+.header-bottom {
+  background: #000;
+  bottom: 0;
+  clip-path: polygon(6% 0%, 82% 0%, 100% 100%, 1% 90%);
+  height: 50%;
+  left: 52%;
+  position: absolute;
+  transform: translateX(-52%);
+  width: 28%;
+  z-index: 1;
+}
+.header-bottom span {
+  display: inline-block;
+  color: #FFF;
+  font-size: clamp(3rem, 0.8571rem + 9.5238vw, 8rem);
+  left: 12.5%;
+  letter-spacing: -0.25rem;
+  position: absolute;
+  top: 15%;
+  transform: translateX(-12.5%);
+  transform: scale(1, 1.5);
+}
+.header-copy {
+  font-size: xx-small;
+  position: absolute;
+  right: -1rem;
+  text-orientation: mixed;
+  top: 0;
+  writing-mode: vertical-lr;
+  white-space: nowrap;
+}
+.header-headline {
+  color: #000;
+  font-family: 'Abril Fatface', cursive;
+  font-size: clamp(1rem, 0.1429rem + 3.8095vw, 3rem);
+  left: 0;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 30%;
+}
+.header-image {
+  clip-path: polygon(0% 0%, 95% 0%, 100% 100%, 0% 100%);
+  height: 20%;
+  left: 50%;
+  object-fit: cover;
+  position: absolute;
+  top: 40%;
+  transform: translateX(-50%);
+  width: 30%;
+  z-index: 2;
+}
+.header-left {
+  background-color: #f00501;
+  color: #FFF;
+  clip-path: polygon(0% 35.00%, 100% 0%, 100% 75.00%, 15% 90%);
+  height: 55%;
+  left: 10%;
+  position: absolute;
+  top: 31%;
+  width: 40%;
+}
+.header-left span {
+  bottom: 30%;
+  display: inline-block;
+  font-size: clamp(3rem, 0.8571rem + 9.5238vw, 8rem);
+  left: 25%;
+  letter-spacing: -0.25rem;
+  position: absolute;
+  transform: scale(1, 2);
+}
+.header-right {
+  background-color: #f00501;
+  clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 67.00% 78.00%, 0% 100%, 0% 25%, 73% 28%);
+  height: 60%;
+  position: absolute;
+  right: 15%;
+  top: 30%;
+  width: 40%;
+}
+.header-right span {
+  display: inline-block;
+  color: #000;
+  font-size: clamp(2rem, 0.2857rem + 7.6190vw, 6rem);
+  left: 50%;
+  position: absolute;
+  top: 50%;
+}
+.header-top {
+  background: #000;
+  clip-path: polygon(0% 6%, 100% 0%, 74% 100%, 11% 100%);
+  height: 50%;
+  left: 50%;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  width: 30%;
+  z-index: 1;
+}
+.quote {
+  display: block;
+  font-size: clamp(1.5rem, 1.1250rem + 1.6667vw, 2rem);
+  font-style: italic;
+  margin: 1rem 1.5rem;
+  text-align: center;
+  quotes: "«" "»";
+}
+
+@media (min-width: 768px) {
+  body {
+    --gap: 2rem;
+  }
+  .article {
+    column-count: 2;
+    padding: 2rem;
+  }
+  .header-copy {
+    bottom: 0;
+    font-size: x-small;
+    right: 0;
+    top: auto;
+  }
+}
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <h1 class="header-headline">Understanding the Imposter Syndrome</h1>
+  <div class="header-top"></div>
+  <div class="header-left"><span>no</span></div>
+  <div class="header-bottom"><span>way</span></div>
+  <div class="header-right"><span>out</span></div>
+  <img src="https://assets.stoumann.dk/img/pexels-kalyn-kostov-3460478.jpg" class="header-image" alt="Starring Eyes" />
+  <p class="header-copy">&copy; Photo by Kalyn Kostov from Pexels. Montage based on the poster for the movie &ldquo;No Way Out.&rdquo;</p>
+</header>
+
+<q class="quote">I thought I was the only one, feeling like this &hellip;</q> 
+
+<div class="article">
+  Impostor syndrome is a psychological pattern in which an individual doubts their skills, talents or accomplishments and has a persistent internalized fear of being exposed as a &ldquo;fraud&rdquo;.
+  <p>Thus starts Wikipedia&rsquo;s entry on the Imposter Syndrome. And even though my rational self can process this information, and knows my work is most likely &ldquo;good enough&rdquo; and that I'm not a fraud &mdash; my irrational self still struggles.</p>
+  <p>At the Fronteers Conference in 2017, Jessica Rose spoke about this &mdash; and for me, that was a real eye-opener. Apparently, a lot of developers feel this way. 
+    And although I can&rsquo;t really do anything about it (believe me, I&rsquo;ve tried!), just <em>knowing</em> there are many people out there with the same struggles, is reassuring.
+  </p>
+  <p>This Pen uses <em>clip-path</em> to re-create that wonderful 1950&rsquo;s movie-poster montage-design. ◾</p>
+</div>
+
+</body>
+</html>	
